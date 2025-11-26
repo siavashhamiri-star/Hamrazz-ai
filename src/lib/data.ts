@@ -15,6 +15,7 @@ import {
   Trophy,
   PlaySquare,
   Film,
+  Mic,
 } from "lucide-react";
 
 export const navLinks = [
@@ -23,6 +24,7 @@ export const navLinks = [
   { href: "/translate", label: "Translate", icon: Languages },
   { href: "/community", label: "Community", icon: Users },
   { href: "/channels", label: "Channels", icon: PlaySquare },
+  { href: "/dubbing", label: "Dubbing", icon: Mic },
   { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/contest", label: "Contest", icon: Palette },
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
