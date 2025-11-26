@@ -12,8 +12,8 @@ import {z} from 'genkit';
 
 const TranslateUserMessageInputSchema = z.object({
   text: z.string().describe('The text to translate.'),
-  sourceLanguage: z.enum(['en', 'fa']).describe('The source language of the text. en for English, fa for Persian.'),
-  targetLanguage: z.enum(['en', 'fa']).describe('The target language for the translation. en for English, fa for Persian.'),
+  sourceLanguage: z.enum(['en', 'fa', 'ar', 'es']).describe('The source language of the text. en for English, fa for Persian, ar for Arabic, es for Spanish.'),
+  targetLanguage: z.enum(['en', 'fa', 'ar', 'es']).describe('The target language for the translation. en for English, fa for Persian, ar for Arabic, es for Spanish.'),
 });
 export type TranslateUserMessageInput = z.infer<typeof TranslateUserMessageInputSchema>;
 

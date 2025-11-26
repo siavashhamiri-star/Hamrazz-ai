@@ -8,11 +8,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowRightLeft, Loader2 } from "lucide-react";
 import { translateUserMessage, TranslateUserMessageInput } from "@/ai/flows/translate-user-messages-flow";
 
+type Language = "en" | "fa" | "ar" | "es";
+
 export default function TranslatePage() {
   const [sourceText, setSourceText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
-  const [sourceLang, setSourceLang] = useState<"en" | "fa">("en");
-  const [targetLang, setTargetLang] = useState<"en" | "fa">("fa");
+  const [sourceLang, setSourceLang] = useState<Language>("en");
+  const [targetLang, setTargetLang] = useState<Language>("fa");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleTranslate = async () => {
@@ -54,13 +56,15 @@ export default function TranslatePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
             <div className="flex items-center gap-2">
                 <p className="text-sm font-medium">From:</p>
-                <Select value={sourceLang} onValueChange={(value: "en" | "fa") => setSourceLang(value)}>
+                <Select value={sourceLang} onValueChange={(value: Language) => setSourceLang(value)}>
                     <SelectTrigger>
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="en">English</SelectItem>
                         <SelectItem value="fa">Persian</SelectItem>
+                        <SelectItem value="ar">Arabic</SelectItem>
+                        <SelectItem value="es">Spanish</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
@@ -71,13 +75,15 @@ export default function TranslatePage() {
             </div>
             <div className="flex items-center gap-2">
                 <p className="text-sm font-medium">To:</p>
-                <Select value={targetLang} onValueChange={(value: "en" | "fa") => setTargetLang(value)}>
+                <Select value={targetLang} onValueChange={(value: Language) => setTargetLang(value)}>
                     <SelectTrigger>
                         <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="en">English</SelectItem>
                         <SelectItem value="fa">Persian</SelectItem>
+                        <SelectItem value="ar">Arabic</SelectItem>
+                        <SelectItem value="es">Spanish</SelectItem>
                     </SelectContent>
                 </Select>
             </div>

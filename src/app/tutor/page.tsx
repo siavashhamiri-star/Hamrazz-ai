@@ -13,7 +13,7 @@ import { generatePersonalizedLessons, GeneratePersonalizedLessonsOutput } from "
 import { Loader2, Sparkles } from "lucide-react";
 
 const formSchema = z.object({
-  language: z.enum(["Persian", "English"]),
+  language: z.enum(["Persian", "English", "Arabic", "Spanish"]),
   skillLevel: z.string().min(1, "Please enter your skill level."),
   learningGoals: z.string().min(1, "Please enter your learning goals."),
   gradeLevel: z.coerce.number().optional(),
@@ -76,6 +76,8 @@ export default function TutorPage() {
                         <SelectContent>
                           <SelectItem value="Persian">Persian</SelectItem>
                           <SelectItem value="English">English</SelectItem>
+                          <SelectItem value="Arabic">Arabic</SelectItem>
+                          <SelectItem value="Spanish">Spanish</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />

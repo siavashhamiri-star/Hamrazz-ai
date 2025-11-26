@@ -11,7 +11,7 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const GeneratePersonalizedLessonsInputSchema = z.object({
-  language: z.enum(['Persian', 'English']).describe('The language to learn.'),
+  language: z.enum(['Persian', 'English', 'Arabic', 'Spanish']).describe('The language to learn.'),
   skillLevel: z
     .string()
     .describe('The current skill level of the learner (e.g., beginner, intermediate, advanced).'),
@@ -46,7 +46,7 @@ const prompt = ai.definePrompt({
   name: 'generatePersonalizedLessonsPrompt',
   input: {schema: GeneratePersonalizedLessonsInputSchema},
   output: {schema: GeneratePersonalizedLessonsOutputSchema},
-  prompt: `You are an AI language tutor specializing in creating personalized lessons for Persian and English.
+  prompt: `You are an AI language tutor specializing in creating personalized lessons for Persian, English, Arabic, and Spanish.
 
   Based on the learner's skill level, learning goals, and (if provided) grade level, generate a customized language lesson.
 
