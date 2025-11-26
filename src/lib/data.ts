@@ -14,6 +14,7 @@ import {
   Camera,
   Trophy,
   PlaySquare,
+  Film,
 } from "lucide-react";
 
 export const navLinks = [
@@ -29,6 +30,7 @@ export const navLinks = [
   { href: "/feedback", label: "Feedback", icon: Megaphone },
   { href: "/showcase", label: "Showcase", icon: Trophy },
   { href: "/moments", label: "Moments", icon: Camera },
+  { href: "/ads", label: "Advertisements", icon: Film },
 ];
 
 export const bottomNavLinks = [
