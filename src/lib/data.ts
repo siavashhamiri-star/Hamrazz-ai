@@ -10,6 +10,7 @@ import {
   Star,
   User,
   Users,
+  Handshake,
 } from "lucide-react";
 
 export const navLinks = [
@@ -20,6 +21,7 @@ export const navLinks = [
   { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/contest", label: "Contest", icon: Palette },
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
+  { href: "/collaborate", label: "Collaborate", icon: Handshake },
   { href: "/feedback", label: "Feedback", icon: Star },
 ];
 
