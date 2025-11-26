@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Gift } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Gift, Star } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -86,6 +86,14 @@ export default function ContestPage() {
 
   return (
     <div className="space-y-8">
+         <Alert variant="default" className="bg-accent/20 border-accent/30">
+          <Star className="h-4 w-4 text-accent" />
+          <AlertTitle className="text-accent">جایزه شگفت‌انگیز هر شش ماه!</AlertTitle>
+          <AlertDescription>
+            هر شش ماه یک جایزه استثنایی به یکی از برترین و فعال‌ترین کاربران برنامه اهدا خواهد شد. مشخصات و تصویر برنده خوش‌شانس در برنامه اعلام می‌شود.
+          </AlertDescription>
+        </Alert>
+
         <Alert>
           <Gift className="h-4 w-4" />
           <AlertTitle>قرعه کشی فصلی جوایز!</AlertTitle>
