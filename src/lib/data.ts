@@ -11,6 +11,8 @@ import {
   User,
   Users,
   Handshake,
+  Camera,
+  Trophy,
 } from "lucide-react";
 
 export const navLinks = [
@@ -23,6 +25,8 @@ export const navLinks = [
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
   { href: "/feedback", label: "Feedback", icon: Star },
+  { href: "/showcase", label: "Showcase", icon: Trophy },
+  { href: "/moments", label: "Moments", icon: Camera },
 ];
 
 export const bottomNavLinks = [
