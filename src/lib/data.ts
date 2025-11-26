@@ -1,4 +1,5 @@
 import {
+  Award,
   Book,
   Gamepad2,
   Languages,
@@ -20,5 +21,6 @@ export const navLinks = [
 
 export const bottomNavLinks = [
   { href: "/profile", label: "Profile", icon: User },
+  { href: "/board", label: "Board", icon: Award },
   { href: "/privacy", label: "Privacy", icon: Shield },
 ];
