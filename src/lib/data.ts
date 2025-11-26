@@ -4,6 +4,7 @@ import {
   Gamepad2,
   Languages,
   MessageSquare,
+  Palette,
   Shield,
   Star,
   User,
@@ -16,6 +17,7 @@ export const navLinks = [
   { href: "/translate", label: "Translate", icon: Languages },
   { href: "/community", label: "Community", icon: Users },
   { href: "/games", label: "Games", icon: Gamepad2 },
+  { href: "/contest", label: "Contest", icon: Palette },
   { href: "/feedback", label: "Feedback", icon: Star },
 ];
 
