@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useUser } from "@/firebase";
+import { useUserProfile } from "@/hooks/use-user-profile";
 import { Send } from "lucide-react";
 import React, { useState } from "react";
 
@@ -26,6 +28,8 @@ type ChatMessage = {
 };
 
 export default function CommunityPage() {
+  const { user } = useUser();
+  const { userProfile } = useUserProfile(user?.uid);
   const [messages, setMessages] = useState<ChatMessage[]>([
     { user: "Aria", text: "Hey everyone! Who's up for a game?", avatar: "https://picsum.photos/seed/user1/100/100" },
     { user: "Bahar", text: "I am! Which one?", avatar: "https://picsum.photos/seed/user2/100/100" },
@@ -33,8 +37,10 @@ export default function CommunityPage() {
   const [input, setInput] = useState("");
 
   const handleSend = () => {
-    if (input.trim()) {
-      setMessages([...messages, { user: "You", text: input, avatar: "https://picsum.photos/seed/you/100/100" }]);
+    if (input.trim() && userProfile) {
+      const avatarUrl = userProfile?.selectedAvatar?.imageUrl || user?.photoURL ||'https://picsum.photos/seed/you/100/100';
+      const userName = userProfile?.displayName || "You";
+      setMessages([...messages, { user: userName, text: input, avatar: avatarUrl }]);
       setInput("");
     }
   };
@@ -72,8 +78,9 @@ export default function CommunityPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
+              disabled={!user}
             />
-            <Button size="icon" className="absolute right-1.5 top-1/2 -translate-y-1/2 h-7 w-7" onClick={handleSend}>
+            <Button size="icon" className="absolute right-1.5 top-1/2 -translate-y-1/2 h-7 w-7" onClick={handleSend} disabled={!user}>
               <Send className="h-4 w-4" />
             </Button>
           </div>

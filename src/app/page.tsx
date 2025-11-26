@@ -7,9 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { reasonAboutSources } from "@/ai/flows/reason-about-sources-flow";
 import { generateAvatarExpressions } from "@/ai/flows/generate-avatar-expressions-flow";
+import { useUser } from "@/firebase";
+import { useUserProfile } from "@/hooks/use-user-profile";
 
 type Message = {
   sender: "user" | "ai";
@@ -17,27 +18,22 @@ type Message = {
   reasoning?: string;
 };
 
-type Avatar = {
-  id: string;
-  src: string;
-  name: string;
-};
-
-const avatars = PlaceHolderImages.filter(img => img.id.startsWith("avatar-"));
-
 export default function ChatPage() {
+  const { user } = useUser();
+  const { userProfile } = useUserProfile(user?.uid);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [currentAvatar, setCurrentAvatar] = useState(avatars[0] || { imageUrl: 'https://picsum.photos/seed/avatar-f-1/512/512', id: 'avatar-f-1' });
   const [avatarExpression, setAvatarExpression] = useState({
     facialExpression: "neutral",
     emotion: "neutral",
   });
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
+  const currentAvatar = userProfile?.selectedAvatar;
+
   const handleSend = async () => {
-    if (input.trim() === "") return;
+    if (input.trim() === "" || !user) return;
 
     const userMessage: Message = { sender: "user", text: input };
     setMessages((prev) => [...prev, userMessage]);
@@ -76,7 +72,6 @@ export default function ChatPage() {
 
   useEffect(() => {
     if (scrollAreaRef.current) {
-        // Not a standard property, but a common way to get the viewport element in shadcn's ScrollArea
         const viewport = scrollAreaRef.current.querySelector('div[data-radix-scroll-area-viewport]');
         if (viewport) {
             viewport.scrollTop = viewport.scrollHeight;
@@ -90,7 +85,7 @@ export default function ChatPage() {
       <Card className="md:col-span-1 flex flex-col items-center justify-center p-6 bg-card/50 border-2 border-primary/20 shadow-lg">
         <div className="relative">
           <Avatar className="w-48 h-48 md:w-64 md:h-64 border-4 border-primary/30 shadow-2xl">
-            <AvatarImage src={currentAvatar.imageUrl} alt="AI Avatar" />
+            <AvatarImage src={currentAvatar?.imageUrl} alt="AI Avatar" />
             <AvatarFallback>AI</AvatarFallback>
           </Avatar>
           {isLoading && (
@@ -114,7 +109,7 @@ export default function ChatPage() {
               <div className="space-y-6">
                 {messages.length === 0 && (
                   <div className="flex justify-center items-center h-full text-muted-foreground">
-                    <p>Start a conversation with Hamraz!</p>
+                    <p>{user ? "Start a conversation with Hamraz!" : "Please sign in to chat with Hamraz."}</p>
                   </div>
                 )}
                 {messages.map((msg, index) => (
@@ -126,7 +121,7 @@ export default function ChatPage() {
                   >
                     {msg.sender === "ai" && (
                       <Avatar className="w-8 h-8 border-2 border-primary/50">
-                        <AvatarImage src={currentAvatar.imageUrl} />
+                        <AvatarImage src={currentAvatar?.imageUrl} />
                         <AvatarFallback>AI</AvatarFallback>
                       </Avatar>
                     )}
@@ -150,7 +145,7 @@ export default function ChatPage() {
                 {isLoading && (
                    <div className="flex items-start gap-3 justify-start">
                      <Avatar className="w-8 h-8 border-2 border-primary/50">
-                        <AvatarImage src={currentAvatar.imageUrl} />
+                        <AvatarImage src={currentAvatar?.imageUrl} />
                         <AvatarFallback>AI</AvatarFallback>
                       </Avatar>
                       <div className="bg-card border rounded-xl px-4 py-3 text-sm md:text-base shadow-md">
@@ -167,7 +162,7 @@ export default function ChatPage() {
             <div className="p-4 border-t bg-background/80">
               <div className="relative">
                 <Textarea
-                  placeholder="Ask Hamraz anything..."
+                  placeholder={user ? "Ask Hamraz anything..." : "Please sign in to start a conversation."}
                   className="pr-16 text-base resize-none"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -177,14 +172,14 @@ export default function ChatPage() {
                       handleSend();
                     }
                   }}
-                  disabled={isLoading}
+                  disabled={isLoading || !user}
                 />
                 <Button
                   type="submit"
                   size="icon"
                   className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full w-10 h-10"
                   onClick={handleSend}
-                  disabled={isLoading || !input.trim()}
+                  disabled={isLoading || !input.trim() || !user}
                 >
                   <Send className="w-5 h-5" />
                 </Button>

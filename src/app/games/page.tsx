@@ -2,33 +2,49 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, Users, Crosshair, Play } from "lucide-react";
+import { useUser } from "@/firebase";
+import { useUserProfile } from "@/hooks/use-user-profile";
+import { Trophy, Users, Crosshair, Play, Medal } from "lucide-react";
 import React, { useState, useEffect } from "react";
 
 const TargetGame = () => {
+    const { user } = useUser();
+    const { userProfile, updateUserProfile } = useUserProfile(user?.uid);
     const [score, setScore] = useState(0);
     const [position, setPosition] = useState({ top: '50%', left: '50%' });
     const [gameStarted, setGameStarted] = useState(false);
     const [timeLeft, setTimeLeft] = useState(15);
+    const [gameOver, setGameOver] = useState(false);
+    const [highScore, setHighScore] = useState(0);
 
     useEffect(() => {
-        if (!gameStarted || timeLeft === 0) return;
-
-        const timer = setInterval(() => {
-            setTimeLeft(prev => prev - 1);
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, [gameStarted, timeLeft]);
-
-    useEffect(() => {
-        if (timeLeft === 0) {
-            setGameStarted(false);
+        if(userProfile?.points) {
+            setHighScore(userProfile.points);
         }
-    }, [timeLeft]);
+    }, [userProfile]);
+
+    useEffect(() => {
+        let gameTimer: NodeJS.Timeout;
+        if (gameStarted && timeLeft > 0) {
+            gameTimer = setInterval(() => {
+                setTimeLeft(prev => prev - 1);
+            }, 1000);
+        } else if (timeLeft === 0) {
+            setGameStarted(false);
+            setGameOver(true);
+            if(userProfile && updateUserProfile && score > 0) {
+                const newTotalPoints = (userProfile.points || 0) + score;
+                 updateUserProfile({ points: newTotalPoints });
+                 if(newTotalPoints > highScore){
+                    setHighScore(newTotalPoints);
+                 }
+            }
+        }
+        return () => clearInterval(gameTimer);
+    }, [gameStarted, timeLeft, score, userProfile, updateUserProfile, highScore]);
 
     const handleTargetClick = () => {
-        if (timeLeft > 0) {
+        if (timeLeft > 0 && gameStarted) {
             setScore(score + 10);
             moveTarget();
         }
@@ -44,6 +60,7 @@ const TargetGame = () => {
         setScore(0);
         setTimeLeft(15);
         setGameStarted(true);
+        setGameOver(false);
         moveTarget();
     };
 
@@ -54,18 +71,25 @@ const TargetGame = () => {
                     <Crosshair className="w-6 h-6 text-primary"/>
                     <div>
                         <CardTitle>Target Practice</CardTitle>
-                        <CardDescription>Click the target as many times as you can!</CardDescription>
+                        <CardDescription>Click the target as many times as you can in 15 seconds!</CardDescription>
                     </div>
                 </div>
             </CardHeader>
             <CardContent className="flex-1 relative bg-muted/30 rounded-lg m-6 mt-0">
                 {!gameStarted ? (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-                        <p className="font-bold text-xl">Score: {score}</p>
-                        <Button onClick={startGame} size="lg">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-center p-4">
+                        {gameOver && <p className="font-bold text-2xl text-primary">Final Score: {score}</p>}
+                        {userProfile && (
+                            <div className="flex items-center gap-2 text-lg">
+                                <Medal className="w-6 h-6 text-yellow-500" />
+                                <span>High Score: {highScore}</span>
+                            </div>
+                        )}
+                        <Button onClick={startGame} size="lg" disabled={!user}>
                             <Play className="mr-2 h-5 w-5"/>
-                            {timeLeft === 0 ? "Play Again" : "Start Game"}
+                            {gameOver ? "Play Again" : "Start Game"}
                         </Button>
+                        {!user && <p className="text-sm text-muted-foreground">Sign in to play and save your score.</p>}
                     </div>
                 ) : (
                     <>
