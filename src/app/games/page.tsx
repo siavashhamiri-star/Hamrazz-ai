@@ -15,13 +15,8 @@ const TargetGame = () => {
     const [gameStarted, setGameStarted] = useState(false);
     const [timeLeft, setTimeLeft] = useState(15);
     const [gameOver, setGameOver] = useState(false);
-    const [highScore, setHighScore] = useState(0);
-
-    useEffect(() => {
-        if(userProfile?.points) {
-            setHighScore(userProfile.points);
-        }
-    }, [userProfile]);
+    
+    const highScore = userProfile?.points || 0;
 
     useEffect(() => {
         let gameTimer: NodeJS.Timeout;
@@ -29,19 +24,16 @@ const TargetGame = () => {
             gameTimer = setInterval(() => {
                 setTimeLeft(prev => prev - 1);
             }, 1000);
-        } else if (timeLeft === 0) {
+        } else if (timeLeft === 0 && gameStarted) {
             setGameStarted(false);
             setGameOver(true);
             if(userProfile && updateUserProfile && score > 0) {
                 const newTotalPoints = (userProfile.points || 0) + score;
                  updateUserProfile({ points: newTotalPoints });
-                 if(newTotalPoints > highScore){
-                    setHighScore(newTotalPoints);
-                 }
             }
         }
         return () => clearInterval(gameTimer);
-    }, [gameStarted, timeLeft, score, userProfile, updateUserProfile, highScore]);
+    }, [gameStarted, timeLeft, score, userProfile, updateUserProfile]);
 
     const handleTargetClick = () => {
         if (timeLeft > 0 && gameStarted) {
