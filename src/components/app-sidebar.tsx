@@ -89,7 +89,7 @@ export default function AppSidebar() {
             </div>
         ) : (
              <div className="p-2">
-                <Button className="w-full" onClick={handleSignIn}>
+                <Button className="w-full gap-2" onClick={handleSignIn}>
                     <LogIn />
                     <span>Sign In</span>
                 </Button>

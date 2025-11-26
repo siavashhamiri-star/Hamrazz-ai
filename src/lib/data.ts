@@ -5,7 +5,6 @@ import {
   Languages,
   Lightbulb,
   MessageSquare,
-  Palette,
   Shield,
   Megaphone,
   User,
@@ -16,6 +15,7 @@ import {
   PlaySquare,
   Film,
   Mic,
+  Palette,
 } from "lucide-react";
 
 export const navLinks = [

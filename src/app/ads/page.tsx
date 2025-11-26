@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Film } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Film, Megaphone } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -70,7 +70,7 @@ export default function AdsPage() {
   return (
     <div className="space-y-8">
       <Alert variant="default" className="bg-primary/10 border-primary/30">
-        <Film className="h-4 w-4 text-primary" />
+        <Megaphone className="h-4 w-4 text-primary" />
         <AlertTitle className="text-primary">Join Our Advertising Creators Community!</AlertTitle>
         <AlertDescription>
           Can you create compelling promotional videos? Submit a sample of your work. If your video is approved, you'll join our exclusive community of ad creators. You'll get opportunities to advertise your services within our app and social media channels, connecting you with new clients.

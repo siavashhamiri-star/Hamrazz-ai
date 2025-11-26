@@ -37,8 +37,8 @@ export default function ContestPage() {
     if (!name.trim() || !age.trim() || !file) {
       toast({
         variant: "destructive",
-        title: "اطلاعات ناقص",
-        description: "لطفاً تمام اطلاعات فرم را تکمیل و نقاشی خود را انتخاب کنید.",
+        title: "Incomplete Information",
+        description: "Please fill out all fields and upload your drawing.",
       });
       return;
     }
@@ -67,8 +67,8 @@ export default function ContestPage() {
             <Card className="w-full max-w-2xl shadow-lg text-center animate-in fade-in-50">
                 <CardHeader>
                     <PartyPopper className="w-16 h-16 mx-auto text-primary" />
-                    <CardTitle className="text-2xl font-headline mt-4">با موفقیت ثبت شد!</CardTitle>
-                    <CardDescription>نقاشی زیبای شما دریافت شد. منتظر اعلام نتایج قرعه‌کشی باشید.</CardDescription>
+                    <CardTitle className="text-2xl font-headline mt-4">Submission Successful!</CardTitle>
+                    <CardDescription>Your beautiful drawing has been received. Wait for the prize draw results.</CardDescription>
                 </CardHeader>
                 <CardFooter>
                     <Button className="w-full" onClick={() => {
@@ -76,7 +76,7 @@ export default function ContestPage() {
                         setName("");
                         setAge("");
                         setFile(null);
-                    }}>ارسال یک نقاشی دیگر</Button>
+                    }}>Submit Another Drawing</Button>
                 </CardFooter>
             </Card>
         </div>
@@ -88,17 +88,17 @@ export default function ContestPage() {
     <div className="space-y-8">
          <Alert variant="default" className="bg-accent/20 border-accent/30">
           <Star className="h-4 w-4 text-accent" />
-          <AlertTitle className="text-accent">جایزه شگفت‌انگیز هر شش ماه!</AlertTitle>
+          <AlertTitle className="text-accent">Amazing Bi-Annual Prize!</AlertTitle>
           <AlertDescription>
-            هر شش ماه یک جایزه استثنایی به یکی از برترین و فعال‌ترین کاربران برنامه اهدا خواهد شد. مشخصات و تصویر برنده خوش‌شانس در برنامه اعلام می‌شود.
+            Every six months, an exceptional prize will be awarded to one of the top and most active users of the app. The winner's profile and picture will be announced in the app.
           </AlertDescription>
         </Alert>
 
         <Alert>
           <Gift className="h-4 w-4" />
-          <AlertTitle>قرعه کشی فصلی جوایز!</AlertTitle>
+          <AlertTitle>Seasonal Prize Draw!</AlertTitle>
           <AlertDescription>
-            کاربران فعال که امتیاز بالایی در طول ماه کسب کنند، به طور خودکار در قرعه‌کشی جوایز ارزنده ما که هر سه ماه یکبار برگزار می‌شود، شرکت داده خواهند شد. پس فعال باشید و امتیاز جمع کنید!
+            Active users who earn high points throughout the month will automatically be entered into our valuable prize draw, held every three months. So be active and collect points!
           </AlertDescription>
         </Alert>
 
@@ -106,18 +106,18 @@ export default function ContestPage() {
             <form onSubmit={handleSubmit}>
             <CardHeader>
                 <CardTitle className="text-2xl font-headline">
-                مسابقه بزرگ نقاشی
+                The Great Drawing Contest
                 </CardTitle>
                 <CardDescription>
-                همچنین می‌توانید با ارسال نقاشی در مسابقه ما شرکت کرده و شانس خود را برای برنده شدن جوایز هیجان‌انگیز امتحان کنید!
+                You can also participate in our contest by submitting a drawing and try your luck at winning exciting prizes!
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="space-y-2">
-                <Label htmlFor="name">نام شما</Label>
+                <Label htmlFor="name">Your Name</Label>
                 <Input
                     id="name"
-                    placeholder="نام خود را وارد کنید"
+                    placeholder="Enter your name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     disabled={isLoading || !user}
@@ -125,11 +125,11 @@ export default function ContestPage() {
                 />
                 </div>
                 <div className="space-y-2">
-                <Label htmlFor="age">سن شما</Label>
+                <Label htmlFor="age">Your Age</Label>
                 <Input
                     id="age"
                     type="number"
-                    placeholder="سن خود را وارد کنید"
+                    placeholder="Enter your age"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
                     disabled={isLoading || !user}
@@ -137,7 +137,7 @@ export default function ContestPage() {
                 />
                 </div>
                 <div className="space-y-2">
-                <Label htmlFor="drawing">فایل نقاشی</Label>
+                <Label htmlFor="drawing">Drawing File</Label>
                 <Input
                     id="drawing"
                     type="file"
@@ -148,12 +148,12 @@ export default function ContestPage() {
                     className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
                 />
                 <p className="text-xs text-muted-foreground pt-1">
-                    فرمت‌های مجاز: JPG, PNG, GIF
+                    Allowed formats: JPG, PNG, GIF
                 </p>
                 </div>
                 {!user && (
                 <p className="text-sm text-center text-destructive font-medium">
-                    برای شرکت در مسابقه، لطفاً ابتدا وارد حساب کاربری خود شوید.
+                    Please sign in to participate in the contest.
                 </p>
                 )}
             </CardContent>
@@ -166,12 +166,12 @@ export default function ContestPage() {
                 {isLoading ? (
                     <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    در حال ارسال...
+                    Submitting...
                     </>
                 ) : (
                     <>
                     <Upload className="mr-2 h-4 w-4" />
-                    ارسال نقاشی و شرکت در مسابقه
+                    Submit Drawing & Enter Contest
                     </>
                 )}
                 </Button>
