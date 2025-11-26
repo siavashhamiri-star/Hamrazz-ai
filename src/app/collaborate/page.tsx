@@ -14,12 +14,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Handshake, BrainCircuit } from "lucide-react";
+import { Loader2, PartyPopper, Handshake, BrainCircuit, Search, Briefcase } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function CollaboratePage() {
+const ApplyToCollaborate = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [expertise, setExpertise] = useState("");
@@ -57,11 +58,10 @@ export default function CollaboratePage() {
     setIsLoading(false);
     setIsSubmitted(true);
   };
-
+  
   if (isSubmitted) {
     return (
-      <div className="flex justify-center items-start pt-8">
-        <Card className="w-full max-w-2xl shadow-lg text-center animate-in fade-in-50">
+        <Card className="w-full max-w-2xl shadow-lg text-center animate-in fade-in-50 mt-6">
           <CardHeader>
             <PartyPopper className="w-16 h-16 mx-auto text-primary" />
             <CardTitle className="text-2xl font-headline mt-4">Application Submitted!</CardTitle>
@@ -71,21 +71,11 @@ export default function CollaboratePage() {
             <Button className="w-full" onClick={() => setIsSubmitted(false)}>Submit Another Application</Button>
           </CardFooter>
         </Card>
-      </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      <Alert variant="default" className="bg-primary/10 border-primary/30">
-        <BrainCircuit className="h-4 w-4 text-primary" />
-        <AlertTitle className="text-primary">Join Our Ecosystem of Innovators!</AlertTitle>
-        <AlertDescription>
-          Are you skilled in content creation, programming, language teaching, or digital marketing? We are building a team of talented individuals to shape the future of AI-driven applications. Submit your application for a chance to get hired, promoted, or connected with partners and investors. A nominal fee is charged for application processing and profile verification.
-        </AlertDescription>
-      </Alert>
-
-      <Card className="w-full max-w-3xl mx-auto shadow-lg">
+    <Card className="w-full shadow-lg">
         <form onSubmit={handleSubmit}>
           <CardHeader>
             <CardTitle className="text-2xl font-headline">Apply for Collaboration</CardTitle>
@@ -136,7 +126,6 @@ export default function CollaboratePage() {
                 className="min-h-[150px]"
               />
             </div>
-
             {!user && (
               <p className="text-sm text-center text-destructive font-medium">
                 Please sign in to submit your application.
@@ -154,6 +143,103 @@ export default function CollaboratePage() {
           </CardFooter>
         </form>
       </Card>
+  )
+}
+
+const RequestCollaborator = () => {
+    const [title, setTitle] = useState("");
+    const [skills, setSkills] = useState("");
+    const [description, setDescription] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const { toast } = useToast();
+    const { user } = useUser();
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!title.trim() || !skills.trim() || !description.trim()) {
+            toast({ variant: "destructive", title: "Incomplete Information", description: "Please fill out all fields." });
+            return;
+        }
+        setIsLoading(true);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        console.log("Collaboration Request:", { userId: user?.uid, title, skills, description });
+        setIsLoading(false);
+        setIsSubmitted(true);
+    };
+
+    if (isSubmitted) {
+        return (
+            <Card className="w-full shadow-lg text-center animate-in fade-in-50 mt-6">
+                <CardHeader>
+                    <PartyPopper className="w-16 h-16 mx-auto text-primary" />
+                    <CardTitle className="text-2xl font-headline mt-4">Request Submitted!</CardTitle>
+                    <CardDescription>Your request for a collaborator has been posted. Interested candidates will be able to see it and get in touch.</CardDescription>
+                </CardHeader>
+                <CardFooter>
+                    <Button className="w-full" onClick={() => setIsSubmitted(false)}>Post Another Request</Button>
+                </CardFooter>
+            </Card>
+        );
+    }
+    
+    return (
+         <Card className="w-full shadow-lg">
+            <form onSubmit={handleSubmit}>
+                <CardHeader>
+                    <CardTitle className="text-2xl font-headline">Request a Collaborator</CardTitle>
+                    <CardDescription>Post a project or role and find the talent you need from our community.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                    <div className="space-y-2">
+                        <Label htmlFor="request-title">Project Title / Role</Label>
+                        <Input id="request-title" placeholder="e.g., Co-founder for AI Ed-Tech App" value={title} onChange={(e) => setTitle(e.target.value)} disabled={isLoading || !user} required />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="request-skills">Skills Needed</Label>
+                        <Input id="request-skills" placeholder="e.g., React, Python, Digital Marketing" value={skills} onChange={(e) => setSkills(e.target.value)} disabled={isLoading || !user} required />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="request-description">Project Description</Label>
+                        <Textarea id="request-description" placeholder="Describe your project, goals, and what you're looking for in a collaborator." value={description} onChange={(e) => setDescription(e.target.value)} disabled={isLoading || !user} required className="min-h-[150px]" />
+                    </div>
+                     {!user && (
+                        <p className="text-sm text-center text-destructive font-medium">Please sign in to post a request.</p>
+                     )}
+                </CardContent>
+                <CardFooter>
+                    <Button type="submit" className="w-full" disabled={isLoading || !user}>
+                        {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Posting Request...</> : <><Search className="mr-2 h-4 w-4" />Post Collaboration Request</>}
+                    </Button>
+                </CardFooter>
+            </form>
+        </Card>
+    )
+}
+
+export default function CollaboratePage() {
+  return (
+    <div className="space-y-8">
+      <Alert variant="default" className="bg-primary/10 border-primary/30">
+        <BrainCircuit className="h-4 w-4 text-primary" />
+        <AlertTitle className="text-primary">Join Our Ecosystem of Innovators!</AlertTitle>
+        <AlertDescription>
+          Are you skilled in content creation, programming, language teaching, or digital marketing? Or are you looking for talent? We are building a team of talented individuals to shape the future of AI-driven applications. Submit your application or post a job to get hired, promoted, or connected with partners and investors. A nominal fee may be charged for application processing and profile verification.
+        </AlertDescription>
+      </Alert>
+
+      <Tabs defaultValue="apply" className="w-full max-w-3xl mx-auto">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="apply"><Briefcase className="mr-2"/>Offer Your Skills</TabsTrigger>
+          <TabsTrigger value="request"><Search className="mr-2"/>Request a Collaborator</TabsTrigger>
+        </TabsList>
+        <TabsContent value="apply" className="mt-6">
+          <ApplyToCollaborate />
+        </TabsContent>
+        <TabsContent value="request" className="mt-6">
+          <RequestCollaborator />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
