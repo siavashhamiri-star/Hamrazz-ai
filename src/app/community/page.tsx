@@ -7,9 +7,10 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useUser, useFirestore, useCollection, useMemoFirebase } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
-import { Send, Loader2 } from "lucide-react";
+import { Send, Loader2, Globe, Languages } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { collection, addDoc, serverTimestamp, query, orderBy, limit } from "firebase/firestore";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type ChatMessage = {
   id?: string;
@@ -26,20 +27,24 @@ const communityUsers = [
   { name: "Kian", status: "Online", img: "https://picsum.photos/seed/user3/100/100" },
   { name: "Sara", status: "Away", img: "https://picsum.photos/seed/user4/100/100" },
   { name: "Parsa", status: "Online", img: "https://picsum.photos/seed/user5/100/100" },
+  { name: "Juan", status: "Online", img: "https://picsum.photos/seed/user6/100/100" },
+  { name: "Fatima", status: "Away", img: "https://picsum.photos/seed/user7/100/100" },
 ];
 
-export default function CommunityPage() {
+const ChatChannel = ({ channel }: { channel: string }) => {
   const { user } = useUser();
   const { userProfile } = useUserProfile(user?.uid);
   const db = useFirestore();
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  
+  const collectionName = `community-chat-${channel}`;
 
   const messagesQuery = useMemoFirebase(() => {
     if (!db) return null;
-    return query(collection(db, "community-chat"), orderBy("timestamp", "asc"), limit(50));
-  }, [db]);
+    return query(collection(db, collectionName), orderBy("timestamp", "asc"), limit(50));
+  }, [db, collectionName]);
 
   const { data: messages, loading: messagesLoading } = useCollection<ChatMessage>(messagesQuery);
   
@@ -59,7 +64,7 @@ export default function CommunityPage() {
     };
     
     try {
-        await addDoc(collection(db, "community-chat"), newMessage);
+        await addDoc(collection(db, collectionName), newMessage);
         setInput("");
     } catch (error) {
         console.error("Error sending message:", error);
@@ -78,12 +83,7 @@ export default function CommunityPage() {
   }, [messages]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-full max-h-[calc(100vh-8rem)]">
-      <Card className="lg:col-span-2 shadow-lg flex flex-col">
-        <CardHeader>
-          <CardTitle>Global Chat</CardTitle>
-          <CardDescription>Chat with other members of the Hamraz community.</CardDescription>
-        </CardHeader>
+    <Card className="shadow-lg flex flex-col h-[calc(100vh-14rem)]">
         <CardContent className="flex-1 flex flex-col p-0">
           <ScrollArea className="flex-1 p-6" ref={scrollAreaRef}>
             <div className="space-y-4">
@@ -92,7 +92,7 @@ export default function CommunityPage() {
                   <Loader2 className="w-8 h-8 animate-spin text-primary" />
                 </div>
               )}
-              {messages && messages.map((msg) => (
+              {messages && messages.length > 0 ? messages.map((msg) => (
                 <div key={msg.id} className={`flex items-start gap-3 ${msg.uid === user?.uid ? 'justify-end' : ''}`}>
                   {msg.uid !== user?.uid && (
                     <Avatar>
@@ -113,7 +113,15 @@ export default function CommunityPage() {
                     </Avatar>
                   )}
                 </div>
-              ))}
+              )) : (
+                <div className="flex justify-center items-center h-full text-center text-muted-foreground p-8">
+                    <div>
+                        <Languages className="w-12 h-12 mx-auto mb-4" />
+                        <p className="font-semibold">Be the first to start a conversation!</p>
+                        <p className="text-sm">This channel is new. Say hello to the community.</p>
+                    </div>
+                </div>
+              )}
             </div>
           </ScrollArea>
         </CardContent>
@@ -133,6 +141,31 @@ export default function CommunityPage() {
           </div>
         </CardFooter>
       </Card>
+  )
+}
+
+export default function CommunityPage() {
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-full">
+      <div className="lg:col-span-2">
+         <Tabs defaultValue="global" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="global"><Globe className="mr-2"/>Global</TabsTrigger>
+                <TabsTrigger value="es">Español</TabsTrigger>
+                <TabsTrigger value="ar">العربية</TabsTrigger>
+            </TabsList>
+            <TabsContent value="global" className="mt-4">
+                <ChatChannel channel="global" />
+            </TabsContent>
+            <TabsContent value="es" className="mt-4">
+                <ChatChannel channel="es" />
+            </TabsContent>
+            <TabsContent value="ar" className="mt-4">
+                <ChatChannel channel="ar" />
+            </TabsContent>
+         </Tabs>
+      </div>
       
       <Card className="lg:col-span-1 shadow-lg">
         <CardHeader>
@@ -140,7 +173,7 @@ export default function CommunityPage() {
           <CardDescription>{communityUsers.filter(u => u.status !== 'Away').length} members online.</CardDescription>
         </CardHeader>
         <CardContent>
-          <ScrollArea className="h-[calc(100vh-20rem)]">
+          <ScrollArea className="h-[calc(100vh-14rem)]">
             <div className="space-y-4">
               {communityUsers.map((user) => (
                 <div key={user.name} className="flex items-center gap-4 p-2 rounded-md hover:bg-muted/50 transition-colors">
