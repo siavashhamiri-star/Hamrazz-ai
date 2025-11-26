@@ -127,7 +127,7 @@ const VideoTestimonial = () => {
         <CardHeader>
           <CardTitle>Video Testimonial</CardTitle>
           <CardDescription>
-            Share a short (1-minute) video about your experience with Hamraz. Your video may be featured on our social media channels like YouTube or Instagram.
+            Share a short (1-minute) video about your experience with Hamraz. Your video may be featured on our social media channels (YouTube, Instagram, TikTok), provided you are a member of our channel on that platform.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">

@@ -126,7 +126,7 @@ export default function PitchPage() {
         <Lightbulb className="h-4 w-4 text-primary" />
         <AlertTitle className="text-primary">Your Idea, Our Engine!</AlertTitle>
         <AlertDescription>
-          Have a brilliant idea for an app or an online business using AI? Pitch it to us! If your idea is selected, our AI tools will build it for you, and we'll announce it to the world. Selected pitches may be featured on our social media channels.
+          Have a brilliant idea for an app or an online business using AI? Pitch it to us! If your idea is selected, our AI tools will build it for you. Selected pitches may be featured on our social media channels, provided you are a subscriber to our channel on that platform.
         </AlertDescription>
       </Alert>
 
@@ -134,7 +134,7 @@ export default function PitchPage() {
         <form onSubmit={handleSubmit}>
           <CardHeader>
             <CardTitle className="text-2xl font-headline">Pitch Your Creative Idea</CardTitle>
-            <CardDescription>Explain your vision. The more detailed, the better. Your video may be shared on our YouTube, Instagram, or TikTok.</CardDescription>
+            <CardDescription>Explain your vision. Your video may be shared on our YouTube, Instagram, or TikTok, provided you are a member of our channel on that platform.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-2">

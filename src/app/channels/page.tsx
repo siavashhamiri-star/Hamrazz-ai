@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Upload, BookOpen, Smile, Languages, House } from "lucide-react";
+import { Loader2, Upload, BookOpen, Smile, Languages, House, Award } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -187,6 +187,14 @@ export default function ChannelsPage() {
                 <h1 className="text-3xl font-bold font-headline mb-2">Channels</h1>
                 <p className="text-muted-foreground">Watch, create, and share videos with the community.</p>
             </div>
+             <Alert variant="default" className="bg-primary/10 border-primary/30">
+                <Award className="h-4 w-4 text-primary" />
+                <AlertTitle className="text-primary">Get Featured!</AlertTitle>
+                <AlertDescription>
+                    Selected videos will be published on Hamraz's official social media channels. The condition for publication is your membership in the Hamraz channel on that platform.
+                </AlertDescription>
+            </Alert>
+
 
             <Tabs defaultValue={channels[0].id} className="w-full">
                 <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">

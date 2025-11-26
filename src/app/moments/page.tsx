@@ -84,7 +84,7 @@ export default function MomentsPage() {
         <Camera className="h-4 w-4 text-primary" />
         <AlertTitle className="text-primary">Share a Precious Moment</AlertTitle>
         <AlertDescription>
-          Capture and share a short video of your child's reaction while they listen to a story, chat with their AI companion, or learn something new. Let's celebrate these joyful learning moments together! Selected videos may be featured on our social media channels.
+          Capture and share a short video of your child's reaction while they listen to a story, chat with their AI companion, or learn something new. Selected videos may be featured on our official social media channels (YouTube, Instagram, TikTok). For your video to be featured, you must be a subscriber to our channel on that platform.
         </AlertDescription>
       </Alert>
 
@@ -109,7 +109,7 @@ export default function MomentsPage() {
         <form onSubmit={handleSubmit}>
           <CardHeader>
             <CardTitle className="text-2xl font-headline">Share Your Moment</CardTitle>
-            <CardDescription>Upload a video of your child's delightful reaction. Note: Submitted videos may be featured on our official YouTube, Instagram, or TikTok channels.</CardDescription>
+            <CardDescription>Upload a video of your child's delightful reaction. Note: Submitted videos may be featured on our official YouTube, Instagram, or TikTok channels, provided you are a member of our channel on that platform.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             { isSubmitted ? (
