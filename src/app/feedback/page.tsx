@@ -12,10 +12,13 @@ import {
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Send } from "lucide-react";
+import { Loader2, Send, Video, Upload, MessageSquare } from "lucide-react";
 import { useUser } from "@/firebase";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-export default function FeedbackPage() {
+const TextFeedback = () => {
   const [feedback, setFeedback] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -24,69 +27,175 @@ export default function FeedbackPage() {
   const handleSubmit = async () => {
     if (!feedback.trim()) return;
     setIsLoading(true);
-
-    // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // In a real app, you would send this to your backend (e.g., a Firestore collection)
-    console.log("Feedback submitted:", {
+    console.log("Text Feedback submitted:", {
       userId: user?.uid || "anonymous",
       feedback,
       timestamp: new Date().toISOString(),
     });
-
     setIsLoading(false);
     setFeedback("");
     toast({
-      title: "Thank you for your feedback!",
-      description: "We appreciate you taking the time to share your thoughts.",
+      title: "Thank you!",
+      description: "Your feedback has been submitted.",
     });
   };
 
   return (
-    <div className="flex justify-center items-start pt-8">
-      <Card className="w-full max-w-2xl shadow-lg">
+    <Card>
+      <CardHeader>
+        <CardTitle>Written Feedback</CardTitle>
+        <CardDescription>
+          Share your ideas, report a bug, or tell us what you think.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Textarea
+          placeholder={
+            user ? "Your message..." : "Please sign in to submit feedback."
+          }
+          value={feedback}
+          onChange={(e) => setFeedback(e.target.value)}
+          className="min-h-[150px] text-base"
+          disabled={!user || isLoading}
+        />
+      </CardContent>
+      <CardFooter className="flex justify-end">
+        <Button
+          onClick={handleSubmit}
+          disabled={!user || isLoading || !feedback.trim()}
+        >
+          {isLoading ? (
+            <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Submitting...</>
+          ) : (
+            <><Send className="mr-2 h-4 w-4" />Submit</>
+          )}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+};
+
+const VideoTestimonial = () => {
+  const [description, setDescription] = useState("");
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const { toast } = useToast();
+  const { user } = useUser();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!description.trim() || !videoFile) {
+        toast({
+            variant: "destructive",
+            title: "Incomplete",
+            description: "Please add a short description and upload your video.",
+        });
+        return;
+    }
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 2500));
+    console.log("Video Testimonial submitted:", {
+        userId: user?.uid,
+        description,
+        videoFileName: videoFile.name,
+    });
+    setIsLoading(false);
+    setIsSubmitted(true);
+  }
+
+  if (isSubmitted) {
+    return (
+        <Card className="text-center p-8">
+             <CardTitle className="text-2xl font-headline mb-2">Thank You for Sharing!</CardTitle>
+             <CardDescription className="mb-4">Your story is important to us. We appreciate you taking the time to share your experience.</CardDescription>
+             <Button onClick={() => {
+                 setIsSubmitted(false);
+                 setDescription("");
+                 setVideoFile(null);
+             }}>Share Another Video</Button>
+        </Card>
+    )
+  }
+
+
+  return (
+    <Card>
+      <form onSubmit={handleSubmit}>
         <CardHeader>
-          <CardTitle className="text-2xl font-headline">
-            Share Your Feedback
-          </CardTitle>
+          <CardTitle>Video Testimonial</CardTitle>
           <CardDescription>
-            Have an idea or found a bug? Let us know! We value your input to
-            make Hamraz AI better for everyone.
+            Share a short (1-minute) video about your experience with Hamraz. How has it impacted you?
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <Textarea
-            placeholder={
-              user
-                ? "Tell us what you think..."
-                : "Please sign in to submit feedback."
-            }
-            value={feedback}
-            onChange={(e) => setFeedback(e.target.value)}
-            className="min-h-[150px] text-base"
-            disabled={!user || isLoading}
-          />
+        <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="video-description">Your Experience</Label>
+              <Textarea
+                id="video-description"
+                placeholder="Briefly describe what you'll talk about in the video..."
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                disabled={isLoading || !user}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="video-upload">Upload Your 1-Minute Video</Label>
+                <Input
+                    id="video-upload"
+                    type="file"
+                    accept="video/*"
+                    onChange={(e) => e.target.files && setVideoFile(e.target.files[0])}
+                    disabled={isLoading || !user}
+                    required
+                    className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                />
+                 {videoFile && <p className="text-xs text-muted-foreground pt-1">Selected: {videoFile.name}</p>}
+            </div>
+            {!user && (
+              <p className="text-sm text-center text-destructive font-medium">
+                Please sign in to share a video testimonial.
+              </p>
+            )}
         </CardContent>
-        <CardFooter className="flex justify-end">
-          <Button
-            onClick={handleSubmit}
-            disabled={!user || isLoading || !feedback.trim()}
-          >
+        <CardFooter>
+          <Button type="submit" className="w-full" disabled={isLoading || !user}>
             {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Submitting...
-              </>
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Submitting Video...</>
             ) : (
-              <>
-                <Send className="mr-2 h-4 w-4" />
-                Submit Feedback
-              </>
+              <><Upload className="mr-2 h-4 w-4" />Submit Video</>
             )}
           </Button>
         </CardFooter>
-      </Card>
+      </form>
+    </Card>
+  );
+};
+
+export default function FeedbackPage() {
+  return (
+    <div className="w-full max-w-3xl mx-auto space-y-8">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold font-headline">Share Your Voice</h1>
+        <p className="text-muted-foreground mt-2">
+          Your feedback and experiences are invaluable in helping us grow and improve.
+        </p>
+      </div>
+
+      <Tabs defaultValue="text" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="text"><MessageSquare className="mr-2"/>Written Feedback</TabsTrigger>
+          <TabsTrigger value="video"><Video className="mr-2"/>Video Testimonial</TabsTrigger>
+        </TabsList>
+        <TabsContent value="text" className="mt-6">
+          <TextFeedback />
+        </TabsContent>
+        <TabsContent value="video" className="mt-6">
+          <VideoTestimonial />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

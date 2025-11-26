@@ -7,7 +7,7 @@ import {
   MessageSquare,
   Palette,
   Shield,
-  Star,
+  Megaphone,
   User,
   Users,
   Handshake,
@@ -24,7 +24,7 @@ export const navLinks = [
   { href: "/contest", label: "Contest", icon: Palette },
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
-  { href: "/feedback", label: "Feedback", icon: Star },
+  { href: "/feedback", label: "Feedback", icon: Megaphone },
   { href: "/showcase", label: "Showcase", icon: Trophy },
   { href: "/moments", label: "Moments", icon: Camera },
 ];
