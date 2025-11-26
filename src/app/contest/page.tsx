@@ -13,8 +13,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Gift } from "lucide-react";
 import { useUser } from "@/firebase";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function ContestPage() {
   const [name, setName] = useState("");
@@ -84,83 +85,91 @@ export default function ContestPage() {
 
 
   return (
-    <div className="flex justify-center items-start pt-8">
-      <Card className="w-full max-w-2xl shadow-lg">
-        <form onSubmit={handleSubmit}>
-          <CardHeader>
-            <CardTitle className="text-2xl font-headline">
-              مسابقه بزرگ نقاشی
-            </CardTitle>
-            <CardDescription>
-              نقاشی خود را برای ما ارسال کنید و در قرعه‌کشی جوایز هیجان‌انگیز ما شرکت کنید!
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="name">نام شما</Label>
-              <Input
-                id="name"
-                placeholder="نام خود را وارد کنید"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+    <div className="space-y-8">
+        <Alert>
+          <Gift className="h-4 w-4" />
+          <AlertTitle>قرعه کشی فصلی جوایز!</AlertTitle>
+          <AlertDescription>
+            کاربران فعال که امتیاز بالایی در طول ماه کسب کنند، به طور خودکار در قرعه‌کشی جوایز ارزنده ما که هر سه ماه یکبار برگزار می‌شود، شرکت داده خواهند شد. پس فعال باشید و امتیاز جمع کنید!
+          </AlertDescription>
+        </Alert>
+
+        <Card className="w-full max-w-2xl mx-auto shadow-lg">
+            <form onSubmit={handleSubmit}>
+            <CardHeader>
+                <CardTitle className="text-2xl font-headline">
+                مسابقه بزرگ نقاشی
+                </CardTitle>
+                <CardDescription>
+                همچنین می‌توانید با ارسال نقاشی در مسابقه ما شرکت کرده و شانس خود را برای برنده شدن جوایز هیجان‌انگیز امتحان کنید!
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                <div className="space-y-2">
+                <Label htmlFor="name">نام شما</Label>
+                <Input
+                    id="name"
+                    placeholder="نام خود را وارد کنید"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    disabled={isLoading || !user}
+                    required
+                />
+                </div>
+                <div className="space-y-2">
+                <Label htmlFor="age">سن شما</Label>
+                <Input
+                    id="age"
+                    type="number"
+                    placeholder="سن خود را وارد کنید"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    disabled={isLoading || !user}
+                    required
+                />
+                </div>
+                <div className="space-y-2">
+                <Label htmlFor="drawing">فایل نقاشی</Label>
+                <Input
+                    id="drawing"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    disabled={isLoading || !user}
+                    required
+                    className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                />
+                <p className="text-xs text-muted-foreground pt-1">
+                    فرمت‌های مجاز: JPG, PNG, GIF
+                </p>
+                </div>
+                {!user && (
+                <p className="text-sm text-center text-destructive font-medium">
+                    برای شرکت در مسابقه، لطفاً ابتدا وارد حساب کاربری خود شوید.
+                </p>
+                )}
+            </CardContent>
+            <CardFooter>
+                <Button
+                type="submit"
+                className="w-full"
                 disabled={isLoading || !user}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="age">سن شما</Label>
-              <Input
-                id="age"
-                type="number"
-                placeholder="سن خود را وارد کنید"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-                disabled={isLoading || !user}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="drawing">فایل نقاشی</Label>
-              <Input
-                id="drawing"
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                disabled={isLoading || !user}
-                required
-                className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
-              />
-               <p className="text-xs text-muted-foreground pt-1">
-                فرمت‌های مجاز: JPG, PNG, GIF
-              </p>
-            </div>
-             {!user && (
-              <p className="text-sm text-center text-destructive font-medium">
-                برای شرکت در مسابقه، لطفاً ابتدا وارد حساب کاربری خود شوید.
-              </p>
-            )}
-          </CardContent>
-          <CardFooter>
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={isLoading || !user}
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  در حال ارسال...
-                </>
-              ) : (
-                <>
-                  <Upload className="mr-2 h-4 w-4" />
-                  ارسال نقاشی و شرکت در قرعه‌کشی
-                </>
-              )}
-            </Button>
-          </CardFooter>
-        </form>
-      </Card>
+                >
+                {isLoading ? (
+                    <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    در حال ارسال...
+                    </>
+                ) : (
+                    <>
+                    <Upload className="mr-2 h-4 w-4" />
+                    ارسال نقاشی و شرکت در مسابقه
+                    </>
+                )}
+                </Button>
+            </CardFooter>
+            </form>
+        </Card>
     </div>
   );
 }
