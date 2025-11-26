@@ -4,6 +4,7 @@ import {
   Languages,
   MessageSquare,
   Shield,
+  Star,
   User,
   Users,
 } from "lucide-react";
@@ -14,6 +15,7 @@ export const navLinks = [
   { href: "/translate", label: "Translate", icon: Languages },
   { href: "/community", label: "Community", icon: Users },
   { href: "/games", label: "Games", icon: Gamepad2 },
+  { href: "/feedback", label: "Feedback", icon: Star },
 ];
 
 export const bottomNavLinks = [
