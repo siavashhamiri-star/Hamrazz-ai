@@ -13,6 +13,7 @@ import {
   Handshake,
   Camera,
   Trophy,
+  PlaySquare,
 } from "lucide-react";
 
 export const navLinks = [
@@ -20,6 +21,7 @@ export const navLinks = [
   { href: "/tutor", label: "Tutor", icon: Book },
   { href: "/translate", label: "Translate", icon: Languages },
   { href: "/community", label: "Community", icon: Users },
+  { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/contest", label: "Contest", icon: Palette },
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
