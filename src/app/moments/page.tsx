@@ -84,7 +84,7 @@ export default function MomentsPage() {
         <Camera className="h-4 w-4 text-primary" />
         <AlertTitle className="text-primary">Share a Precious Moment</AlertTitle>
         <AlertDescription>
-          Capture and share a short video of your child's reaction while they listen to a story, chat with their AI companion, or learn something new. Let's celebrate these joyful learning moments together!
+          Capture and share a short video of your child's reaction while they listen to a story, chat with their AI companion, or learn something new. Let's celebrate these joyful learning moments together! Selected videos may be featured on our social media channels.
         </AlertDescription>
       </Alert>
 
@@ -109,14 +109,14 @@ export default function MomentsPage() {
         <form onSubmit={handleSubmit}>
           <CardHeader>
             <CardTitle className="text-2xl font-headline">Share Your Moment</CardTitle>
-            <CardDescription>Upload a video of your child's delightful reaction.</CardDescription>
+            <CardDescription>Upload a video of your child's delightful reaction. Note: Submitted videos may be featured on our official YouTube, Instagram, or TikTok channels.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             { isSubmitted ? (
                  <div className="text-center p-8">
                     <PartyPopper className="w-16 h-16 mx-auto text-primary" />
                     <h3 className="text-2xl font-headline mt-4">Moment Shared!</h3>
-                    <p className="text-muted-foreground mt-2">Thank you for sharing this beautiful memory with the community. It will be reviewed and featured soon!</p>
+                    <p className="text-muted-foreground mt-2">Thank you for sharing this beautiful memory with the community. It will be reviewed and may be featured soon!</p>
                     <Button className="mt-6" onClick={() => {
                         setIsSubmitted(false);
                         setDescription('');

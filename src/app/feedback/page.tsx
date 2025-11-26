@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -126,7 +127,7 @@ const VideoTestimonial = () => {
         <CardHeader>
           <CardTitle>Video Testimonial</CardTitle>
           <CardDescription>
-            Share a short (1-minute) video about your experience with Hamraz. How has it impacted you?
+            Share a short (1-minute) video about your experience with Hamraz. Your video may be featured on our social media channels like YouTube or Instagram.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">

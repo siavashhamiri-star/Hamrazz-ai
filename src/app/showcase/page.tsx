@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -85,7 +86,7 @@ export default function ShowcasePage() {
         <Trophy className="h-4 w-4 text-accent" />
         <AlertTitle className="text-accent">Share Your Success!</AlertTitle>
         <AlertDescription>
-          Have you turned an idea into reality, found a collaborator, or reached a milestone using our platform? Share your story to inspire others and get featured!
+          Have you turned an idea into reality, found a collaborator, or reached a milestone using our platform? Share your story to inspire others and get featured on our app and social media channels!
         </AlertDescription>
       </Alert>
 
@@ -110,7 +111,7 @@ export default function ShowcasePage() {
         <form onSubmit={handleSubmit}>
           <CardHeader>
             <CardTitle className="text-2xl font-headline">Submit Your Success Story</CardTitle>
-            <CardDescription>We'd love to hear how Hamraz has helped you achieve your goals.</CardDescription>
+            <CardDescription>We'd love to hear how Hamraz has helped you. Note: Your video may be shared on our YouTube, Instagram, or TikTok.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             { isSubmitted ? (
