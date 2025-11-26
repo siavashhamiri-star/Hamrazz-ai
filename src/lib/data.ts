@@ -3,6 +3,7 @@ import {
   Book,
   Gamepad2,
   Languages,
+  Lightbulb,
   MessageSquare,
   Palette,
   Shield,
@@ -18,6 +19,7 @@ export const navLinks = [
   { href: "/community", label: "Community", icon: Users },
   { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/contest", label: "Contest", icon: Palette },
+  { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
   { href: "/feedback", label: "Feedback", icon: Star },
 ];
 
