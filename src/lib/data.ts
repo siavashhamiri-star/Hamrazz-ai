@@ -16,6 +16,7 @@ import {
   Film,
   Mic,
   Palette,
+  MicVocal,
 } from "lucide-react";
 
 export const navLinks = [
@@ -25,6 +26,7 @@ export const navLinks = [
   { href: "/community", label: "Community", icon: Users },
   { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/dubbing", label: "Dubbing", icon: Mic },
+  { href: "/lipsync", label: "Lip Sync", icon: MicVocal },
   { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/contest", label: "Contest", icon: Palette },
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
