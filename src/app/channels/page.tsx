@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Upload, BookOpen, Smile, Languages, House, Award } from "lucide-react";
+import { Loader2, Upload, BookOpen, Smile, Languages, House, Award, Download, Share2 } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -62,7 +62,46 @@ const channels = [
     },
 ];
 
-const VideoGallery = ({ videos }: { videos: { title: string; author: string; url: string }[] }) => {
+type Video = { title: string; author: string; url: string };
+
+const VideoGallery = ({ videos }: { videos: Video[] }) => {
+    const { toast } = useToast();
+
+    const handleShare = async (video: Video) => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: video.title,
+                    text: `Check out this video on Hamraz: "${video.title}" by ${video.author}`,
+                    url: window.location.href, // You can link to the specific video page if you have one
+                });
+                toast({ title: "Shared successfully!" });
+            } catch (error) {
+                console.error('Error sharing:', error);
+                toast({ variant: "destructive", title: "Could not share", description: "An error occurred while trying to share the video." });
+            }
+        } else {
+            toast({ variant: "destructive", title: "Not Supported", description: "Your browser does not support the Web Share API." });
+        }
+    };
+    
+    const handleDownload = (video: Video) => {
+        try {
+            const a = document.createElement('a');
+            a.href = video.url;
+            a.download = `${video.title.replace(/\s+/g, '_')}.mp4`;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            toast({ title: "Download started!" });
+        } catch (error) {
+            console.error('Error downloading:', error);
+            toast({ variant: "destructive", title: "Download failed", description: "Could not start the video download." });
+        }
+    }
+
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video, index) => (
@@ -74,6 +113,14 @@ const VideoGallery = ({ videos }: { videos: { title: string; author: string; url
                         <CardTitle className="text-lg">{video.title}</CardTitle>
                         <CardDescription>by {video.author}</CardDescription>
                     </CardHeader>
+                    <CardFooter className="mt-auto grid grid-cols-2 gap-2">
+                        <Button variant="outline" onClick={() => handleDownload(video)}>
+                            <Download className="mr-2 h-4 w-4" /> Download
+                        </Button>
+                         <Button onClick={() => handleShare(video)}>
+                            <Share2 className="mr-2 h-4 w-4" /> Share
+                        </Button>
+                    </CardFooter>
                 </Card>
             ))}
         </div>

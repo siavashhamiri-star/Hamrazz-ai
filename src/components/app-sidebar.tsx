@@ -12,13 +12,33 @@ import {
   SidebarSeparator,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { Bot, LogIn, LogOut } from 'lucide-react';
+import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube } from 'lucide-react';
 import { navLinks, bottomNavLinks } from '@/lib/data';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { app } from '@/firebase/config';
 import { Button } from './ui/button';
+
+const SocialLinks = () => (
+    <div className="flex justify-center gap-4 py-2">
+         <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+                <Youtube className="h-5 w-5" />
+            </Button>
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+                <Instagram className="h-5 w-5" />
+            </Button>
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+                <Twitter className="h-5 w-5" />
+            </Button>
+        </a>
+    </div>
+);
 
 export default function AppSidebar() {
   const pathname = usePathname();
@@ -72,7 +92,9 @@ export default function AppSidebar() {
         </SidebarMenu>
       </SidebarContent>
       <SidebarSeparator />
-      <SidebarFooter>
+       <SidebarFooter>
+         <SocialLinks />
+         <SidebarSeparator />
          {user ? (
             <div className="flex items-center gap-3 p-2">
                 <Avatar className="h-9 w-9">
