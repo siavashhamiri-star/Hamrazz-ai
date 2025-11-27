@@ -40,43 +40,59 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }
 
     let isProcessingRedirect = true;
+    let authStateListenerUnsubscribe: (() => void) | null = null;
 
-    // Check for redirect result first
+    // First, check for the redirect result
     getRedirectResult(auth)
       .then((result) => {
         if (result) {
-          // This is the signed-in user from the redirect.
-          // The onAuthStateChanged listener below will also fire, but this ensures
-          // we have the user info as early as possible.
+          // User signed in via redirect.
+          // onAuthStateChanged will also fire, but we can set the user here for a faster UI update.
           setUser(result.user);
         }
       })
       .catch((error) => {
-        console.error("Error getting redirect result:", error);
+        console.error("Error processing redirect result:", error);
       })
       .finally(() => {
+        // Now that the redirect is processed, we can safely listen to auth state changes.
         isProcessingRedirect = false;
-        // If onAuthStateChanged has already run, we might need to update loading state here.
-        // However, the listener is set up right after, so it's safer to let it handle it.
+        
+        // If the listener already ran and set the user, we can stop loading.
+        // Otherwise, the listener will handle it.
+        if (user !== null || auth.currentUser !== null) {
+            setLoading(false);
+        }
+
+        // It's possible the auth state has already been determined while we were
+        // processing the redirect. If so, use the current user.
+        if (auth.currentUser) {
+            setUser(auth.currentUser);
+            setLoading(false);
+        }
+
+        // Set up the onAuthStateChanged listener
+        authStateListenerUnsubscribe = auth.onAuthStateChanged(
+          (user) => {
+            setUser(user);
+            // This is the definitive point where loading is complete after initial check.
+            setLoading(false);
+          },
+          (error) => {
+            console.error('Auth state change error:', error);
+            setUser(null);
+            setLoading(false);
+          }
+        );
       });
 
-    const unsubscribe = auth.onAuthStateChanged(
-      (user) => {
-        setUser(user);
-        // Don't stop loading until the redirect check is also complete.
-        if (!isProcessingRedirect) {
-          setLoading(false);
-        }
-      },
-      (error) => {
-        console.error('Auth state change error:', error);
-        setUser(null);
-        setLoading(false);
+    return () => {
+      // Cleanup the listener when the component unmounts
+      if (authStateListenerUnsubscribe) {
+        authStateListenerUnsubscribe();
       }
-    );
-
-    return () => unsubscribe();
-  }, [auth]);
+    };
+  }, [auth]); // Dependency on auth instance
 
   const value = useMemo(() => ({ user, loading }), [user, loading]);
 
