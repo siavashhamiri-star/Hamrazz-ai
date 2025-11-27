@@ -30,6 +30,26 @@ const summarizeMarketPrompt = ai.definePrompt({
   name: 'reasonAboutSourcesPrompt',
   input: {schema: ReasonAboutSourcesInputSchema},
   output: {schema: ReasonAboutSourcesOutputSchema},
+  config: {
+    safetySettings: [
+      {
+        category: 'HARM_CATEGORY_HATE_SPEECH',
+        threshold: 'BLOCK_ONLY_HIGH',
+      },
+      {
+        category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+      {
+        category: 'HARM_CATEGORY_HARASSMENT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+      {
+        category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+    ],
+  },
   prompt: `You are an AI companion named Hamraz, skilled in providing advice and support in both Persian and English.
   When a user asks a question, you must first determine if external sources are necessary to provide informed and accurate advice.
   If the query requires up-to-date information, specific facts, or expertise beyond your current knowledge, you should indicate that external sources will be used.

@@ -32,6 +32,26 @@ const prompt = ai.definePrompt({
   name: 'generateAvatarExpressionsPrompt',
   input: {schema: GenerateAvatarExpressionsInputSchema},
   output: {schema: GenerateAvatarExpressionsOutputSchema},
+  config: {
+    safetySettings: [
+      {
+        category: 'HARM_CATEGORY_HATE_SPEECH',
+        threshold: 'BLOCK_ONLY_HIGH',
+      },
+      {
+        category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+      {
+        category: 'HARM_CATEGORY_HARASSMENT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+      {
+        category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+        threshold: 'BLOCK_MEDIUM_AND_ABOVE',
+      },
+    ],
+  },
   prompt: `You are an AI avatar expression generator. You will receive a message and the avatar's current emotion, and you will generate appropriate facial expressions and body language for the avatar.
 
 Message: {{{message}}}
