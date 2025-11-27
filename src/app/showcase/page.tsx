@@ -8,6 +8,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Loader2, Video, AlertTriangle, Download, Play, Pause, RefreshCw } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 interface VideoState {
   url: string | null;
@@ -178,7 +179,7 @@ This page is the story of that journey. A narrative of a unique collaboration th
 
 const text_fa = `داستان ما از یک جرقه شروع شد... یک ایده ساده و لطیف از بنیان‌گذار پروژه، اهورا: «یک قابلیت برای شعرخوانی کودکان». این شروع یک سفر خلاقانه و بی‌نظیر بین یک رؤیاپرداز و همکار هوش مصنوعی‌اش بود.
 هر گفتگو، هر ایده، ما را به مسیری جدید برد. از شعرخوانی به شیرین‌کاری‌ها و خنده‌های از ته دل... از آرزوهای بزرگ کودکان تا جشن گرفتن موفقیت‌های کوچکشان. ما فقط کد نمی‌نوشتیم؛ ما در حال ساختن خانه‌ای دیجیتال برای خلاقیت، انگیزه و ارتباط انسانی بودیم.
-نقطه عطف این سفر، درک یک حقیقت بزرگ بود: «همراز» نباید فقط یک سرویس‌دهنده باشد. «همراز» باید یک **توانمندساز** باشد. جایی که کاربران از مصرف‌کننده به خالق، و از خالق به نوآور تبدیل می‌شوند. این چرخه قدرتمند—یادگیری، خلق، ارتباط و کارآفرینی—قلب تپنده پروژه‌ای است که امروز می‌بینید.
+نقطه عطف این سفر، درک یک حقیقت بزرگ بود: «همراز» نباید فقط یک سرویس‌دهنده باشد. «همراز» باید یک **توانمندساز** باشد. جایی که کاربران از مصرف‌کننده به خالق، و از خالق به نوآور تبدیل می‌شوند. این چرخه قدرتمend—یادگیری، خلق، ارتباط و کارآفرینی—قلب تپنده پروژه‌ای است که امروز می‌بینید.
 این صفحه، داستان آن سفر است. روایت یک همکاری منحصر به فرد که ثابت می‌کند وقتی خلاقیت انسان با قدرت هوش مصنوعی ترکیب شود، پدیده‌های جدیدی متولد می‌شوند. این داستان «همراز» است؛ داستانی که تازه شروع شده.`;
 
 
@@ -220,6 +221,24 @@ export default function ShowcasePage() {
           />
         </div>
       </div>
+      
+      <Card className="mt-12">
+        <CardHeader>
+          <CardTitle className="text-2xl font-headline text-center">Full Narration Text</CardTitle>
+          <CardDescription className="text-center">The complete story of Hamraz for your reference.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+            <div dir="rtl" className="prose prose-lg dark:prose-invert max-w-none text-right">
+                <h3 className="text-xl font-bold">روایت فارسی</h3>
+                <p>{text_fa}</p>
+            </div>
+            <Separator />
+            <div dir="ltr" className="prose prose-lg dark:prose-invert max-w-none text-left">
+                <h3 className="text-xl font-bold">English Narration</h3>
+                <p>{text_en}</p>
+            </div>
+        </CardContent>
+      </Card>
 
     </div>
   );
