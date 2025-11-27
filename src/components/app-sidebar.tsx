@@ -63,6 +63,11 @@ const SocialLinks = () => (
                 <ShoppingBag className="h-5 w-5" />
             </Button>
         </a>
+        <a href="https://ebay.com" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
+                <ShoppingBag className="h-5 w-5" />
+            </Button>
+        </a>
     </div>
 );
 
