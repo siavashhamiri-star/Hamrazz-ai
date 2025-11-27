@@ -125,7 +125,7 @@ export default function ContestPage() {
             <Briefcase className="h-4 w-4 text-purple-500" />
             <AlertTitle className="font-bold text-purple-600 dark:text-purple-400">The Ultimate Partnership: 500k Downloads &amp; Revenue Sharing</AlertTitle>
             <AlertDescription>
-                Once Hamraz reaches 500,000 downloads, 30% of the app's revenue from advertising and payments from platforms like Google will be converted into "revenue shares." These shares, representing a perpetual income stream, will be awarded to premium users, contest winners, and creators of viral content. Furthermore, a select group of loyal and active users will form an Online Advisory Council, holding tri-monthly meetings with voting rights on policy and overseeing the distribution of the 30% revenue share on behalf of the entire community.
+                Once Hamraz reaches 500,000 downloads, 30% of the app's revenue from advertising and payments from platforms like Google will be converted into "revenue shares." These shares, representing a perpetual income stream, will be awarded to premium users, contest winners, and creators of viral content. A further 10% of this revenue will be allocated to charitable causes, supporting orphans and single mothers. Furthermore, a select group of loyal and active users will form an Online Advisory Council, holding tri-monthly meetings with voting rights on policy and overseeing the distribution of both the user revenue share and the charitable funds on behalf of the entire community.
             </AlertDescription>
         </Alert>
 
@@ -246,3 +246,6 @@ export default function ContestPage() {
     
 
 
+
+
+    
