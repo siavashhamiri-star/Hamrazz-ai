@@ -13,13 +13,13 @@ import {
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Send, Video, Upload, MessageSquare, ShieldAlert } from "lucide-react";
+import { Loader2, Send, Video, Upload, MessageSquare, ShieldAlert, Lightbulb } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const TextFeedback = () => {
+const TextFeedback = ({title, description}: {title: string, description: string}) => {
   const [feedback, setFeedback] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -32,6 +32,7 @@ const TextFeedback = () => {
     console.log("Text Feedback submitted:", {
       userId: user?.uid || "anonymous",
       feedback,
+      type: title,
       timestamp: new Date().toISOString(),
     });
     setIsLoading(false);
@@ -45,15 +46,15 @@ const TextFeedback = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Written Feedback</CardTitle>
+        <CardTitle>{title}</CardTitle>
         <CardDescription>
-          Use this form to share constructive suggestions, report a bug, report user violations, or send a message to the managers.
+          {description}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Textarea
           placeholder={
-            user ? "Your message..." : "Please sign in to submit feedback."
+            user ? "Your message..." : "Please sign in to submit."
           }
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}
@@ -185,13 +186,23 @@ export default function FeedbackPage() {
         </p>
       </div>
 
-      <Tabs defaultValue="text" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="text"><ShieldAlert className="mr-2"/>Suggestions & Reports</TabsTrigger>
+      <Tabs defaultValue="strategic" className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="strategic"><Lightbulb className="mr-2"/>Strategic Ideas</TabsTrigger>
+          <TabsTrigger value="reports"><ShieldAlert className="mr-2"/>Suggestions & Reports</TabsTrigger>
           <TabsTrigger value="video"><Video className="mr-2"/>Share Experience</TabsTrigger>
         </TabsList>
-        <TabsContent value="text" className="mt-6">
-          <TextFeedback />
+        <TabsContent value="strategic" className="mt-6">
+          <TextFeedback 
+            title="Strategic Ideas for the Future"
+            description="Use this section to share your big, strategic ideas about the future of the Hamraz platform and even the nature of human-AI collaboration. Your messages will be sent directly to the leadership and strategy team."
+          />
+        </TabsContent>
+        <TabsContent value="reports" className="mt-6">
+          <TextFeedback 
+            title="Suggestions & Reports"
+            description="Use this form to share constructive suggestions, report a bug, or report user violations and misconduct."
+          />
         </TabsContent>
         <TabsContent value="video" className="mt-6">
           <VideoTestimonial />
