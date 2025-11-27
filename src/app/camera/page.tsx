@@ -12,13 +12,18 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Camera, Video, Mic, Circle, Square, RefreshCcw, Play, Pause } from "lucide-react";
+import { Camera, Video, Mic, Circle, Square, RefreshCcw, Play, Pause, Youtube, Twitch, Instagram, Link, RadioTower, Loader2 } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
+
+type ConnectionStatus = "disconnected" | "connecting" | "connected";
+type Platform = "youtube" | "twitch" | "instagram";
 
 export default function CameraPage() {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
@@ -27,12 +32,23 @@ export default function CameraPage() {
   const [recordingTime, setRecordingTime] = useState(0);
 
   // Teleprompter state
-  const [teleprompterText, setTeleprompterText] = useState("");
+  const [teleprompterText, setTeleprompterText] = useState("Your script will appear here. Start typing below!");
   const [isTeleprompterPlaying, setIsTeleprompterPlaying] = useState(false);
   const [teleprompterSpeed, setTeleprompterSpeed] = useState(15);
   const teleprompterRef = useRef<HTMLDivElement>(null);
   const animationFrameRef = useRef<number>();
   const lastTimeRef = useRef<number>(0);
+
+  // Broadcast state
+  const [isBroadcasting, setIsBroadcasting] = useState(false);
+  const [broadcastTime, setBroadcastTime] = useState(0);
+  const [streamTitle, setStreamTitle] = useState("");
+  const [connections, setConnections] = useState<Record<Platform, ConnectionStatus>>({
+    youtube: "disconnected",
+    twitch: "disconnected",
+    instagram: "disconnected",
+  });
+  const connectedPlatforms = Object.values(connections).filter(s => s === 'connected').length;
 
 
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -93,11 +109,17 @@ export default function CameraPage() {
       timer = setInterval(() => {
         setRecordingTime((prev) => prev + 1);
       }, 1000);
-    } else {
+    } else if (isBroadcasting) {
+      timer = setInterval(() => {
+        setBroadcastTime((prev) => prev + 1);
+      }, 1000);
+    }
+    else {
       setRecordingTime(0);
+      setBroadcastTime(0);
     }
     return () => clearInterval(timer);
-  }, [isRecording]);
+  }, [isRecording, isBroadcasting]);
 
   const handleStartRecording = () => {
     if (videoRef.current?.srcObject) {
@@ -180,130 +202,202 @@ export default function CameraPage() {
     }
     setIsTeleprompterPlaying(false);
   };
+  
+  const handleConnect = (platform: Platform) => {
+    setConnections(prev => ({...prev, [platform]: 'connecting'}));
+    setTimeout(() => {
+        setConnections(prev => ({...prev, [platform]: 'connected'}));
+    }, 1500)
+  }
 
+  const handleGoLive = () => {
+    if (connectedPlatforms > 0 && hasPermission) {
+        setIsBroadcasting(true);
+    } else {
+        toast({
+            variant: "destructive",
+            title: "Cannot Go Live",
+            description: "Please connect to at least one streaming service and ensure camera permissions are granted."
+        });
+    }
+  }
+  
+  const handleStopLive = () => {
+    setIsBroadcasting(false);
+    setBroadcastTime(0);
+  }
 
   return (
-    <div className="flex flex-col items-center gap-8 pt-8">
-      <Card className="w-full max-w-4xl shadow-lg">
-        <CardHeader>
-          <CardTitle className="text-2xl font-headline flex items-center gap-2">
-            <Camera className="w-6 h-6" />
-            {recordedVideo ? "Review Your Video" : "Your Personal Recording Studio"}
-          </CardTitle>
-          <CardDescription>
-            {recordedVideo ? "Watch your recording below." : "Record a video with an integrated teleprompter for a professional touch."}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="aspect-video w-full bg-muted rounded-md overflow-hidden relative flex items-center justify-center">
-            <video
-              ref={videoRef}
-              src={recordedVideo || undefined}
-              className={cn("w-full h-full object-cover", { 'hidden': !recordedVideo && hasPermission !== true })}
-              autoPlay={!isRecording}
-              muted={!recordedVideo}
-              playsInline
-              controls={!!recordedVideo}
-            />
-            
-            {!recordedVideo && teleprompterText && (
-              <div ref={teleprompterRef} className="absolute inset-0 p-10 bg-black/50 text-white text-3xl font-bold overflow-hidden pointer-events-none" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
-                <div className="text-center leading-relaxed whitespace-pre-wrap">
-                  {teleprompterText}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="lg:col-span-2 space-y-8">
+        <Card className="w-full shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-2xl font-headline flex items-center gap-2">
+              <Camera className="w-6 h-6" />
+              {recordedVideo ? "Review Your Video" : isBroadcasting ? "You Are Live!" : "Your Personal Broadcast Studio"}
+            </CardTitle>
+            <CardDescription>
+              {recordedVideo ? "Watch your recording below." : isBroadcasting ? `Streaming live to ${connectedPlatforms} platform(s).` : "Record a video, or go live to the world with an integrated teleprompter."}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="aspect-video w-full bg-muted rounded-md overflow-hidden relative flex items-center justify-center">
+              <video
+                ref={videoRef}
+                src={recordedVideo || undefined}
+                className={cn("w-full h-full object-cover", { 'hidden': !recordedVideo && hasPermission !== true })}
+                autoPlay={!isRecording && !isBroadcasting}
+                muted={!recordedVideo}
+                playsInline
+                controls={!!recordedVideo}
+              />
+              
+              {!recordedVideo && (
+                <div ref={teleprompterRef} className="absolute inset-x-0 top-0 h-2/3 p-10 bg-black/50 text-white text-3xl font-bold overflow-hidden pointer-events-none" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
+                  <div className="text-center leading-relaxed whitespace-pre-wrap">
+                    {teleprompterText}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {hasPermission === false && (
-              <div className="absolute inset-0 flex items-center justify-center p-4">
-                 <Alert variant="destructive">
-                    <Video className="h-4 w-4" />
-                    <AlertTitle>Camera Access Required</AlertTitle>
-                    <AlertDescription>
-                        { user ? "Please allow camera & mic access to use this feature." : "Please sign in to use the camera." }
-                    </AlertDescription>
-                </Alert>
-              </div>
-            )}
-             {hasPermission === null && !recordedVideo && (
-                 <div className="absolute inset-0 flex items-center justify-center p-4">
-                    <p className="text-muted-foreground">Requesting camera permission...</p>
-                 </div>
-            )}
-            {isRecording && (
-                <div className="absolute top-4 left-4 bg-black/50 text-white text-sm px-2 py-1 rounded-md flex items-center gap-2">
-                    <Circle className="w-3 h-3 fill-red-500 text-red-500"/>
-                    <span>{formatTime(recordingTime)}</span>
+              {hasPermission === false && (
+                <div className="absolute inset-0 flex items-center justify-center p-4">
+                   <Alert variant="destructive">
+                      <Video className="h-4 w-4" />
+                      <AlertTitle>Camera Access Required</AlertTitle>
+                      <AlertDescription>
+                          { user ? "Please allow camera & mic access to use this feature." : "Please sign in to use the camera." }
+                      </AlertDescription>
+                  </Alert>
                 </div>
-            )}
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col sm:flex-row justify-center gap-4">
-            {!user ? (
-                <p className="text-sm text-muted-foreground">Sign in to start creating.</p>
-            ) : recordedVideo ? (
-                 <>
-                    <Button variant="outline" onClick={handleRetake}>
-                      <RefreshCcw className="mr-2"/> Retake Video
-                    </Button>
-                    <Button>
-                      <Video className="mr-2"/> Use This Video
-                    </Button>
-                 </>
-            ) : (
+              )}
+               {hasPermission === null && !recordedVideo && (
+                   <div className="absolute inset-0 flex items-center justify-center p-4">
+                      <p className="text-muted-foreground">Requesting camera permission...</p>
+                   </div>
+              )}
+              {(isRecording || isBroadcasting) && (
+                  <div className="absolute top-4 left-4 bg-black/50 text-white text-sm px-2 py-1 rounded-md flex items-center gap-2">
+                      <Circle className="w-3 h-3 fill-red-500 text-red-500 animate-pulse"/>
+                      <span>{isBroadcasting ? formatTime(broadcastTime) : formatTime(recordingTime)}</span>
+                      {isBroadcasting && <span className="font-bold text-red-500">LIVE</span>}
+                  </div>
+              )}
+            </div>
+          </CardContent>
+          <CardFooter className="flex flex-wrap justify-center gap-4">
+              {!user ? (
+                  <p className="text-sm text-muted-foreground">Sign in to start creating.</p>
+              ) : recordedVideo ? (
+                   <>
+                      <Button variant="outline" onClick={handleRetake}>
+                        <RefreshCcw className="mr-2"/> Retake Video
+                      </Button>
+                      <Button>
+                        <Video className="mr-2"/> Use This Video
+                      </Button>
+                   </>
+              ) : (
                 isRecording ? (
-                    <Button onClick={handleStopRecording} variant="destructive" className="w-full sm:w-auto">
-                        <Square className="mr-2" /> Stop Recording
-                    </Button>
-                ) : (
-                    <Button onClick={handleStartRecording} disabled={hasPermission !== true} className="w-full sm:w-auto">
-                        <Mic className="mr-2" /> Start Recording
-                    </Button>
-                )
-            )}
-        </CardFooter>
-      </Card>
-
-      {!recordedVideo && user && (
-        <Card className="w-full max-w-4xl shadow-lg">
-            <CardHeader>
-                <CardTitle>Teleprompter</CardTitle>
-                <CardDescription>Enter your script below. It will scroll over the video as you record.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Textarea 
-                    placeholder="Paste your script here..."
-                    className="min-h-[200px] text-base"
-                    value={teleprompterText}
-                    onChange={(e) => setTeleprompterText(e.target.value)}
-                />
-            </CardContent>
-            <CardFooter className="flex flex-col sm:flex-row items-center gap-4">
-                <div className="flex items-center gap-2">
-                    <Button onClick={() => setIsTeleprompterPlaying(!isTeleprompterPlaying)} variant="outline" disabled={!teleprompterText}>
-                        {isTeleprompterPlaying ? <Pause className="mr-2"/> : <Play className="mr-2" />}
-                        {isTeleprompterPlaying ? 'Pause' : 'Play'}
-                    </Button>
-                     <Button onClick={handleTeleprompterReset} variant="ghost" disabled={!teleprompterText}>
-                        <RefreshCcw className="mr-2" /> Reset
-                    </Button>
-                </div>
-                <div className="flex-1 w-full sm:w-auto flex items-center gap-3">
-                    <Label htmlFor="speed-slider">Scroll Speed</Label>
-                    <Slider
-                        id="speed-slider"
-                        min={5}
-                        max={100}
-                        step={1}
-                        value={[teleprompterSpeed]}
-                        onValueChange={(value) => setTeleprompterSpeed(value[0])}
-                        className="w-full"
-                        disabled={!teleprompterText}
-                    />
-                </div>
-            </CardFooter>
+                      <Button onClick={handleStopRecording} variant="destructive" className="w-full sm:w-auto">
+                          <Square className="mr-2" /> Stop Recording
+                      </Button>
+                  ) : (
+                      <Button onClick={handleStartRecording} disabled={hasPermission !== true || isBroadcasting} className="w-full sm:w-auto">
+                          <Mic className="mr-2" /> Record Video
+                      </Button>
+                  )
+              )}
+          </CardFooter>
         </Card>
-      )}
+
+        {!recordedVideo && user && (
+          <Card className="w-full shadow-lg">
+              <CardHeader>
+                  <CardTitle>Teleprompter</CardTitle>
+                  <CardDescription>Enter your script below. It will scroll over the video as you record or go live.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                  <Textarea 
+                      placeholder="Paste your script here..."
+                      className="min-h-[200px] text-base"
+                      value={teleprompterText}
+                      onChange={(e) => setTeleprompterText(e.target.value)}
+                  />
+              </CardContent>
+              <CardFooter className="flex flex-col sm:flex-row items-center gap-4">
+                  <div className="flex items-center gap-2">
+                      <Button onClick={() => setIsTeleprompterPlaying(!isTeleprompterPlaying)} variant="outline" disabled={!teleprompterText}>
+                          {isTeleprompterPlaying ? <Pause className="mr-2"/> : <Play className="mr-2" />}
+                          {isTeleprompterPlaying ? 'Pause' : 'Play'}
+                      </Button>
+                       <Button onClick={handleTeleprompterReset} variant="ghost" disabled={!teleprompterText}>
+                          <RefreshCcw className="mr-2" /> Reset
+                      </Button>
+                  </div>
+                  <div className="flex-1 w-full sm:w-auto flex items-center gap-3">
+                      <Label htmlFor="speed-slider">Scroll Speed</Label>
+                      <Slider
+                          id="speed-slider"
+                          min={5}
+                          max={100}
+                          step={1}
+                          value={[teleprompterSpeed]}
+                          onValueChange={(value) => setTeleprompterSpeed(value[0])}
+                          className="w-full"
+                          disabled={!teleprompterText}
+                      />
+                  </div>
+              </CardFooter>
+          </Card>
+        )}
+      </div>
+
+       <div className="lg:col-span-1 space-y-8">
+            <Card className="shadow-lg">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><RadioTower className="w-6 h-6 text-primary"/> Broadcast Studio</CardTitle>
+                    <CardDescription>Stream your live performance to the world.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                        <Label htmlFor="stream-title">Stream Title</Label>
+                        <Input id="stream-title" placeholder="e.g., My Live Poetry Reading" value={streamTitle} onChange={(e) => setStreamTitle(e.target.value)} disabled={isBroadcasting} />
+                    </div>
+                    <div className="space-y-2">
+                        <Label>Connect to Platforms</Label>
+                        <div className="space-y-2">
+                            {(Object.keys(connections) as Platform[]).map(platform => (
+                                <div key={platform} className="flex items-center justify-between p-2 border rounded-md">
+                                    <div className="flex items-center gap-2 font-medium capitalize">
+                                        {platform === 'youtube' && <Youtube className="w-5 h-5 text-red-600"/>}
+                                        {platform === 'twitch' && <Twitch className="w-5 h-5 text-purple-600"/>}
+                                        {platform === 'instagram' && <Instagram className="w-5 h-5 text-pink-600"/>}
+                                        {platform}
+                                    </div>
+                                    <Button size="sm" variant="secondary" onClick={() => handleConnect(platform)} disabled={connections[platform] !== 'disconnected' || isBroadcasting}>
+                                        {connections[platform] === 'disconnected' && <><Link className="mr-2 h-4 w-4"/>Connect</>}
+                                        {connections[platform] === 'connecting' && <><Loader2 className="mr-2 h-4 w-4 animate-spin"/>Connecting...</>}
+                                        {connections[platform] === 'connected' && <>Connected</>}
+                                    </Button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </CardContent>
+                <CardFooter>
+                     {isBroadcasting ? (
+                        <Button className="w-full" variant="destructive" onClick={handleStopLive}>
+                            <Square className="mr-2 h-4 w-4" /> End Broadcast
+                        </Button>
+                     ) : (
+                        <Button className="w-full" onClick={handleGoLive} disabled={hasPermission !== true || connectedPlatforms === 0}>
+                            Go Live Now
+                        </Button>
+                     )}
+                </CardFooter>
+            </Card>
+      </div>
     </div>
   );
 }
