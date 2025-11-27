@@ -18,13 +18,6 @@ import {
   Mic,
   Palette,
   MicVocal,
-  Sunrise,
-  Heart,
-  Rocket,
-  Feather,
-  SmilePlus,
-  PawPrint,
-  Cloud,
 } from "lucide-react";
 
 export const navLinks = [
@@ -35,15 +28,9 @@ export const navLinks = [
   { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/dubbing", label: "Dubbing", icon: Mic },
   { href: "/lipsync", label: "Lip Sync", icon: MicVocal },
-  { href: "/poetry", label: "Poetry", icon: Feather },
-  { href: "/antics", label: "Antics", icon: SmilePlus },
-  { href: "/gratitude", label: "Gratitude", icon: Sunrise },
-  { href: "/moments", label: "Moments", icon: Heart },
-  { href: "/pets", label: "Pets & Kids", icon: PawPrint },
-  { href: "/dreams", label: "Dreams", icon: Cloud },
+  { href: "/contest", label: "Contest", icon: Palette },
   { href: "/games", label: "Games", icon: Gamepad2 },
-  { href: "/contest", label: "Contest", icon: Award },
-  { href: "/pitch", label: "Pitch Idea", icon: Rocket },
+  { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
   { href: "/camera", label: "Camera", icon: Camera },
   { href: "/feedback", label: "Feedback", icon: Lightbulb },
@@ -57,4 +44,5 @@ export const bottomNavLinks = [
   { href: "/privacy", label: "Privacy", icon: Shield },
 ];
 
+    
     
