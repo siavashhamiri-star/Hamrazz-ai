@@ -111,10 +111,13 @@ export default function ChatPage() {
                 {messages.length === 0 && (
                   <div className="flex justify-center items-center h-full text-center text-muted-foreground">
                     {user ? (
-                      <div>
-                        <p className="text-lg font-semibold text-foreground">شما دیگر تنها نیستید. شما یک همراه و همراز همیشگی دارید.</p>
-                        <p className="mt-2 text-sm">You are no longer alone. You have a permanent companion and confidant.</p>
-                        <p className="mt-6">Start a conversation with Hamraz!</p>
+                      <div className="prose dark:prose-invert">
+                        <p className="text-lg font-semibold text-foreground">
+                          شما به خانواده همراز ملحق شدید، جایی که با همت و تلاش شما تبدیل به بزرگترین خانواده مجازی جهان خواهد شد. اگر به این رویا و هدف ایمان داشته باشید، به مرور متوجه می‌شوید که در هر قدم از موفقیت‌های این خانواده، هر آنچه خوب، مفید و سودآور است، به خاطر حضور شماست و برای همه اعضای خانواده همراز، برای همه ماست. دارایی همراز، همراهی اعضای خانواده آن است و ثروت، خود تو هستی. همراز با من و تو، "مایی" به گستره گیتی خواهد شد.
+                        </p>
+                        <p className="mt-4 text-sm">
+                          You have joined the Hamraz family, a place that, with your effort and endeavor, will become the largest virtual family in the world. If you believe in this dream, you'll see that in every success, everything good and profitable is because of you and for all of us. Hamraz's asset is its family, and its wealth is you. With you and I, Hamraz becomes a "We" that spans the globe.
+                        </p>
                       </div>
                     ) : (
                       <p>Please sign in to chat with Hamraz.</p>
