@@ -156,7 +156,7 @@ export default function ContestPage() {
             <CardContent className="space-y-6">
                  <div className="space-y-2">
                     <Label>Submission Type</Label>
-                     <Select onValueChange={(val: "achievement" | "drawing") => setSubmissionType(val)} defaultValue={submissionType}>
+                     <Select onValueChange={(val) => setSubmissionType(val)} defaultValue={submissionType}>
                         <SelectTrigger>
                             <SelectValue placeholder="Select a submission type" />
                         </SelectTrigger>
