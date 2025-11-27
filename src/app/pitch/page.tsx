@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Video, Upload, Lightbulb } from "lucide-react";
+import { Loader2, PartyPopper, Video, Upload, Rocket } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -105,7 +105,7 @@ export default function PitchPage() {
           <CardHeader>
             <PartyPopper className="w-16 h-16 mx-auto text-primary" />
             <CardTitle className="text-2xl font-headline mt-4">Your Idea Has Been Submitted!</CardTitle>
-            <CardDescription>Thank you for sharing your vision. We will review it carefully and notify you if it's selected. Stay creative!</CardDescription>
+            <CardDescription>Thank you for sharing your vision. We will review it carefully. If your idea is selected, you may be contacted by potential sponsors or the Hamraz team directly.</CardDescription>
           </CardHeader>
           <CardFooter>
             <Button className="w-full" onClick={() => {
@@ -123,10 +123,10 @@ export default function PitchPage() {
   return (
     <div className="space-y-8">
       <Alert variant="default" className="bg-primary/10 border-primary/30">
-        <Lightbulb className="h-4 w-4 text-primary" />
-        <AlertTitle className="text-primary">Your Idea, Our Engine!</AlertTitle>
+        <Rocket className="h-4 w-4 text-primary" />
+        <AlertTitle className="text-primary">Become a Project Creator!</AlertTitle>
         <AlertDescription>
-          Have a brilliant idea for an app or an online business using AI? Pitch it to us! If your idea is selected, our AI tools will build it for you. Selected pitches may be featured on our social media channels, provided you are a subscriber to our channel on that platform.
+          Have a brilliant idea for an app or an online business using AI? Pitch it here! Your idea could attract sponsors and investors, or even get direct support from the Hamraz app itself to be built and launched.
         </AlertDescription>
       </Alert>
 
@@ -134,7 +134,7 @@ export default function PitchPage() {
         <form onSubmit={handleSubmit}>
           <CardHeader>
             <CardTitle className="text-2xl font-headline">Pitch Your Creative Idea</CardTitle>
-            <CardDescription>Explain your vision. Your video may be shared on our YouTube, Instagram, or TikTok, provided you are a member of our channel on that platform.</CardDescription>
+            <CardDescription>Explain your vision. Your video pitch may be shared on our social channels to attract potential partners.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-2">
@@ -162,7 +162,7 @@ export default function PitchPage() {
             </div>
             
             <div className="space-y-4">
-              <Label>Video Pitch</Label>
+              <Label>Video Pitch (Optional)</Label>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                    <p className="text-sm text-muted-foreground">Record a short video explaining your idea.</p>
@@ -207,7 +207,7 @@ export default function PitchPage() {
               {isLoading ? (
                 <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Submitting Idea...</>
               ) : (
-                <><Lightbulb className="mr-2 h-4 w-4" />Submit My Idea</>
+                <><Rocket className="mr-2 h-4 w-4" />Launch My Idea</>
               )}
             </Button>
           </CardFooter>
