@@ -17,6 +17,7 @@ import {
   Mic,
   Palette,
   MicVocal,
+  Sunrise,
 } from "lucide-react";
 
 export const navLinks = [
@@ -27,6 +28,7 @@ export const navLinks = [
   { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/dubbing", label: "Dubbing", icon: Mic },
   { href: "/lipsync", label: "Lip Sync", icon: MicVocal },
+  { href: "/gratitude", label: "Gratitude", icon: Sunrise },
   { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/contest", label: "Contest", icon: Palette },
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
