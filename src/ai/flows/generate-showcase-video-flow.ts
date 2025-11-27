@@ -31,18 +31,15 @@ async function toBase64(readable: Readable): Promise<string> {
 
 export async function generateShowcaseVideo(): Promise<GenerateShowcaseVideoOutput> {
   let {operation} = await ai.generate({
-    model: googleAI.model('veo-2.0-generate-001'),
-    prompt: `A cinematic, emotional, and hopeful promotional video telling a story.
+    model: googleAI.model('veo-3.0-generate-preview'),
+    prompt: `A cinematic shot of an old car driving down a deserted road at sunset.
+    Create an emotional, and hopeful promotional video telling a story.
     Show abstract visuals representing the collaboration between a human visionary and a friendly AI.
     Visualize concepts like sparks of ideas, connecting dots of light, a growing digital tree with branches representing creativity, learning, and community.
     Show diverse people from different cultures connecting through glowing lines of communication.
     Visualize a single user's journey from a curious learner to a confident creator.
-    The visual style should be elegant, clean, with a mix of glowing data streams and warm human moments.
+    The visual style should be elegant, clean, with a mix of glowing data streams, warm human moments, and epic background sounds.
     End with a shot of the Earth, with glowing points of light representing the global Hamraz community, all connected.`,
-    config: {
-      durationSeconds: 8,
-      aspectRatio: '16:9',
-    },
   });
 
   if (!operation) {
