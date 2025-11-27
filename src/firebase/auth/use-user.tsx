@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, {
@@ -8,6 +9,7 @@ import React, {
   useMemo,
 } from 'react';
 import type { User, Auth } from 'firebase/auth';
+import { getRedirectResult } from 'firebase/auth';
 import { useAuth } from '../provider';
 
 export interface UserContext {
@@ -36,6 +38,22 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       setLoading(false);
       return;
     }
+
+    // Check for redirect result
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result) {
+          // This is the signed-in user
+          setUser(result.user);
+        }
+      })
+      .catch((error) => {
+        console.error("Error getting redirect result:", error);
+      })
+      .finally(() => {
+         // Even if there's no redirect result, we continue to set up the listener.
+         // The listener will handle the case where the user is already signed in.
+      });
 
     const unsubscribe = auth.onAuthStateChanged(
       (user) => {

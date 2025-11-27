@@ -9,13 +9,13 @@ import { Coins, Clock, LogIn, LogOut } from "lucide-react";
 import { navLinks } from "@/lib/data";
 import { useUser } from '@/firebase';
 import { useUserProfile } from '@/hooks/use-user-profile';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
 import { app } from '@/firebase/config';
 
 export default function AppHeader() {
   const pathname = usePathname();
-  const { user } = useUser();
-  const { userProfile } = useUserProfile(user?.uid);
+  const { user, loading: userLoading } = useUser();
+  const { userProfile, loading: profileLoading } = useUserProfile(user?.uid);
   
   const points = userProfile?.points || 0;
 
@@ -30,7 +30,7 @@ export default function AppHeader() {
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      await signInWithRedirect(auth, provider);
     } catch (error) {
       console.error("Error signing in with Google: ", error);
     }
@@ -45,6 +45,8 @@ export default function AppHeader() {
     }
   };
 
+  const isLoading = userLoading || profileLoading;
+
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 md:px-6 backdrop-blur">
       <div className="md:hidden">
@@ -52,7 +54,7 @@ export default function AppHeader() {
       </div>
       <h1 className="flex-1 text-xl font-semibold font-headline">{pageTitle}</h1>
       <div className="flex items-center gap-4">
-        {user ? (
+        {user && !isLoading ? (
           <>
             <div className="flex items-center gap-2 text-sm font-medium">
               <Coins className="h-5 w-5 text-yellow-500" />
@@ -71,7 +73,7 @@ export default function AppHeader() {
             </Button>
           </>
         ) : (
-          <Button size="sm" onClick={handleSignIn} className="gap-2">
+          <Button size="sm" onClick={handleSignIn} className="gap-2" disabled={isLoading}>
             <LogIn className="h-4 w-4" />
             <span>Sign In</span>
           </Button>
