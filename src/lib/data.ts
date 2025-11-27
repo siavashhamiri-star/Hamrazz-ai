@@ -21,6 +21,8 @@ import {
   Sunrise,
   Heart,
   Rocket,
+  Feather,
+  SmilePlus,
 } from "lucide-react";
 
 export const navLinks = [
@@ -31,6 +33,8 @@ export const navLinks = [
   { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/dubbing", label: "Dubbing", icon: Mic },
   { href: "/lipsync", label: "Lip Sync", icon: MicVocal },
+  { href: "/poetry", label: "Poetry", icon: Feather },
+  { href: "/antics", label: "Antics", icon: SmilePlus },
   { href: "/gratitude", label: "Gratitude", icon: Sunrise },
   { href: "/moments", label: "Moments", icon: Heart },
   { href: "/games", label: "Games", icon: Gamepad2 },
