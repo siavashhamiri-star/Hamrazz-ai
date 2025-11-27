@@ -2,15 +2,12 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Check, Bot, Heart, BrainCircuit, Loader2, Video, AlertTriangle, Download, Play, Pause, RefreshCw } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { generateShowcaseVideo } from "@/ai/flows/generate-showcase-video-flow";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
+import { Loader2, Video, AlertTriangle, Download, Play, Pause, RefreshCw } from "lucide-react";
 
 interface VideoState {
   url: string | null;
@@ -21,19 +18,20 @@ interface VideoState {
 const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', title: string, description: string }) => {
   const [video, setVideo] = useState<VideoState>({ url: null, loading: true, error: null });
 
-  useEffect(() => {
-    const generateVideo = async () => {
-      try {
-        setVideo({ url: null, loading: true, error: null });
-        const result = await generateShowcaseVideo({ language });
-        setVideo({ url: result.videoUrl, loading: false, error: null });
-      } catch (e: any) {
-        console.error(`Error generating ${language} video:`, e);
-        setVideo({ url: null, loading: false, error: "We couldn't create the video right now. Please try refreshing the page." });
-      }
-    };
-    generateVideo();
+  const generateVideo = useCallback(async () => {
+    try {
+      setVideo({ url: null, loading: true, error: null });
+      const result = await generateShowcaseVideo({ language });
+      setVideo({ url: result.videoUrl, loading: false, error: null });
+    } catch (e: any) {
+      console.error(`Error generating ${language} video:`, e);
+      setVideo({ url: null, loading: false, error: "We couldn't create the video right now. Please try again." });
+    }
   }, [language]);
+
+  useEffect(() => {
+    generateVideo();
+  }, [generateVideo]);
   
   return (
     <Card>
@@ -44,7 +42,7 @@ const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', 
       <CardContent>
         <div className="aspect-video w-full bg-muted rounded-lg flex items-center justify-center">
           {video.loading && (
-            <div className="text-center space-y-2 text-muted-foreground">
+            <div className="text-center space-y-2 text-muted-foreground p-4">
               <Loader2 className="w-12 h-12 mx-auto animate-spin text-primary" />
               <p className="font-semibold">Generating your cinematic video...</p>
               <p className="text-sm">This may take a minute or two. The AI is working its magic!</p>
@@ -54,7 +52,10 @@ const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', 
             <Alert variant="destructive" className="max-w-md">
               <AlertTriangle className="h-4 w-4" />
               <AlertTitle>Video Generation Failed</AlertTitle>
-              <AlertDescription>{video.error}</AlertDescription>
+              <AlertDescription>
+                {video.error}
+                <Button variant="secondary" size="sm" className="mt-2" onClick={generateVideo}>Try Again</Button>
+              </AlertDescription>
             </Alert>
           )}
           {video.url && (
@@ -137,7 +138,7 @@ const Teleprompter = ({ title, text, direction = 'ltr' }: { title: string, text:
         <div 
           ref={scrollRef} 
           dir={direction}
-          className="h-64 overflow-y-scroll border rounded-md p-4 prose prose-lg dark:prose-invert max-w-none bg-background scroll-smooth"
+          className="h-64 overflow-y-auto border rounded-md p-4 prose prose-lg dark:prose-invert max-w-none bg-background scroll-smooth"
         >
           <p>{text}</p>
         </div>
