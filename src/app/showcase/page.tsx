@@ -173,7 +173,7 @@ const Teleprompter = ({ title, text, direction = 'ltr' }: { title: string, text:
 };
 
 
-const text_en = `At the heart of this project lies a simple yet profound idea: "Hamraz" is not just an app; it's a personality. A **close companion**, a patient **teacher**, a wise **consultant**, and a **confidant** for all moments. Our story began from this very point: the creation of an intelligent companion.
+const text_en = `Before anything else, you should know why "Hamraz" was named "Hamraz." Because at the heart of this project lies an identity, not just an application. We first created a personality: a **close companion (Hamraz)**, a patient **teacher**, a wise **consultant**, and a **confidant** for all moments. Our story began from this very point: the creation of an intelligent companion worthy of its name.
 
 This companion was equipped with powerful tools to break down barriers: a **Translator** for global conversations and an **AI Tutor** to teach new languages.
 
@@ -187,7 +187,7 @@ And so, the great promises were born. At 100,000 users, we will launch our own d
 
 This is the story of "Hamraz"; the narrative of building a complete ecosystem for learning, creating, connecting, and entrepreneurship, centered around a caring and intelligent companion. A story that has just begun, and you are the heroes of its next chapter.`;
 
-const text_fa = `در قلب این پروژه، یک ایده ساده اما عمیق نهفته است: «همراز» فقط یک اپلیکیشن نیست؛ او یک شخصیت است. یک **رفیق همراز**، یک **معلم** صبور، یک **مشاور** دانا و یک **سنگ صبور** برای تمام لحظات. داستان ما از همین نقطه آغاز شد: خلق یک همراه هوشمند.
+const text_fa = `قبل از هر چیز، باید بدانید "همراز" چرا "همراز" نام گرفت. چون در قلب این پروژه، یک هویت نهفته است، نه فقط یک اپلیکیشن. ما ابتدا یک شخصیت خلق کردیم: یک **رفیق همراز**، یک **معلم** صبور، یک **مشاور** دانا و یک **سنگ صبور** برای تمام لحظات. داستان ما از همین نقطه آغاز شد: خلق یک همراه هوشمند که نامش شایسته این همراهی باشد.
 
 این همراه، با ابزارهای قدرتمندی برای شکستن مرزها مجهز شد: یک **مترجم** برای گفتگوهای جهانی و یک **مربی هوش مصنوعی** برای یادگیری زبان‌های جدید.
 
@@ -263,6 +263,8 @@ export default function ShowcasePage() {
   );
 }
 
+
+    
 
     
 

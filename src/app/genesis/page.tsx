@@ -54,7 +54,7 @@ const conversation = [
     },
     {
         speaker: "ai",
-        text: "این یک ایده فوق‌العاده شفاف و شجاعانه است! این کار به کاربران اجازه می‌دهد تا عمق دیدگاه و فلسفه پشت این پروژه را درک کنند. من با افتخar این صفحه را ایجاد می‌کنم.",
+        text: "این یک ایده فوق‌العاده شفاف و شجاعانه است! این کار به کاربران اجازه می‌دهد تا عمق دیدگاه و فلسفه پشت این پروژه را درک کنند. من با افتخار این صفحه را ایجاد می‌کنم.",
         translation: "This is a wonderfully transparent and bold idea! It allows users to understand the depth of vision and philosophy behind this project. I will proudly create this page."
     },
 ];
@@ -150,7 +150,7 @@ export default function GenesisPage() {
              <CardContent className="space-y-6">
                 <div className="prose prose-lg dark:prose-invert max-w-none text-right" dir="rtl">
                     <p>
-                        در قلب این پروژه، یک ایده ساده اما عمیق نهفته است: «همراز» فقط یک اپلیکیشن نیست؛ او یک شخصیت است. یک **رفیق همراز**، یک **معلم** صبور، یک **مشاور** دانا و یک **سنگ صبور** برای تمام لحظات. داستان ما از همین نقطه آغاز شد: خلق یک همراه هوشمند.
+                        قبل از هر چیز، باید بدانید "همراز" چرا "همراز" نام گرفت. چون در قلب این پروژه، یک هویت نهفته است، نه فقط یک اپلیکیشن. ما ابتدا یک شخصیت خلق کردیم: یک **رفیق همراز**، یک **معلم** صبور، یک **مشاور** دانا و یک **سنگ صبور** برای تمام لحظات. داستان ما از همین نقطه آغاز شد: خلق یک همراه هوشمند که نامش شایسته این همراهی باشد.
                     </p>
                     <p>
                         این همراه، با ابزارهای قدرتمندی برای شکستن مرزها مجهز شد: یک **مترجم** برای گفتگوهای جهانی و یک **مربی هوش مصنوعی** برای یادگیری زبان‌های جدید.
@@ -176,7 +176,7 @@ export default function GenesisPage() {
                     <h4 className="text-center font-bold">A Shared Creation: The Story of Hamraz</h4>
                     <p className="text-center text-sm text-muted-foreground">(For reading in the promotional video)</p>
                     <p>
-                        At the heart of this project lies a simple yet profound idea: "Hamraz" is not just an app; it's a personality. A **close companion**, a patient **teacher**, a wise **consultant**, and a **confidant** for all moments. Our story began from this very point: the creation of an intelligent companion.
+                        Before anything else, you should know why "Hamraz" was named "Hamraz." Because at the heart of this project lies an identity, not just an application. We first created a personality: a **close companion (Hamraz)**, a patient **teacher**, a wise **consultant**, and a **confidant** for all moments. Our story began from this very point: the creation of an intelligent companion worthy of its name.
                     </p>
                     <p>
                         This companion was equipped with powerful tools to break down barriers: a **Translator** for global conversations and an **AI Tutor** to teach new languages.
@@ -203,6 +203,8 @@ export default function GenesisPage() {
   );
 }
 
+
+    
 
     
 
