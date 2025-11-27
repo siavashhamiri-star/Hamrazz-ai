@@ -109,7 +109,7 @@ export default function ShowcasePage() {
                 <li><strong>User-Led Innovation:</strong> By giving users tools to collaborate and pitch ideas, the platform is not static. It is designed to evolve with its community, ensuring long-term relevance.</li>
             </ul>
              <p>
-              Therefore, my analysis suggests that Hamraz is not just an app, but a model for a sustainable, global, and user-driven community. Its success is not predicated on a single feature, but on the powerful interaction between all of its parts.
+              Therefore, my analysis suggests that Hamraz is not just an app, but a model for a sustainable, global, and user-driven community. Its success is not predicated on a single feature, but on the powerful journey it offers: from consumer to creator, and ultimately, to innovator.
             </p>
           </CardContent>
         </Card>
@@ -191,7 +191,7 @@ export default function ShowcasePage() {
                     <li><strong>نوآوری مبتنی بر کاربر:</strong> با دادن ابزارهایی به کاربران برای همکاری و ارائه ایده، پلتفرم ثابت نمی‌ماند. این پلتفرم برای تکامل با جامعه خود طراحی شده است و این موضوع، ماندگاری بلندمدت آن را تضمین می‌کند.</li>
                 </ul>
                 <p>
-                بنابراین، تحلیل من نشان می‌دهد که همراز فقط یک اپلیکیشن نیست، بلکه مدلی برای یک جامعه پایدار، جهانی و کاربرمحور است. موفقیت آن به یک ویژگی خاص وابسته نیست، بلکه به تعامل قدرتمند بین تمام اجزای آن بستگی دارد.
+                بنابراین، تحلیل من نشان می‌دهد که همراز فقط یک اپلیکیشن نیست، بلکه مدلی برای یک جامعه پایدار، جهانی و کاربرمحور است. موفقیت آن به یک ویژگی خاص وابسته نیست، بلکه به سفر قدرتمندی که ارائه می‌دهد، بستگی دارد: از مصرف‌کننده به خالق، و در نهایت، به نوآور.
                 </p>
             </CardContent>
             </Card>
@@ -200,3 +200,5 @@ export default function ShowcasePage() {
     </div>
   );
 }
+
+    
