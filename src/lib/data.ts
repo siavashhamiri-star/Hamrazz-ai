@@ -48,6 +48,7 @@ export const navLinks = [
   { href: "/feedback", label: "Feedback", icon: Lightbulb },
   { href: "/ads", label: "Advertisements", icon: Film },
   { href: "/showcase", label: "Showcase", icon: Trophy },
+  { href: "/genesis", label: "Genesis", icon: Book },
 ];
 
 export const bottomNavLinks = [
