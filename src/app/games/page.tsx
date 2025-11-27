@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
-import { Trophy, Users, Crosshair, Play, Medal, Bomb, Flag, Sparkles, Brain, Puzzle, icons, Lightbulb, RefreshCw, Star, BrainCircuit } from "lucide-react";
+import { Trophy, Users, Crosshair, Play, Medal, Bomb, Flag, Sparkles, Brain, Puzzle, icons, Lightbulb, RefreshCw, Star, BrainCircuit, Heart } from "lucide-react";
 import React, { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -20,7 +20,7 @@ const TargetGame = () => {
     const [timeLeft, setTimeLeft] = useState(15);
     const [gameOver, setGameOver] = useState(false);
     
-    const highScore = userProfile?.points || 0;
+    const totalPoints = userProfile?.points || 0;
 
     useEffect(() => {
         let gameTimer: NodeJS.Timeout;
@@ -31,17 +31,17 @@ const TargetGame = () => {
         } else if (timeLeft === 0 && gameStarted) {
             setGameStarted(false);
             setGameOver(true);
-            if(userProfile && updateUserProfile && score > 0) {
-                const newTotalPoints = (userProfile.points || 0) + score;
-                 updateUserProfile({ points: newTotalPoints });
-            }
+            // Points are now saved per hit, so no need to update at the end
         }
         return () => clearInterval(gameTimer);
-    }, [gameStarted, timeLeft, score, userProfile, updateUserProfile]);
+    }, [gameStarted, timeLeft]);
 
     const handleTargetClick = () => {
-        if (timeLeft > 0 && gameStarted) {
-            setScore(score + 10);
+        if (timeLeft > 0 && gameStarted && userProfile && updateUserProfile) {
+            const newScore = score + 10;
+            setScore(newScore);
+            const newTotalPoints = (userProfile.points || 0) + 10;
+            updateUserProfile({ points: newTotalPoints });
             moveTarget();
         }
     };
@@ -82,7 +82,7 @@ const TargetGame = () => {
                     </div>
                 ) : ( gameOver ? (
                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-center p-4">
-                        <p className="font-bold text-2xl text-primary">Final Score: {score}</p>
+                        <p className="font-bold text-2xl text-primary">Game Score: {score}</p>
                         <Button onClick={startGame} size="lg" disabled={!user}>
                             <Play className="mr-2 h-5 w-5"/>
                             Play Again
@@ -90,7 +90,7 @@ const TargetGame = () => {
                     </div>
                 ) : (
                     <>
-                        <div className="absolute top-2 left-2 text-lg font-bold">Score: {score}</div>
+                        <div className="absolute top-2 left-2 text-lg font-bold">Game Score: {score}</div>
                         <div className="absolute top-2 right-2 text-lg font-bold">Time: {timeLeft}s</div>
                         <button
                             onClick={handleTargetClick}
@@ -105,8 +105,8 @@ const TargetGame = () => {
              <CardFooter>
                 {userProfile && (
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Medal className="w-4 h-4 text-yellow-500" />
-                        <span>High Score: {highScore}</span>
+                        <Trophy className="w-4 h-4 text-yellow-500" />
+                        <span>Total Points: {totalPoints.toLocaleString()}</span>
                     </div>
                 )}
             </CardFooter>
@@ -542,6 +542,7 @@ const TriviaGame = () => {
     const currentQuestion = triviaQuestions[currentQuestionIndex];
 
     const shuffleOptions = useCallback(() => {
+        if (!currentQuestion) return;
         const options = [...currentQuestion.options].sort(() => Math.random() - 0.5);
         setShuffledOptions(options);
     }, [currentQuestion]);
@@ -560,6 +561,7 @@ const TriviaGame = () => {
         setIsAnswered(false);
         setHintUsed(false);
         setFiftyFiftyUsed(false);
+        setAdChanceUsed(false); // Reset ad chance for new game
         shuffleOptions();
     };
 
@@ -576,14 +578,16 @@ const TriviaGame = () => {
         setIsAnswered(true);
         setSelectedAnswer(answer);
 
+        let newLives = lives;
         if (answer === currentQuestion.correctAnswer) {
             setScore(prev => prev + 100);
         } else {
-            setLives(prev => prev - 1);
+            newLives = lives - 1;
+            setLives(newLives);
         }
 
         setTimeout(() => {
-            if (lives - 1 <= 0 && answer !== currentQuestion.correctAnswer) {
+            if (newLives <= 0) {
                  setGameOver(true);
                  if (userProfile && updateUserProfile && score > 0) {
                      updateUserProfile({ points: (userProfile.points || 0) + score });
@@ -593,15 +597,16 @@ const TriviaGame = () => {
                 resetQuestionState();
             } else {
                 setGameOver(true);
-                 if (userProfile && updateUserProfile && score > 0) {
-                     updateUserProfile({ points: (userProfile.points || 0) + score });
+                 if (userProfile && updateUserProfile) {
+                     const finalScore = score + (answer === currentQuestion.correctAnswer ? 100 : 0);
+                     updateUserProfile({ points: (userProfile.points || 0) + finalScore });
                  }
             }
         }, 2000);
     };
 
     const useFiftyFifty = () => {
-        if (fiftyFiftyUsed) return;
+        if (fiftyFiftyUsed || !currentQuestion) return;
         const correctAnswer = currentQuestion.correctAnswer;
         const wrongOptions = currentQuestion.options.filter(opt => opt !== correctAnswer);
         const randomWrongOption = wrongOptions.sort(() => 0.5 - Math.random())[0];
@@ -651,6 +656,10 @@ const TriviaGame = () => {
                 </CardContent>
             </Card>
         );
+    }
+
+    if (!currentQuestion) {
+        return null; // Should not happen if gameStarted is true
     }
 
     return (
