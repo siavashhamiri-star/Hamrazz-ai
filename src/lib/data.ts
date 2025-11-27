@@ -37,6 +37,7 @@ export const navLinks = [
   { href: "/contest", label: "Contest", icon: Palette },
   { href: "/pitch", label: "Pitch Idea", icon: Rocket },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
+  { href: "/camera", label: "Camera", icon: Camera },
   { href: "/feedback", label: "Feedback", icon: Lightbulb },
   { href: "/ads", label: "Advertisements", icon: Film },
   { href: "/showcase", label: "Showcase", icon: Trophy },
