@@ -16,7 +16,7 @@ import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, ShoppingBag, Twitch } 
 import { navLinks, bottomNavLinks } from '@/lib/data';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
 import { app } from '@/firebase/config';
 import { Button } from './ui/button';
 import SoundcloudIcon from './icons/soundcloud-icon';
@@ -86,7 +86,7 @@ export default function AppSidebar() {
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      await signInWithRedirect(auth, provider);
     } catch (error) {
       console.error("Error signing in with Google: ", error);
     }
