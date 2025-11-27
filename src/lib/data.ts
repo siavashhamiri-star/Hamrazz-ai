@@ -38,8 +38,8 @@ export const navLinks = [
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
   { href: "/feedback", label: "Feedback", icon: ShieldAlert },
-  { href: "/showcase", label: "Showcase", icon: Trophy },
   { href: "/ads", label: "Advertisements", icon: Film },
+  { href: "/showcase", label: "Showcase", icon: Trophy },
 ];
 
 export const bottomNavLinks = [
