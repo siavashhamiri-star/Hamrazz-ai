@@ -12,7 +12,7 @@ import {
   SidebarSeparator,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, ShoppingBag } from 'lucide-react';
+import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, ShoppingBag, Twitch } from 'lucide-react';
 import { navLinks, bottomNavLinks } from '@/lib/data';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -36,6 +36,11 @@ const SocialLinks = () => (
         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
             <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
                 <Twitter className="h-5 w-5" />
+            </Button>
+        </a>
+        <a href="https://twitch.tv" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
+                <Twitch className="h-5 w-5" />
             </Button>
         </a>
         <a href="https://spotify.com" target="_blank" rel="noopener noreferrer">
