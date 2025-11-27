@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Camera, Video, Mic, Circle, Square, RefreshCcw, Play, Pause, Youtube, Twitch, Instagram, Link as LinkIcon, RadioTower, Loader2, Award, Clock, ShieldCheck } from "lucide-react";
+import { Camera, Video, Mic, Circle, Square, RefreshCcw, Play, Pause, Youtube, Twitch, Instagram, Link as LinkIcon, RadioTower, Loader2, Award, Clock, ShieldCheck, Rocket } from "lucide-react";
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -249,6 +249,20 @@ export default function CameraPage() {
 
   return (
     <div className="space-y-8">
+        <Alert variant="default" className="bg-primary/10 border-primary/30">
+          <Rocket className="h-4 w-4 text-primary" />
+          <AlertTitle className="text-primary font-bold">Unlock Your Global Stage!</AlertTitle>
+          <AlertDescription>
+            Gaining access to live broadcasting is more than a feature; it's your opportunity to shine. Here’s what you unlock:
+            <ul className="list-disc list-inside mt-2 text-xs">
+              <li><strong>Direct Interaction:</strong> Connect with your audience in real-time, build a community, and get instant feedback.</li>
+              <li><strong>Showcase Talent:</strong> Whether it's poetry, singing, or sharing ideas, this is your stage to perform for the world.</li>
+              <li><strong>Increased Visibility:</strong> Live content gets prioritized, helping you reach a wider audience faster.</li>
+              <li><strong>Monetization:</strong> Future updates will allow for sponsorships and virtual gifts, turning your passion into a profession.</li>
+            </ul>
+          </AlertDescription>
+        </Alert>
+
         {user && (
             <Card className="bg-muted/30">
                 <CardHeader>
@@ -455,5 +469,3 @@ export default function CameraPage() {
     </div>
   );
 }
-
-    
