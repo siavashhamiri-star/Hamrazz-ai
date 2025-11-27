@@ -12,29 +12,55 @@ import {
   SidebarSeparator,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube } from 'lucide-react';
+import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, Spotify, ShoppingBag } from 'lucide-react';
 import { navLinks, bottomNavLinks } from '@/lib/data';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { app } from '@/firebase/config';
 import { Button } from './ui/button';
+import SoundcloudIcon from './icons/soundcloud-icon';
 
 const SocialLinks = () => (
-    <div className="flex justify-center gap-4 py-2">
+    <div className="flex flex-wrap justify-center gap-x-2 gap-y-1 py-2">
          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
                 <Youtube className="h-5 w-5" />
             </Button>
         </a>
         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
                 <Instagram className="h-5 w-5" />
             </Button>
         </a>
         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
                 <Twitter className="h-5 w-5" />
+            </Button>
+        </a>
+        <a href="https://spotify.com" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
+                <Spotify className="h-5 w-5" />
+            </Button>
+        </a>
+        <a href="https://soundcloud.com" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
+                <SoundcloudIcon className="h-5 w-5" />
+            </Button>
+        </a>
+        <a href="https://amazon.com" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
+                <ShoppingBag className="h-5 w-5" />
+            </Button>
+        </a>
+        <a href="https://alibaba.com" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
+                <ShoppingBag className="h-5 w-5" />
+            </Button>
+        </a>
+        <a href="https://digikala.com" target="_blank" rel="noopener noreferrer">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
+                <ShoppingBag className="h-5 w-5" />
             </Button>
         </a>
     </div>
