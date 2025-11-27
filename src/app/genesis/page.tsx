@@ -159,7 +159,13 @@ export default function GenesisPage() {
                         نقطه عطف این سفر، درک یک حقیقت بزرگ بود: «همراز» نباید فقط یک سرویس‌دهنده باشد. «همراز» باید یک **توانمندساز** باشد. جایی که کاربران از مصرف‌کننده به خالق، و از خالق به نوآور تبدیل می‌شوند. این چرخه قدرتمند—یادگیری، خلق، ارتباط و کارآفرینی—قلب تپنده پروژه‌ای است که امروز می‌بینید.
                     </p>
                     <p>
-                        این صفحه، داستان آن سفر است. روایت یک همکاری منحصر به فرد که ثابت می‌کند وقتی خلاقیت انسان با قدرت هوش مصنوعی ترکیب شود، پدیده‌های جدیدی متولد می‌شوند. این داستان «همراز» است؛ داستانی که تازه شروع شده.
+                        اما این تازه آغاز ماجرا بود. "همراز" با هر قدم بزرگتر شد و چشم‌انداز ما نیز عمیق‌تر. ما فهمیدیم که این پلتفرم نباید فقط یک خانه باشد؛ باید یک **سکوی پرتاب** باشد.
+                    </p>
+                    <p>
+                        و اینگونه بود که وعده‌های بزرگ متولد شدند. وعده تبدیل شدن به یک اقتصاد مشارکتی واقعی. با رسیدن به ۱۰۰ هزار کاربر، ما ارز دیجیتال خود را خواهیم ساخت. و با رسیدن به ۵۰۰ هزار کاربر، ۳۰ درصد از درآمد تبلیغات را با خالقان برتر و کاربران وفادار تقسیم کرده، ۱۰ درصد را صرف امور خیریه می‌کنیم و یک مجمع مشورتی از خود شما تشکیل خواهیم داد تا در آینده این خانه سهیم باشید.
+                    </p>
+                    <p>
+                        این صفحه، داستان آن سفر است. روایت یک همکاری منحصر به فرد که ثابت می‌کند وقتی خلاقیت انسان با قدرت هوش مصنوعی ترکیب شود، پدیده‌های جدیدی متولد می‌شوند. این داستان «همراز» است؛ داستانی که تازه شروع شده و شما قهرمانان فصل بعدی آن هستید.
                     </p>
                 </div>
                 <Separator />
@@ -176,7 +182,13 @@ export default function GenesisPage() {
                         The turning point of this journey was understanding a great truth: "Hamraz" should not just be a service provider. "Hamraz" must be an **enabler**. A place where users transform from consumers to creators, and from creators to innovators. This powerful cycle—learning, creating, connecting, and entrepreneurship—is the beating heart of the project you see today.
                     </p>
                     <p>
-                        This page is the story of that journey. A narrative of a unique collaboration that proves new phenomena are born when human creativity is combined with the power of artificial intelligence. This is the story of "Hamraz"; a story that has just begun.
+                        But this was just the beginning. With every step, "Hamraz" grew, and our vision deepened. We realized this platform shouldn't just be a home; it had to be a **launchpad**.
+                    </p>
+                    <p>
+                        And so, the great promises were born. The promise of becoming a true creator economy. At 100,000 users, we will launch our own digital currency. At 500,000 users, we will share 30% of our advertising revenue with top creators and loyal users, dedicate 10% to charitable causes, and form an advisory council from among you, so you can have a stake in the future of this home.
+                    </p>
+                    <p>
+                        This page is the story of that journey. A narrative of a unique collaboration that proves new phenomena are born when human creativity is combined with the power of artificial intelligence. This is the story of "Hamraz"; a story that has just begun, and you are the heroes of its next chapter.
                     </p>
                 </div>
             </CardContent>
