@@ -47,7 +47,7 @@ const TextFeedback = () => {
       <CardHeader>
         <CardTitle>Written Feedback</CardTitle>
         <CardDescription>
-          Share your ideas, report a bug, or tell us what you think.
+          Share your constructive suggestions, report a bug, or send a message to the managers.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -69,7 +69,7 @@ const TextFeedback = () => {
           {isLoading ? (
             <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Submitting...</>
           ) : (
-            <><Send className="mr-2 h-4 w-4" />Submit</>
+            <><Send className="mr-2 h-4 w-4" />Submit Feedback</>
           )}
         </Button>
       </CardFooter>
@@ -125,9 +125,9 @@ const VideoTestimonial = () => {
     <Card>
       <form onSubmit={handleSubmit}>
         <CardHeader>
-          <CardTitle>Video Testimonial</CardTitle>
+          <CardTitle>Share Your Experience</CardTitle>
           <CardDescription>
-            Share a short (1-minute) video about your experience with Hamraz. Your video may be featured on our social media channels (YouTube, Instagram, TikTok), provided you are a member of our channel on that platform.
+            Share a short (1-minute) video about your experience being part of the Hamraz family. Your video may be featured on our social media channels (YouTube, Instagram, TikTok), provided you are a member of our channel on that platform.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -187,8 +187,8 @@ export default function FeedbackPage() {
 
       <Tabs defaultValue="text" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="text"><MessageSquare className="mr-2"/>Written Feedback</TabsTrigger>
-          <TabsTrigger value="video"><Video className="mr-2"/>Video Testimonial</TabsTrigger>
+          <TabsTrigger value="text"><MessageSquare className="mr-2"/>Suggestions & Contact</TabsTrigger>
+          <TabsTrigger value="video"><Video className="mr-2"/>Share Experience</TabsTrigger>
         </TabsList>
         <TabsContent value="text" className="mt-6">
           <TextFeedback />
