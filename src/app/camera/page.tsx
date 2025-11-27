@@ -20,7 +20,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
 
 type ConnectionStatus = "disconnected" | "connecting" | "connected";
 type Platform = "youtube" | "twitch" | "instagram";
@@ -120,9 +119,9 @@ export default function CameraPage() {
     }
     return () => clearInterval(timer);
   }, [isRecording, isBroadcasting]);
-
-  const handleStartRecording = () => {
-    if (videoRef.current?.srcObject) {
+  
+  const startRecordingLogic = () => {
+     if (videoRef.current?.srcObject) {
       recordedChunksRef.current = [];
       const stream = videoRef.current.srcObject as MediaStream;
       mediaRecorderRef.current = new MediaRecorder(stream, { mimeType: 'video/webm' });
@@ -142,6 +141,10 @@ export default function CameraPage() {
       mediaRecorderRef.current.start();
       setIsRecording(true);
     }
+  }
+
+  const handleStartRecording = () => {
+    startRecordingLogic();
   };
 
   const handleStopRecording = () => {
@@ -212,6 +215,7 @@ export default function CameraPage() {
 
   const handleGoLive = () => {
     if (connectedPlatforms > 0 && hasPermission) {
+        startRecordingLogic();
         setIsBroadcasting(true);
     } else {
         toast({
@@ -223,7 +227,11 @@ export default function CameraPage() {
   }
   
   const handleStopLive = () => {
+    if (mediaRecorderRef.current) {
+        mediaRecorderRef.current.stop();
+    }
     setIsBroadcasting(false);
+    setIsRecording(false);
     setBroadcastTime(0);
   }
 
@@ -237,7 +245,7 @@ export default function CameraPage() {
               {recordedVideo ? "Review Your Video" : isBroadcasting ? "You Are Live!" : "Your Personal Broadcast Studio"}
             </CardTitle>
             <CardDescription>
-              {recordedVideo ? "Watch your recording below." : isBroadcasting ? `Streaming live to ${connectedPlatforms} platform(s).` : "Record a video, or go live to the world with an integrated teleprompter."}
+              {recordedVideo ? "Watch your recording below. You can retake it or use it." : isBroadcasting ? `Streaming live to ${connectedPlatforms} platform(s). The recording will be available after the stream ends.` : "Record a video, or go live to the world with an integrated teleprompter."}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -245,7 +253,7 @@ export default function CameraPage() {
               <video
                 ref={videoRef}
                 src={recordedVideo || undefined}
-                className={cn("w-full h-full object-cover", { 'hidden': !recordedVideo && hasPermission !== true })}
+                className={cn("w-full h-full object-cover", { 'hidden': recordedVideo || hasPermission !== true })}
                 autoPlay={!isRecording && !isBroadcasting}
                 muted={!recordedVideo}
                 playsInline
@@ -299,7 +307,7 @@ export default function CameraPage() {
                    </>
               ) : (
                 isRecording ? (
-                      <Button onClick={handleStopRecording} variant="destructive" className="w-full sm:w-auto">
+                      <Button onClick={handleStopRecording} variant="destructive" className="w-full sm:w-auto" disabled={isBroadcasting}>
                           <Square className="mr-2" /> Stop Recording
                       </Button>
                   ) : (
@@ -391,7 +399,7 @@ export default function CameraPage() {
                             <Square className="mr-2 h-4 w-4" /> End Broadcast
                         </Button>
                      ) : (
-                        <Button className="w-full" onClick={handleGoLive} disabled={hasPermission !== true || connectedPlatforms === 0}>
+                        <Button className="w-full" onClick={handleGoLive} disabled={hasPermission !== true || connectedPlatforms === 0 || isRecording}>
                             Go Live Now
                         </Button>
                      )}
@@ -401,3 +409,5 @@ export default function CameraPage() {
     </div>
   );
 }
+
+    
