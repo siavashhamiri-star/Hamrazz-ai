@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,8 +7,73 @@ import { Badge } from "@/components/ui/badge";
 import { Check, Bot, Heart, BrainCircuit, Loader2, Video, AlertTriangle, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { generateShowcaseVideo } from "@/ai/flows/generate-showcase-video-flow";
+import { generateShowcaseVideo, GenerateShowcaseVideoOutput } from "@/ai/flows/generate-showcase-video-flow";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
+interface VideoState {
+  url: string | null;
+  loading: boolean;
+  error: string | null;
+}
+
+const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', title: string, description: string }) => {
+  const [video, setVideo] = useState<VideoState>({ url: null, loading: true, error: null });
+
+  useEffect(() => {
+    const generateVideo = async () => {
+      try {
+        setVideo({ url: null, loading: true, error: null });
+        const result = await generateShowcaseVideo({ language });
+        setVideo({ url: result.videoUrl, loading: false, error: null });
+      } catch (e: any) {
+        console.error(`Error generating ${language} video:`, e);
+        setVideo({ url: null, loading: false, error: "We couldn't create the video right now. Please try refreshing the page." });
+      }
+    };
+    generateVideo();
+  }, [language]);
+  
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-3xl font-headline text-center">{title}</CardTitle>
+        <CardDescription className="text-center text-base">{description}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="aspect-video w-full bg-muted rounded-lg flex items-center justify-center">
+          {video.loading && (
+            <div className="text-center space-y-2 text-muted-foreground">
+              <Loader2 className="w-12 h-12 mx-auto animate-spin text-primary" />
+              <p className="font-semibold">Generating your cinematic video...</p>
+              <p className="text-sm">This may take a minute or two. The AI is working its magic!</p>
+            </div>
+          )}
+          {video.error && (
+            <Alert variant="destructive" className="max-w-md">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle>Video Generation Failed</AlertTitle>
+              <AlertDescription>{video.error}</AlertDescription>
+            </Alert>
+          )}
+          {video.url && (
+            <video src={video.url} className="w-full h-full rounded-lg" controls autoPlay loop>
+              Your browser does not support the video tag.
+            </video>
+          )}
+        </div>
+        {video.url && (
+          <div className="flex justify-center mt-4">
+            <a href={video.url} download={`hamraz_genesis_video_${language}.mp4`}>
+              <Button>
+                <Download className="mr-2" /> Download Video
+              </Button>
+            </a>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
 
 
 const features_en = [
@@ -39,27 +104,6 @@ const features_fa = [
 
 
 export default function ShowcasePage() {
-  const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const generateVideo = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-        const result = await generateShowcaseVideo();
-        setVideoUrl(result.videoUrl);
-      } catch (e: any) {
-        console.error("Error generating showcase video:", e);
-        setError("We couldn't create the video right now. Please try refreshing the page.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    generateVideo();
-  }, []);
-
   return (
     <div className="space-y-12">
        <header className="text-center space-y-4">
@@ -71,44 +115,20 @@ export default function ShowcasePage() {
         </p>
       </header>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-3xl font-headline text-center">The Genesis Video</CardTitle>
-          <CardDescription className="text-center text-base">An AI-generated cinematic interpretation of our journey.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="aspect-video w-full bg-muted rounded-lg flex items-center justify-center">
-            {isLoading && (
-              <div className="text-center space-y-2 text-muted-foreground">
-                <Loader2 className="w-12 h-12 mx-auto animate-spin text-primary" />
-                <p className="font-semibold">Generating your cinematic video...</p>
-                <p className="text-sm">This may take a minute or two. The AI is working its magic!</p>
-              </div>
-            )}
-            {error && (
-               <Alert variant="destructive" className="max-w-md">
-                 <AlertTriangle className="h-4 w-4" />
-                <AlertTitle>Video Generation Failed</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-            {videoUrl && (
-              <video src={videoUrl} className="w-full h-full rounded-lg" controls autoPlay loop>
-                Your browser does not support the video tag.
-              </video>
-            )}
-          </div>
-           {videoUrl && (
-             <div className="flex justify-center mt-4">
-               <a href={videoUrl} download="hamraz_genesis_video.mp4">
-                 <Button>
-                   <Download className="mr-2" /> Download Video
-                 </Button>
-               </a>
-             </div>
-           )}
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <VideoPlayer 
+          language="en" 
+          title="The Genesis Video" 
+          description="An AI-generated cinematic interpretation of our journey." 
+        />
+        <div dir="rtl">
+          <VideoPlayer 
+            language="fa" 
+            title="ویدیوی پیدایش" 
+            description="تفسیری سینمایی و تولید شده توسط هوش مصنوعی از سفر ما." 
+          />
+        </div>
+      </div>
 
       <main>
         <Card className="shadow-2xl border-primary/20">

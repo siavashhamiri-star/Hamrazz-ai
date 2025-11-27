@@ -14,6 +14,12 @@ import * as fs from 'fs';
 import {Readable} from 'stream';
 import {MediaPart} from 'genkit';
 
+const GenerateShowcaseVideoInputSchema = z.object({
+  language: z.enum(['en', 'fa']).describe('The language for the video generation prompt.'),
+});
+export type GenerateShowcaseVideoInput = z.infer<typeof GenerateShowcaseVideoInputSchema>;
+
+
 const GenerateShowcaseVideoOutputSchema = z.object({
   videoUrl: z.string().describe('The data URI of the generated video.'),
 });
@@ -29,10 +35,8 @@ async function toBase64(readable: Readable): Promise<string> {
   return Buffer.concat(chunks).toString('base64');
 }
 
-export async function generateShowcaseVideo(): Promise<GenerateShowcaseVideoOutput> {
-  let {operation} = await ai.generate({
-    model: googleAI.model('veo-3.0-generate-preview'),
-    prompt: `A cinematic shot of an old car driving down a deserted road at sunset.
+const prompts = {
+  en: `A cinematic shot of an old car driving down a deserted road at sunset.
     Create an emotional, and hopeful promotional video telling a story.
     Show abstract visuals representing the collaboration between a human visionary and a friendly AI.
     Visualize concepts like sparks of ideas, connecting dots of light, a growing digital tree with branches representing creativity, learning, and community.
@@ -40,6 +44,23 @@ export async function generateShowcaseVideo(): Promise<GenerateShowcaseVideoOutp
     Visualize a single user's journey from a curious learner to a confident creator.
     The visual style should be elegant, clean, with a mix of glowing data streams, warm human moments, and epic background sounds.
     End with a shot of the Earth, with glowing points of light representing the global Hamraz community, all connected.`,
+  fa: `یک شات سینمایی از یک ماشین قدیمی که هنگام غروب در جاده‌ای خلوت رانندگی می‌کند.
+    یک ویدیوی تبلیغاتی احساسی و امیدوارکننده بسازید که داستانی را روایت می‌کند.
+    تصاویر بصری انتزاعی را نشان دهید که نمایانگر همکاری بین یک رویاپرداز انسانی و یک هوش مصنوعی دوستانه است.
+    مفاهیمی مانند جرقه‌های ایده‌ها، اتصال نقاط نورانی، و یک درخت دیجیتالی در حال رشد با شاخه‌هایی که نماد خلاقیت، یادگیری و جامعه هستند را به تصویر بکشید.
+    افراد متنوع از فرهنگ‌های مختلف را نشان دهید که از طریق خطوط درخشان ارتباطی به هم متصل می‌شوند.
+    سفر یک کاربر را از یک یادگیرنده کنجکاو به یک خالق با اعتماد به نفس به تصویر بکشید.
+    سبک بصری باید زیبا، تمیز، با ترکیبی از جریان‌های داده درخشان، لحظات گرم انسانی و صداهای پس‌زمینه حماسی باشد.
+    با یک شات از کره زمین که نقاط نورانی درخشان به نمایندگی از جامعه جهانی همراز، همه به هم متصل هستند، پایان دهید.`
+};
+
+
+export async function generateShowcaseVideo(input: GenerateShowcaseVideoInput): Promise<GenerateShowcaseVideoOutput> {
+  const prompt = prompts[input.language];
+  
+  let {operation} = await ai.generate({
+    model: googleAI.model('veo-3.0-generate-preview'),
+    prompt: prompt,
   });
 
   if (!operation) {
