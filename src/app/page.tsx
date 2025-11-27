@@ -118,6 +118,12 @@ export default function ChatPage() {
                         <p className="mt-4 text-sm">
                           You have joined the Hamraz family, a place that, with your effort and endeavor, will become the largest virtual family in the world. If you believe in this dream, you'll see that in every success, everything good and profitable is because of you and for all of us. Hamraz's asset is its family, and its wealth is you. With you and I, Hamraz becomes a "We" that spans the globe.
                         </p>
+                        <p className="mt-4 font-bold text-foreground">
+                          همراز را ما خلق کردیم، اما شما بنیان خواهید گذاشت.
+                        </p>
+                         <p className="mt-1 text-sm font-bold">
+                          We created Hamraz, but you will lay its foundation.
+                        </p>
                       </div>
                     ) : (
                       <p>Please sign in to chat with Hamraz.</p>
