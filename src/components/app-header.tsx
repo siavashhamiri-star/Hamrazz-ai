@@ -3,13 +3,14 @@
 
 import { useMemo } from 'react';
 import { usePathname } from "next/navigation";
+import Link from 'next/link';
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Coins, Clock, LogIn, LogOut } from "lucide-react";
 import { navLinks } from "@/lib/data";
 import { useUser } from '@/firebase';
 import { useUserProfile } from '@/hooks/use-user-profile';
-import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { app } from '@/firebase/config';
 
 export default function AppHeader() {
@@ -25,16 +26,6 @@ export default function AppHeader() {
   }, [pathname]);
 
   const remainingMinutes = useMemo(() => 30 + Math.floor(points * 0.2), [points]);
-
-  const handleSignIn = async () => {
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithRedirect(auth, provider);
-    } catch (error) {
-      console.error("Error signing in with Google: ", error);
-    }
-  };
 
   const handleSignOut = async () => {
     const auth = getAuth(app);
@@ -73,10 +64,12 @@ export default function AppHeader() {
             </Button>
           </>
         ) : (
-          <Button size="sm" onClick={handleSignIn} className="gap-2" disabled={isLoading}>
-            <LogIn className="h-4 w-4" />
-            <span>Sign In</span>
-          </Button>
+          <Link href="/login">
+            <Button size="sm" className="gap-2" disabled={isLoading}>
+              <LogIn className="h-4 w-4" />
+              <span>Sign In</span>
+            </Button>
+          </Link>
         )}
       </div>
     </header>

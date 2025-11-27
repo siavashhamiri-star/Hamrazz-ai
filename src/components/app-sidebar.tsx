@@ -1,3 +1,4 @@
+
 'use client';
 
 import { usePathname } from 'next/navigation';
@@ -16,7 +17,7 @@ import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, ShoppingBag, Twitch } 
 import { navLinks, bottomNavLinks } from '@/lib/data';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import { app } from '@/firebase/config';
 import { Button } from './ui/button';
 import SoundcloudIcon from './icons/soundcloud-icon';
@@ -82,16 +83,6 @@ export default function AppSidebar() {
   const pathname = usePathname();
   const { user } = useUser();
 
-  const handleSignIn = async () => {
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithRedirect(auth, provider);
-    } catch (error) {
-      console.error("Error signing in with Google: ", error);
-    }
-  };
-
   const handleSignOut = async () => {
     const auth = getAuth(app);
     try {
@@ -149,10 +140,12 @@ export default function AppSidebar() {
             </div>
         ) : (
              <div className="p-2">
-                <Button className="w-full gap-2" onClick={handleSignIn}>
-                    <LogIn />
-                    <span>Sign In</span>
-                </Button>
+                <Link href="/login">
+                    <Button className="w-full gap-2">
+                        <LogIn />
+                        <span>Sign In</span>
+                    </Button>
+                </Link>
             </div>
         )}
         <SidebarMenu>
