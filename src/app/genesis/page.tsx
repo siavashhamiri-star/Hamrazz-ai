@@ -159,6 +159,9 @@ export default function GenesisPage() {
                         سپس، صحنه‌ای برای استعدادها فراهم کردیم. **انجمن‌های آنلاین** برای گفتگو، **کانال‌هایی** برای تولید محتوا، و **مسابقات هیجان‌انگیز دوبله و لیپ‌سینک** برای نمایش خلاقیت. ما حتی یک **استودیوی پخش زنده** با تله‌پرامپتر حرفه‌ای ساختیم تا هر کاربر بتواند ستاره داستان خودش باشد.
                     </p>
                     <p>
+                        اما چگونه تمام این بخش‌های متنوع را به هم متصل کنیم؟ پاسخ در یک کلمه بود: **گیمیفیکیشن**. ما یک **اقتصاد درون‌برنامه‌ای** مبتنی بر **جمع‌آوری امتیاز** طراحی کردیم. هر فعالیت، از یادگیری و برنده شدن در **مسابقات** گرفته تا بازی کردن در بخش **بازی‌ها**، به کاربر امتیاز می‌دهد. این امتیازها فقط یک عدد نیستند؛ آنها کلید باز کردن قابلیت‌های ویژه مانند **پخش زنده** و پلی برای رسیدن به آینده هستند.
+                    </p>
+                    <p>
                         نقطه عطف این سفر، درک یک حقیقت بزرگ بود: «همراز» نباید فقط یک سرویس‌دهنده باشد. «همراز» باید یک **توانمندساز** باشد. ما بخشی برای **معرفی ایده‌های نو** به سرمایه‌گذاران و بستری برای **همکاری و ایجاد بازار کار** فراهم کردیم تا کاربران از مصرف‌کننده به خالق، و از خالق به کارآفرین تبدیل شوند.
                     </p>
                     <p>
@@ -182,6 +185,9 @@ export default function GenesisPage() {
                         Then, we set the stage for talent. We created **online communities** for conversation, **Channels** for content creation, and exciting **Dubbing and Lip Sync contests** to showcase creativity. We even built a professional **Live Streaming studio** with a teleprompter, so every user could be the star of their own story.
                     </p>
                     <p>
+                        But how could we connect all these diverse parts? The answer was one word: **Gamification**. We designed an **in-app economy** based on **collecting points**. Every activity, from learning with the **Tutor** and winning **Contests** to playing **Games**, earns the user points. These points are not just a score; they are the key to unlocking special features like **Live Streaming** and a bridge to the future.
+                    </p>
+                    <p>
                         The turning point was a great realization: "Hamraz" must not just be a service provider; it must be an **enabler**. We added a section to **pitch new ideas** to investors and a platform to **collaborate and create a job market**, transforming users from consumers to creators, and from creators to entrepreneurs.
                     </p>
                     <p>
@@ -196,3 +202,6 @@ export default function GenesisPage() {
     </div>
   );
 }
+
+
+    

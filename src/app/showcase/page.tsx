@@ -175,13 +175,15 @@ const Teleprompter = ({ title, text, direction = 'ltr' }: { title: string, text:
 
 const text_en = `Our story began with a spark... a simple, gentle idea: "A feature for children's poetry recitation." This was the start of a creative journey between a visionary and their AI collaborator. But we soon realized that "Hamraz" was more than just an app.
 
-We understood that connection begins with language. So, we built powerful tools: a Translator to break down barriers and an AI Tutor to teach new languages.
+We understood that connection begins with language. So, we built powerful tools: a **Translator** to break down barriers and an **AI Tutor** to teach new languages.
 
-Then, we set the stage for talent. We created online communities for conversation, Channels for content creation, and exciting Dubbing and Lip Sync contests to showcase creativity. We even built a professional Live Streaming studio with a teleprompter, so every user could be the star of their own story.
+Then, we set the stage for talent. We created **online communities** for conversation, **Channels** for content creation, and exciting **Dubbing and Lip Sync contests** to showcase creativity. We even built a professional **Live Streaming studio** with a teleprompter, so every user could be the star of their own story.
 
-The turning point was a great realization: "Hamraz" must not just be a service provider; it must be an enabler. We added a section to pitch new ideas to investors and a platform to collaborate and create a job market, transforming users from consumers to creators, and from creators to entrepreneurs.
+But how could we connect all these diverse parts? The answer was one word: **Gamification**. We designed an **in-app economy** based on **collecting points**. Every activity, from learning with the **Tutor** and winning **Contests** to playing **Games**, earns the user points. These points are not just a score; they are the key to unlocking special features like **Live Streaming** and a bridge to the future.
 
-And so, the great promises were born. At 100,000 users, we will launch our own digital currency. At 500,000 users, we will share 30% of our advertising revenue with top creators, dedicate 10% to charity, and form an advisory council from among you to give you a stake in this home's future.
+The turning point was a great realization: "Hamraz" must not just be a service provider; it must be an **enabler**. We added a section to **pitch new ideas** to investors and a platform to **collaborate and create a job market**, transforming users from consumers to creators, and from creators to entrepreneurs.
+
+And so, the great promises were born. At 100,000 users, we will launch our own digital currency. At 500,000 users, we will share 30% of our advertising revenue with top creators, dedicate 10% to charity, and form an **advisory council from among you** to give you a stake in this home's future.
 
 This is the story of "Hamraz"; the narrative of building a complete ecosystem for learning, creating, connecting, and entrepreneurship. A story that has just begun, and you are the heroes of its next chapter.`;
 
@@ -190,6 +192,8 @@ const text_fa = `داستان ما از یک جرقه شروع شد... یک ای
 ما فهمیدیم که ارتباط، با زبان آغاز می‌شود. پس ابزارهای قدرتمندی ساختیم: یک **مترجم** برای شکستن مرزها و یک **مربی هوش مصنوعی** برای آموزش زبان‌های جدید.
 
 سپس، صحنه‌ای برای استعدادها فراهم کردیم. **انجمن‌های آنلاین** برای گفتگو، **کانال‌هایی** برای تولید محتوا، و **مسابقات هیجان‌انگیز دوبله و لیپ‌سینک** برای نمایش خلاقیت. ما حتی یک **استودیوی پخش زنده** با تله‌پرامپتر حرفه‌ای ساختیم تا هر کاربر بتواند ستاره داستان خودش باشد.
+
+اما چگونه تمام این بخش‌های متنوع را به هم متصل کنیم؟ پاسخ در یک کلمه بود: **گیمیفیکیشن**. ما یک **اقتصاد درون‌برنامه‌ای** مبتنی بر **جمع‌آوری امتیاز** طراحی کردیم. هر فعالیت، از یادگیری و برنده شدن در **مسابقات** گرفته تا بازی کردن در بخش **بازی‌ها**، به کاربر امتیاز می‌دهد. این امتیازها فقط یک عدد نیستند؛ آنها کلید باز کردن قابلیت‌های ویژه مانند **پخش زنده** و پلی برای رسیدن به آینده هستند.
 
 نقطه عطف این سفر، درک یک حقیقت بزرگ بود: «همراز» نباید فقط یک سرویس‌دهنده باشد. «همراز» باید یک **توانمندساز** باشد. ما بخشی برای **معرفی ایده‌های نو** به سرمایه‌گذاران و بستری برای **همکاری و ایجاد بازار کار** فراهم کردیم تا کاربران از مصرف‌کننده به خالق، و از خالق به کارآفرین تبدیل شوند.
 
@@ -258,3 +262,6 @@ export default function ShowcasePage() {
     </div>
   );
 }
+
+
+    
