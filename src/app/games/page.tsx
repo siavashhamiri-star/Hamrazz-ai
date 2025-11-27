@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
-import { Trophy, Users, Crosshair, Play, Medal, Bomb, Flag, Sparkles, Brain, Puzzle, icons } from "lucide-react";
+import { Trophy, Users, Crosshair, Play, Medal, Bomb, Flag, Sparkles, Brain, Puzzle, icons, Lightbulb, RefreshCw, Star, BrainCircuit } from "lucide-react";
 import React, { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Progress } from "@/components/ui/progress";
 
 const TargetGame = () => {
     const { user } = useUser();
@@ -439,7 +441,7 @@ const MemoryGame = () => {
     };
     
     return (
-        <Card className="shadow-lg h-full flex flex-col col-span-1 lg:col-span-2">
+        <Card className="shadow-lg h-full flex flex-col">
             <CardHeader>
                 <div className="flex items-center gap-3">
                     <Brain className="w-6 h-6 text-primary"/>
@@ -514,6 +516,207 @@ const MemoryGame = () => {
     );
 };
 
+const triviaQuestions = [
+    { question: "What is the capital of France?", options: ["Berlin", "Madrid", "Paris", "Rome"], correctAnswer: "Paris", hint: "It's famous for the Eiffel Tower." },
+    { question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Venus"], correctAnswer: "Mars", hint: "It's the fourth planet from the Sun." },
+    { question: "What is the largest mammal?", options: ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"], correctAnswer: "Blue Whale", hint: "It lives in the ocean." },
+    { question: "Who wrote 'Hamlet'?", options: ["Charles Dickens", "William Shakespeare", "Leo Tolstoy", "Mark Twain"], correctAnswer: "William Shakespeare", hint: "He is a famous English playwright." },
+];
+
+const TriviaGame = () => {
+    const { user } = useUser();
+    const { userProfile, updateUserProfile } = useUserProfile(user?.uid);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [score, setScore] = useState(0);
+    const [lives, setLives] = useState(3);
+    const [gameOver, setGameOver] = useState(false);
+    const [gameStarted, setGameStarted] = useState(false);
+    const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+    const [isAnswered, setIsAnswered] = useState(false);
+    const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
+    const [hintUsed, setHintUsed] = useState(false);
+    const [fiftyFiftyUsed, setFiftyFiftyUsed] = useState(false);
+    const [isWatchingAd, setIsWatchingAd] = useState(false);
+    const [adChanceUsed, setAdChanceUsed] = useState(false);
+
+    const currentQuestion = triviaQuestions[currentQuestionIndex];
+
+    const shuffleOptions = useCallback(() => {
+        const options = [...currentQuestion.options].sort(() => Math.random() - 0.5);
+        setShuffledOptions(options);
+    }, [currentQuestion]);
+    
+    const startGame = () => {
+        setCurrentQuestionIndex(0);
+        setScore(0);
+        setLives(3);
+        setGameOver(false);
+        setGameStarted(true);
+        resetQuestionState();
+    };
+
+    const resetQuestionState = () => {
+        setSelectedAnswer(null);
+        setIsAnswered(false);
+        setHintUsed(false);
+        setFiftyFiftyUsed(false);
+        shuffleOptions();
+    };
+
+    useEffect(() => {
+        if(gameStarted) {
+            shuffleOptions();
+        }
+    }, [currentQuestionIndex, gameStarted, shuffleOptions]);
+
+
+    const handleAnswer = (answer: string) => {
+        if (isAnswered) return;
+        
+        setIsAnswered(true);
+        setSelectedAnswer(answer);
+
+        if (answer === currentQuestion.correctAnswer) {
+            setScore(prev => prev + 100);
+        } else {
+            setLives(prev => prev - 1);
+        }
+
+        setTimeout(() => {
+            if (lives - 1 <= 0 && answer !== currentQuestion.correctAnswer) {
+                 setGameOver(true);
+                 if (userProfile && updateUserProfile && score > 0) {
+                     updateUserProfile({ points: (userProfile.points || 0) + score });
+                 }
+            } else if (currentQuestionIndex < triviaQuestions.length - 1) {
+                setCurrentQuestionIndex(prev => prev + 1);
+                resetQuestionState();
+            } else {
+                setGameOver(true);
+                 if (userProfile && updateUserProfile && score > 0) {
+                     updateUserProfile({ points: (userProfile.points || 0) + score });
+                 }
+            }
+        }, 2000);
+    };
+
+    const useFiftyFifty = () => {
+        if (fiftyFiftyUsed) return;
+        const correctAnswer = currentQuestion.correctAnswer;
+        const wrongOptions = currentQuestion.options.filter(opt => opt !== correctAnswer);
+        const randomWrongOption = wrongOptions.sort(() => 0.5 - Math.random())[0];
+        setShuffledOptions([correctAnswer, randomWrongOption].sort(() => 0.5 - Math.random()));
+        setFiftyFiftyUsed(true);
+    };
+
+    const useAdChance = () => {
+        if (adChanceUsed || lives >=3) return;
+        setIsWatchingAd(true);
+        setTimeout(() => {
+            setLives(prev => Math.min(3, prev + 1));
+            setIsWatchingAd(false);
+            setAdChanceUsed(true);
+        }, 3000);
+    };
+    
+    if (!gameStarted) {
+         return (
+            <Card className="shadow-lg col-span-1 lg:col-span-2">
+                 <CardContent className="flex flex-col items-center justify-center gap-4 text-center p-8 h-full">
+                    <BrainCircuit className="w-16 h-16 text-primary" />
+                    <h2 className="text-2xl font-bold font-headline">General Knowledge</h2>
+                    <p className="text-muted-foreground">Test your knowledge and earn points. You have 3 lives. Good luck!</p>
+                    <Button onClick={startGame} size="lg" disabled={!user}>
+                        <Play className="mr-2 h-5 w-5"/>
+                        Start Trivia
+                    </Button>
+                    {!user && <p className="text-sm text-muted-foreground">Sign in to play and save your score.</p>}
+                </CardContent>
+            </Card>
+        );
+    }
+    
+    if (gameOver) {
+        return (
+            <Card className="shadow-lg col-span-1 lg:col-span-2">
+                 <CardContent className="flex flex-col items-center justify-center gap-4 text-center p-8 h-full">
+                    <Trophy className="w-16 h-16 text-yellow-500" />
+                    <h2 className="text-2xl font-bold font-headline">Game Over!</h2>
+                    <p className="text-muted-foreground text-xl">Your final score: <span className="font-bold text-primary">{score}</span></p>
+                    <p className="text-sm text-muted-foreground">You earned {score} points for your profile!</p>
+                    <Button onClick={startGame} size="lg" disabled={!user}>
+                        <Play className="mr-2 h-5 w-5"/>
+                        Play Again
+                    </Button>
+                </CardContent>
+            </Card>
+        );
+    }
+
+    return (
+        <Card className="shadow-lg col-span-1 lg:col-span-2">
+            <CardHeader>
+                <div className="flex justify-between items-center">
+                    <CardTitle className="font-headline">Question {currentQuestionIndex + 1}/{triviaQuestions.length}</CardTitle>
+                    <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2 font-bold text-lg">
+                            <Star className="w-5 h-5 text-yellow-500" />
+                            {score}
+                        </div>
+                         <div className="flex items-center gap-2 font-bold text-lg text-red-500">
+                             {Array.from({ length: 3 }).map((_, i) => (
+                                <Heart key={i} className={cn("w-5 h-5", i < lives ? "fill-current" : "")} />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <Progress value={((currentQuestionIndex + 1) / triviaQuestions.length) * 100} />
+            </CardHeader>
+            <CardContent className="space-y-6 text-center">
+                <p className="text-xl font-semibold min-h-[60px]">{currentQuestion.question}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {shuffledOptions.map(option => (
+                        <Button
+                            key={option}
+                            variant="outline"
+                            size="lg"
+                            className={cn("h-auto py-4 whitespace-normal", 
+                                isAnswered && option === currentQuestion.correctAnswer && "bg-green-500/80 text-white",
+                                isAnswered && selectedAnswer === option && option !== currentQuestion.correctAnswer && "bg-destructive text-white"
+                            )}
+                            onClick={() => handleAnswer(option)}
+                            disabled={isAnswered}
+                        >
+                            {option}
+                        </Button>
+                    ))}
+                </div>
+                 {hintUsed && (
+                    <Alert className="text-left">
+                        <Lightbulb className="h-4 w-4" />
+                        <AlertTitle>Hint</AlertTitle>
+                        <AlertDescription>{currentQuestion.hint}</AlertDescription>
+                    </Alert>
+                )}
+                {isWatchingAd && (
+                     <Alert className="text-left bg-blue-50 border-blue-200">
+                        <RefreshCw className="h-4 w-4 animate-spin text-blue-500" />
+                        <AlertTitle>Simulating Ad</AlertTitle>
+                        <AlertDescription>Watching ad... you will get an extra life!</AlertDescription>
+                    </Alert>
+                )}
+            </CardContent>
+            <CardFooter className="flex flex-col md:flex-row justify-center gap-4">
+                <Button variant="secondary" onClick={useFiftyFifty} disabled={fiftyFiftyUsed || isAnswered}>50/50</Button>
+                <Button variant="secondary" onClick={() => setHintUsed(true)} disabled={hintUsed || isAnswered}><Lightbulb className="mr-2"/>Hint</Button>
+                <Button variant="secondary" onClick={useAdChance} disabled={adChanceUsed || isAnswered || lives >= 3 || isWatchingAd}>
+                   <RefreshCw className="mr-2"/> Second Chance (Ad)
+                </Button>
+            </CardFooter>
+        </Card>
+    );
+};
+
 
 export default function GamesPage() {
   return (
@@ -522,13 +725,17 @@ export default function GamesPage() {
             <h1 className="text-3xl font-bold font-headline mb-2">Games</h1>
             <p className="text-muted-foreground">Play games to earn points and unlock more time with your AI companion.</p>
         </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <TriviaGame />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <MineGame />
-            <TargetGame />
+            <MemoryGame />
         </div>
-        <div className="mt-6">
-             <MemoryGame />
+         <div className="mt-6">
+             <TargetGame />
         </div>
     </div>
   );
