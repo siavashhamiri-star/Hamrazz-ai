@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Send, Video, Upload, MessageSquare } from "lucide-react";
+import { Loader2, Send, Video, Upload, MessageSquare, ShieldAlert } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -38,7 +38,7 @@ const TextFeedback = () => {
     setFeedback("");
     toast({
       title: "Thank you!",
-      description: "Your feedback has been submitted.",
+      description: "Your message has been submitted.",
     });
   };
 
@@ -47,7 +47,7 @@ const TextFeedback = () => {
       <CardHeader>
         <CardTitle>Written Feedback</CardTitle>
         <CardDescription>
-          Share your constructive suggestions, report a bug, or send a message to the managers.
+          Use this form to share constructive suggestions, report a bug, report user violations, or send a message to the managers.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -69,7 +69,7 @@ const TextFeedback = () => {
           {isLoading ? (
             <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Submitting...</>
           ) : (
-            <><Send className="mr-2 h-4 w-4" />Submit Feedback</>
+            <><Send className="mr-2 h-4 w-4" />Submit</>
           )}
         </Button>
       </CardFooter>
@@ -187,7 +187,7 @@ export default function FeedbackPage() {
 
       <Tabs defaultValue="text" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="text"><MessageSquare className="mr-2"/>Suggestions & Contact</TabsTrigger>
+          <TabsTrigger value="text"><ShieldAlert className="mr-2"/>Suggestions & Reports</TabsTrigger>
           <TabsTrigger value="video"><Video className="mr-2"/>Share Experience</TabsTrigger>
         </TabsList>
         <TabsContent value="text" className="mt-6">

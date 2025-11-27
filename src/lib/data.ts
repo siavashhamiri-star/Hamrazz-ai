@@ -20,6 +20,7 @@ import {
   MicVocal,
   Sunrise,
   Heart,
+  ShieldAlert,
 } from "lucide-react";
 
 export const navLinks = [
@@ -36,7 +37,7 @@ export const navLinks = [
   { href: "/contest", label: "Contest", icon: Palette },
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
-  { href: "/feedback", label: "Feedback", icon: Megaphone },
+  { href: "/feedback", label: "Feedback", icon: ShieldAlert },
   { href: "/showcase", label: "Showcase", icon: Trophy },
   { href: "/ads", label: "Advertisements", icon: Film },
 ];
