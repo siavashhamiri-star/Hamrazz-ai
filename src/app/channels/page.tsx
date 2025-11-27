@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Upload, BookOpen, Smile, Languages, House, Award, Download, Share2 } from "lucide-react";
+import { Loader2, Upload, BookOpen, Smile, Languages, House, Award, Download, Share2, PackageOpen } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -60,6 +60,15 @@ const channels = [
             { title: "Quick & Healthy Recipes", author: "Bahar Z.", url: "https://videos.pexels.com/video-files/3209828/3209828-hd_1280_720_30fps.mp4" },
         ]
     },
+    {
+        id: "unboxing",
+        title: "Unboxing & Reviews",
+        icon: PackageOpen,
+        description: "For YouTubers to unbox and review products for family, kids, and home.",
+        videos: [
+            { title: "Newest Smart Toy Review", author: "TechFamily", url: "https://videos.pexels.com/video-files/3846237/3846237-hd_1280_720_25fps.mp4" },
+        ]
+    }
 ];
 
 type Video = { title: string; author: string; url: string };
@@ -244,7 +253,7 @@ export default function ChannelsPage() {
 
 
             <Tabs defaultValue={channels[0].id} className="w-full">
-                <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
+                <TabsList className="grid w-full grid-cols-2 md:grid-cols-5">
                     {channels.map(channel => (
                         <TabsTrigger key={channel.id} value={channel.id} className="gap-2">
                             <channel.icon className="h-4 w-4"/> {channel.title}
@@ -267,3 +276,5 @@ export default function ChannelsPage() {
         </div>
     );
 }
+
+    
