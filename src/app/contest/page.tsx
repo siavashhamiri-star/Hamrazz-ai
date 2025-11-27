@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -110,6 +110,14 @@ export default function ContestPage() {
             <AlertTitle className="font-bold text-green-600 dark:text-green-400">A Promise for Our Future: From Points to Digital Assets</AlertTitle>
             <AlertDescription>
                 We promise that if, through the efforts of our dear users in introducing, promoting, and growing the Hamraz family, our app reaches a stable income level, a system will be implemented. This system will allow you to convert 50% of your earned points into popular cryptocurrencies, which will be announced at that time. Your contribution is an investment in our shared future.
+            </AlertDescription>
+        </Alert>
+
+        <Alert variant="default" className="border-blue-500/50 bg-blue-500/10 text-blue-700 dark:text-blue-300">
+            <Milestone className="h-4 w-4 text-blue-500" />
+            <AlertTitle className="font-bold text-blue-600 dark:text-blue-400">Our First Milestone: 100,000 Downloads!</AlertTitle>
+            <AlertDescription>
+                As soon as Hamraz reaches its first major goal of 100,000 downloads, in appreciation of your support, we will launch our own in-app cryptocurrency. Your current points will play a crucial role in this new economy, so every point you earn is an investment in what's to come!
             </AlertDescription>
         </Alert>
 
@@ -224,5 +232,7 @@ export default function ContestPage() {
     </div>
   );
 }
+
+    
 
     
