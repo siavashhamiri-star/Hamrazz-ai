@@ -1,0 +1,6 @@
+
+{
+  "apphosting": {
+    "autoAddPreviewDomainsToAuth": true
+  }
+}
