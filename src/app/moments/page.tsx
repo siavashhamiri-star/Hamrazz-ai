@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Camera, Film } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Camera, Heart } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -33,10 +33,10 @@ const sampleMoments = [
     description: "He couldn't stop laughing at the silly rhymes the chatbot made up. This is his new best friend!"
   },
   {
-    title: "Learning Persian words",
-    author: "Layla's Parents",
+    title: "A message of love",
+    author: "Layla",
     videoUrl: "https://videos.pexels.com/video-files/5494391/5494391-hd_1280_720_25fps.mp4",
-    description: "Watching her repeat her first Persian words with the tutor was priceless. So proud of her progress."
+    description: "I love you Mom and Dad! Thank you for everything."
   }
 ];
 
@@ -81,10 +81,10 @@ export default function MomentsPage() {
   return (
     <div className="space-y-8">
       <Alert variant="default" className="bg-primary/10 border-primary/30">
-        <Camera className="h-4 w-4 text-primary" />
+        <Heart className="h-4 w-4 text-primary" />
         <AlertTitle className="text-primary">Share a Precious Moment</AlertTitle>
         <AlertDescription>
-          Capture and share a short video of your child's reaction while they listen to a story, chat with their AI companion, or learn something new. Selected videos may be featured on our official social media channels (YouTube, Instagram, TikTok). For your video to be featured, you must be a subscriber to our channel on that platform.
+          Capture and share a short video. It could be your child's reaction to a story, or a 30-second message from your child saying "I love you, Mom and Dad, and thank you." Selected videos may be featured on our official social media channels.
         </AlertDescription>
       </Alert>
 
@@ -109,7 +109,7 @@ export default function MomentsPage() {
         <form onSubmit={handleSubmit}>
           <CardHeader>
             <CardTitle className="text-2xl font-headline">Share Your Moment</CardTitle>
-            <CardDescription>Upload a video of your child's delightful reaction. Note: Submitted videos may be featured on our official YouTube, Instagram, or TikTok channels, provided you are a member of our channel on that platform.</CardDescription>
+            <CardDescription>Upload a short video to share with the community. Note: Submitted videos may be featured on our official channels.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             { isSubmitted ? (
@@ -129,7 +129,7 @@ export default function MomentsPage() {
               <Label htmlFor="moment-description">Description</Label>
               <Textarea
                 id="moment-description"
-                placeholder="Briefly describe this moment..."
+                placeholder="Describe this moment, e.g., 'My son's message to us'..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 disabled={isLoading || !user}
