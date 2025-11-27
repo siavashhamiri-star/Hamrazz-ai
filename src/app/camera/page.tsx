@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Camera, Video, Mic, Circle, Square, RefreshCcw, Play, Pause, Youtube, Twitch, Instagram, Link as LinkIcon, RadioTower, Loader2, Award, Clock, ShieldCheck, Rocket } from "lucide-react";
+import { Camera, Video, Mic, Circle, Square, RefreshCcw, Play, Pause, Youtube, Twitch, Instagram, Link as LinkIcon, RadioTower, Loader2, Award, Clock, ShieldCheck, Rocket, Lightbulb } from "lucide-react";
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -263,6 +263,34 @@ export default function CameraPage() {
           </AlertDescription>
         </Alert>
 
+        <Alert variant="default" className="bg-accent/10 border-accent/30">
+          <Lightbulb className="h-4 w-4 text-accent" />
+          <AlertTitle className="text-accent font-bold">Idea Starter: What to Create?</AlertTitle>
+          <AlertDescription>
+            Not sure what to perform? Here are a few ideas to get you started on your live broadcast:
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 mt-2 text-xs">
+              <ul className="list-disc list-inside">
+                <li><strong>Solo Performance:</strong></li>
+                <ul className="list-['-_'] list-inside ml-4">
+                  <li>Read a poem or a short story.</li>
+                  <li>Sing a song or play an instrument.</li>
+                  <li>Share a personal monologue or story.</li>
+                  <li>Teach a quick mini-lesson.</li>
+                </ul>
+              </ul>
+              <ul className="list-disc list-inside">
+                <li><strong>Group Performance:</strong></li>
+                 <ul className="list-['-_'] list-inside ml-4">
+                  <li>Perform a scene from a play.</li>
+                  <li>Host a debate or panel discussion.</li>
+                  <li>Collaborate on a song.</li>
+                  <li>Host a live Q&A with your audience.</li>
+                </ul>
+              </ul>
+            </div>
+          </AlertDescription>
+        </Alert>
+
         {user && (
             <Card className="bg-muted/30">
                 <CardHeader>
@@ -469,3 +497,5 @@ export default function CameraPage() {
     </div>
   );
 }
+
+    
