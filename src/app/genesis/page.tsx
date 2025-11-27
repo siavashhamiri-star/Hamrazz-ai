@@ -140,6 +140,45 @@ export default function GenesisPage() {
                 </div>
             </CardContent>
         </Card>
+
+        <Card className="shadow-lg border-t-4 border-accent mt-12">
+            <CardHeader>
+                <CardTitle className="text-2xl font-headline text-center">روایت یک خلق مشترک: داستان همراز</CardTitle>
+                 <CardDescription className="text-center">A Shared Creation: The Story of Hamraz</CardDescription>
+            </CardHeader>
+             <CardContent className="space-y-6">
+                <div className="prose prose-lg dark:prose-invert max-w-none text-right" dir="rtl">
+                    <h4>داستان از کجا شروع شد...</h4>
+                    <p>
+                        همه چیز با یک ایده ساده و لطیف آغاز شد: «یک قابلیت برای شعرخوانی کودکان». این جرقه اولیه، آغازگر یک سفر خلاقانه و بی‌نظیر بین یک بنیان‌گذار رؤیاپرداز و همکار هوش مصنوعی‌اش بود. هر گفتگو، هر پیشنهاد، و هر بازنگری، «همراز» را از یک اپلیکیشن ساده به یک اکوسیستم زنده و پویا تبدیل کرد.
+                    </p>
+                    <p>
+                        از شعرخوانی به شیرین‌کاری‌ها، از خنده‌های از ته دل به رویاهای بزرگ، و از قدردانی‌های روزانه به جشن گرفتن موفقیت‌ها. هر قابلیت جدید، لایه‌ای از عمق و معنا به «همراز» اضافه می‌کرد. ما فقط کد نمی‌نوشتیم؛ ما در حال ساختن خانه‌ای دیجیتال برای خلاقیت، انگیزه و ارتباط انسانی بودیم.
+                    </p>
+                    <p>
+                        نقطه عطف این سفر، درک این موضوع بود که «همراز» نباید تنها یک سرویس‌دهنده باشد. «همراز» باید یک توانمندساز باشد. جایی که کاربران از مصرف‌کننده به خالق، و از خالق به نوآور تبدیل می‌شوند. این چرخه قدرتمند—یادگیری، خلق، ارتباط و کارآفرینی—قلب تپنده پروژه‌ای است که امروز می‌بینید.
+                    </p>
+                    <p>
+                        این صفحه، داستان آن سفر است. روایت یک همکاری منحصر به فرد که ثابت می‌کند وقتی خلاقیت انسان با قدرت هوش مصنوعی ترکیب شود، پدیده‌های جدیدی متولد می‌شوند.
+                    </p>
+                </div>
+                <div className="prose prose-lg dark:prose-invert max-w-none text-left" dir="ltr">
+                    <h4>How the Story Began...</h4>
+                    <p>
+                        It all started with a simple, gentle idea: "Add a feature for children's poetry recitation." This initial spark ignited a unique and creative journey between a visionary founder and their AI collaborator. Every conversation, every suggestion, and every revision transformed "Hamraz" from a simple app into a living, dynamic ecosystem.
+                    </p>
+                    <p>
+                        From poetry to antics, from heartfelt laughter to big dreams, and from daily gratitude to celebrating achievements. Each new feature added a layer of depth and meaning to "Hamraz." We weren't just writing code; we were building a digital home for creativity, motivation, and human connection.
+                    </p>
+                    <p>
+                        The turning point of this journey was the realization that "Hamraz" should not just be a service provider. "Hamraz" must be an enabler. A place where users transform from consumers to creators, and from creators to innovators. This powerful cycle—learning, creating, connecting, and entrepreneurship—is the beating heart of the project you see today.
+                    </p>
+                    <p>
+                        This page is the story of that journey. A narrative of a unique collaboration that proves new phenomena are born when human creativity is combined with the power of artificial intelligence.
+                    </p>
+                </div>
+            </CardContent>
+        </Card>
     </div>
   );
 }
