@@ -39,11 +39,15 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       return;
     }
 
-    // Check for redirect result
+    let isProcessingRedirect = true;
+
+    // Check for redirect result first
     getRedirectResult(auth)
       .then((result) => {
         if (result) {
-          // This is the signed-in user
+          // This is the signed-in user from the redirect.
+          // The onAuthStateChanged listener below will also fire, but this ensures
+          // we have the user info as early as possible.
           setUser(result.user);
         }
       })
@@ -51,14 +55,18 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         console.error("Error getting redirect result:", error);
       })
       .finally(() => {
-         // Even if there's no redirect result, we continue to set up the listener.
-         // The listener will handle the case where the user is already signed in.
+        isProcessingRedirect = false;
+        // If onAuthStateChanged has already run, we might need to update loading state here.
+        // However, the listener is set up right after, so it's safer to let it handle it.
       });
 
     const unsubscribe = auth.onAuthStateChanged(
       (user) => {
         setUser(user);
-        setLoading(false);
+        // Don't stop loading until the redirect check is also complete.
+        if (!isProcessingRedirect) {
+          setLoading(false);
+        }
       },
       (error) => {
         console.error('Auth state change error:', error);
