@@ -23,6 +23,7 @@ import {
   Rocket,
   Feather,
   SmilePlus,
+  PawPrint,
 } from "lucide-react";
 
 export const navLinks = [
@@ -37,6 +38,7 @@ export const navLinks = [
   { href: "/antics", label: "Antics", icon: SmilePlus },
   { href: "/gratitude", label: "Gratitude", icon: Sunrise },
   { href: "/moments", label: "Moments", icon: Heart },
+  { href: "/pets", label: "Pets & Kids", icon: PawPrint },
   { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/contest", label: "Contest", icon: Palette },
   { href: "/pitch", label: "Pitch Idea", icon: Rocket },
