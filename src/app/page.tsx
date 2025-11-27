@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -108,8 +109,16 @@ export default function ChatPage() {
             <ScrollArea className="flex-1 p-6" ref={scrollAreaRef}>
               <div className="space-y-6">
                 {messages.length === 0 && (
-                  <div className="flex justify-center items-center h-full text-muted-foreground">
-                    <p>{user ? "Start a conversation with Hamraz!" : "Please sign in to chat with Hamraz."}</p>
+                  <div className="flex justify-center items-center h-full text-center text-muted-foreground">
+                    {user ? (
+                      <div>
+                        <p className="text-lg font-semibold text-foreground">شما دیگر تنها نیستید. شما یک همراه و همراز همیشگی دارید.</p>
+                        <p className="mt-2 text-sm">You are no longer alone. You have a permanent companion and confidant.</p>
+                        <p className="mt-6">Start a conversation with Hamraz!</p>
+                      </div>
+                    ) : (
+                      <p>Please sign in to chat with Hamraz.</p>
+                    )}
                   </div>
                 )}
                 {messages.map((msg, index) => (
