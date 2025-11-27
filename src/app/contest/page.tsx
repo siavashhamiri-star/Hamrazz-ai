@@ -14,13 +14,25 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Gift, Star } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+
+const wallOfFame = [
+    { name: "Kian", achievement: "Excellent score in Math!", photo: "https://picsum.photos/seed/fame1/200/200", parentNote: "We are so proud of your hard work, son!"},
+    { name: "Sara", achievement: "Won the class spelling bee!", photo: "https://picsum.photos/seed/fame2/200/200", parentNote: "Your dedication is inspiring, sweetie!"},
+    { name: "Bahar", achievement: "Amazing drawing in art class!", photo: "https://picsum.photos/seed/fame3/200/200", parentNote: "Such a creative and beautiful piece of art!"},
+];
+
 
 export default function ContestPage() {
+  const [submissionType, setSubmissionType] = useState("achievement");
   const [name, setName] = useState("");
-  const [age, setAge] = useState("");
+  const [achievement, setAchievement] = useState("");
+  const [parentNote, setParentNote] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -35,32 +47,38 @@ export default function ContestPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !age.trim() || !file) {
+    if (!name.trim() || !file || (submissionType === 'achievement' && !achievement.trim())) {
       toast({
         variant: "destructive",
         title: "Incomplete Information",
-        description: "Please fill out all fields and upload your drawing.",
+        description: "Please fill out all required fields and upload a file.",
       });
       return;
     }
     setIsLoading(true);
 
-    // Simulate API call for submission
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    // In a real app, you would upload the file to Firebase Storage
-    // and save the entry to Firestore.
-    console.log("Contest Submission:", {
+    console.log("Submission:", {
       userId: user?.uid || "anonymous",
+      type: submissionType,
       name,
-      age,
+      achievement,
+      parentNote,
       fileName: file.name,
-      fileType: file.type,
     });
 
     setIsLoading(false);
     setIsSubmitted(true);
   };
+  
+  const resetForm = () => {
+    setIsSubmitted(false);
+    setName("");
+    setAchievement("");
+    setParentNote("");
+    setFile(null);
+  }
 
   if (isSubmitted) {
     return (
@@ -69,15 +87,10 @@ export default function ContestPage() {
                 <CardHeader>
                     <PartyPopper className="w-16 h-16 mx-auto text-primary" />
                     <CardTitle className="text-2xl font-headline mt-4">Submission Successful!</CardTitle>
-                    <CardDescription>Your beautiful drawing has been received. Wait for the prize draw results.</CardDescription>
+                    <CardDescription>Thank you for sharing this achievement. It will be reviewed and featured on the Wall of Fame soon!</CardDescription>
                 </CardHeader>
                 <CardFooter>
-                    <Button className="w-full" onClick={() => {
-                        setIsSubmitted(false);
-                        setName("");
-                        setAge("");
-                        setFile(null);
-                    }}>Submit Another Drawing</Button>
+                    <Button className="w-full" onClick={resetForm}>Share Another Achievement</Button>
                 </CardFooter>
             </Card>
         </div>
@@ -87,15 +100,34 @@ export default function ContestPage() {
 
   return (
     <div className="space-y-8">
-         <Alert variant="default" className="bg-accent/20 border-accent/30">
-          <Star className="h-4 w-4 text-accent" />
-          <AlertTitle className="text-accent">Amazing Bi-Annual Prize!</AlertTitle>
-          <AlertDescription>
-            Every six months, an exceptional prize will be awarded to one of the top and most active users of the app. The winner's profile and picture will be announced in the app.
-          </AlertDescription>
-        </Alert>
+        <div>
+            <h1 className="text-3xl font-bold font-headline mb-2">Hall of Fame & Contests</h1>
+            <p className="text-muted-foreground">Celebrate achievements and participate in creative contests!</p>
+        </div>
 
-        <Alert>
+        <Card className="bg-gradient-to-br from-primary/10 to-accent/10">
+             <CardHeader>
+                <CardTitle className="text-2xl font-headline text-center flex items-center justify-center gap-3"><AwardIcon className="w-8 h-8 text-yellow-500" /> Wall of Fame</CardTitle>
+                <CardDescription className="text-center">A place to celebrate the amazing achievements of our community's children.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {wallOfFame.map((item, index) => (
+                        <div key={index} className="flex flex-col items-center text-center p-4 bg-card/80 rounded-lg shadow-md transition-transform hover:scale-105">
+                            <Avatar className="w-24 h-24 border-4 border-primary/50 mb-3">
+                                <AvatarImage src={item.photo} alt={item.name} />
+                                <AvatarFallback>{item.name.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <h3 className="font-bold text-lg">{item.name}</h3>
+                            <p className="font-semibold text-primary text-sm">{item.achievement}</p>
+                            <p className="text-xs text-muted-foreground mt-2 italic">"{item.parentNote}"</p>
+                        </div>
+                    ))}
+                </div>
+            </CardContent>
+        </Card>
+
+         <Alert>
           <Gift className="h-4 w-4" />
           <AlertTitle>Seasonal Prize Draw!</AlertTitle>
           <AlertDescription>
@@ -103,78 +135,80 @@ export default function ContestPage() {
           </AlertDescription>
         </Alert>
 
+        <Alert variant="default" className="bg-accent/20 border-accent/30">
+          <Star className="h-4 w-4 text-accent" />
+          <AlertTitle className="text-accent">Amazing Bi-Annual Prize!</AlertTitle>
+          <AlertDescription>
+            Every six months, an exceptional prize will be awarded to one of the top and most active users of the app. The winner's profile and picture will be announced in the app.
+          </AlertDescription>
+        </Alert>
+        
         <Card className="w-full max-w-2xl mx-auto shadow-lg">
             <form onSubmit={handleSubmit}>
             <CardHeader>
                 <CardTitle className="text-2xl font-headline">
-                The Great Drawing Contest
+                Share an Achievement
                 </CardTitle>
                 <CardDescription>
-                You can also participate in our contest by submitting a drawing and try your luck at winning exciting prizes!
+                Celebrate your child's success by adding them to the Wall of Fame, or enter our creative contest.
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-                <div className="space-y-2">
-                <Label htmlFor="name">Your Name</Label>
-                <Input
-                    id="name"
-                    placeholder="Enter your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    disabled={isLoading || !user}
-                    required
-                />
+                 <div className="space-y-2">
+                    <Label>Submission Type</Label>
+                     <Select onValueChange={(val: "achievement" | "drawing") => setSubmissionType(val)} defaultValue={submissionType}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select a submission type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="achievement">Academic Achievement</SelectItem>
+                            <SelectItem value="drawing">Drawing Contest</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </div>
                 <div className="space-y-2">
-                <Label htmlFor="age">Your Age</Label>
-                <Input
-                    id="age"
-                    type="number"
-                    placeholder="Enter your age"
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    disabled={isLoading || !user}
-                    required
-                />
+                    <Label htmlFor="name">Child's Name</Label>
+                    <Input id="name" placeholder="Enter their name" value={name} onChange={(e) => setName(e.target.value)} disabled={isLoading || !user} required />
                 </div>
+                
+                { submissionType === 'achievement' && (
+                <>
+                    <div className="space-y-2">
+                        <Label htmlFor="achievement-text">Achievement / Good Grade</Label>
+                        <Input id="achievement-text" placeholder="e.g., 'Got an A in Science!'" value={achievement} onChange={(e) => setAchievement(e.target.value)} disabled={isLoading || !user} required />
+                    </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="parent-note">A Thank You Note (Optional)</Label>
+                        <Textarea id="parent-note" placeholder="e.g., 'We're so proud of your hard work!'" value={parentNote} onChange={(e) => setParentNote(e.target.value)} disabled={isLoading || !user} />
+                    </div>
+                </>
+                )}
+
                 <div className="space-y-2">
-                <Label htmlFor="drawing">Drawing File</Label>
-                <Input
-                    id="drawing"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    disabled={isLoading || !user}
-                    required
-                    className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
-                />
-                <p className="text-xs text-muted-foreground pt-1">
-                    Allowed formats: JPG, PNG, GIF
-                </p>
+                    <Label htmlFor="file-upload">{submissionType === 'achievement' ? "Child's Photo" : "Drawing File"}</Label>
+                    <Input
+                        id="file-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        disabled={isLoading || !user}
+                        required
+                        className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
+                    />
+                    <p className="text-xs text-muted-foreground pt-1">
+                        Allowed formats: JPG, PNG.
+                    </p>
                 </div>
                 {!user && (
                 <p className="text-sm text-center text-destructive font-medium">
-                    Please sign in to participate in the contest.
+                    Please sign in to make a submission.
                 </p>
                 )}
             </CardContent>
             <CardFooter>
-                <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading || !user}
-                >
-                {isLoading ? (
-                    <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Submitting...
-                    </>
-                ) : (
-                    <>
-                    <Upload className="mr-2 h-4 w-4" />
-                    Submit Drawing & Enter Contest
-                    </>
-                )}
+                <Button type="submit" className="w-full" disabled={isLoading || !user}>
+                    {isLoading ? ( <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Submitting...</> ) 
+                    : ( <><Upload className="mr-2 h-4 w-4" /> {submissionType === 'achievement' ? "Add to Wall of Fame" : "Enter Drawing Contest"} </>)}
                 </Button>
             </CardFooter>
             </form>
@@ -182,3 +216,5 @@ export default function ContestPage() {
     </div>
   );
 }
+
+    

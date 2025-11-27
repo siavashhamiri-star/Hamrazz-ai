@@ -42,7 +42,7 @@ export const navLinks = [
   { href: "/pets", label: "Pets & Kids", icon: PawPrint },
   { href: "/dreams", label: "Dreams", icon: Cloud },
   { href: "/games", label: "Games", icon: Gamepad2 },
-  { href: "/contest", label: "Contest", icon: Palette },
+  { href: "/contest", label: "Contest", icon: Award },
   { href: "/pitch", label: "Pitch Idea", icon: Rocket },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
   { href: "/camera", label: "Camera", icon: Camera },
@@ -56,3 +56,5 @@ export const bottomNavLinks = [
   { href: "/board", label: "Board", icon: Award },
   { href: "/privacy", label: "Privacy", icon: Shield },
 ];
+
+    
