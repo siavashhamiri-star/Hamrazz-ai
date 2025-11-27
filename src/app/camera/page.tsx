@@ -12,16 +12,28 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Camera, Video, Mic, Circle, Square, RefreshCcw } from "lucide-react";
+import { Camera, Video, Mic, Circle, Square, RefreshCcw, Play, Pause } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
 
 export default function CameraPage() {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [recordedVideo, setRecordedVideo] = useState<string | null>(null);
   const [recordingTime, setRecordingTime] = useState(0);
+
+  // Teleprompter state
+  const [teleprompterText, setTeleprompterText] = useState("");
+  const [isTeleprompterPlaying, setIsTeleprompterPlaying] = useState(false);
+  const [teleprompterSpeed, setTeleprompterSpeed] = useState(15);
+  const teleprompterRef = useRef<HTMLDivElement>(null);
+  const animationFrameRef = useRef<number>();
+  const lastTimeRef = useRef<number>(0);
+
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -127,16 +139,59 @@ export default function CameraPage() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
+  // Teleprompter animation logic
+  const animateTeleprompter = useCallback((timestamp: number) => {
+    if (!lastTimeRef.current) {
+      lastTimeRef.current = timestamp;
+    }
+    const deltaTime = (timestamp - lastTimeRef.current) / 1000;
+    lastTimeRef.current = timestamp;
+
+    if (teleprompterRef.current) {
+      const scrollAmount = deltaTime * teleprompterSpeed;
+      teleprompterRef.current.scrollTop += scrollAmount;
+      if (teleprompterRef.current.scrollTop < teleprompterRef.current.scrollHeight - teleprompterRef.current.clientHeight) {
+        animationFrameRef.current = requestAnimationFrame(animateTeleprompter);
+      } else {
+        setIsTeleprompterPlaying(false);
+      }
+    }
+  }, [teleprompterSpeed]);
+
+  useEffect(() => {
+    if (isTeleprompterPlaying) {
+      lastTimeRef.current = 0;
+      animationFrameRef.current = requestAnimationFrame(animateTeleprompter);
+    } else {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    }
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [isTeleprompterPlaying, animateTeleprompter]);
+
+  const handleTeleprompterReset = () => {
+    if (teleprompterRef.current) {
+      teleprompterRef.current.scrollTop = 0;
+    }
+    setIsTeleprompterPlaying(false);
+  };
+
+
   return (
-    <div className="flex justify-center items-start pt-8">
-      <Card className="w-full max-w-2xl shadow-lg">
+    <div className="flex flex-col items-center gap-8 pt-8">
+      <Card className="w-full max-w-4xl shadow-lg">
         <CardHeader>
           <CardTitle className="text-2xl font-headline flex items-center gap-2">
             <Camera className="w-6 h-6" />
-            {recordedVideo ? "Review Your Video" : "Live Camera View"}
+            {recordedVideo ? "Review Your Video" : "Your Personal Recording Studio"}
           </CardTitle>
           <CardDescription>
-            {recordedVideo ? "Watch your recording below." : "This is your personal recording studio. Smile for the camera!"}
+            {recordedVideo ? "Watch your recording below." : "Record a video with an integrated teleprompter for a professional touch."}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -151,6 +206,14 @@ export default function CameraPage() {
               controls={!!recordedVideo}
             />
             
+            {!recordedVideo && teleprompterText && (
+              <div ref={teleprompterRef} className="absolute inset-0 p-10 bg-black/50 text-white text-3xl font-bold overflow-hidden pointer-events-none" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
+                <div className="text-center leading-relaxed whitespace-pre-wrap">
+                  {teleprompterText}
+                </div>
+              </div>
+            )}
+
             {hasPermission === false && (
               <div className="absolute inset-0 flex items-center justify-center p-4">
                  <Alert variant="destructive">
@@ -200,6 +263,47 @@ export default function CameraPage() {
             )}
         </CardFooter>
       </Card>
+
+      {!recordedVideo && user && (
+        <Card className="w-full max-w-4xl shadow-lg">
+            <CardHeader>
+                <CardTitle>Teleprompter</CardTitle>
+                <CardDescription>Enter your script below. It will scroll over the video as you record.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Textarea 
+                    placeholder="Paste your script here..."
+                    className="min-h-[200px] text-base"
+                    value={teleprompterText}
+                    onChange={(e) => setTeleprompterText(e.target.value)}
+                />
+            </CardContent>
+            <CardFooter className="flex flex-col sm:flex-row items-center gap-4">
+                <div className="flex items-center gap-2">
+                    <Button onClick={() => setIsTeleprompterPlaying(!isTeleprompterPlaying)} variant="outline" disabled={!teleprompterText}>
+                        {isTeleprompterPlaying ? <Pause className="mr-2"/> : <Play className="mr-2" />}
+                        {isTeleprompterPlaying ? 'Pause' : 'Play'}
+                    </Button>
+                     <Button onClick={handleTeleprompterReset} variant="ghost" disabled={!teleprompterText}>
+                        <RefreshCcw className="mr-2" /> Reset
+                    </Button>
+                </div>
+                <div className="flex-1 w-full sm:w-auto flex items-center gap-3">
+                    <Label htmlFor="speed-slider">Scroll Speed</Label>
+                    <Slider
+                        id="speed-slider"
+                        min={5}
+                        max={100}
+                        step={1}
+                        value={[teleprompterSpeed]}
+                        onValueChange={(value) => setTeleprompterSpeed(value[0])}
+                        className="w-full"
+                        disabled={!teleprompterText}
+                    />
+                </div>
+            </CardFooter>
+        </Card>
+      )}
     </div>
   );
 }
