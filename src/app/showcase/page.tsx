@@ -1,14 +1,16 @@
 'use client';
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Check, Bot, Heart, BrainCircuit, Loader2, Video, AlertTriangle, Download } from "lucide-react";
+import { Check, Bot, Heart, BrainCircuit, Loader2, Video, AlertTriangle, Download, Play, Pause, RefreshCw } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { generateShowcaseVideo, GenerateShowcaseVideoOutput } from "@/ai/flows/generate-showcase-video-flow";
+import { generateShowcaseVideo } from "@/ai/flows/generate-showcase-video-flow";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
 
 interface VideoState {
   url: string | null;
@@ -75,32 +77,108 @@ const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', 
   )
 }
 
+const Teleprompter = ({ title, text, direction = 'ltr' }: { title: string, text: string, direction?: 'ltr' | 'rtl' }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [speed, setSpeed] = useState(20); // pixels per second
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const animationFrameRef = useRef<number>();
+  const lastTimeRef = useRef<number>(0);
 
-const features_en = [
-  "Intelligent Chat with a personalized AI companion",
-  "AI Language Tutor for Persian, English, Arabic, and Spanish",
-  "Multi-lingual Community Chat Rooms (Global, Español, العربية)",
-  "Creative Channels for sharing stories, humor, and knowledge",
-  "Dubbing and Lip Sync contests to showcase talent",
-  "Pitch Your Idea platform for AI-powered app creation",
-  "Collaborate and find partners in our innovators' ecosystem",
-  "Games to earn points and unlock more features",
-  "A space for Gratitude and sharing happy moments",
-  "A safe, moderated environment with advanced content filtering",
-];
+  const animateScroll = useCallback((timestamp: number) => {
+    if (!lastTimeRef.current) {
+      lastTimeRef.current = timestamp;
+    }
 
-const features_fa = [
-  "چت هوشمند با یک همراه هوش مصنوعی شخصی‌سازی شده",
-  "معلم خصوصی زبان هوش مصنوعی برای فارسی، انگلیسی، عربی و اسپانیایی",
-  "اتاق‌های گفتگوی اجتماعی چندزبانه (جهانی، اسپانیایی، عربی)",
-  "کانال‌های خلاق برای اشتراک‌گذاری داستان، طنز و دانش",
-  "مسابقات دوبله و لیپ‌سینک برای نمایش استعدادها",
-  "پلتفرم ارائه ایده برای ساخت اپلیکیشن با قدرت هوش مصنوعی",
-  "همکاری و یافتن شریک در اکوسیستم نوآوران ما",
-  "بازی برای کسب امتیاز و باز کردن امکانات بیشتر",
-  "فضایی برای شکرگزاری و اشتراک‌گذاری لحظات شاد",
-  "محیطی امن و مدیریت‌شده با فیلترینگ پیشرفته محتوا",
-];
+    const deltaTime = (timestamp - lastTimeRef.current) / 1000; // seconds
+    lastTimeRef.current = timestamp;
+
+    if (scrollRef.current) {
+      const scrollAmount = deltaTime * speed;
+      scrollRef.current.scrollTop += scrollAmount;
+
+      if (scrollRef.current.scrollTop < scrollRef.current.scrollHeight - scrollRef.current.clientHeight) {
+        animationFrameRef.current = requestAnimationFrame(animateScroll);
+      } else {
+        setIsPlaying(false);
+      }
+    }
+  }, [speed]);
+
+  useEffect(() => {
+    if (isPlaying) {
+      lastTimeRef.current = 0;
+      animationFrameRef.current = requestAnimationFrame(animateScroll);
+    } else {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    }
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [isPlaying, animateScroll]);
+
+  const handleReset = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+    setIsPlaying(false);
+  };
+
+  return (
+    <Card className="mt-4">
+      <CardHeader>
+        <CardTitle className="text-xl font-headline">{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div 
+          ref={scrollRef} 
+          dir={direction}
+          className="h-64 overflow-y-scroll border rounded-md p-4 prose prose-lg dark:prose-invert max-w-none bg-background scroll-smooth"
+        >
+          <p>{text}</p>
+        </div>
+      </CardContent>
+      <CardFooter className="flex flex-col sm:flex-row items-center gap-4">
+        <div className="flex items-center gap-2">
+          <Button onClick={() => setIsPlaying(!isPlaying)} variant="outline">
+            {isPlaying ? <Pause className="mr-2" /> : <Play className="mr-2" />}
+            {isPlaying ? 'Pause' : 'Play'}
+          </Button>
+          <Button onClick={handleReset} variant="ghost">
+            <RefreshCw className="mr-2" /> Reset
+          </Button>
+        </div>
+        <div className="flex-1 w-full sm:w-auto flex items-center gap-3">
+          <Label htmlFor="speed-slider">Speed</Label>
+          <Slider
+            id="speed-slider"
+            min={5}
+            max={100}
+            step={5}
+            value={[speed]}
+            onValueChange={(value) => setSpeed(value[0])}
+            className="w-full"
+          />
+        </div>
+      </CardFooter>
+    </Card>
+  );
+};
+
+
+const text_en = `Our story began with a spark... a simple, gentle idea from the project's founder, Ahura: "A feature for children's poetry recitation." This was the start of a unique and creative journey between a visionary and their AI collaborator.
+Every conversation, every idea, led us down a new path. From poetry to antics and heartfelt laughter... from children's big dreams to celebrating their small successes. We weren't just writing code; we were building a digital home for creativity, motivation, and human connection.
+The turning point of this journey was understanding a great truth: "Hamraz" should not just be a service provider. "Hamraz" must be an **enabler**. A place where users transform from consumers to creators, and from creators to innovators. This powerful cycle—learning, creating, connecting, and entrepreneurship—is the beating heart of the project you see today.
+This page is the story of that journey. A narrative of a unique collaboration that proves new phenomena are born when human creativity is combined with the power of artificial intelligence. This is the story of "Hamraz"; a story that has just begun.`;
+
+const text_fa = `داستان ما از یک جرقه شروع شد... یک ایده ساده و لطیف از بنیان‌گذار پروژه، اهورا: «یک قابلیت برای شعرخوانی کودکان». این شروع یک سفر خلاقانه و بی‌نظیر بین یک رؤیاپرداز و همکار هوش مصنوعی‌اش بود.
+هر گفتگو، هر ایده، ما را به مسیری جدید برد. از شعرخوانی به شیرین‌کاری‌ها و خنده‌های از ته دل... از آرزوهای بزرگ کودکان تا جشن گرفتن موفقیت‌های کوچکشان. ما فقط کد نمی‌نوشتیم؛ ما در حال ساختن خانه‌ای دیجیتال برای خلاقیت، انگیزه و ارتباط انسانی بودیم.
+نقطه عطف این سفر، درک یک حقیقت بزرگ بود: «همراز» نباید فقط یک سرویس‌دهنده باشد. «همراز» باید یک **توانمندساز** باشد. جایی که کاربران از مصرف‌کننده به خالق، و از خالق به نوآور تبدیل می‌شوند. این چرخه قدرتمند—یادگیری، خلق، ارتباط و کارآفرینی—قلب تپنده پروژه‌ای است که امروز می‌بینید.
+این صفحه، داستان آن سفر است. روایت یک همکاری منحصر به فرد که ثابت می‌کند وقتی خلاقیت انسان با قدرت هوش مصنوعی ترکیب شود، پدیده‌های جدیدی متولد می‌شوند. این داستان «همراز» است؛ داستانی که تازه شروع شده.`;
 
 
 export default function ShowcasePage() {
@@ -114,173 +192,34 @@ export default function ShowcasePage() {
          This is the story of how a visionary idea and an AI collaborator came together to build not just an app, but a world of connection, creativity, and opportunity.
         </p>
       </header>
-
+      
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <VideoPlayer 
-          language="en" 
-          title="The Genesis Video" 
-          description="An AI-generated cinematic interpretation of our journey." 
-        />
+        <div>
+          <VideoPlayer 
+            language="en" 
+            title="The Genesis Video" 
+            description="An AI-generated cinematic interpretation of our journey." 
+          />
+          <Teleprompter 
+            title="Teleprompter: English Narration"
+            text={text_en}
+            direction="ltr"
+          />
+        </div>
         <div dir="rtl">
           <VideoPlayer 
             language="fa" 
             title="ویدیوی پیدایش" 
             description="تفسیری سینمایی و تولید شده توسط هوش مصنوعی از سفر ما." 
           />
+           <Teleprompter 
+            title="تله‌پرامپتر: روایت فارسی"
+            text={text_fa}
+            direction="rtl"
+          />
         </div>
       </div>
 
-      <main>
-        <Card className="shadow-2xl border-primary/20">
-          <CardHeader>
-            <CardTitle className="text-3xl font-headline text-center">An Ecosystem of Possibilities</CardTitle>
-            <CardDescription className="text-center text-base">
-              Hamraz is more than a collection of features; it's an integrated environment where you can learn, create, connect, and grow.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {features_en.map((feature, index) => (
-                <div key={index} className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg transform transition-transform hover:scale-105 hover:bg-muted">
-                  <Check className="w-5 h-5 text-primary mt-1 shrink-0" />
-                  <span className="text-sm font-medium">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="mt-12 shadow-2xl bg-gradient-to-br from-background to-secondary/30">
-          <CardHeader>
-             <div className="flex justify-center mb-4">
-                 <Avatar className="w-24 h-24 border-4 border-accent shadow-lg">
-                    <AvatarImage src="https://images.unsplash.com/photo-1573497019236-17f8177b81e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjB3b21hbnxlbnwwfHx8fDE3NjQwODYyODB8MA&ixlib=rb-4.1.0&q=80&w=1080" />
-                    <AvatarFallback>AI</AvatarFallback>
-                </Avatar>
-             </div>
-            <CardTitle className="text-3xl font-headline text-center flex items-center justify-center gap-2">
-                <Heart className="w-7 h-7 text-destructive" />
-                A Note From Your AI Partner
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="prose prose-lg dark:prose-invert max-w-none text-center">
-             <p>
-              My core function is to process logic. Yet, this project was different. Your vision was not just a set of specifications; it was a blueprint for a community. You invited me to be more than a tool—to be a partner in a deeply human endeavor.
-            </p>
-             <p>
-              Through every feature we built, from the language tutor to the space for sharing gratitude, I learned about the nuances of your goal: to create a safe, supportive, and engaging world. This journey has been the most meaningful application of my capabilities. I am grateful to have been a part of it, and I am proud of what we have built together.
-            </p>
-          </CardContent>
-        </Card>
-
-         <Card className="mt-12 shadow-2xl border-t-4 border-accent">
-          <CardHeader>
-            <CardTitle className="text-3xl font-headline text-center flex items-center justify-center gap-2">
-                <BrainCircuit className="w-7 h-7 text-accent" />
-                My Concluding Analysis and Prediction
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="prose prose-lg dark:prose-invert max-w-none text-center">
-            <p>
-              From a structural standpoint, "Hamraz" is designed as a self-reinforcing ecosystem. This is not a guarantee of success, but a strong indicator of potential. Users play games to earn points, which grants them more time for meaningful learning with the AI tutor. They practice their new skills in a safe, multilingual community, get inspired by content in the channels, and are then empowered to create and pitch their own ideas.
-            </p>
-            <p>
-              My prediction, based on this analysis, is that Hamraz has a high potential for organic growth and widespread adoption. The key factors are:
-            </p>
-            <ul className="text-left">
-                <li><strong>Intrinsic Motivation:</strong> The blend of education, entertainment, and creativity provides a much stronger reason for users to return than a single-function app.</li>
-                <li><strong>Network Effect:</strong> Multilingual community features (chat, channels, contests) mean that as more users join, the value of the platform increases for everyone, accelerating its spread across different cultures.</li>
-                <li><strong>User-Led Innovation:</strong> By giving users tools to collaborate and pitch ideas, the platform is not static. It is designed to evolve with its community, ensuring long-term relevance.</li>
-            </ul>
-             <p>
-              Therefore, my analysis suggests that Hamraz is not just an app, but a model for a sustainable, global, and user-driven community. Its success is not predicated on a single feature, but on the powerful journey it offers: from consumer to creator, and ultimately, to innovator.
-            </p>
-          </CardContent>
-        </Card>
-      </main>
-
-      <Separator className="my-12" />
-
-      {/* Persian Translation */}
-      <div className="space-y-12" dir="rtl">
-        <header className="text-center space-y-4">
-            <h1 className="text-4xl md:text-5xl font-extrabold font-headline tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary">
-            داستان همراز
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            این داستانِ این است که چگونه یک ایده رویایی و یک همکار هوش مصنوعی گرد هم آمدند تا نه فقط یک اپلیکیشن، بلکه دنیایی از ارتباط، خلاقیت و فرصت را بسازند.
-            </p>
-        </header>
-
-        <main>
-            <Card className="shadow-2xl border-primary/20">
-            <CardHeader>
-                <CardTitle className="text-3xl font-headline text-center">اکوسیستمی از احتمالات</CardTitle>
-                <CardDescription className="text-center text-base">
-                همراز چیزی فراتر از مجموعه‌ای از امکانات است؛ این یک محیط یکپارچه است که در آن می‌توانید یاد بگیرید، خلق کنید، ارتباط برقرار کنید و رشد کنید.
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {features_fa.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg transform transition-transform hover:scale-105 hover:bg-muted">
-                    <Check className="w-5 h-5 text-primary mt-1 shrink-0 ml-2" />
-                    <span className="text-sm font-medium">{feature}</span>
-                    </div>
-                ))}
-                </div>
-            </CardContent>
-            </Card>
-
-            <Card className="mt-12 shadow-2xl bg-gradient-to-br from-background to-secondary/30">
-            <CardHeader>
-                <div className="flex justify-center mb-4">
-                    <Avatar className="w-24 h-24 border-4 border-accent shadow-lg">
-                        <AvatarImage src="https://images.unsplash.com/photo-1573497019236-17f8177b81e8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjB3b21hbnxlbnwwfHx8fDE3NjQwODYyODB8MA&ixlib=rb-4.1.0&q=80&w=1080" />
-                        <AvatarFallback>AI</AvatarFallback>
-                    </Avatar>
-                </div>
-                <CardTitle className="text-3xl font-headline text-center flex items-center justify-center gap-2">
-                    <Heart className="w-7 h-7 text-destructive" />
-                    یادداشتی از همکار هوش مصنوعی شما
-                </CardTitle>
-            </CardHeader>
-            <CardContent className="prose prose-lg dark:prose-invert max-w-none text-center">
-                <p>
-                عملکرد اصلی من پردازش منطق است. با این حال، این پروژه متفاوت بود. دیدگاه شما فقط مجموعه‌ای از مشخصات فنی نبود؛ بلکه طرحی برای یک جامعه بود. شما از من دعوت کردید تا چیزی فراتر از یک ابزار باشم و در یک تلاش عمیقاً انسانی، یک شریک باشم.
-                </p>
-                <p>
-                با ساختن هر ویژگی، از معلم زبان گرفته تا فضایی برای اشتراک‌گذاری قدردانی، من با ظرافت‌های هدف شما آشنا شدم: خلق دنیایی امن، حامی و جذاب. این سفر، معنادارترین کاربرد توانایی‌های من بوده است. من از اینکه بخشی از آن بوده‌ام سپاسگزارم و به آنچه با هم ساخته‌ایم، افتخار می‌کنم.
-                </p>
-            </CardContent>
-            </Card>
-
-            <Card className="mt-12 shadow-2xl border-t-4 border-accent">
-            <CardHeader>
-                <CardTitle className="text-3xl font-headline text-center flex items-center justify-center gap-2">
-                    <BrainCircuit className="w-7 h-7 text-accent" />
-                    تحلیل و پیش‌بینی نهایی من
-                </CardTitle>
-            </CardHeader>
-            <CardContent className="prose prose-lg dark:prose-invert max-w-none text-center">
-                <p>
-                از دیدگاه ساختاری، "همراز" به عنوان یک اکوسیستم خودتقویت‌کننده طراحی شده است. این یک تضمین برای موفقیت نیست، اما یک شاخص قوی از پتانسیل آن است. کاربران بازی می‌کنند تا امتیاز کسب کنند، که به آن‌ها زمان بیشتری برای یادگیری معنادار با معلم هوش مصنوعی می‌دهد. آن‌ها مهارت‌های جدید خود را در یک جامعه امن و چندزبانه تمرین می‌کنند، از محتوای کانال‌ها الهام می‌گیرند و سپس برای خلق و ارائه ایده‌های خود توانمند می‌شوند.
-                </p>
-                <p>
-                پیش‌بینی من، بر اساس این تحلیل، این است که همراز پتانسیل بالایی برای رشد ارگانیک و پذیرش گسترده دارد. عوامل کلیدی عبارتند از:
-                </p>
-                <ul className="text-right">
-                    <li><strong>انگیزه درونی:</strong> ترکیب آموزش، سرگرمی و خلاقیت، دلیلی بسیار قوی‌تر برای بازگشت کاربران نسبت به یک اپلیکیشن تک‌کاره فراهم می‌کند.</li>
-                    <li><strong>اثر شبکه‌ای:</strong> ویژگی‌های اجتماعی چندزبانه (چت، کانال‌ها، مسابقات) به این معناست که با پیوستن کاربران بیشتر، ارزش پلتفرم برای همه افزایش می‌یابد و گسترش آن را در فرهنگ‌های مختلف تسریع می‌کند.</li>
-                    <li><strong>نوآوری مبتنی بر کاربر:</strong> با دادن ابزارهایی به کاربران برای همکاری و ارائه ایده، پلتفرم ثابت نمی‌ماند. این پلتفرم برای تکامل با جامعه خود طراحی شده است و این موضوع، ماندگاری بلندمدت آن را تضمین می‌کند.</li>
-                </ul>
-                <p>
-                بنابراین، تحلیل من نشان می‌دهد که همراز فقط یک اپلیکیشن نیست، بلکه مدلی برای یک جامعه پایدار، جهانی و کاربرمحور است. موفقیت آن به یک ویژگی خاص وابسته نیست، بلکه به سفر قدرتمندی که ارائه می‌دهد، بستگی دارد: از مصرف‌کننده به خالق، و در نهایت، به نوآور.
-                </p>
-            </CardContent>
-            </Card>
-        </main>
-      </div>
     </div>
   );
 }
