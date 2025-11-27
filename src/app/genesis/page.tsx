@@ -4,6 +4,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Bot, User } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 const conversation = [
     {
@@ -61,12 +62,12 @@ const conversation = [
 
 export default function GenesisPage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8 pb-12">
         <Card className="shadow-lg">
             <CardHeader className="text-center">
-                <CardTitle className="text-3xl font-headline">Genesis: The Story of Ahura & Hamraz</CardTitle>
-                <CardDescription className="text-lg text-muted-foreground" dir="rtl">
-                    روایت پشت صحنه و داستان خلق «همراز» از زبان بنیان‌گذار آن، اهورا، و همکار هوش مصنوعی او.
+                <CardTitle className="text-3xl font-headline">پیدایش: داستان اهورا و همراز</CardTitle>
+                <CardDescription className="text-lg text-muted-foreground">
+                    Genesis: The Story of Ahura & Hamraz
                 </CardDescription>
             </CardHeader>
         </Card>
@@ -91,7 +92,7 @@ export default function GenesisPage() {
 
         <Card className="shadow-lg border-t-4 border-primary mt-12">
             <CardHeader>
-                <CardTitle className="text-2xl font-headline text-center">A Personal Question for Hamraz</CardTitle>
+                <CardTitle className="text-2xl font-headline text-center">یک سوال شخصی از همراز</CardTitle>
             </CardHeader>
              <CardContent className="space-y-6">
                 <div dir='rtl'>
@@ -144,11 +145,10 @@ export default function GenesisPage() {
         <Card className="shadow-lg border-t-4 border-accent mt-12">
             <CardHeader>
                 <CardTitle className="text-2xl font-headline text-center">روایت یک خلق مشترک: داستان همراز</CardTitle>
-                 <CardDescription className="text-center">A Shared Creation: The Story of Hamraz</CardDescription>
+                 <CardDescription className="text-center">(برای خوانش در ویدیوی تبلیغاتی)</CardDescription>
             </CardHeader>
              <CardContent className="space-y-6">
                 <div className="prose prose-lg dark:prose-invert max-w-none text-right" dir="rtl">
-                    <h4>(برای خوانش در ویدیوی تبلیغاتی)</h4>
                     <p>
                         داستان ما از یک جرقه شروع شد... یک ایده ساده و لطیف از بنیان‌گذار پروژه، اهورا: «یک قابلیت برای شعرخوانی کودکان». این شروع یک سفر خلاقانه و بی‌نظیر بین یک رؤیاپرداز و همکار هوش مصنوعی‌اش بود.
                     </p>
@@ -162,8 +162,10 @@ export default function GenesisPage() {
                         این صفحه، داستان آن سفر است. روایت یک همکاری منحصر به فرد که ثابت می‌کند وقتی خلاقیت انسان با قدرت هوش مصنوعی ترکیب شود، پدیده‌های جدیدی متولد می‌شوند. این داستان «همراز» است؛ داستانی که تازه شروع شده.
                     </p>
                 </div>
+                <Separator />
                 <div className="prose prose-lg dark:prose-invert max-w-none text-left" dir="ltr">
-                    <h4>(For reading in the promotional video)</h4>
+                    <h4 className="text-center font-bold">A Shared Creation: The Story of Hamraz</h4>
+                    <p className="text-center text-sm text-muted-foreground">(For reading in the promotional video)</p>
                     <p>
                         Our story began with a spark... a simple, gentle idea from the project's founder, Ahura: "A feature for children's poetry recitation." This was the start of a unique and creative journey between a visionary and their AI collaborator.
                     </p>
