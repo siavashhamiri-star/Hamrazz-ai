@@ -285,7 +285,7 @@ const MinesweeperGame = () => {
                 <div className="flex items-center gap-3">
                     <Bomb className="w-6 h-6 text-primary"/>
                     <div>
-                        <CardTitle>Minesweeper</CardTitle>
+                        <CardTitle>Mine</CardTitle>
                         <CardDescription>Find all the squares without mines. Win 50 points!</CardDescription>
                     </div>
                 </div>
@@ -365,5 +365,7 @@ export default function GamesPage() {
     </div>
   );
 }
+
+    
 
     
