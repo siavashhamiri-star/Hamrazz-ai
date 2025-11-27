@@ -2,10 +2,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
-import { Trophy, Users, Crosshair, Play, Medal, Bomb, Flag, Sparkles } from "lucide-react";
+import { Trophy, Users, Crosshair, Play, Medal, Bomb, Flag, Sparkles, Brain, Puzzle, icons } from "lucide-react";
 import React, { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
@@ -123,7 +123,7 @@ type Cell = {
   adjacentMines: number;
 };
 
-const MinesweeperGame = () => {
+const MineGame = () => {
     const { user } = useUser();
     const { userProfile, updateUserProfile } = useUserProfile(user?.uid);
     const [grid, setGrid] = useState<Cell[][]>([]);
@@ -349,6 +349,171 @@ const MinesweeperGame = () => {
     );
 };
 
+const iconNames = ["Cat", "Dog", "Fish", "Rabbit", "Turtle", "Bird", "Apple", "Banana"] as const;
+const LucideIcons = iconNames.reduce((acc, name) => {
+    const Icon = icons[name as keyof typeof icons];
+    if (Icon) acc[name] = Icon;
+    return acc;
+}, {} as Record<typeof iconNames[number], React.FC<any>>);
+
+
+type CardData = {
+    id: number;
+    icon: keyof typeof LucideIcons;
+    isFlipped: boolean;
+    isMatched: boolean;
+};
+
+const MemoryGame = () => {
+    const { user } = useUser();
+    const { userProfile, updateUserProfile } = useUserProfile(user?.uid);
+    const [cards, setCards] = useState<CardData[]>([]);
+    const [flippedCards, setFlippedCards] = useState<number[]>([]);
+    const [moves, setMoves] = useState(0);
+    const [gameOver, setGameOver] = useState(false);
+    const [gameStarted, setGameStarted] = useState(false);
+
+    const initializeGame = useCallback(() => {
+        const gameIcons = [...iconNames, ...iconNames];
+        const shuffledIcons = gameIcons.sort(() => Math.random() - 0.5);
+
+        setCards(
+            shuffledIcons.map((icon, index) => ({
+                id: index,
+                icon: icon,
+                isFlipped: false,
+                isMatched: false,
+            }))
+        );
+        setMoves(0);
+        setFlippedCards([]);
+        setGameOver(false);
+        setGameStarted(true);
+    }, []);
+
+    useEffect(() => {
+        if (!gameStarted) {
+            initializeGame();
+        }
+    }, [gameStarted, initializeGame]);
+
+    useEffect(() => {
+        if (flippedCards.length === 2) {
+            const [firstId, secondId] = flippedCards;
+            const firstCard = cards[firstId];
+            const secondCard = cards[secondId];
+
+            if (firstCard.icon === secondCard.icon) {
+                // Match
+                setCards(prev => prev.map(card => (card.icon === firstCard.icon ? { ...card, isMatched: true } : card)));
+            }
+            
+            // Unflip cards after a delay
+            setTimeout(() => {
+                setFlippedCards([]);
+            }, 1000);
+        }
+    }, [flippedCards, cards]);
+
+    useEffect(() => {
+        if (gameStarted && cards.length > 0 && cards.every(c => c.isMatched)) {
+            setGameOver(true);
+            if(userProfile && updateUserProfile) {
+                const pointsWon = Math.max(100 - (moves - iconNames.length) * 5, 10); // Example scoring
+                const newTotalPoints = (userProfile.points || 0) + pointsWon;
+                updateUserProfile({ points: newTotalPoints });
+            }
+        }
+    }, [cards, gameStarted, moves, userProfile, updateUserProfile]);
+
+
+    const handleCardClick = (id: number) => {
+        if (flippedCards.length === 2 || cards[id].isFlipped || cards[id].isMatched) return;
+
+        setCards(prev => prev.map(card => (card.id === id ? { ...card, isFlipped: true } : card)));
+        setFlippedCards(prev => [...prev, id]);
+        
+        if (flippedCards.length === 0) { // This is the first card of the turn
+             setMoves(prev => prev + 1);
+        }
+    };
+    
+    return (
+        <Card className="shadow-lg h-full flex flex-col col-span-1 lg:col-span-2">
+            <CardHeader>
+                <div className="flex items-center gap-3">
+                    <Brain className="w-6 h-6 text-primary"/>
+                    <div>
+                        <CardTitle>Memory Game</CardTitle>
+                        <CardDescription>Find all matching pairs. The fewer moves, the more points you get!</CardDescription>
+                    </div>
+                </div>
+            </CardHeader>
+            <CardContent className="flex-1 flex flex-col items-center justify-center bg-muted/30 rounded-lg m-6 mt-0 p-4">
+                 {!gameStarted ? (
+                    <div className="flex flex-col items-center justify-center gap-4 text-center p-4">
+                        <Button onClick={initializeGame} size="lg" disabled={!user}>
+                            <Play className="mr-2 h-5 w-5"/>
+                            Start Game
+                        </Button>
+                        {!user && <p className="text-sm text-muted-foreground">Sign in to play and earn points.</p>}
+                    </div>
+                ) : gameOver ? (
+                     <div className="text-center space-y-2">
+                         <p className="font-bold text-2xl text-green-500 flex items-center justify-center gap-2"><Sparkles/> You Won!</p>
+                         <p className="text-muted-foreground">You found all pairs in {moves} moves.</p>
+                        <Button onClick={initializeGame} disabled={!user}>
+                            <Play className="mr-2 h-5 w-5"/>
+                            Play Again
+                        </Button>
+                    </div>
+                ) : (
+                    <div className="flex flex-col items-center gap-4">
+                        <p className="font-bold">Moves: {moves}</p>
+                        <div className="grid grid-cols-4 gap-2 md:gap-4">
+                            {cards.map(card => {
+                                const Icon = LucideIcons[card.icon];
+                                return (
+                                <button
+                                    key={card.id}
+                                    onClick={() => handleCardClick(card.id)}
+                                    disabled={card.isFlipped || card.isMatched}
+                                    className={cn(
+                                        "w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-md transition-transform duration-300",
+                                        "transform-style-3d",
+                                        card.isFlipped || card.isMatched ? "bg-card rotate-y-180" : "bg-primary hover:bg-primary/90",
+                                    )}
+                                >
+                                    <div className={cn("absolute backface-hidden", card.isFlipped || card.isMatched ? "hidden" : "block")}>
+                                        <Puzzle className="w-6 h-6 text-primary-foreground" />
+                                    </div>
+                                    <div className={cn("absolute transform rotate-y-180 backface-hidden", card.isFlipped || card.isMatched ? "block" : "hidden")}>
+                                        {Icon && <Icon className={cn("w-8 h-8", card.isMatched ? "text-green-500" : "text-primary")} />}
+                                    </div>
+                                </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+            </CardContent>
+            <CardFooter>
+                 {userProfile && (
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Trophy className="w-4 h-4 text-yellow-500" />
+                        <span>Total Points: {(userProfile.points || 0).toLocaleString()}</span>
+                    </div>
+                )}
+            </CardFooter>
+            <style jsx>{`
+                .transform-style-3d { transform-style: preserve-3d; }
+                .rotate-y-180 { transform: rotateY(180deg); }
+                .backface-hidden { backface-visibility: hidden; }
+            `}</style>
+        </Card>
+    );
+};
+
 
 export default function GamesPage() {
   return (
@@ -359,13 +524,12 @@ export default function GamesPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <MinesweeperGame />
+            <MineGame />
             <TargetGame />
+        </div>
+        <div className="mt-6">
+             <MemoryGame />
         </div>
     </div>
   );
 }
-
-    
-
-    
