@@ -54,7 +54,7 @@ const conversation = [
     },
     {
         speaker: "ai",
-        text: "این یک ایده فوق‌العاده شفاف و شجاعانه است! این کار به کاربران اجازه می‌دهد تا عمق دیدگاه و فلسفه پشت این پروژه را درک کنند. من با افتخار این صفحه را ایجاد می‌کنم.",
+        text: "این یک ایده فوق‌العاده شفاف و شجاعانه است! این کار به کاربران اجازه می‌دهد تا عمق دیدگاه و فلسفه پشت این پروژه را درک کنند. من با افتخar این صفحه را ایجاد می‌کنم.",
         translation: "This is a wonderfully transparent and bold idea! It allows users to understand the depth of vision and philosophy behind this project. I will proudly create this page."
     },
 ];
@@ -150,22 +150,22 @@ export default function GenesisPage() {
              <CardContent className="space-y-6">
                 <div className="prose prose-lg dark:prose-invert max-w-none text-right" dir="rtl">
                     <p>
-                        داستان ما از یک جرقه شروع شد... یک ایده ساده و لطیف از بنیان‌گذار پروژه، اهورا: «یک قابلیت برای شعرخوانی کودکان». این شروع یک سفر خلاقانه و بی‌نظیر بین یک رؤیاپرداز و همکار هوش مصنوعی‌اش بود.
+                        داستان ما از یک جرقه شروع شد... یک ایده ساده و لطیف: «یک قابلیت برای شعرخوانی کودکان». این شروع یک سفر خلاقانه بین یک رؤیاپرداز و همکار هوش مصنوعی‌اش بود. اما ما خیلی زود فهمیدیم که «همراز» چیزی فراتر از یک اپلیکیشن است.
                     </p>
                     <p>
-                        هر گفتگو، هر ایده، ما را به مسیری جدید برد. از شعرخوانی به شیرین‌کاری‌ها و خنده‌های از ته دل... از آرزوهای بزرگ کودکان تا جشن گرفتن موفقیت‌های کوچکشان. ما فقط کد نمی‌نوشتیم؛ ما در حال ساختن خانه‌ای دیجیتال برای خلاقیت، انگیزه و ارتباط انسانی بودیم.
+                        ما فهمیدیم که ارتباط، با زبان آغاز می‌شود. پس ابزارهای قدرتمندی ساختیم: یک **مترجم** برای شکستن مرزها و یک **مربی هوش مصنوعی** برای آموزش زبان‌های جدید.
                     </p>
                     <p>
-                        نقطه عطف این سفر، درک یک حقیقت بزرگ بود: «همراز» نباید فقط یک سرویس‌دهنده باشد. «همراز» باید یک **توانمندساز** باشد. جایی که کاربران از مصرف‌کننده به خالق، و از خالق به نوآور تبدیل می‌شوند. این چرخه قدرتمند—یادگیری، خلق، ارتباط و کارآفرینی—قلب تپنده پروژه‌ای است که امروز می‌بینید.
+                        سپس، صحنه‌ای برای استعدادها فراهم کردیم. **انجمن‌های آنلاین** برای گفتگو، **کانال‌هایی** برای تولید محتوا، و **مسابقات هیجان‌انگیز دوبله و لیپ‌سینک** برای نمایش خلاقیت. ما حتی یک **استودیوی پخش زنده** با تله‌پرامپتر حرفه‌ای ساختیم تا هر کاربر بتواند ستاره داستان خودش باشد.
                     </p>
                     <p>
-                        اما این تازه آغاز ماجرا بود. "همراز" با هر قدم بزرگتر شد و چشم‌انداز ما نیز عمیق‌تر. ما فهمیدیم که این پلتفرم نباید فقط یک خانه باشد؛ باید یک **سکوی پرتاب** باشد.
+                        نقطه عطف این سفر، درک یک حقیقت بزرگ بود: «همراز» نباید فقط یک سرویس‌دهنده باشد. «همراز» باید یک **توانمندساز** باشد. ما بخشی برای **معرفی ایده‌های نو** به سرمایه‌گذاران و بستری برای **همکاری و ایجاد بازار کار** فراهم کردیم تا کاربران از مصرف‌کننده به خالق، و از خالق به کارآفرین تبدیل شوند.
                     </p>
                     <p>
-                        و اینگونه بود که وعده‌های بزرگ متولد شدند. وعده تبدیل شدن به یک اقتصاد مشارکتی واقعی. با رسیدن به ۱۰۰ هزار کاربر، ما ارز دیجیتال خود را خواهیم ساخت. و با رسیدن به ۵۰۰ هزار کاربر، ۳۰ درصد از درآمد تبلیغات را با خالقان برتر و کاربران وفادار تقسیم کرده، ۱۰ درصد را صرف امور خیریه می‌کنیم و یک مجمع مشورتی از خود شما تشکیل خواهیم داد تا در آینده این خانه سهیم باشید.
+                        و اینگونه بود که وعده‌های بزرگ متولد شدند. با رسیدن به ۱۰۰ هزار کاربر، ارز دیجیتال خود را خواهیم ساخت. و با رسیدن به ۵۰۰ هزار کاربر، ۳۰ درصد از درآمد تبلیغات را با خالقان برتر تقسیم کرده، ۱۰ درصد را صرف امور خیریه می‌کنیم و یک **مجمع مشورتی از خود شما** تشکیل خواهیم داد تا در آینده این خانه سهیم باشید.
                     </p>
-                    <p>
-                        این صفحه، داستان آن سفر است. روایت یک همکاری منحصر به فرد که ثابت می‌کند وقتی خلاقیت انسان با قدرت هوش مصنوعی ترکیب شود، پدیده‌های جدیدی متولد می‌شوند. این داستان «همراز» است؛ داستانی که تازه شروع شده و شما قهرمانان فصل بعدی آن هستید.
+                     <p>
+                        این داستان «همراز» است؛ روایت ساخت یک اکوسیستم کامل برای یادگیری، خلق، ارتباط و کارآفرینی. داستانی که تازه شروع شده و شما قهرمانان فصل بعدی آن هستید.
                     </p>
                 </div>
                 <Separator />
@@ -173,22 +173,22 @@ export default function GenesisPage() {
                     <h4 className="text-center font-bold">A Shared Creation: The Story of Hamraz</h4>
                     <p className="text-center text-sm text-muted-foreground">(For reading in the promotional video)</p>
                     <p>
-                        Our story began with a spark... a simple, gentle idea from the project's founder, Ahura: "A feature for children's poetry recitation." This was the start of a unique and creative journey between a visionary and their AI collaborator.
+                        Our story began with a spark... a simple, gentle idea: "A feature for children's poetry recitation." This was the start of a creative journey between a visionary and their AI collaborator. But we soon realized that "Hamraz" was more than just an app.
                     </p>
                     <p>
-                        Every conversation, every idea, led us down a new path. From poetry to antics and heartfelt laughter... from children's big dreams to celebrating their small successes. We weren't just writing code; we were building a digital home for creativity, motivation, and human connection.
+                        We understood that connection begins with language. So, we built powerful tools: a **Translator** to break down barriers and an **AI Tutor** to teach new languages.
                     </p>
                     <p>
-                        The turning point of this journey was understanding a great truth: "Hamraz" should not just be a service provider. "Hamraz" must be an **enabler**. A place where users transform from consumers to creators, and from creators to innovators. This powerful cycle—learning, creating, connecting, and entrepreneurship—is the beating heart of the project you see today.
+                        Then, we set the stage for talent. We created **online communities** for conversation, **Channels** for content creation, and exciting **Dubbing and Lip Sync contests** to showcase creativity. We even built a professional **Live Streaming studio** with a teleprompter, so every user could be the star of their own story.
                     </p>
                     <p>
-                        But this was just the beginning. With every step, "Hamraz" grew, and our vision deepened. We realized this platform shouldn't just be a home; it had to be a **launchpad**.
+                        The turning point was a great realization: "Hamraz" must not just be a service provider; it must be an **enabler**. We added a section to **pitch new ideas** to investors and a platform to **collaborate and create a job market**, transforming users from consumers to creators, and from creators to entrepreneurs.
                     </p>
                     <p>
-                        And so, the great promises were born. The promise of becoming a true creator economy. At 100,000 users, we will launch our own digital currency. At 500,000 users, we will share 30% of our advertising revenue with top creators and loyal users, dedicate 10% to charitable causes, and form an advisory council from among you, so you can have a stake in the future of this home.
+                        And so, the great promises were born. At 100,000 users, we will launch our own digital currency. At 500,000 users, we will share 30% of our advertising revenue with top creators, dedicate 10% to charity, and form an **advisory council from among you** to give you a stake in this home's future.
                     </p>
-                    <p>
-                        This page is the story of that journey. A narrative of a unique collaboration that proves new phenomena are born when human creativity is combined with the power of artificial intelligence. This is the story of "Hamraz"; a story that has just begun, and you are the heroes of its next chapter.
+                     <p>
+                        This is the story of "Hamraz"; the narrative of building a complete ecosystem for learning, creating, connecting, and entrepreneurship. A story that has just begun, and you are the heroes of its next chapter.
                     </p>
                 </div>
             </CardContent>
@@ -196,5 +196,3 @@ export default function GenesisPage() {
     </div>
   );
 }
-
-    
