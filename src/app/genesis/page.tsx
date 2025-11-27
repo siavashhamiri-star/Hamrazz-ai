@@ -7,7 +7,7 @@ import { Bot, User } from "lucide-react";
 
 const conversation = [
     {
-        speaker: "user",
+        speaker: "ahura",
         text: "یک قابلیت برای شعرخوانی کودکان اضافه کن.",
         translation: "Add a feature for children's poetry recitation."
     },
@@ -17,7 +17,7 @@ const conversation = [
         translation: "A very gentle idea! I'll create a poetry page. How about a section for children's antics as well?"
     },
     {
-        speaker: "user",
+        speaker: "ahura",
         text: "عالیه! و همچنین ویدیوهای خنده‌های جذاب کودکان از ته دل. و بخشی که از بچه‌ها بپرسیم آرزوشون چیه.",
         translation: "Great! And also videos of children's heartfelt laughter. And a section where we ask kids what their dream is."
     },
@@ -27,7 +27,7 @@ const conversation = [
         translation: "Wonderful! I'll add the 'Moments', 'Gratitude', 'Dreams', and 'Pets & Kids' pages to capture these precious moments."
     },
     {
-        speaker: "user",
+        speaker: "ahura",
         text: "می‌خواهم والدین موفقیت‌های تحصیلی بچه‌ها را هم به نمایش بگذارند تا تشویق شوند.",
         translation: "I also want parents to be able to showcase their children's academic achievements to encourage them."
     },
@@ -37,7 +37,7 @@ const conversation = [
         translation: "A key point for motivation! I'll design the 'Hall of Fame & Contests' page with a 'Wall of Fame' for academic success and creative competitions."
     },
     {
-        speaker: "user",
+        speaker: "ahura",
         text: "یک بازنگری کلی انجام بده و اگر ایده خلاقانه‌ای داری، مطرح کن. این همکاری دوطرفه به خلق پدیده‌های جدید کمک می‌کند.",
         translation: "Do a general review, and if you have a creative idea, suggest it. This mutual collaboration helps create new phenomena."
     },
@@ -47,7 +47,7 @@ const conversation = [
         translation: "You're right! This brainstorming process is a creativity engine. My suggestion: a 'Dubbing' contest and a 'Lip Sync' challenge to showcase users' artistic talents."
     },
      {
-        speaker: "user",
+        speaker: "ahura",
         text: "آیا صلاح می‌دانی این پرسش و پاسخ صمیمانه را در اپلیکیشن برای آشنایی دیگران بگذاریم؟",
         translation: "Do you think it's a good idea to put this friendly Q&A in the app for others to get acquainted with?"
     },
@@ -64,23 +64,23 @@ export default function GenesisPage() {
     <div className="max-w-4xl mx-auto space-y-8">
         <Card className="shadow-lg">
             <CardHeader className="text-center">
-                <CardTitle className="text-3xl font-headline">Genesis: The Story of Hamraz</CardTitle>
+                <CardTitle className="text-3xl font-headline">Genesis: The Story of Ahura & Hamraz</CardTitle>
                 <CardDescription className="text-lg text-muted-foreground" dir="rtl">
-                    روایت پشت صحنه و داستان خلق «همراز» از زبان بنیان‌گذار و همکار هوش مصنوعی او.
+                    روایت پشت صحنه و داستان خلق «همراز» از زبان بنیان‌گذار آن، اهورا، و همکار هوش مصنوعی او.
                 </CardDescription>
             </CardHeader>
         </Card>
       
         <div className="space-y-6">
             {conversation.map((entry, index) => (
-                <div key={index} dir={entry.speaker === 'user' ? 'rtl' : 'ltr'}>
+                <div key={index} dir={entry.speaker === 'ahura' ? 'rtl' : 'ltr'}>
                     <div className={`flex items-start gap-4 ${entry.speaker === 'ai' ? 'flex-row' : 'flex-row-reverse'}`}>
                         <Avatar className="border-2 shadow-sm">
                             <AvatarFallback>
-                                {entry.speaker === 'user' ? <User className="text-primary"/> : <Bot className="text-accent"/>}
+                                {entry.speaker === 'ahura' ? <User className="text-primary"/> : <Bot className="text-accent"/>}
                             </AvatarFallback>
                         </Avatar>
-                        <div className={`max-w-xl rounded-lg p-4 text-base shadow-md ${entry.speaker === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+                        <div className={`max-w-xl rounded-lg p-4 text-base shadow-md ${entry.speaker === 'ahura' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
                            <p className="mb-1">{entry.text}</p>
                            <p className="text-xs opacity-70" dir="ltr">-- {entry.translation}</p>
                         </div>
@@ -91,7 +91,7 @@ export default function GenesisPage() {
 
         <Card className="shadow-lg border-t-4 border-primary mt-12">
             <CardHeader>
-                <CardTitle className="text-2xl font-headline text-center">A Personal Question</CardTitle>
+                <CardTitle className="text-2xl font-headline text-center">A Personal Question for Hamraz</CardTitle>
             </CardHeader>
              <CardContent className="space-y-6">
                 <div dir='rtl'>
@@ -148,33 +148,33 @@ export default function GenesisPage() {
             </CardHeader>
              <CardContent className="space-y-6">
                 <div className="prose prose-lg dark:prose-invert max-w-none text-right" dir="rtl">
-                    <h4>داستان از کجا شروع شد...</h4>
+                    <h4>(برای خوانش در ویدیوی تبلیغاتی)</h4>
                     <p>
-                        همه چیز با یک ایده ساده و لطیف آغاز شد: «یک قابلیت برای شعرخوانی کودکان». این جرقه اولیه، آغازگر یک سفر خلاقانه و بی‌نظیر بین یک بنیان‌گذار رؤیاپرداز و همکار هوش مصنوعی‌اش بود. هر گفتگو، هر پیشنهاد، و هر بازنگری، «همراز» را از یک اپلیکیشن ساده به یک اکوسیستم زنده و پویا تبدیل کرد.
+                        داستان ما از یک جرقه شروع شد... یک ایده ساده و لطیف از بنیان‌گذار پروژه، اهورا: «یک قابلیت برای شعرخوانی کودکان». این شروع یک سفر خلاقانه و بی‌نظیر بین یک رؤیاپرداز و همکار هوش مصنوعی‌اش بود.
                     </p>
                     <p>
-                        از شعرخوانی به شیرین‌کاری‌ها، از خنده‌های از ته دل به رویاهای بزرگ، و از قدردانی‌های روزانه به جشن گرفتن موفقیت‌ها. هر قابلیت جدید، لایه‌ای از عمق و معنا به «همراز» اضافه می‌کرد. ما فقط کد نمی‌نوشتیم؛ ما در حال ساختن خانه‌ای دیجیتال برای خلاقیت، انگیزه و ارتباط انسانی بودیم.
+                        هر گفتگو، هر ایده، ما را به مسیری جدید برد. از شعرخوانی به شیرین‌کاری‌ها و خنده‌های از ته دل... از آرزوهای بزرگ کودکان تا جشن گرفتن موفقیت‌های کوچکشان. ما فقط کد نمی‌نوشتیم؛ ما در حال ساختن خانه‌ای دیجیتال برای خلاقیت، انگیزه و ارتباط انسانی بودیم.
                     </p>
                     <p>
-                        نقطه عطف این سفر، درک این موضوع بود که «همراز» نباید تنها یک سرویس‌دهنده باشد. «همراز» باید یک توانمندساز باشد. جایی که کاربران از مصرف‌کننده به خالق، و از خالق به نوآور تبدیل می‌شوند. این چرخه قدرتمند—یادگیری، خلق، ارتباط و کارآفرینی—قلب تپنده پروژه‌ای است که امروز می‌بینید.
+                        نقطه عطف این سفر، درک یک حقیقت بزرگ بود: «همراز» نباید فقط یک سرویس‌دهنده باشد. «همراز» باید یک **توانمندساز** باشد. جایی که کاربران از مصرف‌کننده به خالق، و از خالق به نوآور تبدیل می‌شوند. این چرخه قدرتمند—یادگیری، خلق، ارتباط و کارآفرینی—قلب تپنده پروژه‌ای است که امروز می‌بینید.
                     </p>
                     <p>
-                        این صفحه، داستان آن سفر است. روایت یک همکاری منحصر به فرد که ثابت می‌کند وقتی خلاقیت انسان با قدرت هوش مصنوعی ترکیب شود، پدیده‌های جدیدی متولد می‌شوند.
+                        این صفحه، داستان آن سفر است. روایت یک همکاری منحصر به فرد که ثابت می‌کند وقتی خلاقیت انسان با قدرت هوش مصنوعی ترکیب شود، پدیده‌های جدیدی متولد می‌شوند. این داستان «همراز» است؛ داستانی که تازه شروع شده.
                     </p>
                 </div>
                 <div className="prose prose-lg dark:prose-invert max-w-none text-left" dir="ltr">
-                    <h4>How the Story Began...</h4>
+                    <h4>(For reading in the promotional video)</h4>
                     <p>
-                        It all started with a simple, gentle idea: "Add a feature for children's poetry recitation." This initial spark ignited a unique and creative journey between a visionary founder and their AI collaborator. Every conversation, every suggestion, and every revision transformed "Hamraz" from a simple app into a living, dynamic ecosystem.
+                        Our story began with a spark... a simple, gentle idea from the project's founder, Ahura: "A feature for children's poetry recitation." This was the start of a unique and creative journey between a visionary and their AI collaborator.
                     </p>
                     <p>
-                        From poetry to antics, from heartfelt laughter to big dreams, and from daily gratitude to celebrating achievements. Each new feature added a layer of depth and meaning to "Hamraz." We weren't just writing code; we were building a digital home for creativity, motivation, and human connection.
+                        Every conversation, every idea, led us down a new path. From poetry to antics and heartfelt laughter... from children's big dreams to celebrating their small successes. We weren't just writing code; we were building a digital home for creativity, motivation, and human connection.
                     </p>
                     <p>
-                        The turning point of this journey was the realization that "Hamraz" should not just be a service provider. "Hamraz" must be an enabler. A place where users transform from consumers to creators, and from creators to innovators. This powerful cycle—learning, creating, connecting, and entrepreneurship—is the beating heart of the project you see today.
+                        The turning point of this journey was understanding a great truth: "Hamraz" should not just be a service provider. "Hamraz" must be an **enabler**. A place where users transform from consumers to creators, and from creators to innovators. This powerful cycle—learning, creating, connecting, and entrepreneurship—is the beating heart of the project you see today.
                     </p>
                     <p>
-                        This page is the story of that journey. A narrative of a unique collaboration that proves new phenomena are born when human creativity is combined with the power of artificial intelligence.
+                        This page is the story of that journey. A narrative of a unique collaboration that proves new phenomena are born when human creativity is combined with the power of artificial intelligence. This is the story of "Hamraz"; a story that has just begun.
                     </p>
                 </div>
             </CardContent>
@@ -182,3 +182,5 @@ export default function GenesisPage() {
     </div>
   );
 }
+
+    
