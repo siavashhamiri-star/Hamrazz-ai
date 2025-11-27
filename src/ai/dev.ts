@@ -7,3 +7,4 @@ import '@/ai/flows/summarize-lesson-content.flow.ts';
 import '@/ai/flows/reason-about-sources-flow.ts';
 import '@/ai/flows/generate-avatar-expressions-flow.ts';
 import '@/ai/flows/transcribe-video-flow.ts';
+import '@/ai/flows/generate-showcase-video-flow.ts';

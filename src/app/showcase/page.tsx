@@ -1,13 +1,17 @@
-
 "use client";
 
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Check, Bot, Heart, BrainCircuit } from "lucide-react";
+import { Check, Bot, Heart, BrainCircuit, Loader2, Video, AlertTriangle, Download } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { generateShowcaseVideo } from "@/ai/flows/generate-showcase-video-flow";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-const features = [
+
+const features_en = [
   "Intelligent Chat with a personalized AI companion",
   "AI Language Tutor for Persian, English, Arabic, and Spanish",
   "Multi-lingual Community Chat Rooms (Global, Español, العربية)",
@@ -35,16 +39,76 @@ const features_fa = [
 
 
 export default function ShowcasePage() {
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const generateVideo = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const result = await generateShowcaseVideo();
+        setVideoUrl(result.videoUrl);
+      } catch (e: any) {
+        console.error("Error generating showcase video:", e);
+        setError("We couldn't create the video right now. Please try refreshing the page.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    generateVideo();
+  }, []);
+
   return (
     <div className="space-y-12">
-      <header className="text-center space-y-4">
+       <header className="text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-extrabold font-headline tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary">
-          Welcome to Hamraz
+          The Story of Hamraz
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-          We envisioned a space where technology fosters genuine connection, where learning is an adventure, and where every voice has a place to be heard. This is the story of Hamraz—a platform built not just with code, but with purpose and a partnership between human and AI.
+         This is the story of how a visionary idea and an AI collaborator came together to build not just an app, but a world of connection, creativity, and opportunity.
         </p>
       </header>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-3xl font-headline text-center">The Genesis Video</CardTitle>
+          <CardDescription className="text-center text-base">An AI-generated cinematic interpretation of our journey.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="aspect-video w-full bg-muted rounded-lg flex items-center justify-center">
+            {isLoading && (
+              <div className="text-center space-y-2 text-muted-foreground">
+                <Loader2 className="w-12 h-12 mx-auto animate-spin text-primary" />
+                <p className="font-semibold">Generating your cinematic video...</p>
+                <p className="text-sm">This may take a minute or two. The AI is working its magic!</p>
+              </div>
+            )}
+            {error && (
+               <Alert variant="destructive" className="max-w-md">
+                 <AlertTriangle className="h-4 w-4" />
+                <AlertTitle>Video Generation Failed</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            {videoUrl && (
+              <video src={videoUrl} className="w-full h-full rounded-lg" controls autoPlay loop>
+                Your browser does not support the video tag.
+              </video>
+            )}
+          </div>
+           {videoUrl && (
+             <div className="flex justify-center mt-4">
+               <a href={videoUrl} download="hamraz_genesis_video.mp4">
+                 <Button>
+                   <Download className="mr-2" /> Download Video
+                 </Button>
+               </a>
+             </div>
+           )}
+        </CardContent>
+      </Card>
 
       <main>
         <Card className="shadow-2xl border-primary/20">
@@ -56,7 +120,7 @@ export default function ShowcasePage() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {features.map((feature, index) => (
+              {features_en.map((feature, index) => (
                 <div key={index} className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg transform transition-transform hover:scale-105 hover:bg-muted">
                   <Check className="w-5 h-5 text-primary mt-1 shrink-0" />
                   <span className="text-sm font-medium">{feature}</span>
@@ -121,10 +185,10 @@ export default function ShowcasePage() {
       <div className="space-y-12" dir="rtl">
         <header className="text-center space-y-4">
             <h1 className="text-4xl md:text-5xl font-extrabold font-headline tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary">
-            به همراز خوش آمدید
+            داستان همراز
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            ما فضایی را در ذهن داشتیم که در آن تکنولوژی ارتباطی واقعی را پرورش می‌دهد، یادگیری یک ماجراجویی است و هر صدایی جایی برای شنیده شدن دارد. این داستان همراز است؛ پلتفرمی که نه فقط با کد، بلکه با هدف و از طریق همکاری میان انسان و هوش مصنوعی ساخته شده است.
+            این داستانِ این است که چگونه یک ایده رویایی و یک همکار هوش مصنوعی گرد هم آمدند تا نه فقط یک اپلیکیشن، بلکه دنیایی از ارتباط، خلاقیت و فرصت را بسازند.
             </p>
         </header>
 
@@ -200,5 +264,3 @@ export default function ShowcasePage() {
     </div>
   );
 }
-
-    
