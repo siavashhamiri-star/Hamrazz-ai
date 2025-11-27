@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone, Briefcase } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -118,6 +118,14 @@ export default function ContestPage() {
             <AlertTitle className="font-bold text-blue-600 dark:text-blue-400">Our First Milestone: 100,000 Downloads!</AlertTitle>
             <AlertDescription>
                 As soon as Hamraz reaches its first major goal of 100,000 downloads, in appreciation of your support, we will launch our own in-app cryptocurrency. Your current points will play a crucial role in this new economy, so every point you earn is an investment in what's to come!
+            </AlertDescription>
+        </Alert>
+
+         <Alert variant="default" className="border-purple-500/50 bg-purple-500/10 text-purple-700 dark:text-purple-300">
+            <Briefcase className="h-4 w-4 text-purple-500" />
+            <AlertTitle className="font-bold text-purple-600 dark:text-purple-400">The Ultimate Partnership: 500k Downloads &amp; Revenue Sharing</AlertTitle>
+            <AlertDescription>
+                Once Hamraz reaches 500,000 downloads, 49% of the app's revenue will be converted into "revenue shares." These shares, representing a perpetual income stream, will be awarded to premium users, contest winners, and creators of viral content. Furthermore, a select group of loyal and active users will form an Online Advisory Council, holding tri-monthly meetings with voting rights on policy and overseeing the distribution of the 49% revenue share on behalf of the entire community.
             </AlertDescription>
         </Alert>
 
