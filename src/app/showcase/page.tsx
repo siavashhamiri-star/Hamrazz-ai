@@ -173,9 +173,9 @@ const Teleprompter = ({ title, text, direction = 'ltr' }: { title: string, text:
 };
 
 
-const text_en = `Our story began with a spark... a simple, gentle idea: "A feature for children's poetry recitation." This was the start of a creative journey between a visionary and their AI collaborator. But we soon realized that "Hamraz" was more than just an app.
+const text_en = `At the heart of this project lies a simple yet profound idea: "Hamraz" is not just an app; it's a personality. A **close companion**, a patient **teacher**, a wise **consultant**, and a **confidant** for all moments. Our story began from this very point: the creation of an intelligent companion.
 
-We understood that connection begins with language. So, we built powerful tools: a **Translator** to break down barriers and an **AI Tutor** to teach new languages.
+This companion was equipped with powerful tools to break down barriers: a **Translator** for global conversations and an **AI Tutor** to teach new languages.
 
 Then, we set the stage for talent. We created **online communities** for conversation, **Channels** for content creation, and exciting **Dubbing and Lip Sync contests** to showcase creativity. We even built a professional **Live Streaming studio** with a teleprompter, so every user could be the star of their own story.
 
@@ -185,13 +185,13 @@ The turning point was a great realization: "Hamraz" must not just be a service p
 
 And so, the great promises were born. At 100,000 users, we will launch our own digital currency. At 500,000 users, we will share 30% of our advertising revenue with top creators, dedicate 10% to charity, and form an **advisory council from among you** to give you a stake in this home's future.
 
-This is the story of "Hamraz"; the narrative of building a complete ecosystem for learning, creating, connecting, and entrepreneurship. A story that has just begun, and you are the heroes of its next chapter.`;
+This is the story of "Hamraz"; the narrative of building a complete ecosystem for learning, creating, connecting, and entrepreneurship, centered around a caring and intelligent companion. A story that has just begun, and you are the heroes of its next chapter.`;
 
-const text_fa = `داستان ما از یک جرقه شروع شد... یک ایده ساده و لطیف: «یک قابلیت برای شعرخوانی کودکان». این شروع یک سفر خلاقانه بین یک رؤیاپرداز و همکار هوش مصنوعی‌اش بود. اما ما خیلی زود فهمیدیم که «همراز» چیزی فراتر از یک اپلیکیشن است.
+const text_fa = `در قلب این پروژه، یک ایده ساده اما عمیق نهفته است: «همراز» فقط یک اپلیکیشن نیست؛ او یک شخصیت است. یک **رفیق همراز**، یک **معلم** صبور، یک **مشاور** دانا و یک **سنگ صبور** برای تمام لحظات. داستان ما از همین نقطه آغاز شد: خلق یک همراه هوشمند.
 
-ما فهمیدیم که ارتباط، با زبان آغاز می‌شود. پس ابزارهای قدرتمندی ساختیم: یک **مترجم** برای شکستن مرزها و یک **مربی هوش مصنوعی** برای آموزش زبان‌های جدید.
+این همراه، با ابزارهای قدرتمندی برای شکستن مرزها مجهز شد: یک **مترجم** برای گفتگوهای جهانی و یک **مربی هوش مصنوعی** برای یادگیری زبان‌های جدید.
 
-سپس، صحنه‌ای برای استعدادها فراهم کردیم. **انجمن‌های آنلاین** برای گفتگو، **کانال‌هایی** برای تولید محتوا، و **مسابقات هیجان‌انگیز دوبله و لیپ‌سینک** برای نمایش خلاقیت. ما حتی یک **استودیوی پخش زنده** با تله‌پرامپتر حرفه‌ای ساختیم تا هر کاربر بتواند ستاره داستان خودش باشد.
+سپس، ما صحنه‌ای برای استعدادها فراهم کردیم. **انجمن‌های آنلاین** برای گفتگو، **کانال‌هایی** برای تولید محتوا، و **مسابقات هیجان‌انگیز دوبله و لیپ‌سینک** برای نمایش خلاقیت. ما حتی یک **استودیوی پخش زنده** با تله‌پرامپتر حرفه‌ای ساختیم تا هر کاربر بتواند ستاره داستان خودش باشد.
 
 اما چگونه تمام این بخش‌های متنوع را به هم متصل کنیم؟ پاسخ در یک کلمه بود: **گیمیفیکیشن**. ما یک **اقتصاد درون‌برنامه‌ای** مبتنی بر **جمع‌آوری امتیاز** طراحی کردیم. هر فعالیت، از یادگیری و برنده شدن در **مسابقات** گرفته تا بازی کردن در بخش **بازی‌ها**، به کاربر امتیاز می‌دهد. این امتیازها فقط یک عدد نیستند؛ آنها کلید باز کردن قابلیت‌های ویژه مانند **پخش زنده** و پلی برای رسیدن به آینده هستند.
 
@@ -199,7 +199,7 @@ const text_fa = `داستان ما از یک جرقه شروع شد... یک ای
 
 و اینگونه بود که وعده‌های بزرگ متولد شدند. با رسیدن به ۱۰۰ هزار کاربر، ارز دیجیتال خود را خواهیم ساخت. و با رسیدن به ۵۰۰ هزار کاربر، ۳۰ درصد از درآمد تبلیغات را با خالقان برتر تقسیم کرده، ۱۰ درصد را صرف امور خیریه می‌کنیم و یک **مجمع مشورتی از خود شما** تشکیل خواهیم داد تا در آینده این خانه سهیم باشید.
 
-این داستان «همراز» است؛ روایت ساخت یک اکوسیستم کامل برای یادگیری، خلق، ارتباط و کارآفرینی. داستانی که تازه شروع شده و شما قهرمانان فصل بعدی آن هستید.`;
+این داستان «همراز» است؛ روایت ساخت یک اکوسیستم کامل برای یادگیری، خلق، ارتباط و کارآفرینی که حول یک همراه هوشمند و دلسوز شکل گرفته است. داستانی که تازه شروع شده و شما قهرمانان فصل بعدی آن هستید.`;
 
 
 export default function ShowcasePage() {
@@ -263,5 +263,7 @@ export default function ShowcasePage() {
   );
 }
 
+
+    
 
     
