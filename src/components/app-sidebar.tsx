@@ -12,7 +12,7 @@ import {
   SidebarSeparator,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, Spotify, ShoppingBag } from 'lucide-react';
+import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, ShoppingBag } from 'lucide-react';
 import { navLinks, bottomNavLinks } from '@/lib/data';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -40,7 +40,14 @@ const SocialLinks = () => (
         </a>
         <a href="https://spotify.com" target="_blank" rel="noopener noreferrer">
             <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
-                <Spotify className="h-5 w-5" />
+                <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                    >
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2m4.624 13.612a.75.75 0 0 1-1.06.195c-1.801-1.09-4.09-1.34-6.8-.734a.75.75 0 0 1-.84-.62.75.75 0 0 1 .62-.84c3.003-.666 5.588-.378 7.644.864a.75.75 0 0 1-.564 1.135m1.34-3.14a.938.938 0 0 1-1.325.244c-2.086-1.267-5.232-1.63-7.653-.895a.937.937 0 0 1-1.05-.774.937.937 0 0 1 .774-1.05c2.788-.84 6.27-.432 8.653 1.025a.937.937 0 0 1-.4 1.45m.09-3.243c-2.48-1.47-6.52-1.61-8.98-.887a1.125 1.125 0 0 1-1.25-1.012 1.125 1.125 0 0 1 1.012-1.25c2.86-.825 7.27-.645 10.125 1.05a1.125 1.125 0 0 1-.607 2.099" />
+                </svg>
             </Button>
         </a>
         <a href="https://soundcloud.com" target="_blank" rel="noopener noreferrer">
@@ -59,11 +66,6 @@ const SocialLinks = () => (
             </Button>
         </a>
         <a href="https://digikala.com" target="_blank" rel="noopener noreferrer">
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
-                <ShoppingBag className="h-5 w-5" />
-            </Button>
-        </a>
-        <a href="https://ebay.com" target="_blank" rel="noopener noreferrer">
             <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary h-8 w-8">
                 <ShoppingBag className="h-5 w-5" />
             </Button>
