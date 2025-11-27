@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -104,6 +104,14 @@ export default function ContestPage() {
             <h1 className="text-3xl font-bold font-headline mb-2">Hall of Fame & Contests</h1>
             <p className="text-muted-foreground">Celebrate achievements and participate in creative contests!</p>
         </div>
+        
+        <Alert variant="default" className="border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-300">
+            <TrendingUp className="h-4 w-4 text-green-500" />
+            <AlertTitle className="font-bold text-green-600 dark:text-green-400">A Promise for Our Future: From Points to Digital Assets</AlertTitle>
+            <AlertDescription>
+                We promise that if, through the efforts of our dear users in introducing, promoting, and growing the Hamraz family, our app reaches a stable income level, a system will be implemented. This system will allow you to convert 50% of your earned points into popular cryptocurrencies, which will be announced at that time. Your contribution is an investment in our shared future.
+            </AlertDescription>
+        </Alert>
 
         <Card className="bg-gradient-to-br from-primary/10 to-accent/10">
              <CardHeader>
