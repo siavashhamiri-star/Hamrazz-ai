@@ -27,10 +27,10 @@ const sampleMoments = [
     description: "Her eyes lit up when the AI started telling the story of the brave little fox. Such a magical moment."
   },
   {
-    title: "Giggles with the chatbot",
+    title: "If I were mom...",
     author: "Kian's Mom",
     videoUrl: "https://videos.pexels.com/video-files/2882112/2882112-hd_1280_720_30fps.mp4",
-    description: "He couldn't stop laughing at the silly rhymes the chatbot made up. This is his new best friend!"
+    description: "He said he would buy me a big castle and a chocolate cake every day. So sweet!"
   },
   {
     title: "A message of love",
@@ -84,7 +84,7 @@ export default function MomentsPage() {
         <Heart className="h-4 w-4 text-primary" />
         <AlertTitle className="text-primary">Share a Precious Moment</AlertTitle>
         <AlertDescription>
-          Capture and share a short video. It could be your child's reaction to a story, or a 30-second message from your child saying "I love you, Mom and Dad, and thank you." Selected videos may be featured on our official social media channels.
+          Capture a precious moment! It could be your child's message of love, or their creative answer to the question: "If you were Mom or Dad, what would you do for your child?" Selected videos may be featured on our official social media channels.
         </AlertDescription>
       </Alert>
 
@@ -129,7 +129,7 @@ export default function MomentsPage() {
               <Label htmlFor="moment-description">Description</Label>
               <Textarea
                 id="moment-description"
-                placeholder="Describe this moment, e.g., 'My son's message to us'..."
+                placeholder="Describe this moment, e.g., 'My son's message to us' or 'His answer to the role-play question!'"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 disabled={isLoading || !user}
