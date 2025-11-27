@@ -24,7 +24,7 @@ export default function AppHeader() {
     return currentLink ? currentLink.label : "Profile";
   }, [pathname]);
 
-  const remainingMinutes = useMemo(() => Math.floor(points * 0.2), [points]);
+  const remainingMinutes = useMemo(() => 30 + Math.floor(points * 0.2), [points]);
 
   const handleSignIn = async () => {
     const auth = getAuth(app);
