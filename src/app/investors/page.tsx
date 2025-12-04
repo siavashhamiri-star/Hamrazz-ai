@@ -1,10 +1,13 @@
 
+
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp } from "lucide-react";
 import Link from "next/link";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
+import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
 
 
 const keyFeatures = [
@@ -43,6 +46,20 @@ const roadmap = [
     }
 ];
 
+const chartData = [
+  { month: "Today", users: 1000 },
+  { month: "6 Mo", users: 250000 },
+  { month: "1 Year", users: 1000000 },
+  { month: "2 Years", users: 5000000 },
+];
+
+const chartConfig = {
+  users: {
+    label: "Users",
+    color: "hsl(var(--primary))",
+  },
+} satisfies React.ComponentProps<typeof ChartContainer>["config"];
+
 export default function InvestorsPage() {
   return (
     <div className="space-y-12">
@@ -74,6 +91,43 @@ export default function InvestorsPage() {
                     </Card>
                 ))}
             </div>
+        </section>
+
+        <section>
+             <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold font-headline">Market Opportunity</h2>
+                <p className="text-muted-foreground">The global market for social and educational apps is expanding rapidly. Hamraz is uniquely positioned to capture a significant share.</p>
+            </div>
+            <Card>
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2"><TrendingUp /> Projected User Growth</CardTitle>
+                    <CardDescription>Based on our ecosystem model, we project exponential user acquisition and engagement.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+                        <BarChart accessibilityLayer data={chartData}>
+                            <CartesianGrid vertical={false} />
+                            <XAxis
+                                dataKey="month"
+                                tickLine={false}
+                                tickMargin={10}
+                                axisLine={false}
+                            />
+                            <YAxis
+                              tickFormatter={(value) => (value as number / 1000) + 'k'}
+                            />
+                            <Tooltip 
+                                cursor={false} 
+                                content={<ChartTooltipContent 
+                                    formatter={(value) => value.toLocaleString()} 
+                                    indicator="dot"
+                                />} 
+                            />
+                            <Bar dataKey="users" fill="var(--color-users)" radius={4} />
+                        </BarChart>
+                    </ChartContainer>
+                </CardContent>
+            </Card>
         </section>
 
         <section>
