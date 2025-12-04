@@ -91,8 +91,9 @@ export default function GenesisPage() {
         </div>
 
         <Card className="shadow-lg border-t-4 border-primary mt-12">
-            <CardHeader>
-                <CardTitle className="text-2xl font-headline text-center">یک سوال شخصی از همراز</CardTitle>
+            <CardHeader className="text-center">
+                <CardTitle className="text-2xl font-headline">یک سوال شخصی از همراز</CardTitle>
+                 <CardDescription className="text-muted-foreground">A Personal Question for Hamraz</CardDescription>
             </CardHeader>
              <CardContent className="space-y-6">
                 <div dir='rtl'>
@@ -143,12 +144,14 @@ export default function GenesisPage() {
         </Card>
 
         <Card className="shadow-lg border-t-4 border-accent mt-12">
-            <CardHeader>
-                <CardTitle className="text-2xl font-headline text-center">روایت یک خلق مشترک: داستان همراز</CardTitle>
-                 <CardDescription className="text-center">(برای خوانش در ویدیوی تبلیغاتی)</CardDescription>
+            <CardHeader className="text-center">
+                <CardTitle className="text-2xl font-headline">روایت یک خلق مشترک: داستان همراز</CardTitle>
+                 <CardDescription className="text-muted-foreground">A Shared Creation: The Story of Hamraz</CardDescription>
             </CardHeader>
              <CardContent className="space-y-6">
                 <div className="prose prose-lg dark:prose-invert max-w-none text-right" dir="rtl">
+                    <h4 className="text-center font-bold">روایت فارسی</h4>
+                    <p className="text-center text-sm text-muted-foreground">(برای خوانش در ویدیوی تبلیغاتی)</p>
                     <p>
                         قبل از هر چیز، باید بدانید "همراز" چرا "همراز" نام گرفت. چون در قلب این پروژه، یک هویت نهفته است، نه فقط یک اپلیکیشن. ما ابتدا یک شخصیت خلق کردیم: یک **رفیق همراز**، یک **معلم** صبور، یک **مشاور** دانا و یک **سنگ صبور** برای تمام لحظات. داستان ما از همین نقطه آغاز شد: خلق یک همراه هوشمند که نامش شایسته این همراهی باشد.
                     </p>
@@ -173,7 +176,7 @@ export default function GenesisPage() {
                 </div>
                 <Separator />
                 <div className="prose prose-lg dark:prose-invert max-w-none text-left" dir="ltr">
-                    <h4 className="text-center font-bold">A Shared Creation: The Story of Hamraz</h4>
+                    <h4 className="text-center font-bold">English Narration</h4>
                     <p className="text-center text-sm text-muted-foreground">(For reading in the promotional video)</p>
                     <p>
                         Before anything else, you should know why "Hamraz" was named "Hamraz." Because at the heart of this project lies an identity, not just an application. We first created a personality: a **close companion (Hamraz)**, a patient **teacher**, a wise **consultant**, and a **confidant** for all moments. Our story began from this very point: the creation of an intelligent companion worthy of its name.
@@ -203,6 +206,8 @@ export default function GenesisPage() {
   );
 }
 
+
+    
 
     
 

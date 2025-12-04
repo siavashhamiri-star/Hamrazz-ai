@@ -230,11 +230,11 @@ export default function ShowcasePage() {
         <div dir="rtl">
           <VideoPlayer 
             language="fa" 
-            title="ویدیوی پیدایش" 
-            description="تفسیری سینمایی و تولید شده توسط هوش مصنوعی از سفر ما." 
+            title="ویدیوی پیدایش (The Genesis Video)" 
+            description="تفسیری سینمایی و تولید شده توسط هوش مصنوعی از سفر ما. (An AI-generated cinematic interpretation of our journey.)" 
           />
            <Teleprompter 
-            title="تله‌پرامپتر: روایت فارسی"
+            title="تله‌پرامپتر: روایت فارسی (Teleprompter: Persian Narration)"
             text={text_fa}
             direction="rtl"
           />
@@ -248,7 +248,7 @@ export default function ShowcasePage() {
         </CardHeader>
         <CardContent className="space-y-6">
             <div dir="rtl" className="prose prose-lg dark:prose-invert max-w-none text-right">
-                <h3 className="text-xl font-bold">روایت فارسی</h3>
+                <h3 className="text-xl font-bold">روایت فارسی (Persian)</h3>
                 <p>{text_fa}</p>
             </div>
             <Separator />
@@ -263,6 +263,8 @@ export default function ShowcasePage() {
   );
 }
 
+
+    
 
     
 

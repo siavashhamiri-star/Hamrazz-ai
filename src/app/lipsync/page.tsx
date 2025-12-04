@@ -24,13 +24,13 @@ const audioClips = {
         { id: 2, title: "Funny Catchphrase", artist: "Famous Comedian", url: "/audio/funny_en.mp3", duration: 4 },
     ],
     fa: [
-        { id: 3, title: "شعر معروف", artist: "شاعر نامی", url: "/audio/poem_fa.mp3", duration: 7 },
+        { id: 3, title: "شعر معروف (Famous Poem)", artist: "شاعر نامی", url: "/audio/poem_fa.mp3", duration: 7 },
     ],
     es: [
         { id: 4, title: "Frase de Telenovela", artist: "Actor Famoso", url: "/audio/telenovela_es.mp3", duration: 6 },
     ],
     ar: [
-        { id: 5, title: "اقتباس سينمائي", artist: "ممثل مشهور", url: "/audio/quote_ar.mp3", duration: 5 },
+        { id: 5, title: "اقتباس سينمائي (Movie Quote)", artist: "ممثل مشهور", url: "/audio/quote_ar.mp3", duration: 5 },
     ]
 };
 
@@ -138,9 +138,9 @@ export default function LipSyncPage() {
              <Tabs defaultValue="en" className="w-full">
                 <TabsList className="grid w-full grid-cols-4">
                     <TabsTrigger value="en">English</TabsTrigger>
-                    <TabsTrigger value="fa">فارسی</TabsTrigger>
+                    <TabsTrigger value="fa">فارسی (Persian)</TabsTrigger>
                     <TabsTrigger value="es">Español</TabsTrigger>
-                    <TabsTrigger value="ar">العربية</TabsTrigger>
+                    <TabsTrigger value="ar">العربية (Arabic)</TabsTrigger>
                 </TabsList>
                 {(Object.keys(audioClips) as Array<keyof typeof audioClips>).map(lang => (
                     <TabsContent key={lang} value={lang} className="mt-4">
@@ -259,5 +259,7 @@ export default function LipSyncPage() {
     </div>
   );
 }
+
+    
 
     
