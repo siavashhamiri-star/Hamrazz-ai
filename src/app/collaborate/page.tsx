@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Handshake, BrainCircuit, Search, Briefcase } from "lucide-react";
+import { Loader2, PartyPopper, Handshake, BrainCircuit, Search, Briefcase, DollarSign } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -43,7 +43,6 @@ const ApplyToCollaborate = () => {
     }
     setIsLoading(true);
 
-    // Simulate API call for submission
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     console.log("Collaboration Application:", {
@@ -61,7 +60,7 @@ const ApplyToCollaborate = () => {
   
   if (isSubmitted) {
     return (
-        <Card className="w-full max-w-2xl shadow-lg text-center animate-in fade-in-50 mt-6">
+        <Card className="w-full shadow-lg text-center animate-in fade-in-50 mt-6">
           <CardHeader>
             <PartyPopper className="w-16 h-16 mx-auto text-primary" />
             <CardTitle className="text-2xl font-headline mt-4">Application Submitted!</CardTitle>
@@ -78,8 +77,8 @@ const ApplyToCollaborate = () => {
     <Card className="w-full shadow-lg">
         <form onSubmit={handleSubmit}>
           <CardHeader>
-            <CardTitle className="text-2xl font-headline">Apply for Collaboration</CardTitle>
-            <CardDescription>Tell us about your skills and how you want to contribute.</CardDescription>
+            <CardTitle className="text-2xl font-headline">Apply to Join the Team</CardTitle>
+            <CardDescription>Tell us about your skills and how you want to contribute to the Hamraz ecosystem.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -137,7 +136,7 @@ const ApplyToCollaborate = () => {
               {isLoading ? (
                 <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Submitting Application...</>
               ) : (
-                <><Handshake className="mr-2 h-4 w-4" />Apply for Collaboration</>
+                <><Handshake className="mr-2 h-4 w-4" />Apply to Collaborate</>
               )}
             </Button>
           </CardFooter>
@@ -187,7 +186,7 @@ const RequestCollaborator = () => {
          <Card className="w-full shadow-lg">
             <form onSubmit={handleSubmit}>
                 <CardHeader>
-                    <CardTitle className="text-2xl font-headline">Request a Collaborator</CardTitle>
+                    <CardTitle className="text-2xl font-headline">Find Talent for Your Project</CardTitle>
                     <CardDescription>Post a project or role and find the talent you need from our community.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -217,6 +216,92 @@ const RequestCollaborator = () => {
     )
 }
 
+const PartnerForm = () => {
+  const [name, setName] = useState("");
+  const [company, setCompany] = useState("");
+  const [interest, setInterest] = useState("");
+  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const { toast } = useToast();
+  const { user } = useUser();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !company.trim() || !interest || !message.trim()) {
+      toast({ variant: "destructive", title: "Incomplete Form", description: "Please fill out all fields." });
+      return;
+    }
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    console.log("Partnership Inquiry:", { userId: user?.uid, name, company, interest, message });
+    setIsLoading(false);
+    setIsSubmitted(true);
+  };
+
+  if (isSubmitted) {
+    return (
+      <Card className="w-full shadow-lg text-center animate-in fade-in-50 mt-6">
+        <CardHeader>
+          <PartyPopper className="w-16 h-16 mx-auto text-primary" />
+          <CardTitle className="text-2xl font-headline mt-4">Inquiry Received!</CardTitle>
+          <CardDescription>Thank you for your interest in Hamraz. Our team will review your proposal and be in touch shortly to discuss potential synergies.</CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button className="w-full" onClick={() => setIsSubmitted(false)}>Submit Another Inquiry</Button>
+        </CardFooter>
+      </Card>
+    );
+  }
+
+  return (
+    <Card className="w-full shadow-lg">
+      <form onSubmit={handleSubmit}>
+        <CardHeader>
+          <CardTitle className="text-2xl font-headline">Contact Us for Partnership</CardTitle>
+          <CardDescription>We are open to investment, sponsorship, and strategic partnership opportunities.</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <div className="space-y-2">
+                  <Label htmlFor="partner-name">Your Name</Label>
+                  <Input id="partner-name" placeholder="John Doe" value={name} onChange={(e) => setName(e.target.value)} disabled={isLoading} required />
+              </div>
+              <div className="space-y-2">
+                  <Label htmlFor="partner-company">Company / Organization</Label>
+                  <Input id="partner-company" placeholder="Acme Corporation" value={company} onChange={(e) => setCompany(e.target.value)} disabled={isLoading} required />
+              </div>
+          </div>
+          <div className="space-y-2">
+              <Label htmlFor="partner-interest">Area of Interest</Label>
+              <Select onValueChange={setInterest} value={interest} disabled={isLoading}>
+                  <SelectTrigger id="partner-interest">
+                      <SelectValue placeholder="Select your interest" />
+                  </SelectTrigger>
+                  <SelectContent>
+                      <SelectItem value="investment">Venture Investment</SelectItem>
+                      <SelectItem value="sponsorship">Sponsorship</SelectItem>
+                      <SelectItem value="acquisition">Acquisition / Merger</SelectItem>
+                      <SelectItem value="strategic-partnership">Strategic Partnership</SelectItem>
+                  </SelectContent>
+              </Select>
+          </div>
+          <div className="space-y-2">
+              <Label htmlFor="partner-message">Proposal / Message</Label>
+              <Textarea id="partner-message" placeholder="Briefly describe your proposal or why you're interested in partnering with Hamraz." value={message} onChange={(e) => setMessage(e.target.value)} disabled={isLoading} required className="min-h-[150px]" />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Sending Inquiry...</> : <><DollarSign className="mr-2 h-4 w-4" />Submit Inquiry</>}
+          </Button>
+        </CardFooter>
+      </form>
+    </Card>
+  );
+};
+
+
 export default function CollaboratePage() {
   return (
     <div className="space-y-8">
@@ -224,20 +309,24 @@ export default function CollaboratePage() {
         <BrainCircuit className="h-4 w-4 text-primary" />
         <AlertTitle className="text-primary">Join Our Ecosystem of Innovators!</AlertTitle>
         <AlertDescription>
-          Are you skilled in content creation, programming, language teaching, or digital marketing? Or are you looking for talent? We are building a team of talented individuals to shape the future of AI-driven applications. Submit your application or post a job to get hired, promoted, or connected with partners and investors. A nominal fee may be charged for application processing and profile verification.
+          Are you skilled in content creation, programming, or language teaching? Or are you looking for talent? This is the place to connect. We are building a team to shape the future of AI-driven applications. A nominal fee may be charged for application processing and profile verification.
         </AlertDescription>
       </Alert>
 
       <Tabs defaultValue="apply" className="w-full max-w-3xl mx-auto">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="apply"><Briefcase className="mr-2"/>Offer Your Skills</TabsTrigger>
-          <TabsTrigger value="request"><Search className="mr-2"/>Request a Collaborator</TabsTrigger>
+          <TabsTrigger value="request"><Search className="mr-2"/>Find Talent</TabsTrigger>
+          <TabsTrigger value="partner"><DollarSign className="mr-2"/>Investors &amp; Partners</TabsTrigger>
         </TabsList>
         <TabsContent value="apply" className="mt-6">
           <ApplyToCollaborate />
         </TabsContent>
         <TabsContent value="request" className="mt-6">
           <RequestCollaborator />
+        </TabsContent>
+        <TabsContent value="partner" className="mt-6">
+          <PartnerForm />
         </TabsContent>
       </Tabs>
     </div>
