@@ -25,6 +25,7 @@ import {
   Cloud,
   PawPrint,
   Terminal,
+  DollarSign,
 } from "lucide-react";
 
 export const navLinks = [
@@ -39,6 +40,7 @@ export const navLinks = [
   { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
+  { href: "/investors", label: "Investors", icon: DollarSign },
   { href: "/camera", label: "Camera", icon: Camera },
   { href: "/poetry", label: "Poetry", icon: Feather },
   { href: "/antics", label: "Antics", icon: SmilePlus },
