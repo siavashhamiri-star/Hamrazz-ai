@@ -24,6 +24,7 @@ import {
   Sunrise,
   Cloud,
   PawPrint,
+  Terminal,
 } from "lucide-react";
 
 export const navLinks = [
@@ -55,4 +56,19 @@ export const bottomNavLinks = [
   { href: "/profile", label: "Profile", icon: User },
   { href: "/board", label: "Board", icon: Award },
   { href: "/privacy", label: "Privacy", icon: Shield },
+];
+
+export const creatorLinks = [
+    { 
+        href: "#", 
+        label: "Creative Suite", 
+        icon: Palette, 
+        description: "An all-in-one suite for digital artists and designers." 
+    },
+    { 
+        href: "#", 
+        label: "DevKit", 
+        icon: Terminal, 
+        description: "A collection of powerful tools for modern developers." 
+    },
 ];

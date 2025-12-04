@@ -11,10 +11,12 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarSeparator,
+  SidebarGroup,
+  SidebarGroupLabel,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, ShoppingBag, Twitch } from 'lucide-react';
-import { navLinks, bottomNavLinks } from '@/lib/data';
+import { navLinks, bottomNavLinks, creatorLinks } from '@/lib/data';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { getAuth, signOut } from 'firebase/auth';
@@ -124,6 +126,35 @@ export default function AppSidebar() {
        <SidebarFooter>
          <SocialLinks />
          <SidebarSeparator />
+
+         <SidebarGroup>
+            <SidebarGroupLabel>From the Creator</SidebarGroupLabel>
+             <SidebarMenu>
+                {creatorLinks.map((link) => (
+                    <SidebarMenuItem key={link.href}>
+                    <SidebarMenuButton
+                        asChild
+                        tooltip={{
+                            children: (
+                                <>
+                                    <div className="font-bold">{link.label}</div>
+                                    <div className="text-muted-foreground">{link.description}</div>
+                                </>
+                            )
+                        }}
+                    >
+                        <Link href={link.href} target="_blank">
+                        <link.icon />
+                        <span>{link.label}</span>
+                        </Link>
+                    </SidebarMenuButton>
+                    </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+        </SidebarGroup>
+
+         <SidebarSeparator />
+         
          {user ? (
             <div className="flex items-center gap-3 p-2">
                 <Avatar className="h-9 w-9">
