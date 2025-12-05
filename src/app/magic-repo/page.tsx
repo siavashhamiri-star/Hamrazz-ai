@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,9 +13,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, FolderTree, Send, Wand2, FileDown, Rocket, Lightbulb, Terminal, Github } from "lucide-react";
+import { Loader2, FolderTree, Send, Wand2, FileDown, Rocket, Lightbulb, Terminal, Github, Play } from "lucide-react";
 import { generateProjectStructure, FileSystem } from "@/ai/flows/generate-project-structure-flow";
 import { zipProject } from "@/ai/flows/zip-project-flow";
+import { cn } from "@/lib/utils";
 
 const FileTree = ({ node, level = 0 }: { node: FileSystem, level?: number }) => {
   return (
@@ -32,11 +33,64 @@ const FileTree = ({ node, level = 0 }: { node: FileSystem, level?: number }) => 
   );
 };
 
+const SimulatedTerminal = () => {
+    const [lines, setLines] = useState<string[]>([]);
+    const [isRunning, setIsRunning] = useState(false);
+    const commands = [
+        { cmd: "git init", output: "Initialized empty Git repository in ./.git/" },
+        { cmd: "git add .", output: "Staging all files..." },
+        { cmd: "git commit -m \"Initial commit via Hamraz AI\"", output: "[main (root-commit) 1a2b3c4] Initial commit via Hamraz AI\n 2 files changed, 10 insertions(+)" },
+        { cmd: "git remote add origin YOUR_REPO_URL", output: "Setting remote origin..." },
+        { cmd: "git push -u origin main", output: "Enumerating objects: 3, done.\nCounting objects: 100% (3/3), done.\nDelta compression using up to 8 threads\nCompressing objects: 100% (2/2), done.\nWriting objects: 100% (3/3), 256 bytes | 256.00 KiB/s, done.\nTotal 3 (delta 0), reused 0 (delta 0)\nTo github.com:user/repo.git\n * [new branch]      main -> main" },
+        { cmd: "echo '✅ Successfully uploaded to GitHub!'", output: "✅ Successfully uploaded to GitHub!" },
+    ];
+    
+    const runSimulation = () => {
+        setIsRunning(true);
+        setLines([]);
+        let currentLines: string[] = [];
+        commands.forEach((item, index) => {
+            setTimeout(() => {
+                currentLines = [...currentLines, `$ ${item.cmd}`];
+                setLines([...currentLines]);
+                setTimeout(() => {
+                    currentLines = [...currentLines, item.output];
+                    setLines([...currentLines]);
+                     if (index === commands.length - 1) {
+                        setIsRunning(false);
+                    }
+                }, 500);
+            }, index * 1500);
+        });
+    }
+
+    return (
+        <Alert variant="default" className="mt-8">
+             <Github className="h-4 w-4" />
+            <AlertTitle>Automated GitHub Setup Assistant</AlertTitle>
+            <AlertDescription>
+                <p>After downloading and unzipping, this assistant can guide you through uploading to GitHub. Let's simulate the terminal commands together.</p>
+                <div className="mt-4 p-4 bg-muted rounded-md font-mono text-xs space-y-2 h-64 overflow-y-auto">
+                  {lines.map((line, index) => (
+                      <p key={index} className={cn("whitespace-pre-wrap", !line.startsWith('$') && "text-muted-foreground")}>{line}</p>
+                  ))}
+                  {!isRunning && lines.length === 0 && <p className="text-muted-foreground">Click "Run Setup" to start the simulation.</p>}
+               </div>
+            </AlertDescription>
+            <div className="mt-4">
+                <Button onClick={runSimulation} disabled={isRunning}>
+                    {isRunning ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Running...</> : <><Play className="mr-2 h-4 w-4" />Run Setup</>}
+                </Button>
+            </div>
+        </Alert>
+    );
+}
 
 export default function MagicRepoPage() {
     const [command, setCommand] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isZipping, setIsZipping] = useState(false);
+    const [isProjectDownloaded, setIsProjectDownloaded] = useState(false);
     const [fileStructure, setFileStructure] = useState<FileSystem>({
         name: "my-project",
         type: "directory",
@@ -67,6 +121,7 @@ export default function MagicRepoPage() {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            setIsProjectDownloaded(true);
         } catch (error) {
             console.error("Error zipping project:", error);
         } finally {
@@ -141,21 +196,10 @@ export default function MagicRepoPage() {
             </Card>
         </div>
 
-        <Alert variant="default">
-             <Github className="h-4 w-4" />
-            <AlertTitle>Next Steps: Upload to GitHub</AlertTitle>
-            <AlertDescription>
-                <p>After downloading and unzipping your project, you can upload it to GitHub using these common commands in your terminal.</p>
-               <div className="mt-4 p-4 bg-muted rounded-md font-mono text-xs space-y-2">
-                  <p><span className="text-primary">$</span> <span className="font-bold">git init</span><span className="text-muted-foreground"> # Initializes a new git repository in your folder.</span></p>
-                  <p><span className="text-primary">$</span> <span className="font-bold">git add .</span><span className="text-muted-foreground"> # Adds all your files to be tracked.</span></p>
-                  <p><span className="text-primary">$</span> <span className="font-bold">git commit -m "Initial commit"</span><span className="text-muted-foreground"> # Saves your files in the repository.</span></p>
-                  <p><span className="text-primary">$</span> <span className="font-bold">git remote add origin YOUR_REPO_URL</span><span className="text-muted-foreground"> # Connects to your GitHub repo.</span></p>
-                  <p><span className="text-primary">$</span> <span className="font-bold">git push -u origin main</span><span className="text-muted-foreground"> # Uploads your project to GitHub.</span></p>
-               </div>
-            </AlertDescription>
-        </Alert>
+        {isProjectDownloaded && <SimulatedTerminal />}
 
     </div>
   );
 }
+
+    
