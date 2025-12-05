@@ -54,7 +54,7 @@ export const navLinks = [
   { href: "/ads", label: "Advertisements", icon: Film },
   { href: "/genesis", label: "Genesis", icon: Book },
   { href: "/showcase", label: "Showcase", icon: Trophy },
-  { href: "/sync", label: "GitHub Sync", icon: Share2 },
+  { href: "/sync", label: "Sync & Tools", icon: Share2 },
   { href: "/magic-repo", label: "Magic Repo", icon: Wand2 },
 ];
 
