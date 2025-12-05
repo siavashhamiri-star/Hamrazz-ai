@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Cpu, Wind, Layers, BrainCircuit, ArrowRight, Github, Code, RadioTower } from "lucide-react";
+import { Cpu, Wind, Layers, BrainCircuit, ArrowRight, Github, Code, RadioTower, Handshake } from "lucide-react";
 import Link from "next/link";
 
 
@@ -139,6 +139,39 @@ export default function DevOpsPage() {
         </section>
 
         <section>
+             <Card className="border-primary">
+                <CardHeader>
+                    <div className="flex items-center gap-4">
+                        <Handshake className="w-10 h-10 text-primary"/>
+                        <div>
+                             <CardTitle className="text-2xl font-headline text-primary">Call for Partnership: Build the Infrastructure & Share the Success</CardTitle>
+                             <CardDescription>We are offering a unique partnership model for the development of this media server.</CardDescription>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className="prose dark:prose-invert max-w-none">
+                   <p>
+                        The development of the streaming ingest infrastructure is a significant project. Hamraz invites expert developers and teams to collaborate through one of the following partnership models:
+                   </p>
+                   <ul>
+                        <li><strong>Revenue Sharing:</strong> Partner with us to build this feature and receive a share of the revenue generated from it. This is a long-term partnership for mutual growth.</li>
+                        <li><strong>Contract & Acquisition:</strong> Develop the module on a contractual basis. The finished, approved module will be purchased by Hamraz, operating under our platform's regulations and supervision.</li>
+                   </ul>
+                   <p>
+                        This is an opportunity to have a foundational impact on a next-generation platform and share in its financial success. If you have the expertise, we want to partner with you.
+                   </p>
+                </CardContent>
+                 <CardFooter>
+                    <Link href="/collaborate">
+                        <Button variant="outline">
+                            Propose a Partnership <ArrowRight className="ml-2"/>
+                        </Button>
+                    </Link>
+                </CardFooter>
+            </Card>
+        </section>
+
+        <section>
             <Card className="bg-gradient-to-br from-primary/10 to-accent/10">
                  <CardHeader className="text-center items-center">
                     <CardTitle className="text-3xl font-headline">A Call to the Revolutionaries</CardTitle>
@@ -159,3 +192,5 @@ export default function DevOpsPage() {
     </div>
   )
 }
+
+    
