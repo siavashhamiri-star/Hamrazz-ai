@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, FolderTree, Send, Wand2, FileDown, Rocket, Lightbulb } from "lucide-react";
+import { Loader2, FolderTree, Send, Wand2, FileDown, Rocket, Lightbulb, Terminal, Github } from "lucide-react";
 import { generateProjectStructure, FileSystem } from "@/ai/flows/generate-project-structure-flow";
 import { zipProject } from "@/ai/flows/zip-project-flow";
 
@@ -121,7 +121,7 @@ export default function MagicRepoPage() {
                 </CardContent>
                 <CardFooter>
                     <Button onClick={handleDownload} disabled={isZipping || fileStructure.children.length === 0} className="w-full">
-                        {isZipping ? <><Loader2 className="animate-spin mr-2"/>Zipping Project...</> : <><FileDown className="mr-2" />Download Project</>}
+                        {isZipping ? <><Loader2 className="animate-spin mr-2"/>Zipping Project...</> : <><FileDown className="mr-2" />Download Project (.zip)</>}
                     </Button>
                 </CardFooter>
             </Card>
@@ -140,6 +140,22 @@ export default function MagicRepoPage() {
                 </CardContent>
             </Card>
         </div>
+
+        <Alert variant="default">
+             <Github className="h-4 w-4" />
+            <AlertTitle>Next Steps: Upload to GitHub</AlertTitle>
+            <AlertDescription>
+                <p>After downloading and unzipping your project, you can upload it to GitHub using these common commands in your terminal.</p>
+               <div className="mt-4 p-4 bg-muted rounded-md font-mono text-xs space-y-2">
+                  <p><span className="text-primary">$</span> <span className="font-bold">git init</span><span className="text-muted-foreground"> # Initializes a new git repository in your folder.</span></p>
+                  <p><span className="text-primary">$</span> <span className="font-bold">git add .</span><span className="text-muted-foreground"> # Adds all your files to be tracked.</span></p>
+                  <p><span className="text-primary">$</span> <span className="font-bold">git commit -m "Initial commit"</span><span className="text-muted-foreground"> # Saves your files in the repository.</span></p>
+                  <p><span className="text-primary">$</span> <span className="font-bold">git remote add origin YOUR_REPO_URL</span><span className="text-muted-foreground"> # Connects to your GitHub repo.</span></p>
+                  <p><span className="text-primary">$</span> <span className="font-bold">git push -u origin main</span><span className="text-muted-foreground"> # Uploads your project to GitHub.</span></p>
+               </div>
+            </AlertDescription>
+        </Alert>
+
     </div>
   );
 }
