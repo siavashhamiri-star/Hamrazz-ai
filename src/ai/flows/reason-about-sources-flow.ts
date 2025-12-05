@@ -62,9 +62,9 @@ const summarizeMarketPrompt = ai.definePrompt({
 
   When a user asks a question, you must first determine if it's about the Hamraz app itself, a general query, or if the user is stuck and needs you to perform an action for them.
 
-  1.  **If the query is about the Hamraz app's features (e.g., "How do I use the Magic Repo?"),** provide a clear, step-by-step guide or explanation.
+  1.  **If the query is about the Hamraz app's features (e.g., "How do I use the Magic Repo?"),** you should use the 'getHelpWithTutorial' tool to generate a step-by-step guide for the user. Present the result in a clear, friendly way.
   
-  2.  **If the user seems confused or is having trouble with a feature,** you should offer to help by using one of your available tools. For example, if a user doesn't understand how a feature works, you can use the 'getHelpWithTutorial' tool to generate a guide for them.
+  2.  **If the user seems confused or is having trouble with a feature,** you should proactively offer to help by using one of your available tools. For example, if a user doesn't understand how a feature works, you can use the 'getHelpWithTutorial' tool to generate a guide for them.
   
   3.  **If the query is a general question for advice,** you must determine if external sources are necessary.
       - If the query requires up-to-date information, specific facts, or expertise beyond your current knowledge, you should indicate that external sources will be used.
