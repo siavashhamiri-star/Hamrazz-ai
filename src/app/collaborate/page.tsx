@@ -104,6 +104,7 @@ const ApplyToCollaborate = () => {
                         <SelectItem value="programming">Programming & Development</SelectItem>
                         <SelectItem value="language-teaching">Language Teaching & Tutoring</SelectItem>
                         <SelectItem value="digital-marketing">Digital Marketing</SelectItem>
+                        <SelectItem value="voice-acting">Voice Acting & Narration</SelectItem>
                         <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                 </Select>
