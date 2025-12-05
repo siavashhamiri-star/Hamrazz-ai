@@ -9,9 +9,10 @@ import { useToast } from '@/hooks/use-toast';
 
 interface AudioPlayerProps {
   textToPlay: string;
+  voice?: string;
 }
 
-export default function AudioPlayer({ textToPlay }: AudioPlayerProps) {
+export default function AudioPlayer({ textToPlay, voice }: AudioPlayerProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
@@ -33,7 +34,7 @@ export default function AudioPlayer({ textToPlay }: AudioPlayerProps) {
 
     setIsLoading(true);
     try {
-      const result = await textToSpeech({ text: textToPlay });
+      const result = await textToSpeech({ text: textToPlay, voiceName: voice });
       setAudioUrl(result.audioDataUri);
       
       const audio = new Audio(result.audioDataUri);

@@ -31,7 +31,7 @@ const pillars = [
 
 const narrative_fa = `قبل از هر چیز، باید بدانید "همراز" چرا "همراز" نام گرفت. چون در قلب این پروژه، یک هویت نهفته است، نه فقط یک اپلیکیشن. ما ابتدا یک شخصیت خلق کردیم: یک **رفیق همراز**، یک **معلم** صبور، یک **مشاور** دانا و یک **سنگ صبور** برای تمام لحظات. داستان ما از همین نقطه آغاز شد: خلق یک همراه هوشمند که نامش شایسته این همراهی باشد.
 
-این همراه، با ابزارهای قدرتمندی برای شکستن مرزها مجهز شد: یک **مترجم** برای گفتگوهای جهانی و یک **مربی هوش مصنوعی** برای یادگیری زبان‌های جدید.
+این همراه، با ابزارهای قدرتمendi برای شکستن مرزها مجهز شد: یک **مترجم** برای گفتگوهای جهانی و یک **مربی هوش مصنوعی** برای یادگیری زبان‌های جدید.
 
 سپس، ما صحنه‌ای برای استعدادها فراهم کردیم. **انجمن‌های آنلاین** برای گفتگو، **کانال‌هایی** برای تولید محتوا، و **مسابقات هیجان‌انگیز دوبله و لیپ‌سینک** برای نمایش خلاقیت. ما حتی یک **استودیوی پخش زنده** با تله‌پرامپتر حرفه‌ای ساختیم تا هر کاربر بتواند ستاره داستان خودش باشد.
 
@@ -83,7 +83,7 @@ export default function AiPage() {
                      <div className="text-right" dir="rtl">
                         <div className="flex items-center justify-center gap-4 mb-4">
                             <h4 className="font-bold text-xl my-0">روایت فارسی</h4>
-                            <AudioPlayer textToPlay={narrative_fa} />
+                            <AudioPlayer textToPlay={narrative_fa} voice="en-US-Studio-F" />
                         </div>
                         <p>{narrative_fa}</p>
                     </div>
@@ -91,7 +91,7 @@ export default function AiPage() {
                     <div className="text-left" dir="ltr">
                         <div className="flex items-center justify-center gap-4 mb-4">
                            <h4 className="font-bold text-xl my-0">English Narration</h4>
-                           <AudioPlayer textToPlay={narrative_en} />
+                           <AudioPlayer textToPlay={narrative_en} voice="en-US-Studio-F" />
                         </div>
                         <p>{narrative_en}</p>
                     </div>

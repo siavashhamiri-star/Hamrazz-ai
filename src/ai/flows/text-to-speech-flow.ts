@@ -16,6 +16,7 @@ import wav from 'wav';
 
 const TextToSpeechInputSchema = z.object({
   text: z.string().describe('The text to be converted to speech.'),
+  voiceName: z.string().optional().describe('The name of the voice to use (e.g., "Algenib", "en-US-Studio-F").'),
 });
 export type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
 
@@ -58,7 +59,9 @@ export async function textToSpeech(input: TextToSpeechInput): Promise<TextToSpee
       responseModalities: ['AUDIO'],
       speechConfig: {
         voiceConfig: {
-          prebuiltVoiceConfig: {voiceName: 'Algenib'},
+          // Use the provided voice name, or fall back to a default.
+          // 'en-US-Studio-F' is a standard female voice.
+          prebuiltVoiceConfig: {voiceName: input.voiceName || 'Algenib'},
         },
       },
     },
