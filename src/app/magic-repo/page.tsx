@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, FolderTree, Send, Wand2, Rocket, Lightbulb, Github, CheckCircle } from "lucide-react";
+import { Loader2, FolderTree, Send, Wand2, Rocket, Lightbulb, Github, CheckCircle, Video } from "lucide-react";
 import { generateProjectStructure, FileSystem } from "@/ai/flows/generate-project-structure-flow";
 import { useUser } from "@/firebase";
 
@@ -62,7 +62,6 @@ export default function MagicRepoPage() {
     };
     
     const handleConnectToGithub = () => {
-        // Simulate OAuth flow
         setIsLoading(true);
         setTimeout(() => {
             setGithubConnected(true);
@@ -74,10 +73,7 @@ export default function MagicRepoPage() {
         setIsPublishing(true);
         setIsPublished(false);
         try {
-            // Simulate API calls to GitHub
-            // 1. Create repo
             await new Promise(resolve => setTimeout(resolve, 1500));
-            // 2. Upload files (in a real scenario, this would be a loop of API calls)
             await new Promise(resolve => setTimeout(resolve, 2000));
             
             const generatedRepoUrl = `https://github.com/${user?.displayName?.toLowerCase().replace(/\s/g, '') || 'user'}/${fileStructure.name}`;
@@ -112,28 +108,39 @@ export default function MagicRepoPage() {
             </AlertDescription>
         </Alert>
 
-        <Alert variant="default">
-             <Lightbulb className="h-4 w-4" />
-            <AlertTitle>Example Commands</AlertTitle>
-            <AlertDescription>
-               <ul className="list-disc list-inside mt-2 text-xs font-mono">
-                  <li>create a file named "index.html"</li>
-                  <li>add a folder named "css"</li>
-                  <li>put a file "style.css" inside "css"</li>
-                  <li>add a h1 with "Hello World" to index.html</li>
-                </ul>
-            </AlertDescription>
-        </Alert>
-        
+        <Card>
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-xl font-headline"><Video /> Tutorial: Idea to GitHub in 60 Seconds</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="aspect-video bg-muted rounded-lg overflow-hidden">
+                    <video src="https://videos.pexels.com/video-files/852413/852413-hd_1280_720_25fps.mp4" className="w-full h-full object-cover" controls loop autoPlay muted>
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </CardContent>
+        </Card>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Card className="shadow-lg">
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><Wand2 /> Command Console</CardTitle>
+                    <CardTitle className="flex items-center gap-2"><Wand2 /> 1. Command Console</CardTitle>
                     <CardDescription>
                         Type your command below to build your project structure.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
+                     <Alert variant="default" className="mb-4">
+                        <Lightbulb className="h-4 w-4" />
+                        <AlertTitle className="text-sm">Example Commands</AlertTitle>
+                        <AlertDescription className="text-xs">
+                           <ul className="list-disc list-inside font-mono">
+                              <li>create a file named "index.html"</li>
+                              <li>add a folder named "css"</li>
+                              <li>add a h1 with "Hello World" to index.html</li>
+                            </ul>
+                        </AlertDescription>
+                    </Alert>
                     <div className="flex gap-2">
                         <Input 
                             placeholder="e.g., 'create a file named index.html'"
@@ -151,10 +158,10 @@ export default function MagicRepoPage() {
 
             <Card className="shadow-lg">
                 <CardHeader>
-                    <CardTitle className="flex items-center gap-2"><FolderTree/> Project Structure</CardTitle>
+                    <CardTitle className="flex items-center gap-2"><FolderTree/> 2. Project Structure</CardTitle>
                     <CardDescription>Your project's file tree will appear here live.</CardDescription>
                 </CardHeader>
-                <CardContent className="min-h-[150px] bg-muted/50 rounded-lg p-4 font-mono text-sm">
+                <CardContent className="min-h-[200px] bg-muted/50 rounded-lg p-4 font-mono text-sm">
                     {fileStructure.children.length > 0 ? (
                         <FileTree node={fileStructure} />
                     ) : (
@@ -166,7 +173,7 @@ export default function MagicRepoPage() {
 
         <Card className="shadow-lg">
             <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Github /> GitHub Integration</CardTitle>
+                <CardTitle className="flex items-center gap-2"><Rocket /> 3. Publish</CardTitle>
                 <CardDescription>Connect your GitHub account to publish your project directly.</CardDescription>
             </CardHeader>
             <CardContent>
@@ -205,3 +212,5 @@ export default function MagicRepoPage() {
     </div>
   );
 }
+
+    
