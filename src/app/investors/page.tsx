@@ -1,16 +1,20 @@
 
-
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
 
 
 const keyFeatures = [
+    {
+        icon: BrainCircuit,
+        title: "Human Potential Engine",
+        description: "Hamraz's primary goal is to unlock human creativity, turning users from knowledge consumers into knowledge creators through encouragement and support."
+    },
     {
         icon: Rocket,
         title: "A Complete Ecosystem",
@@ -76,7 +80,7 @@ export default function InvestorsPage() {
         </header>
 
         <section>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {keyFeatures.map((feature) => (
                     <Card key={feature.title} className="text-center shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1">
                         <CardHeader className="items-center">
