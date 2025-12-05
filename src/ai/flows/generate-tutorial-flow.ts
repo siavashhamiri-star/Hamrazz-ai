@@ -10,30 +10,14 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { GenerateTutorialInputSchema, GenerateTutorialOutputSchema } from '@/ai/schemas/generate-tutorial-schema';
+import type { GenerateTutorialInput, GenerateTutorialOutput } from '@/ai/schemas/generate-tutorial-schema';
+export type { GenerateTutorialInput, GenerateTutorialOutput } from '@/ai/schemas/generate-tutorial-schema';
 
-const GenerateTutorialInputSchema = z.object({
-  featureName: z.string().describe('The name of the feature for which to generate a tutorial (e.g., "Magic Repo", "Showcase").'),
-});
-export type GenerateTutorialInput = z.infer<typeof GenerateTutorialInputSchema>;
-
-const GenerateTutorialOutputSchema = z.object({
-  title: z.string().describe('The title of the tutorial.'),
-  introduction: z.string().describe('A brief introduction to the feature.'),
-  steps: z.array(z.object({
-    title: z.string().describe('The title of the tutorial step.'),
-    description: z.string().describe('The detailed description of the tutorial step.'),
-  })).describe('An array of steps to follow in the tutorial.'),
-});
-export type GenerateTutorialOutput = z.infer<typeof GenerateTutorialOutputSchema>;
 
 export async function generateTutorial(input: GenerateTutorialInput): Promise<GenerateTutorialOutput> {
   return generateTutorialFlow(input);
 }
-
-// Internal schemas, not exported
-export const internal_GenerateTutorialInputSchema = GenerateTutorialInputSchema;
-export const internal_GenerateTutorialOutputSchema = GenerateTutorialOutputSchema;
 
 
 const prompt = ai.definePrompt({

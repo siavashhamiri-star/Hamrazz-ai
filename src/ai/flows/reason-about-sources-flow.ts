@@ -11,18 +11,12 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { generateTutorial, internal_GenerateTutorialInputSchema, internal_GenerateTutorialOutputSchema } from './generate-tutorial-flow';
+import { generateTutorial } from './generate-tutorial-flow';
+import { GenerateTutorialInputSchema, GenerateTutorialOutputSchema } from '@/ai/schemas/generate-tutorial-schema';
+import { ReasonAboutSourcesInputSchema, ReasonAboutSourcesOutputSchema } from '@/ai/schemas/reason-about-sources-schema';
+import type { ReasonAboutSourcesInput, ReasonAboutSourcesOutput } from '@/ai/schemas/reason-about-sources-schema';
+export type { ReasonAboutSourcesInput, ReasonAboutSourcesOutput } from '@/ai/schemas/reason-about-sources-schema';
 
-const ReasonAboutSourcesInputSchema = z.object({
-  query: z.string().describe('The user query or request for advice.'),
-});
-export type ReasonAboutSourcesInput = z.infer<typeof ReasonAboutSourcesInputSchema>;
-
-const ReasonAboutSourcesOutputSchema = z.object({
-  advice: z.string().describe('The advice provided by the AI, potentially informed by external sources.'),
-  reasoning: z.string().describe('The AI’s reasoning process, including whether external sources were used and why.'),
-});
-export type ReasonAboutSourcesOutput = z.infer<typeof ReasonAboutSourcesOutputSchema>;
 
 export async function reasonAboutSources(input: ReasonAboutSourcesInput): Promise<ReasonAboutSourcesOutput> {
   return reasonAboutSourcesFlow(input);
@@ -32,8 +26,8 @@ const getHelpWithTutorial = ai.defineTool(
     {
         name: 'getHelpWithTutorial',
         description: 'Generates a step-by-step tutorial for a specific feature of the Hamraz app when the user needs help.',
-        inputSchema: internal_GenerateTutorialInputSchema,
-        outputSchema: internal_GenerateTutorialOutputSchema,
+        inputSchema: GenerateTutorialInputSchema,
+        outputSchema: GenerateTutorialOutputSchema,
     },
     async (input) => generateTutorial(input)
 );
