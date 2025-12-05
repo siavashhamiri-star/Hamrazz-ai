@@ -86,18 +86,24 @@ export const creatorLinks = [
         href: "#",
         label: "Afarinan",
         icon: Palette,
-        description: "The perfect companion to Hamraz. Use Hamraz to create projects, videos, and ideas, then showcase them on Afarinan—your professional portfolio to connect with a global community of innovators."
+        description: "The perfect companion to Hamraz. Use Hamraz to create projects, videos, and ideas, then showcase them on Afarinan—your professional portfolio to connect with a global community of innovators. Using both platforms together unlocks a unique world of capabilities, turning your vision into a celebrated reality."
     },
     {
         href: "#",
         label: "Zabanshenas",
         icon: Languages,
-        description: "The premier language learning app. Master new languages with engaging lessons and AI-powered tools."
+        description: "The premier language learning app. Master new languages with engaging lessons and then showcase your skills by creating content in Hamraz for your Afarinan portfolio."
     },
     {
         href: "#",
         label: "Karaoke",
         icon: Music,
-        description: "Sing your heart out! The ultimate karaoke app with a vast library of songs and fun features."
+        description: "Sing your heart out! Record your performances in the Karaoke app, then publish them through Hamraz to gain visibility and fans on your Afarinan profile."
+    },
+    {
+        href: "#",
+        label: "Poetry",
+        icon: Feather,
+        description: "A dedicated space for poetry lovers. Recite beautiful poems, share your own work, and become a recognized voice in the Hamraz and Afarinan literary community."
     },
 ];
