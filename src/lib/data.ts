@@ -30,6 +30,7 @@ import {
   Wand2,
   FileArchive,
   Cpu,
+  Clapperboard,
 } from "lucide-react";
 
 export const navLinks = [
@@ -56,6 +57,7 @@ export const navLinks = [
   { href: "/pets", label: "Pets & Kids", icon: PawPrint },
   { href: "/feedback", label: "Feedback", icon: Lightbulb },
   { href: "/ads", label: "Advertisements", icon: Film },
+  { href: "/showcase", label: "Showcase", icon: Clapperboard },
   { href: "/genesis", label: "Genesis", icon: Book },
 ];
 
