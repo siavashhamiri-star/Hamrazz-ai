@@ -31,6 +31,7 @@ import {
   FileArchive,
   Cpu,
   Clapperboard,
+  BookHeart,
 } from "lucide-react";
 
 export const navLinks = [
@@ -58,6 +59,7 @@ export const navLinks = [
   { href: "/feedback", label: "Feedback", icon: Lightbulb },
   { href: "/ads", label: "Advertisements", icon: Film },
   { href: "/showcase", label: "Showcase", icon: Clapperboard },
+  { href: "/my-story", label: "My Story", icon: BookHeart },
   { href: "/genesis", label: "Genesis", icon: Book },
 ];
 

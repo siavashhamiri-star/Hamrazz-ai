@@ -9,3 +9,4 @@ import '@/ai/flows/generate-avatar-expressions-flow.ts';
 import '@/ai/flows/transcribe-video-flow.ts';
 import '@/ai/flows/generate-showcase-video-flow.ts';
 import '@/ai/flows/generate-project-structure-flow.ts';
+import '@/ai/flows/generate-my-story-video-flow.ts';
