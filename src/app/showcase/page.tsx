@@ -46,8 +46,8 @@ const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', 
           {video.loading && (
             <div className="text-center space-y-2 text-muted-foreground p-4">
               <Loader2 className="w-12 h-12 mx-auto animate-spin text-primary" />
-              <p className="font-semibold">Generating your cinematic video...</p>
-              <p className="text-sm">This may take a minute or two. The AI is working its magic!</p>
+              <p className="font-semibold">Generating your cinematic masterpiece...</p>
+              <p className="text-sm">This may take a minute or two. The AI is crafting a unique story for you!</p>
             </div>
           )}
           {video.error && (
@@ -70,7 +70,7 @@ const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', 
           <div className="flex justify-center mt-4">
             <a href={video.url} download={`hamraz_genesis_video_${language}.mp4`}>
               <Button>
-                <Download className="mr-2" /> Download Video
+                <Download className="mr-2" /> Download Masterpiece
               </Button>
             </a>
           </div>
@@ -135,6 +135,7 @@ const Teleprompter = ({ title, text, direction = 'ltr' }: { title: string, text:
     <Card className="mt-4">
       <CardHeader>
         <CardTitle className="text-xl font-headline">{title}</CardTitle>
+        <CardDescription>Use this to record your own voiceover for the video.</CardDescription>
       </CardHeader>
       <CardContent>
         <div 
@@ -240,34 +241,6 @@ export default function ShowcasePage() {
           />
         </div>
       </div>
-      
-      <Card className="mt-12">
-        <CardHeader>
-          <CardTitle className="text-2xl font-headline text-center">Full Narration Text</CardTitle>
-          <CardDescription className="text-center">The complete story of Hamraz for your reference.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-            <div dir="rtl" className="prose prose-lg dark:prose-invert max-w-none text-right">
-                <h3 className="text-xl font-bold">روایت فارسی (Persian)</h3>
-                <p>{text_fa}</p>
-            </div>
-            <Separator />
-            <div dir="ltr" className="prose prose-lg dark:prose-invert max-w-none text-left">
-                <h3 className="text-xl font-bold">English Narration</h3>
-                <p>{text_en}</p>
-            </div>
-        </CardContent>
-      </Card>
-
     </div>
   );
 }
-
-
-    
-
-    
-
-    
-
-    

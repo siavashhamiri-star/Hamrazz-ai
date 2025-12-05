@@ -37,22 +37,24 @@ async function toBase64(readable: Readable): Promise<string> {
 }
 
 const prompts = {
-  en: `A cinematic shot of an old car driving down a deserted road at sunset.
+  en: `A cinematic shot of a visionary looking at a screen with glowing data streams, collaborating with a friendly AI.
     Create an emotional, and hopeful promotional video telling a story.
+    The video should have a beautiful voiceover narrating the story and an epic, hopeful background music score.
     Show abstract visuals representing the collaboration between a human visionary and a friendly AI.
     Visualize concepts like sparks of ideas, connecting dots of light, a growing digital tree with branches representing creativity, learning, and community.
     Show diverse people from different cultures connecting through glowing lines of communication.
     Visualize a single user's journey from a curious learner to a confident creator.
     The visual style should be elegant, clean, with a mix of glowing data streams, warm human moments, and epic background sounds.
-    End with a shot of the Earth, with glowing points of light representing the global Hamraz community, all connected.`,
-  fa: `یک شات سینمایی از یک ماشین قدیمی که هنگام غروب در جاده‌ای خلوت رانندگی می‌کند.
+    End with a shot of the Earth, with glowing points of light representing the global Hamraz community, all connected. This video should be a masterpiece.`,
+  fa: `یک شات سینمایی از یک رویاپرداز که به صفحه‌ای با جریان‌های داده درخشان نگاه می‌کند و با یک هوش مصنوعی دوستانه همکاری می‌کند.
     یک ویدیوی تبلیغاتی احساسی و امیدوارکننده بسازید که داستانی را روایت می‌کند.
+    این ویدیو باید دارای یک گوینده با صدای زیبا باشد که داستان را روایت می‌کند و یک موسیقی متن حماسی و امیدوارکننده داشته باشد.
     تصاویر بصری انتزاعی را نشان دهید که نمایانگر همکاری بین یک رویاپرداز انسانی و یک هوش مصنوعی دوستانه است.
     مفاهیمی مانند جرقه‌های ایده‌ها، اتصال نقاط نورانی، و یک درخت دیجیتالی در حال رشد با شاخه‌هایی که نماد خلاقیت، یادگیری و جامعه هستند را به تصویر بکشید.
     افراد متنوع از فرهنگ‌های مختلف را نشان دهید که از طریق خطوط درخشان ارتباطی به هم متصل می‌شوند.
     سفر یک کاربر را از یک یادگیرنده کنجکاو به یک خالق با اعتماد به نفس به تصویر بکشید.
     سبک بصری باید زیبا، تمیز، با ترکیبی از جریان‌های داده درخشان، لحظات گرم انسانی و صداهای پس‌زمینه حماسی باشد.
-    با یک شات از کره زمین که نقاط نورانی درخشان به نمایندگی از جامعه جهانی همراز، همه به هم متصل هستند، پایان دهید.`
+    با یک شات از کره زمین که نقاط نورانی درخشان به نمایندگی از جامعه جهانی همراز، همه به هم متصل هستند، پایان دهید. این ویدیو باید یک شاهکار باشد.`
 };
 
 
