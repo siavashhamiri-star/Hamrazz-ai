@@ -30,6 +30,20 @@ const boardMembers = [
     imageUrl: "https://picsum.photos/seed/board4/200/200",
     imageHint: "man technology"
   },
+  {
+    name: "Dr. Anahita Shams",
+    title: "Cognitive Psychology & Neuroscience Advisor",
+    bio: "Dr. Shams' research into human emotion and cognition is foundational to developing Hamraz's adaptive emotional intelligence, enabling true empathy in conversation.",
+    imageUrl: "https://picsum.photos/seed/board5/200/200",
+    imageHint: "female scientist"
+  },
+  {
+    name: "Mr. Ramin Vossoughi",
+    title: "Charismatic Communication & Persuasion Specialist",
+    bio: "An expert in neurolinguistics, Mr. Vossoughi trains Hamraz to communicate with a tone and style that builds trust, inspires action, and creates a genuine connection.",
+    imageUrl: "https://picsum.photos/seed/board6/200/200",
+    imageHint: "male speaker"
+  },
 ];
 
 
