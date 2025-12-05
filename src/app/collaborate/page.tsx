@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Handshake, BrainCircuit, Search, Briefcase, DollarSign } from "lucide-react";
+import { Loader2, PartyPopper, Handshake, BrainCircuit, Search, Briefcase, Puzzle } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -217,6 +217,89 @@ const RequestCollaborator = () => {
     )
 }
 
+const ProposeModule = () => {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [moduleName, setModuleName] = useState("");
+    const [moduleDesc, setModuleDesc] = useState("");
+    const [businessModel, setBusinessModel] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const { toast } = useToast();
+    const { user } = useUser();
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!name.trim() || !email.trim() || !moduleName.trim() || !moduleDesc.trim()) {
+            toast({ variant: "destructive", title: "Incomplete Information", description: "Please fill out all required fields." });
+            return;
+        }
+        setIsLoading(true);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        console.log("Module Proposal:", { userId: user?.uid, name, email, moduleName, moduleDesc, businessModel });
+        setIsLoading(false);
+        setIsSubmitted(true);
+    };
+
+    if (isSubmitted) {
+        return (
+            <Card className="w-full shadow-lg text-center animate-in fade-in-50 mt-6">
+                <CardHeader>
+                    <PartyPopper className="w-16 h-16 mx-auto text-primary" />
+                    <CardTitle className="text-2xl font-headline mt-4">Proposal Submitted!</CardTitle>
+                    <CardDescription>Thank you for your innovative idea. Your proposal to integrate a new module will be reviewed by our strategic team.</CardDescription>
+                </CardHeader>
+                <CardFooter>
+                    <Button className="w-full" onClick={() => setIsSubmitted(false)}>Propose Another Module</Button>
+                </CardFooter>
+            </Card>
+        );
+    }
+    
+    return (
+         <Card className="w-full shadow-lg">
+            <form onSubmit={handleSubmit}>
+                <CardHeader>
+                    <CardTitle className="text-2xl font-headline">Integrate Your App or Module</CardTitle>
+                    <CardDescription>Propose adding your specialized app or feature into the Hamraz ecosystem. Successful proposals can lead to partnership and revenue-sharing opportunities.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                            <Label htmlFor="proposer-name">Your Name / Company</Label>
+                            <Input id="proposer-name" placeholder="e.g., Innovate Inc." value={name} onChange={(e) => setName(e.target.value)} disabled={isLoading || !user} required />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="proposer-email">Contact Email</Label>
+                            <Input id="proposer-email" type="email" placeholder="contact@innovate.com" value={email} onChange={(e) => setEmail(e.target.value)} disabled={isLoading || !user} required />
+                        </div>
+                    </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="module-name">Module / App Name</Label>
+                        <Input id="module-name" placeholder="e.g., Advanced Financial Calculator" value={moduleName} onChange={(e) => setModuleName(e.target.value)} disabled={isLoading || !user} required />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="module-desc">Module Description</Label>
+                        <Textarea id="module-desc" placeholder="Describe the feature, its target audience, and its core functionality." value={moduleDesc} onChange={(e) => setModuleDesc(e.target.value)} disabled={isLoading || !user} required className="min-h-[120px]" />
+                    </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="business-model">Proposed Business Model (Optional)</Label>
+                        <Textarea id="business-model" placeholder="How do you see this generating value? (e.g., revenue share, premium feature, etc.)" value={businessModel} onChange={(e) => setBusinessModel(e.target.value)} disabled={isLoading || !user} className="min-h-[80px]" />
+                    </div>
+                     {!user && (
+                        <p className="text-sm text-center text-destructive font-medium">Please sign in to propose a module.</p>
+                     )}
+                </CardContent>
+                <CardFooter>
+                    <Button type="submit" className="w-full" disabled={isLoading || !user}>
+                        {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Submitting Proposal...</> : <><Puzzle className="mr-2 h-4 w-4" />Submit Proposal</>}
+                    </Button>
+                </CardFooter>
+            </form>
+        </Card>
+    )
+}
+
 export default function CollaboratePage() {
   return (
     <div className="space-y-8">
@@ -229,15 +312,19 @@ export default function CollaboratePage() {
       </Alert>
 
       <Tabs defaultValue="apply" className="w-full max-w-3xl mx-auto">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="apply"><Briefcase className="mr-2"/>Offer Your Skills</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="apply"><Briefcase className="mr-2"/>Offer Skills</TabsTrigger>
           <TabsTrigger value="request"><Search className="mr-2"/>Find Talent</TabsTrigger>
+          <TabsTrigger value="propose"><Puzzle className="mr-2"/>Integrate App</TabsTrigger>
         </TabsList>
         <TabsContent value="apply" className="mt-6">
           <ApplyToCollaborate />
         </TabsContent>
         <TabsContent value="request" className="mt-6">
           <RequestCollaborator />
+        </TabsContent>
+         <TabsContent value="propose" className="mt-6">
+          <ProposeModule />
         </TabsContent>
       </Tabs>
     </div>
