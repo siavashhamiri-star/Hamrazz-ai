@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useMemo, useCallback, useEffect } from 'react';
+import { useMemo, useCallback, useEffect, useState } from 'react';
 import { doc, setDoc, serverTimestamp, getDoc, updateDoc } from 'firebase/firestore';
 import { useFirestore, useDoc, useMemoFirebase, useUser } from '@/firebase';
 import { errorEmitter } from '@/firebase/error-emitter';
@@ -30,23 +31,42 @@ type UseUserProfileResult = {
 const defaultAvatar = PlaceHolderImages.find(img => img.id.startsWith("avatar-")) || PlaceHolderImages[0];
 
 // Function to create a default user profile
-const createDefaultProfile = (user: User): UserProfile => ({
-  id: user.uid,
-  uid: user.uid,
-  email: user.email,
-  displayName: user.displayName,
-  photoURL: user.photoURL,
-  points: 0,
-  selectedAvatarId: defaultAvatar.id,
-  selectedAvatar: defaultAvatar,
-  createdAt: serverTimestamp(),
-  updatedAt: serverTimestamp(),
-});
+const createDefaultProfile = (user: User): UserProfile => {
+  // Special profile for the owner
+  if (user.uid === 'owner-the-creator') {
+     return {
+      id: user.uid,
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      points: 999999, // Owner has unlimited points
+      selectedAvatarId: defaultAvatar.id,
+      selectedAvatar: defaultAvatar,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    };
+  }
+
+  return {
+    id: user.uid,
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    points: 0,
+    selectedAvatarId: defaultAvatar.id,
+    selectedAvatar: defaultAvatar,
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  };
+}
 
 
 export function useUserProfile(userId?: string): UseUserProfileResult {
   const db = useFirestore();
-  const { user } = useUser();
+  const { user, loading: userLoading } = useUser();
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const userDocRef = useMemoFirebase(() => {
     if (!db || !userId) return null;
@@ -62,6 +82,12 @@ export function useUserProfile(userId?: string): UseUserProfileResult {
     };
 
     try {
+      // For the owner, we just simulate the update locally as there's no real backend doc
+      if (userId === 'owner-the-creator') {
+        console.log("Simulating owner profile update:", payload);
+        return;
+      }
+      
       const docSnap = await getDoc(userDocRef);
       if (docSnap.exists()) {
         await updateDoc(userDocRef, payload);
@@ -81,42 +107,50 @@ export function useUserProfile(userId?: string): UseUserProfileResult {
         errorEmitter.emit('permission-error', permissionError);
         console.error("Error updating user profile:", e);
     }
-  }, [userDocRef, user]);
+  }, [userDocRef, user, userId]);
 
   useEffect(() => {
     const setupUserProfile = async () => {
-      if (user && db) {
+      if (user && db && !isInitialized && user.uid !== 'owner-the-creator') {
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
         if (!userSnap.exists()) {
           const newUserProfile = createDefaultProfile(user);
           await updateUserProfile(newUserProfile);
         }
+        setIsInitialized(true);
       }
     };
-    setupUserProfile();
-  }, [user, db, updateUserProfile]);
-
-  const { data, loading: docLoading } = useDoc<UserProfile>(userDocRef, {
-    transform: (data) => {
-      const profile = data as UserProfile;
-      const selectedAvatar = PlaceHolderImages.find(img => img.id === profile.selectedAvatarId) || defaultAvatar;
-      return { ...profile, selectedAvatar };
+    if (!userLoading) {
+      setupUserProfile();
     }
-  });
+  }, [user, db, updateUserProfile, isInitialized, userLoading]);
+
+  const { data: docData, loading: docLoading } = useDoc<UserProfile>(
+    // Don't fetch the owner profile from Firestore
+    userId === 'owner-the-creator' ? null : userDocRef, 
+    {
+      transform: (data) => {
+        const profile = data as UserProfile;
+        const selectedAvatar = PlaceHolderImages.find(img => img.id === profile.selectedAvatarId) || defaultAvatar;
+        return { ...profile, selectedAvatar };
+      }
+    }
+  );
 
   const userProfile = useMemo(() => {
-      if (data) return data;
+      if (userId === 'owner-the-creator' && user) {
+        return createDefaultProfile(user);
+      }
+      if (docData) return docData;
       if (!user || docLoading) return null;
 
-      return {
-        ...createDefaultProfile(user),
-      }
-  }, [data, user, docLoading]);
+      return createDefaultProfile(user);
+  }, [docData, user, docLoading, userId]);
 
   return { 
     userProfile, 
     updateUserProfile: db ? updateUserProfile : null, 
-    loading: docLoading 
+    loading: userLoading || (userId !== 'owner-the-creator' && docLoading)
   };
 }
