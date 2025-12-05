@@ -17,6 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, UploadCloud, FileZip, ArrowRight, Github, FileArchive, Unarchive, CheckCircle, ExternalLink } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const ZipCreator = () => {
     const [step, setStep] = useState<"upload" | "configure" | "download">("upload");
@@ -27,8 +28,10 @@ const ZipCreator = () => {
     const { toast } = useToast();
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files) {
-        setFiles(Array.from(e.target.files));
+        if (e.target.files && e.target.files.length > 0) {
+            setFiles(Array.from(e.target.files));
+            setStep("configure");
+            toast({ title: `${e.target.files.length} files selected`, description: "Ready to configure your repository." });
         }
     };
     
@@ -52,86 +55,95 @@ const ZipCreator = () => {
         setStep("download");
     }
 
-    if (step === 'download') {
-         return (
-           <Card>
-               <CardHeader>
-                  <CardTitle className="flex items-center gap-2"><CheckCircle className="text-green-500" /> Step 3: Download and Upload</CardTitle>
-                  <CardDescription>Your project is packaged and ready. Follow these final steps.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                    <Button className="w-full" size="lg">
-                      <FileZip className="mr-2" /> Download Project.zip
-                    </Button>
-                    <div className="prose prose-sm dark:prose-invert text-muted-foreground">
-                        <ol className="list-decimal list-inside space-y-2">
-                            <li>Download the generated `.zip` file.</li>
-                            <li>Go to your empty GitHub repository page.</li>
-                            <li>Click on the **"uploading an existing file"** link.</li>
-                            <li>Drag and drop the downloaded `.zip` file into the upload area. GitHub will automatically handle the extraction.</li>
-                            <li>Add a commit message and click **"Commit changes"**.</li>
-                        </ol>
-                    </div>
-              </CardContent>
-               <CardFooter className="flex justify-between">
-                <Button variant="outline" onClick={() => setStep('configure')}>Back</Button>
-                <a href={`https://github.com/${username}/${repoName}`} target="_blank" rel="noopener noreferrer">
-                    <Button>Go to GitHub Repository <ArrowRight className="ml-2" /></Button>
-                </a>
-              </CardFooter>
-          </Card>
-      )
-    }
-
-    if (step === 'configure') {
-        return (
-            <Card>
-                <CardHeader>
-                    <CardTitle>Step 2: Configure GitHub Repository</CardTitle>
-                    <CardDescription>Enter the details of the GitHub repository where you want to upload the project.</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="username">GitHub Username</Label>
-                        <Input id="username" placeholder="e.g., ahura-creator" value={username} onChange={e => setUsername(e.target.value)} />
-                    </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="repo-name">Repository Name</Label>
-                        <Input id="repo-name" placeholder="e.g., my-hamraz-app" value={repoName} onChange={e => setRepoName(e.target.value)} />
-                    </div>
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                    <Button variant="outline" onClick={() => setStep('upload')}>Back</Button>
-                    <Button onClick={handleGenerateZip} disabled={isLoading}>
-                        {isLoading ? <><Loader2 className="mr-2 animate-spin"/> Generating...</> : <>Generate Project ZIP <ArrowRight className="ml-2" /></>}
-                    </Button>
-                </CardFooter>
-            </Card>
-        )
-    }
+    const StepIcon = ({ icon: Icon, stepNumber, title, active, completed }: { icon: React.ElementType, stepNumber: number, title: string, active: boolean, completed: boolean }) => (
+        <div className={cn("flex items-center gap-4 transition-opacity", !active && !completed ? "opacity-30" : "opacity-100")}>
+            <div className={cn("relative flex h-12 w-12 items-center justify-center rounded-full border-2", 
+                completed ? "bg-green-100 border-green-500 text-green-600" : 
+                active ? "bg-primary/10 border-primary text-primary" : "bg-muted border-border"
+            )}>
+                {completed ? <CheckCircle className="h-6 w-6" /> : <Icon className="h-6 w-6" />}
+                 <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">{stepNumber}</span>
+            </div>
+            <h3 className="text-lg font-semibold">{title}</h3>
+        </div>
+    );
 
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Step 1: Upload Your Project Files</CardTitle>
-                <CardDescription>Select all files and folders of your project. The structure will be preserved.</CardDescription>
+                <CardTitle>Create GitHub Project ZIP</CardTitle>
+                <CardDescription>A guided wizard to package your project for GitHub.</CardDescription>
             </CardHeader>
-            <CardContent>
-                <Label htmlFor="file-upload" className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50">
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <UploadCloud className="w-8 h-8 mb-4 text-muted-foreground" />
-                        <p className="mb-2 text-sm text-muted-foreground text-center">
-                            <span className="font-semibold">Click to upload</span> or drag and drop
-                        </p>
+            <CardContent className="space-y-4">
+                <div className="flex flex-col gap-4">
+                    {/* Step 1: Upload */}
+                    <div className="space-y-4">
+                        <StepIcon icon={UploadCloud} stepNumber={1} title="Upload Project Files" active={step === 'upload'} completed={step !== 'upload'} />
+                        {step === 'upload' && (
+                             <div className="pl-16">
+                                <Label htmlFor="file-upload" className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50">
+                                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <p className="mb-2 text-sm text-muted-foreground text-center">
+                                            <span className="font-semibold">Click to select project folder</span>
+                                        </p>
+                                    </div>
+                                    <Input id="file-upload" type="file" className="hidden" onChange={handleFileChange} multiple webkitdirectory="" directory="" />
+                                </Label>
+                             </div>
+                        )}
                     </div>
-                    <Input id="file-upload" type="file" className="hidden" onChange={handleFileChange} multiple webkitdirectory="" directory="" />
-                </Label>
-                {files.length > 0 && <p className="text-sm text-muted-foreground mt-4">{files.length} files selected.</p>}
+
+                    <div className="h-8 w-px bg-border ml-6" />
+
+                    {/* Step 2: Configure */}
+                    <div className="space-y-4">
+                        <StepIcon icon={Github} stepNumber={2} title="Configure Repository" active={step === 'configure'} completed={step === 'download'} />
+                         {step === 'configure' && (
+                            <div className="pl-16 space-y-4 animate-in fade-in-0 duration-500">
+                                <div className="space-y-2">
+                                    <Label htmlFor="username">GitHub Username</Label>
+                                    <Input id="username" placeholder="e.g., ahura-creator" value={username} onChange={e => setUsername(e.target.value)} />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="repo-name">Repository Name</Label>
+                                    <Input id="repo-name" placeholder="e.g., my-hamraz-app" value={repoName} onChange={e => setRepoName(e.target.value)} />
+                                </div>
+                                 <Button onClick={handleGenerateZip} disabled={isLoading}>
+                                    {isLoading ? <><Loader2 className="mr-2 animate-spin"/> Generating...</> : <>Generate Project ZIP <ArrowRight className="ml-2" /></>}
+                                </Button>
+                            </div>
+                         )}
+                    </div>
+                    
+                    <div className="h-8 w-px bg-border ml-6" />
+
+                    {/* Step 3: Download */}
+                     <div className="space-y-4">
+                        <StepIcon icon={FileZip} stepNumber={3} title="Download & Finish" active={step === 'download'} completed={false}/>
+                        {step === 'download' && (
+                             <div className="pl-16 space-y-4 animate-in fade-in-0 duration-500">
+                                <Button className="w-full" size="lg">
+                                    <FileZip className="mr-2" /> Download Project.zip
+                                </Button>
+                                <div className="prose prose-sm dark:prose-invert text-muted-foreground">
+                                    <p className="font-semibold">Final step:</p>
+                                    <ol className="list-decimal list-inside space-y-2">
+                                        <li>Download the generated `.zip` file.</li>
+                                        <li>Go to your empty GitHub repository.</li>
+                                        <li>Click **"uploading an existing file"** link.</li>
+                                        <li>Drag and drop the `.zip` file. GitHub will do the rest.</li>
+                                    </ol>
+                                </div>
+                                <a href={`https://github.com/${username}/${repoName}`} target="_blank" rel="noopener noreferrer">
+                                    <Button variant="secondary" className="w-full">Go to GitHub Repository <ExternalLink className="ml-2" /></Button>
+                                </a>
+                            </div>
+                        )}
+                    </div>
+                </div>
             </CardContent>
-            <CardFooter className="flex justify-end">
-                <Button onClick={() => setStep('configure')} disabled={files.length === 0}>
-                    Next Step <ArrowRight className="ml-2" />
-                </Button>
+            <CardFooter>
+                 <Button variant="outline" size="sm" onClick={() => { setStep('upload'); setFiles([]); setRepoName(''); setUsername(''); }}>Start Over</Button>
             </CardFooter>
         </Card>
     );
@@ -188,7 +200,7 @@ const ZipExtractor = () => {
          <Card>
             <CardHeader>
                 <CardTitle>Extract ZIP File</CardTitle>
-                <CardDescription>Upload a ZIP file to view its contents.</CardDescription>
+                <CardDescription>Upload a ZIP file to view its contents (simulated).</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
                 <Label htmlFor="zip-upload" className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50">
