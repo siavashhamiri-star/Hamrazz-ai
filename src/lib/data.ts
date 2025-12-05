@@ -35,6 +35,7 @@ import {
   FileVideo,
   HelpCircle,
   RadioTower,
+  BrainCircuit,
 } from "lucide-react";
 
 export const navLinks = [
@@ -65,6 +66,7 @@ export const navLinks = [
   { href: "/my-story", label: "My Story", icon: BookHeart },
   { href: "/devops", label: "DevOps", icon: Cpu },
   { href: "/investors", label: "Investors", icon: DollarSign },
+  { href: "/ai", label: "AI", icon: BrainCircuit },
   { href: "/tutorial", label: "Tutorial", icon: HelpCircle },
 ];
 
