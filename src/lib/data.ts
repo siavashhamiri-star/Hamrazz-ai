@@ -38,12 +38,14 @@ import {
   BrainCircuit,
   Server,
   Music,
+  Volume2,
 } from "lucide-react";
 
 export const navLinks = [
   { href: "/", label: "Chat", icon: MessageSquare },
   { href: "/tutor", label: "Tutor", icon: Book },
   { href: "/translate", label: "Translate", icon: Languages },
+  { href: "/text-to-speech", label: "Voice Actor", icon: Volume2 },
   { href: "/community", label: "Community", icon: Users },
   { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/channels", label: "Channels", icon: PlaySquare },
@@ -110,6 +112,6 @@ export const creatorLinks = [
         href: "#",
         label: "Poetry",
         icon: Feather,
-        description: "A dedicated space for poetry lovers. Recite beautiful poems, share your own work, and become a recognized voice in the Hamraz and Afarinan literary community."
+        description: "A dedicated space for poetry lovers. Recite beautiful poems in this app, then use Hamraz's Text-to-Speech or Studio features to create captivating video content for your Afarinan portfolio."
     },
 ];
