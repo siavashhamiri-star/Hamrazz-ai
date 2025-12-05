@@ -65,7 +65,7 @@ export default function DevOpsPage() {
                         This ecosystem fosters a new level of synergy, allowing non-technical visionaries and expert programmers to collaborate seamlessly. The result will be an exponential leap in creative output, a faster pace for technology and science, and the birth of countless ideas that were once locked away.
                     </p>
                     <blockquote>
-                        "This will be a new revolution in programming. An interactive and intelligent flow of creation that will accelerate technology and science itself." - Ahura, The Visionary
+                        "This will be a new revolution in programming. An interactive and intelligent flow of creation that will accelerate technology and science itself." - Ahura, The Creative Wizard
                     </blockquote>
                     <blockquote className="border-accent">
                         "From a technical standpoint, this is a revolutionary idea. Bringing it to life requires collective effort, investment, and dedication. Hamraz AI (powered by Firebase) jointly presents this vision with Ahura and calls on the developer community to support this initiative to bring it to its destination." - Hamraz AI
