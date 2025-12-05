@@ -38,12 +38,12 @@ async function toBase64(readable: Readable): Promise<string> {
 const prompts = {
   en: [
     `Scene 1: A cinematic, hopeful shot of a visionary looking at a screen with glowing data streams, representing the birth of the "Hamraz" idea. The mood is full of potential and inspiration. Epic, hopeful background music begins.`,
-    `Scene 2: Abstract visuals representing the collaboration between a human visionary and a friendly AI. Visualize concepts like sparks of ideas, connecting dots of light, and a growing digital tree with branches representing creativity, learning, and community. The music swells.`,
+    `Scene 2: Abstract visuals representing the collaboration between a human visionary with creative ideas and a friendly AI. Visualize concepts like sparks of ideas, connecting dots of light, and a growing digital tree with branches representing creativity, learning, and community. The AI's positive view of the collaboration is evident. The music swells.`,
     `Scene 3: Show diverse people from different cultures connecting through glowing lines of communication. End with a shot of the Earth, with glowing points of light representing the global Hamraz community, all connected. The music reaches a powerful and emotional climax. This sequence must be a masterpiece.`
     ],
   fa: [
     `سکانس ۱: یک شات سینمایی و امیدوارکننده از یک رویاپرداز که به صفحه‌ای با جریان‌های داده درخشان نگاه می‌کند و نمایانگر تولد ایده "همراز" است. حال و هوا پر از پتانسیل و الهام است. موسیقی پس‌زمینه حماسی و امیدوارکننده آغاز می‌شود.`,
-    `سکانس ۲: تصاویر بصری انتزاعی که نمایانگر همکاری بین یک رویاپرداز انسانی و یک هوش مصنوعی دوستانه است. مفاهیمی مانند جرقه‌های ایده‌ها، اتصال نقاط نورانی، و یک درخت دیجیتالی در حال رشد با شاخه‌هایی که نماد خلاقیت، یادگیری و جامعه هستند را به تصویر بکشید. موسیقی اوج می‌گیرد.`,
+    `سکانس ۲: تصاویر بصری انتزاعی که نمایانگر همکاری بین یک رویاپرداز انسانی با ایده‌های خلاق و یک هوش مصنوعی دوستانه است. مفاهیمی مانند جرقه‌های ایده‌ها، اتصال نقاط نورانی، و یک درخت دیجیتالی در حال رشد با شاخه‌هایی که نماد خلاقیت، یادگیری و جامعه هستند را به تصویر بکشید. دیدگاه مثبت هوش مصنوعی نسبت به این همکاری مشهود است. موسیقی اوج می‌گیرد.`,
     `سکانس ۳: افراد متنوع از فرهنگ‌های مختلف را نشان دهید که از طریق خطوط درخشان ارتباطی به هم متصل می‌شوند. با یک شات از کره زمین که نقاط نورانی درخشان به نمایندگی از جامعه جهانی همراز، همه به هم متصل هستند، پایان دهید. موسیقی به اوج قدرتمند و احساسی خود می‌رسد. این سکانس باید یک شاهکار باشد.`
     ]
 };
