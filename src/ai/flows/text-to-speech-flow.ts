@@ -2,7 +2,7 @@
 'use server';
 
 /**
- * @fileOverview Converts text to speech using a generative AI model.
+ * @fileOverview Converts text to speech using a generative AI model, with emotional and stylistic controls.
  *
  * - textToSpeech - A function that takes text and returns the audio data.
  * - TextToSpeechInput - The input type for the function.
@@ -17,6 +17,8 @@ import wav from 'wav';
 const TextToSpeechInputSchema = z.object({
   text: z.string().describe('The text to be converted to speech.'),
   voiceName: z.string().optional().describe('The name of the voice to use (e.g., "Algenib", "en-US-Studio-F").'),
+  emotion: z.enum(["neutral", "happy", "sad", "relaxed", "excited", "angry"]).optional().describe("The emotion to convey in the speech."),
+  style: z.enum(["narrative", "poetic", "conversational", "formal"]).optional().describe("The speaking style to adopt.")
 });
 export type TextToSpeechInput = z.infer<typeof TextToSpeechInputSchema>;
 
@@ -53,19 +55,27 @@ async function toWav(
 }
 
 export async function textToSpeech(input: TextToSpeechInput): Promise<TextToSpeechOutput> {
+
+  // Construct a more descriptive prompt for the model based on the new inputs.
+  const prompt = `
+    ${input.style ? `Adopt a ${input.style} style.` : ''}
+    ${input.emotion ? `Speak with a ${input.emotion} emotion.` : ''}
+    Read the following text:
+    
+    ${input.text}
+    `;
+    
   const {media} = await ai.generate({
     model: googleAI.model('gemini-2.5-flash-preview-tts'),
     config: {
       responseModalities: ['AUDIO'],
       speechConfig: {
         voiceConfig: {
-          // Use the provided voice name, or fall back to a default.
-          // 'en-US-Studio-F' is a standard female voice.
           prebuiltVoiceConfig: {voiceName: input.voiceName || 'Algenib'},
         },
       },
     },
-    prompt: input.text,
+    prompt: prompt.trim(),
   });
 
   if (!media) {
