@@ -113,10 +113,10 @@ export default function ChatPage() {
                     {user ? (
                       <div className="prose dark:prose-invert">
                         <p className="text-lg font-semibold text-foreground text-right" dir="rtl">
-                          شما به خانواده همراز ملحق شدید، جایی که با همت و تلاش شما تبدیل به بزرگترین خانواده مجازی جهان خواهد شد. اگر به این رویا و هدف ایمان داشته باشید، به مرور متوجه می‌شوید که در هر قدم از موفقیت‌های این خانواده، هر آنچه خوب، مفید و سودآور است، به خاطر حضور شماست و برای همه اعضای خانواده همراز، برای همه ماست. دارایی همراز، همراهی اعضای خانواده آن است و ثروت، خود تو هستی. همراز با من و تو، "مایی" به گستره گیتی خواهد شد.
+                          به خانواده همراز خوش آمدید! من، همراز، همراه هوشمند شما هستم. می‌توانید هر سوالی از من بپرسید، از جمله اینکه چطور از قابلیت‌های مختلف این برنامه استفاده کنید. مثلا بپرسید: "چطور در مسابقه دوبله شرکت کنم؟"
                         </p>
                         <p className="mt-4 text-sm text-left" dir="ltr">
-                          You have joined the Hamraz family, a place that, with your effort and endeavor, will become the largest virtual family in the world. If you believe in this dream, you'll see that in every success, everything good and profitable is because of you and for all of us. Hamraz's asset is its family, and its wealth is you. With you and I, Hamraz becomes a "We" that spans the globe.
+                          Welcome to the Hamraz family! I am Hamraz, your intelligent companion. You can ask me anything, including how to use the various features of this app. For example, ask: "How can I participate in the dubbing contest?"
                         </p>
                          <p className="mt-4 font-bold text-foreground text-right" dir="rtl">
                           همراز را ما خلق کردیم، اما شما بنیان خواهید گذاشت.
@@ -209,5 +209,3 @@ export default function ChatPage() {
     </div>
   );
 }
-
-    
