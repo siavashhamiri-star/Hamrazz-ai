@@ -41,8 +41,9 @@ export default function AppHeader() {
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 md:px-6 backdrop-blur">
       <div className="flex items-center gap-1 md:gap-4">
-        <SidebarTrigger>
-          <PanelLeft />
+        <SidebarTrigger className="flex items-center gap-2">
+            <PanelLeft />
+            <span className="sr-only md:not-sr-only">Menu</span>
         </SidebarTrigger>
       </div>
       <h1 className="flex-1 text-xl font-semibold font-headline">{pageTitle}</h1>
@@ -69,8 +70,8 @@ export default function AppHeader() {
         ) : (
           <Link href="/login" passHref>
             <Button size="sm" className="gap-2" disabled={isLoading}>
-                <LogIn className="h-4 w-4" />
-                <span>Sign In</span>
+              <LogIn className="h-4 w-4" />
+              <span>Sign In</span>
             </Button>
           </Link>
         )}
