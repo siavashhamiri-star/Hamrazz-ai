@@ -206,11 +206,4 @@ export default function GenesisPage() {
   );
 }
 
-
-    
-
-    
-
-    
-
     

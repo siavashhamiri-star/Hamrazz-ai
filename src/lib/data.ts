@@ -57,7 +57,6 @@ export const navLinks = [
   { href: "/feedback", label: "Feedback", icon: Lightbulb },
   { href: "/ads", label: "Advertisements", icon: Film },
   { href: "/genesis", label: "Genesis", icon: Book },
-  { href: "/showcase", label: "Showcase", icon: Trophy },
 ];
 
 export const bottomNavLinks = [
@@ -80,3 +79,5 @@ export const creatorLinks = [
         description: "A collection of powerful tools for modern developers." 
     },
 ];
+
+    
