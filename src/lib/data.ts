@@ -28,6 +28,7 @@ import {
   DollarSign,
   Share2,
   Wand2,
+  FileArchive,
 } from "lucide-react";
 
 export const navLinks = [
@@ -35,6 +36,7 @@ export const navLinks = [
   { href: "/tutor", label: "Tutor", icon: Book },
   { href: "/translate", label: "Translate", icon: Languages },
   { href: "/community", label: "Community", icon: Users },
+  { href: "/sync", label: "Sync & Tools", icon: FileArchive },
   { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/dubbing", label: "Dubbing", icon: Mic },
   { href: "/lipsync", label: "Lip Sync", icon: MicVocal },
@@ -54,7 +56,6 @@ export const navLinks = [
   { href: "/ads", label: "Advertisements", icon: Film },
   { href: "/genesis", label: "Genesis", icon: Book },
   { href: "/showcase", label: "Showcase", icon: Trophy },
-  { href: "/sync", label: "Sync & Tools", icon: Share2 },
   { href: "/magic-repo", label: "Magic Repo", icon: Wand2 },
 ];
 
