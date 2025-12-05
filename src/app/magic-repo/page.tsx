@@ -80,7 +80,7 @@ export default function MagicRepoPage() {
             // 2. Upload files (in a real scenario, this would be a loop of API calls)
             await new Promise(resolve => setTimeout(resolve, 2000));
             
-            const generatedRepoUrl = `https://github.com/${user?.displayName?.toLowerCase() || 'user'}/${fileStructure.name}`;
+            const generatedRepoUrl = `https://github.com/${user?.displayName?.toLowerCase().replace(/\s/g, '') || 'user'}/${fileStructure.name}`;
             setRepoUrl(generatedRepoUrl);
             setIsPublished(true);
 
@@ -89,6 +89,17 @@ export default function MagicRepoPage() {
         } finally {
             setIsPublishing(false);
         }
+    }
+    
+    const resetAll = () => {
+        setIsPublished(false);
+        setGithubConnected(false);
+        setFileStructure({
+            name: "my-hamraz-project",
+            type: "directory",
+            children: [],
+        });
+        setRepoUrl("");
     }
 
   return (
@@ -129,9 +140,9 @@ export default function MagicRepoPage() {
                             value={command}
                             onChange={(e) => setCommand(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleRunCommand()}
-                            disabled={isLoading || isPublishing}
+                            disabled={isLoading || isPublishing || isPublished}
                         />
-                        <Button onClick={handleRunCommand} disabled={isLoading || isPublishing || !command.trim()} size="icon">
+                        <Button onClick={handleRunCommand} disabled={isLoading || isPublishing || isPublished || !command.trim()} size="icon">
                             {isLoading ? <Loader2 className="animate-spin" /> : <Send />}
                         </Button>
                     </div>
@@ -170,13 +181,13 @@ export default function MagicRepoPage() {
                             </a>
                         </AlertDescription>
                         <div className="mt-4">
-                            <Button onClick={() => setIsPublished(false)}>Publish Another Project</Button>
+                            <Button onClick={resetAll}>Create Another Project</Button>
                         </div>
                     </Alert>
                 ) : !githubConnected ? (
                     <div className="text-center">
                         <p className="mb-4 text-muted-foreground">You need to connect your GitHub account first.</p>
-                        <Button onClick={handleConnectToGithub} disabled={isLoading}>
+                        <Button onClick={handleConnectToGithub} disabled={isLoading || !user}>
                              {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> Connecting...</> : <><Github className="mr-2 h-4 w-4"/> Connect to GitHub</>}
                         </Button>
                     </div>
