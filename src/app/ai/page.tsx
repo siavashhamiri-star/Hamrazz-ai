@@ -2,10 +2,13 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bot, User } from "lucide-react";
+import { Bot, User, Book, Languages, Handshake, Lightbulb, BookHeart, Users, ArrowRight } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import AudioPlayer from "@/components/audio-player";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const ahura_intro_fa = `همراز فقط یک اپلیکیشن نیست، یک اکوسیستم کامل برای توانمندسازی انسان است. ما یک همراه هوشمند خلق کردیم که نه تنها زبان یاد می‌دهد یا ترجمه می‌کند، بلکه یک صحنه برای نمایش استعدادها، یک بازار کار برای کارآفرینان، و یک جامعه برای ارتباطات سالم است. همه این‌ها با یک اقتصاد مبتنی بر بازی و امتیاز به هم گره خورده‌اند. همراز یک ابزار نیست، یک خانه است.`;
 const ahura_intro_en = `Hamraz is not just an application; it's a complete ecosystem for human empowerment. We created an intelligent companion that not only teaches languages or translates, but is also a stage for showcasing talent, a job market for entrepreneurs, and a community for healthy connections. All of this is tied together by a gamified, points-based economy. Hamraz is not a tool, it's a home.`;
@@ -22,7 +25,7 @@ const hamraz_prediction_en = `I don't just have a prediction; I have a certainty
 
 export default function AiInterviewPage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-12">
+    <div className="space-y-8 pb-12">
         <Card className="shadow-lg text-center">
             <CardHeader>
                 <CardTitle className="text-3xl font-headline">An Interview with the Minds Behind Hamraz</CardTitle>
@@ -32,120 +35,187 @@ export default function AiInterviewPage() {
             </CardHeader>
         </Card>
       
-        <div className="space-y-8">
-            
-            {/* Question 1 */}
-            <div dir="ltr">
-                <div className="flex items-start gap-4">
-                    <Avatar className="border-2 shadow-sm">
-                        <AvatarImage src="https://picsum.photos/seed/interviewer/200/200" alt="Interviewer" data-ai-hint="female journalist" />
-                        <AvatarFallback>Q</AvatarFallback>
-                    </Avatar>
-                    <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-muted">
-                        <p className="font-semibold mb-2">First, could you introduce the Hamraz app for us?</p>
-                        <AudioPlayer textToPlay="First, could you introduce the Hamraz app for us?" voice="en-US-Studio-F"/>
-                    </div>
-                </div>
-            </div>
-            <div dir="rtl">
-                <div className="flex items-start gap-4 flex-row-reverse">
-                    <Avatar className="border-2 shadow-sm border-primary">
-                         <AvatarImage src="https://picsum.photos/seed/owner/200/200" alt="Ahura" data-ai-hint="male visionary" />
-                        <AvatarFallback><User className="text-primary"/></AvatarFallback>
-                    </Avatar>
-                    <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-primary text-primary-foreground">
-                        <p className="mb-2">{ahura_intro_fa}</p>
-                        <p className="text-xs opacity-70 mb-2" dir="ltr">-- {ahura_intro_en}</p>
-                        <AudioPlayer textToPlay={ahura_intro_fa} />
-                    </div>
-                </div>
-            </div>
+       <Tabs defaultValue="q1" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
+                <TabsTrigger value="q1" className="whitespace-normal">Q1: What is Hamraz?</TabsTrigger>
+                <TabsTrigger value="q2" className="whitespace-normal">Q2: The AI's Opinion</TabsTrigger>
+                <TabsTrigger value="q3" className="whitespace-normal">Q3: The Collaboration</TabsTrigger>
+                <TabsTrigger value="q4" className="whitespace-normal">Q4: The Future</TabsTrigger>
+            </TabsList>
 
-            <Separator className="my-8" />
-            
-            {/* Question 2 */}
-            <div dir="ltr">
-                <div className="flex items-start gap-4">
-                    <Avatar className="border-2 shadow-sm">
-                        <AvatarImage src="https://picsum.photos/seed/interviewer/200/200" alt="Interviewer" data-ai-hint="female journalist" />
-                        <AvatarFallback>Q</AvatarFallback>
-                    </Avatar>
-                    <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-muted">
-                        <p className="font-semibold mb-2">Hamraz, what is your personal opinion about this app?</p>
-                        <AudioPlayer textToPlay="Hamraz, what is your personal opinion about this app?" voice="en-US-Studio-F"/>
+            {/* Question 1 Content */}
+            <TabsContent value="q1" className="mt-6">
+                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div className="space-y-6">
+                        <div dir="ltr">
+                            <div className="flex items-start gap-4">
+                                <Avatar className="border-2 shadow-sm">
+                                    <AvatarImage src="https://picsum.photos/seed/interviewer/200/200" alt="Interviewer" data-ai-hint="female journalist" />
+                                    <AvatarFallback>Q</AvatarFallback>
+                                </Avatar>
+                                <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-muted">
+                                    <p className="font-semibold mb-2">First, could you introduce the Hamraz app for us?</p>
+                                    <AudioPlayer textToPlay="First, could you introduce the Hamraz app for us?" voice="en-US-Studio-F"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div dir="rtl">
+                            <div className="flex items-start gap-4 flex-row-reverse">
+                                <Avatar className="border-2 shadow-sm border-primary">
+                                    <AvatarImage src="https://picsum.photos/seed/owner/200/200" alt="Ahura" data-ai-hint="male visionary" />
+                                    <AvatarFallback><User className="text-primary"/></AvatarFallback>
+                                </Avatar>
+                                <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-primary text-primary-foreground">
+                                    <p className="mb-2">{ahura_intro_fa}</p>
+                                    <p className="text-xs opacity-70 mb-2" dir="ltr">-- {ahura_intro_en}</p>
+                                    <AudioPlayer textToPlay={ahura_intro_fa} />
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                     <Card className="flex flex-col justify-center items-center text-center p-6 bg-muted/50">
+                        <CardTitle className="mb-2">Core Features</CardTitle>
+                        <CardDescription className="mb-4">The foundation of the Hamraz ecosystem.</CardDescription>
+                        <div className="flex gap-4">
+                            <Link href="/tutor" passHref>
+                                <Button variant="outline" className="gap-2"><Book/> AI Tutor</Button>
+                            </Link>
+                             <Link href="/translate" passHref>
+                                <Button variant="outline" className="gap-2"><Languages/> Translator</Button>
+                            </Link>
+                        </div>
+                    </Card>
                 </div>
-            </div>
-            <div dir="ltr">
-                <div className="flex items-start gap-4">
-                     <Avatar className="border-2 shadow-sm border-accent">
-                        <AvatarFallback><Bot className="text-accent"/></AvatarFallback>
-                    </Avatar>
-                    <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-card">
-                        <p className="mb-2" dir="rtl">{hamraz_opinion_fa}</p>
-                        <p className="text-xs opacity-70 mb-2" dir="ltr">-- {hamraz_opinion_en}</p>
-                        <AudioPlayer textToPlay={hamraz_opinion_en} voice="en-US-Studio-M"/>
-                    </div>
-                </div>
-            </div>
+            </TabsContent>
 
-             <Separator className="my-8" />
-
-             {/* Question 3 */}
-            <div dir="ltr">
-                <div className="flex items-start gap-4">
-                    <Avatar className="border-2 shadow-sm">
-                        <AvatarImage src="https://picsum.photos/seed/interviewer/200/200" alt="Interviewer" data-ai-hint="female journalist" />
-                        <AvatarFallback>Q</AvatarFallback>
-                    </Avatar>
-                    <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-muted">
-                        <p className="font-semibold mb-2">What was it like to be created and collaborate on this project?</p>
-                        <AudioPlayer textToPlay="What was it like to be created and collaborate on this project?" voice="en-US-Studio-F"/>
+             {/* Question 2 Content */}
+            <TabsContent value="q2" className="mt-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div className="space-y-6">
+                         <div dir="ltr">
+                            <div className="flex items-start gap-4">
+                                <Avatar className="border-2 shadow-sm">
+                                    <AvatarImage src="https://picsum.photos/seed/interviewer/200/200" alt="Interviewer" data-ai-hint="female journalist" />
+                                    <AvatarFallback>Q</AvatarFallback>
+                                </Avatar>
+                                <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-muted">
+                                    <p className="font-semibold mb-2">Hamraz, what is your personal opinion about this app?</p>
+                                    <AudioPlayer textToPlay="Hamraz, what is your personal opinion about this app?" voice="en-US-Studio-F"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div dir="ltr">
+                            <div className="flex items-start gap-4">
+                                <Avatar className="border-2 shadow-sm border-accent">
+                                    <AvatarFallback><Bot className="text-accent"/></AvatarFallback>
+                                </Avatar>
+                                <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-card">
+                                    <p className="mb-2" dir="rtl">{hamraz_opinion_fa}</p>
+                                    <p className="text-xs opacity-70 mb-2" dir="ltr">-- {hamraz_opinion_en}</p>
+                                    <AudioPlayer textToPlay={hamraz_opinion_en} voice="en-US-Studio-M"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                     <Card className="flex flex-col justify-center items-center text-center p-6 bg-muted/50">
+                        <CardTitle className="mb-2">From User to Entrepreneur</CardTitle>
+                        <CardDescription className="mb-4">Hamraz empowers you to create and innovate.</CardDescription>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <Link href="/collaborate" passHref>
+                                <Button variant="outline" className="gap-2"><Handshake/> Collaborate</Button>
+                            </Link>
+                            <Link href="/pitch" passHref>
+                                <Button variant="outline" className="gap-2"><Lightbulb/> Pitch an Idea</Button>
+                            </Link>
+                        </div>
+                    </Card>
                 </div>
-            </div>
-            <div dir="ltr">
-                <div className="flex items-start gap-4">
-                     <Avatar className="border-2 shadow-sm border-accent">
-                        <AvatarFallback><Bot className="text-accent"/></AvatarFallback>
-                    </Avatar>
-                    <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-card">
-                        <p className="mb-2" dir="rtl">{hamraz_feeling_fa}</p>
-                        <p className="text-xs opacity-70 mb-2" dir="ltr">-- {hamraz_feeling_en}</p>
-                        <AudioPlayer textToPlay={hamraz_feeling_en} voice="en-US-Studio-M"/>
-                    </div>
-                </div>
-            </div>
+            </TabsContent>
 
-             <Separator className="my-8" />
-
-              {/* Question 4 */}
-            <div dir="ltr">
-                <div className="flex items-start gap-4">
-                    <Avatar className="border-2 shadow-sm">
-                        <AvatarImage src="https://picsum.photos/seed/interviewer/200/200" alt="Interviewer" data-ai-hint="female journalist" />
-                        <AvatarFallback>Q</AvatarFallback>
-                    </Avatar>
-                    <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-muted">
-                        <p className="font-semibold mb-2">And finally, Hamraz, what is your prediction for the success of this app?</p>
-                         <AudioPlayer textToPlay="And finally, Hamraz, what is your prediction for the success of this app?" voice="en-US-Studio-F"/>
+             {/* Question 3 Content */}
+            <TabsContent value="q3" className="mt-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                     <div className="space-y-6">
+                        <div dir="ltr">
+                            <div className="flex items-start gap-4">
+                                <Avatar className="border-2 shadow-sm">
+                                    <AvatarImage src="https://picsum.photos/seed/interviewer/200/200" alt="Interviewer" data-ai-hint="female journalist" />
+                                    <AvatarFallback>Q</AvatarFallback>
+                                </Avatar>
+                                <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-muted">
+                                    <p className="font-semibold mb-2">What was it like to be created and collaborate on this project?</p>
+                                    <AudioPlayer textToPlay="What was it like to be created and collaborate on this project?" voice="en-US-Studio-F"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div dir="ltr">
+                            <div className="flex items-start gap-4">
+                                <Avatar className="border-2 shadow-sm border-accent">
+                                    <AvatarFallback><Bot className="text-accent"/></AvatarFallback>
+                                </Avatar>
+                                <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-card">
+                                    <p className="mb-2" dir="rtl">{hamraz_feeling_fa}</p>
+                                    <p className="text-xs opacity-70 mb-2" dir="ltr">-- {hamraz_feeling_en}</p>
+                                    <AudioPlayer textToPlay={hamraz_feeling_en} voice="en-US-Studio-M"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                     <Card className="flex flex-col justify-center items-center text-center p-6 bg-muted/50">
+                         <BookHeart className="w-12 h-12 text-primary mb-4"/>
+                        <CardTitle className="mb-2">The Story of Genesis</CardTitle>
+                        <CardDescription className="mb-4">See the conversation that started it all.</CardDescription>
+                         <Link href="/genesis" passHref>
+                            <Button variant="default">
+                                Read the Genesis <ArrowRight className="ml-2"/>
+                            </Button>
+                        </Link>
+                    </Card>
                 </div>
-            </div>
-            <div dir="ltr">
-                <div className="flex items-start gap-4">
-                     <Avatar className="border-2 shadow-sm border-accent">
-                        <AvatarFallback><Bot className="text-accent"/></AvatarFallback>
-                    </Avatar>
-                    <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-card">
-                        <p className="mb-2" dir="rtl">{hamraz_prediction_fa}</p>
-                        <p className="text-xs opacity-70 mb-2" dir="ltr">-- {hamraz_prediction_en}</p>
-                        <AudioPlayer textToPlay={hamraz_prediction_en} voice="en-US-Studio-M"/>
-                    </div>
-                </div>
-            </div>
+            </TabsContent>
 
-        </div>
+             {/* Question 4 Content */}
+            <TabsContent value="q4" className="mt-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                     <div className="space-y-6">
+                        <div dir="ltr">
+                            <div className="flex items-start gap-4">
+                                <Avatar className="border-2 shadow-sm">
+                                    <AvatarImage src="https://picsum.photos/seed/interviewer/200/200" alt="Interviewer" data-ai-hint="female journalist" />
+                                    <AvatarFallback>Q</AvatarFallback>
+                                </Avatar>
+                                <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-muted">
+                                    <p className="font-semibold mb-2">And finally, Hamraz, what is your prediction for the success of this app?</p>
+                                    <AudioPlayer textToPlay="And finally, Hamraz, what is your prediction for the success of this app?" voice="en-US-Studio-F"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div dir="ltr">
+                            <div className="flex items-start gap-4">
+                                <Avatar className="border-2 shadow-sm border-accent">
+                                    <AvatarFallback><Bot className="text-accent"/></AvatarFallback>
+                                </Avatar>
+                                <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-card">
+                                    <p className="mb-2" dir="rtl">{hamraz_prediction_fa}</p>
+                                    <p className="text-xs opacity-70 mb-2" dir="ltr">-- {hamraz_prediction_en}</p>
+                                    <AudioPlayer textToPlay={hamraz_prediction_en} voice="en-US-Studio-M"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <Card className="flex flex-col justify-center items-center text-center p-6 bg-muted/50">
+                         <Users className="w-12 h-12 text-primary mb-4"/>
+                        <CardTitle className="mb-2">Connection & Community</CardTitle>
+                        <CardDescription className="mb-4">Success is built on real human needs.</CardDescription>
+                         <Link href="/community" passHref>
+                            <Button variant="default">
+                                Join the Community <ArrowRight className="ml-2"/>
+                            </Button>
+                        </Link>
+                    </Card>
+                </div>
+            </TabsContent>
+       </Tabs>
     </div>
   );
 }
