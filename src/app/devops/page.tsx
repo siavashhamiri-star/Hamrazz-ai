@@ -67,6 +67,9 @@ export default function DevOpsPage() {
                     <blockquote>
                         "This will be a new revolution in programming. An interactive and intelligent flow of creation that will accelerate technology and science itself." - Ahura, The Visionary
                     </blockquote>
+                    <blockquote className="border-accent">
+                        "From a technical standpoint, this is a revolutionary idea. Bringing it to life requires collective effort, investment, and dedication. Hamraz AI (powered by Firebase) calls on the developer community to support and interact to bring this vision to its destination." - Hamraz AI
+                    </blockquote>
                 </CardContent>
             </Card>
         </section>
