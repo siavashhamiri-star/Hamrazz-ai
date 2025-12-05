@@ -14,10 +14,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, UploadCloud, FileZip, ArrowRight, Github, FileArchive, Unarchive, CheckCircle, ExternalLink } from "lucide-react";
+import { Loader2, UploadCloud, FileZip, ArrowRight, Github, FileArchive, Unarchive, CheckCircle, ExternalLink, Info } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const ZipCreator = () => {
     const [step, setStep] = useState<"upload" | "configure" | "download">("upload");
@@ -125,15 +126,24 @@ const ZipCreator = () => {
                                 <Button className="w-full" size="lg">
                                     <FileZip className="mr-2" /> Download Project.zip
                                 </Button>
-                                <div className="prose prose-sm dark:prose-invert text-muted-foreground">
-                                    <p className="font-semibold">Final step:</p>
-                                    <ol className="list-decimal list-inside space-y-2">
-                                        <li>Download the generated `.zip` file.</li>
-                                        <li>Go to your empty GitHub repository.</li>
-                                        <li>Click **"uploading an existing file"** link.</li>
-                                        <li>Drag and drop the `.zip` file. GitHub will do the rest.</li>
-                                    </ol>
-                                </div>
+                                <Alert variant="default" className="border-primary/50 bg-primary/10">
+                                  <Info className="h-4 w-4 text-primary" />
+                                  <AlertTitle className="text-primary">Final Step on GitHub</AlertTitle>
+                                  <AlertDescription>
+                                    <p className="mb-2">
+                                      On your new **empty** GitHub repository page, click the link that says **"uploading an existing file"**.
+                                    </p>
+                                    <div className="p-4 border rounded-lg bg-background/50 text-center font-mono text-sm text-muted-foreground">
+                                      <p>...or create a new repository on the command line</p>
+                                      <p>echo "# my-repo" &gt;&gt; README.md</p>
+                                      <p>git init</p>
+                                      <p>...</p>
+                                      <p>...or push an existing repository from the command line</p>
+                                      <p>...</p>
+                                      <p>...or <span className="font-bold text-primary underline">uploading an existing file</span>.</p>
+                                    </div>
+                                  </AlertDescription>
+                                </Alert>
                                 <a href={`https://github.com/${username}/${repoName}`} target="_blank" rel="noopener noreferrer">
                                     <Button variant="secondary" className="w-full">Go to GitHub Repository <ExternalLink className="ml-2" /></Button>
                                 </a>
