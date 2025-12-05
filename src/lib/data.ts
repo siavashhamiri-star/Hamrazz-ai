@@ -35,7 +35,7 @@ export const navLinks = [
   { href: "/", label: "Chat", icon: MessageSquare },
   { href: "/tutor", label: "Tutor", icon: Book },
   { href: "/translate", label: "Translate", icon: Languages },
-  { href: "/magic-repo", label: "Magic Repo", icon: Wand2 },
+  { href: "/sync", label: "Sync & Tools", icon: FileArchive },
   { href: "/community", label: "Community", icon: Users },
   { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/dubbing", label: "Dubbing", icon: Mic },
