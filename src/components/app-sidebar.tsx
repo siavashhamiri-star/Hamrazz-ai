@@ -15,7 +15,7 @@ import {
   SidebarGroupLabel,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, ShoppingBag, Twitch } from 'lucide-react';
+import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, ShoppingBag, Twitch, Building } from 'lucide-react';
 import { navLinks, bottomNavLinks, creatorLinks } from '@/lib/data';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -94,6 +94,10 @@ export default function AppSidebar() {
     }
   };
 
+  const firstCreatorLink = creatorLinks[0];
+  const otherCreatorLinks = creatorLinks.slice(1);
+
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -130,7 +134,28 @@ export default function AppSidebar() {
          <SidebarGroup>
             <SidebarGroupLabel>From the Creator</SidebarGroupLabel>
              <SidebarMenu>
-                {creatorLinks.map((link) => (
+                <SidebarMenuItem key={firstCreatorLink.href}>
+                    <SidebarMenuButton
+                        asChild
+                        tooltip={{
+                            children: (
+                                <>
+                                    <div className="font-bold">{firstCreatorLink.label}</div>
+                                    <div className="text-muted-foreground">{firstCreatorLink.description}</div>
+                                </>
+                            )
+                        }}
+                    >
+                        <Link href={firstCreatorLink.href} target="_blank">
+                        <Building />
+                        <span>{firstCreatorLink.label}</span>
+                        </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+                
+                <SidebarSeparator className="my-1"/>
+
+                {otherCreatorLinks.map((link) => (
                     <SidebarMenuItem key={link.href}>
                     <SidebarMenuButton
                         asChild

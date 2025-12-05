@@ -84,6 +84,12 @@ export const bottomNavLinks = [
 export const creatorLinks = [
     {
         href: "#",
+        label: "A City of Capabilities",
+        icon: Palette,
+        description: "My ideas are not limited to one app. They are a collection of interconnected concepts that form a 'city of capabilities.' Hamraz is the heart of this city, and apps like Afarinan (for showcasing talent), Zabanshenas (for learning), and Karaoke (for performing) are its vital districts. This is an ever-expanding ecosystem, and more ideas will be added to complete it."
+    },
+    {
+        href: "#",
         label: "Afarinan",
         icon: Palette,
         description: "The perfect companion to Hamraz. Use Hamraz to create projects, videos, and ideas, then showcase them on Afarinan—your professional portfolio to connect with a global community of innovators. Using both platforms together unlocks a unique world of capabilities, turning your vision into a celebrated reality."
