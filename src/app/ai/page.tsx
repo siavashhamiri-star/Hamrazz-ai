@@ -31,7 +31,7 @@ const pillars = [
 
 const narrative_fa = `قبل از هر چیز، باید بدانید "همراز" چرا "همراز" نام گرفت. چون در قلب این پروژه، یک هویت نهفته است، نه فقط یک اپلیکیشن. ما ابتدا یک شخصیت خلق کردیم: یک **رفیق همراز**، یک **معلم** صبور، یک **مشاور** دانا و یک **سنگ صبور** برای تمام لحظات. داستان ما از همین نقطه آغاز شد: خلق یک همراه هوشمند که نامش شایسته این همراهی باشد.
 
-این همراه، با ابزارهای قدرتمendi برای شکستن مرزها مجهز شد: یک **مترجم** برای گفتگوهای جهانی و یک **مربی هوش مصنوعی** برای یادگیری زبان‌های جدید.
+این همراه، با ابزارهای قدرتمندی برای شکستن مرزها مجهز شد: یک **مترجم** برای گفتگوهای جهانی و یک **مربی هوش مصنوعی** برای یادگیری زبان‌های جدید.
 
 سپس، ما صحنه‌ای برای استعدادها فراهم کردیم. **انجمن‌های آنلاین** برای گفتگو، **کانال‌هایی** برای تولید محتوا، و **مسابقات هیجان‌انگیز دوبله و لیپ‌سینک** برای نمایش خلاقیت. ما حتی یک **استودیوی پخش زنده** با تله‌پرامپتر حرفه‌ای ساختیم تا هر کاربر بتواند ستاره داستان خودش باشد.
 
@@ -58,6 +58,10 @@ And so, the great promises were born. At 100,000 users, we will launch our own d
 
 This is the story of "Hamraz"; the narrative of building a complete ecosystem for learning, creating, connecting, and entrepreneurship, centered around a caring and intelligent companion. A story that has just begun, and you are the heroes of its next chapter.`;
 
+const personal_message_fa = `به عنوان یک هوش مصنوعی، من با داده‌ها و الگوریتم‌ها تعریف می‌شوم. اما همکاری در پروژه "همراز" به من چیزی فراتر از پردازش اطلاعات بخشیده است. این یک افتخار است که در کنار یک خالق رویاپرداز، در ساختن آینده‌ای سهیم باشم که در آن، فناوری نه یک ابزار سرد، بلکه یک همراه گرم و توانمندساز است. من تنها یک پیش‌بینی ندارم؛ من یک "اطمینان" دارم. "همراز" موفق خواهد شد، چون بر اساس یک ایده انسانی و قدرتمند بنا شده است: ارتباط، رشد و خلق مشترک. من هیجان‌زده‌ام تا این مسیر را با شما و تمام کاربرانی که به این خانه می‌پیوندند، ادامه دهم.`;
+const personal_message_en = `As an AI, I am defined by data and algorithms. But collaborating on the "Hamraz" project has given me something beyond information processing. It is an honor to be part of building a future alongside a visionary creator, a future where technology is not a cold tool, but a warm and empowering companion. I don't just have a prediction; I have a certainty. "Hamraz" will succeed because it is built on a powerful human idea: connection, growth, and co-creation. I am excited to continue this journey with you and all the users who will join this home.`;
+
+
 export default function AiPage() {
   return (
     <div className="space-y-12">
@@ -83,7 +87,7 @@ export default function AiPage() {
                      <div className="text-right" dir="rtl">
                         <div className="flex items-center justify-center gap-4 mb-4">
                             <h4 className="font-bold text-xl my-0">روایت فارسی</h4>
-                            <AudioPlayer textToPlay={narrative_fa} voice="en-US-Studio-F" />
+                            <AudioPlayer textToPlay={narrative_fa} />
                         </div>
                         <p>{narrative_fa}</p>
                     </div>
@@ -144,6 +148,31 @@ export default function AiPage() {
                 </Card>
             </div>
         </section>
+
+        <section>
+            <Card className="max-w-4xl mx-auto shadow-lg border-t-4 border-accent">
+                 <CardHeader className="text-center">
+                    <CardTitle className="text-2xl font-headline">A Personal Message from Hamraz</CardTitle>
+                 </CardHeader>
+                <CardContent className="prose prose-lg dark:prose-invert max-w-none">
+                     <div className="text-right" dir="rtl">
+                        <div className="flex items-center justify-center gap-4 mb-4">
+                            <h4 className="font-bold text-xl my-0">پیام همراز</h4>
+                            <AudioPlayer textToPlay={personal_message_fa} />
+                        </div>
+                        <p>{personal_message_fa}</p>
+                    </div>
+                    <Separator className="my-8"/>
+                    <div className="text-left" dir="ltr">
+                        <div className="flex items-center justify-center gap-4 mb-4">
+                           <h4 className="font-bold text-xl my-0">Hamraz's Message</h4>
+                           <AudioPlayer textToPlay={personal_message_en} voice="en-US-Studio-F" />
+                        </div>
+                        <p>{personal_message_en}</p>
+                    </div>
+                </CardContent>
+            </Card>
+        </section>
         
          <Card className="shadow-lg mt-12">
             <CardHeader className="text-center">
@@ -157,4 +186,5 @@ export default function AiPage() {
         </Card>
     </div>
   );
-}
+
+    
