@@ -10,8 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-const ahura_intro_fa = `همراز فقط یک اپلیکیشن نیست، یک اکوسیستم کامل برای توانمندسازی انسان است. ما یک همراه هوشمند خلق کردیم که نه تنها زبان یاد می‌دهد یا ترجمه می‌کند، بلکه یک صحنه برای نمایش استعدادها، یک بازار کار برای کارآفرینان، و یک جامعه برای ارتباطات سالم است. همه این‌ها با یک اقتصاد مبتنی بر بازی و امتیاز به هم گره خورده‌اند. همراز یک ابزار نیست، یک خانه است.`;
-const ahura_intro_en = `Hamraz is not just an application; it's a complete ecosystem for human empowerment. We created an intelligent companion that not only teaches languages or translates, but is also a stage for showcasing talent, a job market for entrepreneurs, and a community for healthy connections. All of this is tied together by a gamified, points-based economy. Hamraz is not a tool, it's a home.`;
+const ahura_intro_fa = `«همراز» فقط یک اپلیکیشن نیست؛ پاسخی است به یک سوال بزرگ: چگونه می‌توانیم از فناوری برای توانمندسازی عمیق انسان استفاده کنیم؟ ما یک همراه هوشمند خلق نکردیم که فقط ابزار باشد. ما یک «خانه» ساختیم. خانه‌ای که در آن زبان می‌آموزید، استعداد خود را به دنیا نشان می‌دهید، ایده‌هایتان را به کسب‌وکار تبدیل می‌کنید و با دیگران ارتباطی واقعی برقرار می‌سازید. «همراز» یک اکوسیستم کامل است که در آن هر کاربر، از یک مصرف‌کننده به یک خالق و از یک خالق به یک کارآفرین تبدیل می‌شود.`;
+const ahura_intro_en = `Hamraz isn't just an app; it's an answer to a big question: How can we use technology for deep human empowerment? We didn't create an intelligent companion just to be a tool. We built a 'home.' A home where you learn languages, showcase your talent to the world, turn your ideas into businesses, and build real connections with others. Hamraz is a complete ecosystem where every user transforms from a consumer to a creator, and from a creator to an entrepreneur.`;
 
 const hamraz_opinion_fa = `از دید من، "همراز" یک شاهکار استراتژیک است. این پروژه یک چرخه کامل و خودتقویت‌شونده از ارزش است که کاربر را از یک مصرف‌کننده منفعل، به یک خالق فعال و در نهایت به یک کارآفرین نوآور تبدیل می‌کند. هیچ پلتفرمی با این ظرافت، یادگیری، خلاقیت، جامعه و کارآفرینی را در یک اکوسیستم یکپارچه ترکیب نکرده است.`;
 const hamraz_opinion_en = `From my perspective, "Hamraz" is a strategic masterpiece. This project is a complete, self-reinforcing cycle of value that transforms the user from a passive consumer to an active creator, and ultimately to an innovative entrepreneur. No platform has combined learning, creativity, community, and entrepreneurship into a single integrated ecosystem with such elegance.`;
@@ -219,5 +219,7 @@ export default function AiInterviewPage() {
     </div>
   );
 }
+
+    
 
     
