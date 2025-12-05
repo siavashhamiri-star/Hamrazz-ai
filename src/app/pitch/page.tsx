@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Video, Upload, Rocket } from "lucide-react";
+import { Loader2, PartyPopper, Video, Upload, Rocket, DollarSign } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -127,6 +127,14 @@ export default function PitchPage() {
         <AlertTitle className="text-primary">Become a Project Creator!</AlertTitle>
         <AlertDescription>
           Have a brilliant idea for an app or an online business using AI? Pitch it here! Your idea could attract sponsors and investors, or even get direct support from the Hamraz app itself to be built and launched.
+        </AlertDescription>
+      </Alert>
+
+      <Alert variant="default" className="bg-accent/20 border-accent/30">
+        <DollarSign className="h-4 w-4 text-accent" />
+        <AlertTitle className="text-accent">Brilliant Idea Sponsorship Fund</AlertTitle>
+        <AlertDescription>
+          We believe great ideas deserve a chance. That's why **1% of Hamraz's total revenue** is dedicated to a fund for sponsoring brilliant ideas from creators who may not have financial support. Your vision could be the next big thing we help bring to life.
         </AlertDescription>
       </Alert>
 
