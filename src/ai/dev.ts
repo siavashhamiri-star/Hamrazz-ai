@@ -10,3 +10,4 @@ import '@/ai/flows/transcribe-video-flow.ts';
 import '@/ai/flows/generate-showcase-video-flow.ts';
 import '@/ai/flows/generate-project-structure-flow.ts';
 import '@/ai/flows/generate-my-story-video-flow.ts';
+import '@/ai/flows/generate-tutorial-flow.ts';

@@ -33,6 +33,7 @@ import {
   Clapperboard,
   BookHeart,
   FileVideo,
+  HelpCircle,
 } from "lucide-react";
 
 export const navLinks = [
@@ -62,6 +63,7 @@ export const navLinks = [
   { href: "/showcase", label: "Showcase", icon: Clapperboard },
   { href: "/my-story", label: "My Story", icon: BookHeart },
   { href: "/transcribe-video", label: "Transcribe Video", icon: FileVideo },
+  { href: "/tutorial", label: "Tutorial", icon: HelpCircle },
   { href: "/genesis", label: "Genesis", icon: Book },
 ];
 
