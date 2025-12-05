@@ -34,37 +34,46 @@ import {
   BookHeart,
   FileVideo,
   HelpCircle,
+  RadioTower,
 } from "lucide-react";
 
 export const navLinks = [
   { href: "/", label: "Chat", icon: MessageSquare },
   { href: "/tutor", label: "Tutor", icon: Book },
   { href: "/translate", label: "Translate", icon: Languages },
-  { href: "/magic-repo", label: "Magic Repo", icon: Wand2 },
   { href: "/community", label: "Community", icon: Users },
+  { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/channels", label: "Channels", icon: PlaySquare },
+  { href: "/camera", label: "Studio", icon: RadioTower },
+  { href: "/contest", label: "Hall of Fame", icon: Award },
   { href: "/dubbing", label: "Dubbing", icon: Mic },
   { href: "/lipsync", label: "Lip Sync", icon: MicVocal },
-  { href: "/contest", label: "Hall of Fame", icon: Award },
-  { href: "/games", label: "Games", icon: Gamepad2 },
-  { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
+  {
+    href: "/magic-repo",
+    label: "Magic Repo",
+    icon: Wand2,
+  },
+  { href: "/transcribe-video", label: "Transcribe", icon: FileVideo },
+  {
+    href: "/pitch",
+    label: "Pitch Idea",
+    icon: Lightbulb,
+  },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
-  { href: "/investors", label: "Investors", icon: DollarSign },
-  { href: "/devops", label: "DevOps Revolution", icon: Cpu },
-  { href: "/camera", label: "Camera", icon: Camera },
-  { href: "/feedback", label: "Feedback", icon: Lightbulb },
-  { href: "/ads", label: "Advertisements", icon: Film },
+  { href: "/ads", label: "Ads", icon: Megaphone },
   { href: "/showcase", label: "Showcase", icon: Clapperboard },
   { href: "/my-story", label: "My Story", icon: BookHeart },
-  { href: "/transcribe-video", label: "Transcribe Video", icon: FileVideo },
+  { href: "/devops", label: "DevOps", icon: Cpu },
+  { href: "/investors", label: "Investors", icon: DollarSign },
   { href: "/tutorial", label: "Tutorial", icon: HelpCircle },
-  { href: "/genesis", label: "Genesis", icon: Book },
 ];
 
 export const bottomNavLinks = [
   { href: "/profile", label: "Profile", icon: User },
+  { href: "/genesis", label: "Genesis", icon: Book },
   { href: "/board", label: "Board", icon: Award },
   { href: "/privacy", label: "Privacy", icon: Shield },
+  { href: "/feedback", label: "Feedback", icon: MessageSquare },
 ];
 
 export const creatorLinks = [
