@@ -123,9 +123,9 @@ export default function ContestPage() {
 
          <Alert variant="default" className="border-purple-500/50 bg-purple-500/10 text-purple-700 dark:text-purple-300">
             <Briefcase className="h-4 w-4 text-purple-500" />
-            <AlertTitle className="font-bold text-purple-600 dark:text-purple-400">The Ultimate Partnership: 500k Downloads &amp; Revenue Sharing</AlertTitle>
+            <AlertTitle className="font-bold text-purple-600 dark:text-purple-400">The Ultimate Partnership: App Premier League</AlertTitle>
             <AlertDescription>
-               Once Hamraz reaches 500,000 downloads, 30% of the app's revenue from advertising and payments from platforms like Google will be converted into "revenue shares." These shares, representing a perpetual income stream, will be awarded to premium users, contest winners, and creators of viral content. A further 10% of this revenue will be allocated to charitable causes, supporting orphans and single mothers. Furthermore, a select group of loyal and active users will form an Online Advisory Council, holding tri-monthly meetings with voting rights on policy and overseeing the distribution of both the user revenue share and the charitable funds on behalf of the entire community.
+               Apps built on the Hamraz platform that achieve the highest global downloads and engagement will enter our "Premier League." At the end of each year, the top apps in this league will be honored with valuable prizes. The ultimate winning app will be designated a "Strategic Partner" and will be promoted for free and with full support by the Hamraz platform, marking a true collaborative victory.
             </AlertDescription>
         </Alert>
 
