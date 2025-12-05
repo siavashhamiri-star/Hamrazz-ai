@@ -26,6 +26,7 @@ import {
   PawPrint,
   Terminal,
   DollarSign,
+  Share2,
 } from "lucide-react";
 
 export const navLinks = [
@@ -52,6 +53,7 @@ export const navLinks = [
   { href: "/ads", label: "Advertisements", icon: Film },
   { href: "/genesis", label: "Genesis", icon: Book },
   { href: "/showcase", label: "Showcase", icon: Trophy },
+  { href: "/sync", label: "GitHub Sync", icon: Share2 },
 ];
 
 export const bottomNavLinks = [
