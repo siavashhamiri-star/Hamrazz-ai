@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Camera, Video, Mic, Circle, Square, RefreshCcw, Play, Pause, Youtube, Twitch, Instagram, Link as LinkIcon, RadioTower, Loader2, Award, Clock, ShieldCheck, Rocket, Lightbulb } from "lucide-react";
+import { Camera, Video, Mic, Circle, Square, RefreshCcw, Play, Pause, Youtube, Twitch, Instagram, Link as LinkIcon, RadioTower, Loader2, Award, Clock, ShieldCheck, Rocket, Lightbulb, Download } from "lucide-react";
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -170,6 +170,18 @@ export default function CameraPage() {
     setRecordedVideo(null);
   }
   
+  const handleDownload = () => {
+    if (recordedVideo) {
+        const a = document.createElement('a');
+        a.href = recordedVideo;
+        a.download = `hamraz-recording-${Date.now()}.webm`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        toast({ title: "Download started!" });
+    }
+  }
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -324,7 +336,7 @@ export default function CameraPage() {
                     {recordedVideo ? "Review Your Video" : isBroadcasting ? "You Are Live!" : "Your Personal Recording Studio"}
                     </CardTitle>
                     <CardDescription>
-                    {recordedVideo ? "Watch your recording below. You can retake it or use it." : isBroadcasting ? `Streaming live to ${connectedPlatforms} platform(s). The recording will be available after the stream ends.` : "Record a video, or go live to the world with an integrated teleprompter."}
+                    {recordedVideo ? "Watch your recording below. You can retake it or download it." : isBroadcasting ? `Streaming live to ${connectedPlatforms} platform(s). The recording will be available after the stream ends.` : "Record a video, or go live to the world with an integrated teleprompter."}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -380,8 +392,8 @@ export default function CameraPage() {
                             <Button variant="outline" onClick={handleRetake}>
                                 <RefreshCcw className="mr-2"/> Retake Video
                             </Button>
-                            <Button>
-                                <Video className="mr-2"/> Use This Video
+                            <Button onClick={handleDownload}>
+                                <Download className="mr-2"/> Download Video
                             </Button>
                         </>
                     ) : (
