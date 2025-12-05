@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,10 +13,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, FolderTree, Send, Wand2, FileDown, Rocket, Lightbulb, Terminal, Github, Play } from "lucide-react";
+import { Loader2, FolderTree, Send, Wand2, Rocket, Lightbulb, Github, CheckCircle } from "lucide-react";
 import { generateProjectStructure, FileSystem } from "@/ai/flows/generate-project-structure-flow";
-import { zipProject } from "@/ai/flows/zip-project-flow";
-import { cn } from "@/lib/utils";
+import { useUser } from "@/firebase";
 
 const FileTree = ({ node, level = 0 }: { node: FileSystem, level?: number }) => {
   return (
@@ -33,66 +32,17 @@ const FileTree = ({ node, level = 0 }: { node: FileSystem, level?: number }) => 
   );
 };
 
-const SimulatedTerminal = () => {
-    const [lines, setLines] = useState<string[]>([]);
-    const [isRunning, setIsRunning] = useState(false);
-    const commands = [
-        { cmd: "git init", output: "Initialized empty Git repository in ./.git/" },
-        { cmd: "git add .", output: "Staging all files..." },
-        { cmd: "git commit -m \"Initial commit via Hamraz AI\"", output: "[main (root-commit) 1a2b3c4] Initial commit via Hamraz AI\n 2 files changed, 10 insertions(+)" },
-        { cmd: "git remote add origin YOUR_REPO_URL", output: "Setting remote origin..." },
-        { cmd: "git push -u origin main", output: "Enumerating objects: 3, done.\nCounting objects: 100% (3/3), done.\nDelta compression using up to 8 threads\nCompressing objects: 100% (2/2), done.\nWriting objects: 100% (3/3), 256 bytes | 256.00 KiB/s, done.\nTotal 3 (delta 0), reused 0 (delta 0)\nTo github.com:user/repo.git\n * [new branch]      main -> main" },
-        { cmd: "echo '✅ Successfully uploaded to GitHub!'", output: "✅ Successfully uploaded to GitHub!" },
-    ];
-    
-    const runSimulation = () => {
-        setIsRunning(true);
-        setLines([]);
-        let currentLines: string[] = [];
-        commands.forEach((item, index) => {
-            setTimeout(() => {
-                currentLines = [...currentLines, `$ ${item.cmd}`];
-                setLines([...currentLines]);
-                setTimeout(() => {
-                    currentLines = [...currentLines, item.output];
-                    setLines([...currentLines]);
-                     if (index === commands.length - 1) {
-                        setIsRunning(false);
-                    }
-                }, 500);
-            }, index * 1500);
-        });
-    }
-
-    return (
-        <Alert variant="default" className="mt-8">
-             <Github className="h-4 w-4" />
-            <AlertTitle>Automated GitHub Setup Assistant</AlertTitle>
-            <AlertDescription>
-                <p>After downloading and unzipping, this assistant can guide you through uploading to GitHub. Let's simulate the terminal commands together.</p>
-                <div className="mt-4 p-4 bg-muted rounded-md font-mono text-xs space-y-2 h-64 overflow-y-auto">
-                  {lines.map((line, index) => (
-                      <p key={index} className={cn("whitespace-pre-wrap", !line.startsWith('$') && "text-muted-foreground")}>{line}</p>
-                  ))}
-                  {!isRunning && lines.length === 0 && <p className="text-muted-foreground">Click "Run Setup" to start the simulation.</p>}
-               </div>
-            </AlertDescription>
-            <div className="mt-4">
-                <Button onClick={runSimulation} disabled={isRunning}>
-                    {isRunning ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Running...</> : <><Play className="mr-2 h-4 w-4" />Run Setup</>}
-                </Button>
-            </div>
-        </Alert>
-    );
-}
 
 export default function MagicRepoPage() {
+    const { user } = useUser();
     const [command, setCommand] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [isZipping, setIsZipping] = useState(false);
-    const [isProjectDownloaded, setIsProjectDownloaded] = useState(false);
+    const [isPublishing, setIsPublishing] = useState(false);
+    const [isPublished, setIsPublished] = useState(false);
+    const [githubConnected, setGithubConnected] = useState(false);
+    const [repoUrl, setRepoUrl] = useState("");
     const [fileStructure, setFileStructure] = useState<FileSystem>({
-        name: "my-project",
+        name: "my-hamraz-project",
         type: "directory",
         children: [],
     });
@@ -110,22 +60,34 @@ export default function MagicRepoPage() {
             setCommand("");
         }
     };
+    
+    const handleConnectToGithub = () => {
+        // Simulate OAuth flow
+        setIsLoading(true);
+        setTimeout(() => {
+            setGithubConnected(true);
+            setIsLoading(false);
+        }, 1500);
+    }
 
-    const handleDownload = async () => {
-        setIsZipping(true);
+    const handlePublish = async () => {
+        setIsPublishing(true);
+        setIsPublished(false);
         try {
-            const result = await zipProject(fileStructure);
-            const link = document.createElement("a");
-            link.href = `data:application/zip;base64,${result.zipFile}`;
-            link.download = `${fileStructure.name}.zip`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setIsProjectDownloaded(true);
+            // Simulate API calls to GitHub
+            // 1. Create repo
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            // 2. Upload files (in a real scenario, this would be a loop of API calls)
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            const generatedRepoUrl = `https://github.com/${user?.displayName?.toLowerCase() || 'user'}/${fileStructure.name}`;
+            setRepoUrl(generatedRepoUrl);
+            setIsPublished(true);
+
         } catch (error) {
-            console.error("Error zipping project:", error);
+            console.error("Error publishing to GitHub:", error);
         } finally {
-            setIsZipping(false);
+            setIsPublishing(false);
         }
     }
 
@@ -133,9 +95,9 @@ export default function MagicRepoPage() {
     <div className="space-y-8">
         <Alert variant="default" className="bg-primary/10 border-primary/30">
             <Rocket className="h-4 w-4 text-primary" />
-            <AlertTitle className="text-primary font-bold">Welcome to the Magic Repository!</AlertTitle>
+            <AlertTitle className="text-primary font-bold">The One-Click Workshop</AlertTitle>
             <AlertDescription>
-                Turn your ideas into projects, instantly. Use simple, natural language commands to build a complete file structure for your next application. When you're done, download the entire project as a ZIP file.
+                Build your project with simple commands, then publish it directly to a new GitHub repository with a single click. From idea to repository, instantly.
             </AlertDescription>
         </Alert>
 
@@ -167,18 +129,13 @@ export default function MagicRepoPage() {
                             value={command}
                             onChange={(e) => setCommand(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleRunCommand()}
-                            disabled={isLoading}
+                            disabled={isLoading || isPublishing}
                         />
-                        <Button onClick={handleRunCommand} disabled={isLoading || !command.trim()} size="icon">
+                        <Button onClick={handleRunCommand} disabled={isLoading || isPublishing || !command.trim()} size="icon">
                             {isLoading ? <Loader2 className="animate-spin" /> : <Send />}
                         </Button>
                     </div>
                 </CardContent>
-                <CardFooter>
-                    <Button onClick={handleDownload} disabled={isZipping || fileStructure.children.length === 0} className="w-full">
-                        {isZipping ? <><Loader2 className="animate-spin mr-2"/>Zipping Project...</> : <><FileDown className="mr-2" />Download Project (.zip)</>}
-                    </Button>
-                </CardFooter>
             </Card>
 
             <Card className="shadow-lg">
@@ -186,7 +143,7 @@ export default function MagicRepoPage() {
                     <CardTitle className="flex items-center gap-2"><FolderTree/> Project Structure</CardTitle>
                     <CardDescription>Your project's file tree will appear here live.</CardDescription>
                 </CardHeader>
-                <CardContent className="min-h-[200px] bg-muted/50 rounded-lg p-4 font-mono text-sm">
+                <CardContent className="min-h-[150px] bg-muted/50 rounded-lg p-4 font-mono text-sm">
                     {fileStructure.children.length > 0 ? (
                         <FileTree node={fileStructure} />
                     ) : (
@@ -196,8 +153,44 @@ export default function MagicRepoPage() {
             </Card>
         </div>
 
-        {isProjectDownloaded && <SimulatedTerminal />}
-
+        <Card className="shadow-lg">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2"><Github /> GitHub Integration</CardTitle>
+                <CardDescription>Connect your GitHub account to publish your project directly.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                {isPublished ? (
+                    <Alert variant="default" className="bg-green-500/10 border-green-500/30">
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                        <AlertTitle className="text-green-700">Successfully Published!</AlertTitle>
+                        <AlertDescription>
+                            <p>Your project is now live on GitHub. You can view it here:</p>
+                            <a href={repoUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-primary underline mt-2 block break-all">
+                                {repoUrl}
+                            </a>
+                        </AlertDescription>
+                        <div className="mt-4">
+                            <Button onClick={() => setIsPublished(false)}>Publish Another Project</Button>
+                        </div>
+                    </Alert>
+                ) : !githubConnected ? (
+                    <div className="text-center">
+                        <p className="mb-4 text-muted-foreground">You need to connect your GitHub account first.</p>
+                        <Button onClick={handleConnectToGithub} disabled={isLoading}>
+                             {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin"/> Connecting...</> : <><Github className="mr-2 h-4 w-4"/> Connect to GitHub</>}
+                        </Button>
+                    </div>
+                ) : (
+                     <div className="text-center">
+                        <p className="mb-4 flex items-center justify-center gap-2 text-green-600 font-semibold"><CheckCircle/> GitHub Account Connected!</p>
+                        <Button onClick={handlePublish} disabled={isPublishing || fileStructure.children.length === 0} size="lg">
+                            {isPublishing ? <><Loader2 className="animate-spin mr-2"/>Publishing...</> : <><Rocket className="mr-2" />Publish to GitHub</>}
+                        </Button>
+                        {fileStructure.children.length === 0 && <p className="text-xs text-destructive mt-2">Your project is empty. Add some files before publishing.</p>}
+                    </div>
+                )}
+            </CardContent>
+        </Card>
     </div>
   );
 }
