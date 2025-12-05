@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Upload, BookOpen, Smile, Languages, House, Award, Download, Share2, PackageOpen, Gamepad2 } from "lucide-react";
+import { Loader2, Upload, BookOpen, Smile, Languages, House, Award, Download, Share2, PackageOpen, Gamepad2, Feather, Heart, PawPrint } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -35,11 +35,39 @@ const channels = [
     },
     { 
         id: "humor", 
-        title: "Humor & Fun", 
+        title: "Funny Antics", 
         icon: Smile,
-        description: "Post your funny clips and stand-up bits.",
+        description: "Post your funny clips, sweet moments, and stand-up bits.",
          videos: [
             { title: "My Cat is a Comedian", author: "Sara K.", url: "https://videos.pexels.com/video-files/5494391/5494391-hd_1280_720_25fps.mp4" },
+        ]
+    },
+    { 
+        id: "poetry", 
+        title: "Poetry Corner", 
+        icon: Feather,
+        description: "Share beautiful poetry readings from kids and adults.",
+         videos: [
+            { title: "Twinkle, Twinkle, Little Star", author: "Jane Taylor", performer: "Kian, age 5", url: "https://videos.pexels.com/video-files/3691359/3691359-hd_1280_720_25fps.mp4" },
+        ]
+    },
+     { 
+        id: "moments", 
+        title: "Precious Moments", 
+        icon: Heart,
+        description: "Share messages of love, gratitude, and children's dreams.",
+         videos: [
+            { title: "A message of love", author: "Layla", url: "https://videos.pexels.com/video-files/5494391/5494391-hd_1280_720_25fps.mp4"},
+            { title: "A beautiful sunset", author: "Sara", url: "https://videos.pexels.com/video-files/854341/854341-hd_1280_720_25fps.mp4"},
+        ]
+    },
+      { 
+        id: "pets", 
+        title: "Pets & Kids", 
+        icon: PawPrint,
+        description: "Share heartwarming videos of the special bond between children and animals.",
+         videos: [
+            { title: "A Purrfect Friendship", author: "Kian's Dad", url: "https://videos.pexels.com/video-files/7188143/7188143-hd_1280_720_25fps.mp4" },
         ]
     },
     { 
@@ -262,10 +290,10 @@ export default function ChannelsPage() {
 
 
             <Tabs defaultValue={channels[0].id} className="w-full">
-                <TabsList className="grid w-full grid-cols-3 md:grid-cols-6">
+                <TabsList className="grid w-full grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-9">
                     {channels.map(channel => (
-                        <TabsTrigger key={channel.id} value={channel.id} className="gap-2">
-                            <channel.icon className="h-4 w-4"/> {channel.title}
+                        <TabsTrigger key={channel.id} value={channel.id} className="gap-2 text-xs md:text-sm">
+                            <channel.icon className="h-4 w-4 shrink-0"/> <span>{channel.title}</span>
                         </TabsTrigger>
                     ))}
                 </TabsList>
