@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone, Briefcase } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone, Briefcase, Trophy } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -122,10 +122,10 @@ export default function ContestPage() {
         </Alert>
 
          <Alert variant="default" className="border-purple-500/50 bg-purple-500/10 text-purple-700 dark:text-purple-300">
-            <Briefcase className="h-4 w-4 text-purple-500" />
-            <AlertTitle className="font-bold text-purple-600 dark:text-purple-400">The Ultimate Partnership: App Premier League</AlertTitle>
+            <Trophy className="h-4 w-4 text-purple-500" />
+            <AlertTitle className="font-bold text-purple-600 dark:text-purple-400">The App Premier League: A Championship of Creation</AlertTitle>
             <AlertDescription>
-               Apps built on the Hamraz platform that achieve the highest global downloads and engagement will enter our "Premier League." At the end of each year, the top apps in this league will be honored with valuable prizes. The ultimate winning app will be designated a "Strategic Partner" and will be promoted for free and with full support by the Hamraz platform, marking a true collaborative victory.
+               Apps built on Hamraz that get the most downloads and engagement will enter our "Premier League." At the end of each year, the top apps will compete for the Championship Cup and a significant prize pool. 5% of Hamraz's total revenue share from all participating league apps will be allocated to prizes: 3% will be awarded to the top three teams, and 2% will be distributed among the other apps based on their ranking. The ultimate winner will also be named a "Strategic Partner," receiving free and dedicated promotion from the Hamraz platform.
             </AlertDescription>
         </Alert>
 
