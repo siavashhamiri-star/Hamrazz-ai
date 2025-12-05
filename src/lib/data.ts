@@ -27,6 +27,7 @@ import {
   Terminal,
   DollarSign,
   Share2,
+  Wand2,
 } from "lucide-react";
 
 export const navLinks = [
@@ -54,6 +55,7 @@ export const navLinks = [
   { href: "/genesis", label: "Genesis", icon: Book },
   { href: "/showcase", label: "Showcase", icon: Trophy },
   { href: "/sync", label: "GitHub Sync", icon: Share2 },
+  { href: "/magic-repo", label: "Magic Repo", icon: Wand2 },
 ];
 
 export const bottomNavLinks = [
