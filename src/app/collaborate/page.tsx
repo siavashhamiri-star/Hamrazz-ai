@@ -261,7 +261,7 @@ const ProposeModule = () => {
             <form onSubmit={handleSubmit}>
                 <CardHeader>
                     <CardTitle className="text-2xl font-headline">Integrate Your App or Module</CardTitle>
-                    <CardDescription>Propose adding your specialized app or feature into the Hamraz ecosystem. Successful proposals can lead to partnership and revenue-sharing opportunities.</CardDescription>
+                    <CardDescription>Propose adding your specialized app or feature into the Hamraz ecosystem. We offer a generous 70% revenue share for our partners, provided your module includes clear promotion and a link back to the Hamraz platform.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -284,7 +284,7 @@ const ProposeModule = () => {
                     </div>
                      <div className="space-y-2">
                         <Label htmlFor="business-model">Proposed Business Model (Optional)</Label>
-                        <Textarea id="business-model" placeholder="How do you see this generating value? (e.g., revenue share, premium feature, etc.)" value={businessModel} onChange={(e) => setBusinessModel(e.target.value)} disabled={isLoading || !user} className="min-h-[80px]" />
+                        <Textarea id="business-model" placeholder="How do you see this generating value? e.g., revenue share, premium feature, etc." value={businessModel} onChange={(e) => setBusinessModel(e.target.value)} disabled={isLoading || !user} className="min-h-[80px]" />
                     </div>
                      {!user && (
                         <p className="text-sm text-center text-destructive font-medium">Please sign in to propose a module.</p>

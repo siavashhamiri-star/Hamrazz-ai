@@ -19,7 +19,7 @@ const keyFeatures = [
     {
         icon: Scaling,
         title: "Scalable Business Model",
-        description: "With a gamified point-based economy, we have multiple revenue streams including premium features, advertising, and future digital assets."
+        description: "With a gamified economy and a 70/30 revenue share with developers who promote Hamraz, we have a clear path to profitability and viral growth."
     },
     {
         icon: Users,
