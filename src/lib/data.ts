@@ -86,7 +86,7 @@ export const creatorLinks = [
         href: "#",
         label: "Afarinan",
         icon: Palette,
-        description: "The platform for creators. Showcase your portfolio and connect with a global community of innovators."
+        description: "The perfect companion to Hamraz. Use Hamraz to create projects, videos, and ideas, then showcase them on Afarinan—your professional portfolio to connect with a global community of innovators."
     },
     {
         href: "#",
