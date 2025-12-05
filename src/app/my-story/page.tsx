@@ -71,7 +71,27 @@ export default function MyStoryPage() {
         </p>
       </header>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="space-y-8">
+        <Card>
+            <CardHeader>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <CardTitle>Suggested Script</CardTitle>
+                        <CardDescription>Use this as a voice-over for your video.</CardDescription>
+                    </div>
+                     <Button variant="outline" size="icon" onClick={handleCopyScript}>
+                        <Copy className="h-4 w-4" />
+                        <span className="sr-only">Copy Script</span>
+                    </Button>
+                </div>
+            </CardHeader>
+            <CardContent>
+                <div className="h-96 overflow-y-auto border rounded-md p-4 prose prose-base dark:prose-invert max-w-none bg-background/50">
+                    <p className="whitespace-pre-wrap">{scriptText}</p>
+                </div>
+            </CardContent>
+        </Card>
+
          <Card>
             <CardHeader>
                 <CardTitle>The Promotional Video</CardTitle>
@@ -125,27 +145,6 @@ export default function MyStoryPage() {
                 ))}
             </CardFooter>
         </Card>
-
-        <Card>
-            <CardHeader>
-                <div className="flex items-center justify-between">
-                    <div>
-                        <CardTitle>Suggested Script</CardTitle>
-                        <CardDescription>Use this as a voice-over for your video.</CardDescription>
-                    </div>
-                     <Button variant="outline" size="icon" onClick={handleCopyScript}>
-                        <Copy className="h-4 w-4" />
-                        <span className="sr-only">Copy Script</span>
-                    </Button>
-                </div>
-            </CardHeader>
-            <CardContent>
-                <div className="h-[28rem] overflow-y-auto border rounded-md p-4 prose prose-base dark:prose-invert max-w-none bg-background/50">
-                    <p className="whitespace-pre-wrap">{scriptText}</p>
-                </div>
-            </CardContent>
-        </Card>
-
       </div>
     </div>
   );
