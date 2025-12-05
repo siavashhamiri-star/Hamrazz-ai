@@ -68,9 +68,9 @@ const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', 
         </div>
         {video.url && (
           <div className="flex justify-center mt-4">
-            <a href={video.url} download={`hamraz_genesis_video_${language}.mp4`}>
+            <a href={video.url} download={`hamraz_showcase_video_${language}.mp4`}>
               <Button>
-                <Download className="mr-2" /> Download Masterpiece
+                <Download className="mr-2 h-4 w-4" /> Download Video
               </Button>
             </a>
           </div>
