@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, UploadCloud, FileZip, Github, FileArchive, Unarchive, CheckCircle, ExternalLink, Info, Wand2, Lightbulb } from "lucide-react";
+import { Loader2, UploadCloud, FileZip, Github, FileArchive, Unarchive, CheckCircle, ExternalLink, Wand2, Lightbulb, ArrowRight, CornerDownLeft } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -32,16 +32,17 @@ const InteractiveGuide = () => {
     const { toast } = useToast();
 
     const guideSteps = [
-        { title: "Welcome!", description: "Let's package your project for GitHub. Click 'Next' to start.", target: null },
-        { title: "Select Files", description: "First, select your project folder. This tool will prepare all its contents.", target: "file-upload" },
-        { title: "Configure Repository", description: "Now, enter your GitHub username and the name for your new repository.", target: "config-form" },
-        { title: "Generate ZIP", description: "Great! Now, let's generate the ZIP file.", target: "generate-button" },
-        { title: "Download Your Project", description: "Your project is zipped and ready. Download it now.", target: "download-button" },
-        { title: "Upload to GitHub", description: "On your new, empty GitHub repository page, find and click the 'uploading an existing file' link to upload your project.", target: "github-link" },
-        { title: "All Done!", description: "Congratulations! You've successfully prepared and located where to upload your project.", target: null },
+        { title: "Let's Start!", description: "Click 'Next' to begin packaging your project.", target: "next-button" },
+        { title: "Select Files", description: "First, click here to select your project folder. All its contents will be prepared.", target: "file-upload" },
+        { title: "Name Your Project", description: "Now, enter your GitHub username and a name for your new project repository.", target: "config-form" },
+        { title: "Create the ZIP", description: "Great! Now, click this button to create the ZIP file.", target: "generate-button" },
+        { title: "Download Your File", description: "Perfect! Your project is zipped and ready. Click here to download it.", target: "download-button" },
+        { title: "Upload to GitHub", description: "Finally, on your new, empty GitHub repository page, find and click the 'uploading an existing file' link to upload your project.", target: "github-link" },
+        { title: "All Done!", description: "Congratulations! You've successfully prepared and located where to upload your project. Click 'Restart' to do another.", target: "restart-button" },
     ];
 
     const currentGuide = guideSteps[step];
+    const isTarget = (id: string) => currentGuide?.target === id;
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
@@ -93,99 +94,116 @@ const InteractiveGuide = () => {
         setIsGenerated(false);
     }
 
-    const isTarget = (id: string) => currentGuide?.target === id;
+    const StepWrapper = ({ targetId, children }: { targetId: string, children: React.ReactNode }) => (
+        <TooltipProvider>
+            <Tooltip open={isTarget(targetId)}>
+                <TooltipTrigger asChild>{children}</TooltipTrigger>
+                {isTarget(targetId) && (
+                    <TooltipContent side="top" className="max-w-xs text-center shadow-lg">
+                        <p className="font-bold text-base">{currentGuide.title}</p>
+                        <p>{currentGuide.description}</p>
+                    </TooltipContent>
+                )}
+            </Tooltip>
+        </TooltipProvider>
+    );
 
     return (
         <Card>
              <CardHeader>
                 <CardTitle className="flex items-center gap-2"><Wand2 /> Interactive Project Packager</CardTitle>
-                <CardDescription>A step-by-step visual guide to prepare your project for GitHub.</CardDescription>
+                <CardDescription>A simple, step-by-step guide to prepare your project for GitHub.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-                <TooltipProvider>
-                    <Tooltip open={true}>
-                        <TooltipTrigger asChild><div className="w-full h-1"></div></TooltipTrigger>
-                        <TooltipContent side="top" className="max-w-xs text-center">
-                            <p className="font-bold text-base">{currentGuide.title}</p>
-                            <p>{currentGuide.description}</p>
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
+                <div className="space-y-8 min-h-[350px] flex flex-col justify-center">
 
-                <div className="space-y-6 min-h-[300px]">
-                    {/* Step 1: Upload */}
-                    <div data-target-id="file-upload" className={cn("transition-opacity duration-300", step >= 1 ? "opacity-100" : "opacity-20")}>
-                        <Label htmlFor="file-upload" className={cn(
-                            "relative flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50",
-                             isTarget("file-upload") && "border-primary shadow-lg shadow-primary/30"
-                        )}>
-                             {isTarget("file-upload") && <div className="absolute inset-0 bg-primary/20 animate-pulse rounded-lg"></div>}
-                            <UploadCloud className="w-8 h-8 mb-2 text-muted-foreground" />
-                            <p className="text-sm text-muted-foreground">
-                                {files.length > 0 ? `${files.length} files selected` : "Select Project Folder"}
-                            </p>
-                            <Input id="file-upload" type="file" className="hidden" onChange={handleFileChange} multiple webkitdirectory="" directory="" disabled={step !== 1}/>
-                        </Label>
-                    </div>
-
-                    {/* Step 2: Configure */}
-                    <div data-target-id="config-form" className={cn("space-y-4 transition-opacity duration-300", step >= 2 ? "opacity-100" : "opacity-20")}>
-                        <div className={cn("p-4 border rounded-lg", isTarget("config-form") && "border-primary shadow-lg shadow-primary/30")}>
-                             {isTarget("config-form") && <div className="absolute inset-0 bg-primary/20 animate-pulse rounded-lg"></div>}
-                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <Label htmlFor="username">GitHub Username</Label>
-                                    <Input id="username" placeholder="e.g., ahura-creator" value={username} onChange={e => setUsername(e.target.value)} disabled={step !== 2} />
-                                </div>
-                                <div>
-                                    <Label htmlFor="repo-name">Repository Name</Label>
-                                    <Input id="repo-name" placeholder="e.g., my-hamraz-app" value={repoName} onChange={e => setRepoName(e.target.value)} disabled={step !== 2} />
+                    <StepWrapper targetId="file-upload">
+                        <div className={cn("transition-opacity duration-300", step >= 1 ? "opacity-100" : "opacity-30 pointer-events-none")}>
+                            <Label htmlFor="file-upload" className={cn(
+                                "relative flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50",
+                                isTarget("file-upload") && "border-primary shadow-lg shadow-primary/30"
+                            )}>
+                                {isTarget("file-upload") && <div className="absolute inset-0 bg-primary/10 animate-pulse rounded-lg"></div>}
+                                <UploadCloud className="w-8 h-8 mb-2 text-muted-foreground" />
+                                <p className="text-sm text-muted-foreground">
+                                    {files.length > 0 ? `${files.length} files selected` : "1. Select Project Folder"}
+                                </p>
+                                <Input id="file-upload" type="file" className="hidden" onChange={handleFileChange} multiple webkitdirectory="" directory="" disabled={step !== 1}/>
+                            </Label>
+                        </div>
+                    </StepWrapper>
+                    
+                    <StepWrapper targetId="config-form">
+                         <div className={cn("relative transition-opacity duration-300", step >= 2 ? "opacity-100" : "opacity-30 pointer-events-none")}>
+                            {isTarget("config-form") && <div className="absolute -inset-2 bg-primary/10 animate-pulse rounded-lg -z-10"></div>}
+                            <div className={cn("p-4 border rounded-lg", isTarget("config-form") && "border-primary")}>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <Label htmlFor="username">2. Your GitHub Username</Label>
+                                        <Input id="username" placeholder="e.g., ahura-creator" value={username} onChange={e => setUsername(e.target.value)} disabled={step !== 2} />
+                                    </div>
+                                    <div>
+                                        <Label htmlFor="repo-name">3. Your Project Name</Label>
+                                        <Input id="repo-name" placeholder="e.g., my-hamraz-app" value={repoName} onChange={e => setRepoName(e.target.value)} disabled={step !== 2} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </StepWrapper>
+                   
+                    <div className="flex flex-col items-center gap-4">
+                        <StepWrapper targetId="generate-button">
+                             <div className={cn("transition-opacity duration-300", step >= 3 ? "opacity-100" : "opacity-30 pointer-events-none")}>
+                                <Button onClick={handleGenerate} disabled={isLoading || step !== 3} className={cn("min-w-48", isTarget("generate-button") && "animate-bounce")}>
+                                {isLoading ? <><Loader2 className="mr-2 animate-spin"/> Generating...</> : isGenerated ? <><CheckCircle className="mr-2"/> ZIP Generated!</> : <>4. Create Project ZIP</>}
+                                </Button>
+                            </div>
+                        </StepWrapper>
+                        
+                        <StepWrapper targetId="download-button">
+                             <div className={cn("text-center transition-opacity duration-300", step >= 4 ? "opacity-100" : "opacity-30 pointer-events-none")}>
+                                <Button size="lg" className={cn(isTarget("download-button") && "animate-bounce")}>
+                                <FileZip className="mr-2"/> 5. Download Project.zip
+                                </Button>
+                            </div>
+                        </StepWrapper>
                     </div>
 
-                    {/* Step 3: Generate */}
-                    <div data-target-id="generate-button" className={cn("text-center transition-opacity duration-300", step >= 3 ? "opacity-100" : "opacity-20")}>
-                        <Button onClick={handleGenerate} disabled={isLoading || step !== 3} className={cn(isTarget("generate-button") && "animate-pulse")}>
-                           {isLoading ? <><Loader2 className="mr-2 animate-spin"/> Generating...</> : isGenerated ? <><CheckCircle className="mr-2"/> ZIP Generated!</> : <>Generate Project ZIP</>}
-                        </Button>
-                    </div>
-                    
-                    {/* Step 4: Download */}
-                    {step >= 4 && (
-                    <div data-target-id="download-button" className={cn("text-center transition-opacity duration-300", step >= 4 ? "opacity-100" : "opacity-20")}>
-                        <Button size="lg" className={cn(isTarget("download-button") && "animate-pulse")}>
-                           <FileZip className="mr-2"/> Download Project.zip
-                        </Button>
-                    </div>
-                    )}
-
-                    {/* Step 5: GitHub Upload */}
-                     {step >= 5 && (
-                        <div data-target-id="github-link" className={cn("p-4 border rounded-lg bg-muted/50 transition-opacity duration-300", step >= 5 ? "opacity-100" : "opacity-20", isTarget("github-link") && "border-primary shadow-lg shadow-primary/30")}>
-                            <h4 className="font-semibold text-center mb-2">Final Step on GitHub</h4>
-                             <div className="p-4 border rounded-lg bg-background/50 text-center font-mono text-sm text-muted-foreground space-y-1">
+                    <StepWrapper targetId="github-link">
+                         <div className={cn("p-4 border rounded-lg bg-muted/30 transition-opacity duration-300", step >= 5 ? "opacity-100" : "opacity-30 pointer-events-none")}>
+                             {isTarget("github-link") && <div className="absolute -inset-2 bg-primary/10 animate-pulse rounded-lg -z-10"></div>}
+                            <h4 className="font-semibold text-center mb-2">6. Final Step on GitHub</h4>
+                             <div className="p-4 border rounded-lg bg-card text-center font-mono text-sm text-muted-foreground space-y-1 shadow-inner">
                               <p>...or create a new repository on the command line</p>
                               <p className="opacity-50">...</p>
                               <p>...or push an existing repository from the command line</p>
                               <p className="opacity-50">...</p>
                               <div className={cn("relative p-2 rounded-md", isTarget("github-link") && "bg-primary/20")}>
-                                {isTarget("github-link") && <div className="absolute inset-0 bg-primary/20 animate-pulse rounded-lg"></div>}
                                 <p>...or <span className="font-bold text-primary underline">uploading an existing file</span>.</p>
                               </div>
                             </div>
                         </div>
-                     )}
+                     </StepWrapper>
 
                 </div>
             </CardContent>
-            <CardFooter className="flex justify-between">
-                <Button variant="outline" onClick={handleRestart}>Start Over</Button>
-                {step < guideSteps.length -1 ? (
-                    <Button onClick={handleNext}>Next Step</Button>
-                ) : (
-                    <Button onClick={handleRestart} className="bg-green-600 hover:bg-green-700">Finish</Button>
+            <CardFooter className="flex justify-between items-center border-t pt-4">
+                 <StepWrapper targetId="restart-button">
+                    <Button variant="outline" onClick={handleRestart}>
+                        <CornerDownLeft className="mr-2 h-4 w-4"/>
+                        Restart
+                    </Button>
+                </StepWrapper>
+                {step < guideSteps.length - 1 && (
+                    <StepWrapper targetId="next-button">
+                        <Button onClick={handleNext} className={cn(isTarget("next-button") && "animate-bounce")}>
+                            Next
+                            <ArrowRight className="ml-2 h-4 w-4"/>
+                        </Button>
+                    </StepWrapper>
+                )}
+                 {step === guideSteps.length - 1 && (
+                    <p className="text-sm font-medium text-green-600">All Done!</p>
                 )}
             </CardFooter>
         </Card>
@@ -221,8 +239,6 @@ const ZipExtractor = () => {
         
         await new Promise(resolve => setTimeout(resolve, 1500));
 
-        // In a real app, you would use a library like JSZip to read the file contents.
-        // Here, we simulate it with some dummy data.
         setExtractedFiles([
             'project/',
             'project/index.html',
@@ -330,5 +346,3 @@ export default function SyncPage() {
     </div>
   );
 }
-
-    
