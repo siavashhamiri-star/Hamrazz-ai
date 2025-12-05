@@ -125,8 +125,8 @@ export default function ContestPage() {
             <Trophy className="h-4 w-4 text-purple-500" />
             <AlertTitle className="font-bold text-purple-600 dark:text-purple-400">The App Premier League: A Championship of Creation</AlertTitle>
             <AlertDescription>
-               Apps built on Hamraz that get the most downloads and engagement will enter our "Premier League." At the end of each year, the top apps will compete for the Championship Cup and a significant prize pool. 5% of Hamraz's total 70% revenue share from all participating league apps will be allocated to prizes: 3% will be awarded to the top three teams, and 2% will be distributed among the other apps based on their ranking. The ultimate winner will also be named a "Strategic Partner," receiving one year of free and dedicated promotion from the Hamraz platform, including a special promotional video and a dedicated link.
-               <p className="mt-2 font-semibold">The league is also a strategic playground: apps can form coalitions to support lower-ranked apps or create powerful alliances with top contenders, adding a dynamic layer of diplomacy and teamwork to the competition. Furthermore, top teams can negotiate with lower-ranked apps, offering incentives to acquire their points and bolster their own chances of winning the championship.</p>
+               Apps built on Hamraz that get the most downloads and engagement will enter our "Premier League." At the end of each year, the top apps will compete for the Championship Cup and a significant prize pool. 5% of Hamraz's total 30% revenue share from all participating league apps will be allocated to prizes: 3% will be awarded to the top three teams, and 2% will be distributed among the other apps based on their ranking. The ultimate winner will also be named a "Strategic Partner," receiving one year of free and dedicated promotion from the Hamraz platform, including a special promotional video and a dedicated link.
+               <p className="mt-2 font-semibold">The league is also a strategic playground: apps can form coalitions to support lower-ranked apps or create powerful alliances with top contenders. Furthermore, top teams can negotiate with lower-ranked apps, offering incentives to acquire their points and bolster their own chances of winning the championship. این همچنین باعث رفاقت، همکاری و ایجاد هیجان می شود.</p>
             </AlertDescription>
         </Alert>
 
@@ -241,6 +241,8 @@ export default function ContestPage() {
     </div>
   );
 }
+
+    
 
     
 
