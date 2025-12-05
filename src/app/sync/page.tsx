@@ -14,8 +14,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, UploadCloud, FileZip, ArrowRight, Github, FileArchive, Unarchive, CheckCircle } from "lucide-react";
+import { Loader2, UploadCloud, FileZip, ArrowRight, Github, FileArchive, Unarchive, CheckCircle, ExternalLink } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
 
 const ZipCreator = () => {
     const [step, setStep] = useState<"upload" | "configure" | "download">("upload");
@@ -224,9 +225,9 @@ export default function SyncPage() {
     <div className="max-w-2xl mx-auto space-y-8">
        <Card className="shadow-lg">
         <CardHeader>
-          <CardTitle className="text-2xl font-headline flex items-center gap-3"><FileArchive /> File Utility Tool</CardTitle>
+          <CardTitle className="text-2xl font-headline flex items-center gap-3"><FileArchive /> Project Sync & Tools</CardTitle>
           <CardDescription>
-            Use these tools to package your project into a ZIP file for GitHub, or to inspect the contents of an existing ZIP file.
+            Use these tools to package your project for GitHub, inspect ZIP files, or learn about professional command-line tools.
           </CardDescription>
         </CardHeader>
       </Card>
@@ -243,6 +244,33 @@ export default function SyncPage() {
                 <ZipExtractor />
             </TabsContent>
         </Tabs>
+
+        <Card>
+            <CardHeader>
+                <CardTitle>Professional Tools Guide: Termux + Git</CardTitle>
+                <CardDescription>For advanced users, Termux is a powerful terminal emulator for Android that allows you to use command-line tools like `git` directly on your device.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <Link href="https://termux.dev/en/" target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button variant="outline" className="w-full">Download Termux <ExternalLink className="ml-2"/></Button>
+                    </Link>
+                    <Link href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex-1">
+                        <Button variant="outline" className="w-full">Visit GitHub <Github className="ml-2"/></Button>
+                    </Link>
+                </div>
+                <div>
+                    <h4 className="font-semibold mb-2">Git Command Cheat Sheet:</h4>
+                    <div className="space-y-2 text-sm p-4 bg-muted rounded-md font-mono">
+                        <p><span className="text-primary font-bold">git init</span> - Initializes a new Git repository.</p>
+                        <p><span className="text-primary font-bold">git add .</span> - Stages all changes for commit.</p>
+                        <p><span className="text-primary font-bold">git commit -m "Your message"</span> - Saves your changes.</p>
+                        <p><span className="text-primary font-bold">git remote add origin [URL]</span> - Connects your local repo to GitHub.</p>
+                        <p><span className="text-primary font-bold">git push -u origin main</span> - Pushes your commits to GitHub.</p>
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
       
     </div>
   );
