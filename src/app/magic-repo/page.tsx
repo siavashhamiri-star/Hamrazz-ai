@@ -12,7 +12,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Wand2, FilePlus, FileText, Download } from "lucide-react";
+import { Loader2, Wand2, FileText, Download, Folder } from "lucide-react";
+import { generateProjectStructure, FileSystem } from "@/ai/flows/generate-project-structure-flow";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type FileNode = {
   type: 'file';
@@ -20,22 +22,16 @@ type FileNode = {
   content: string;
 };
 
-type DirectoryNode = {
-  type: 'directory';
-  name: string;
-  children: (FileNode | DirectoryNode)[];
-};
+type DirectoryNode = FileSystem;
 
-type FileSystem = DirectoryNode;
-
-const FileSystemViewer = ({ fs }: { fs: FileSystem }) => {
+const FileSystemViewer = ({ fs }: { fs: DirectoryNode }) => {
     const renderNode = (node: FileNode | DirectoryNode, level: number) => {
         const indent = { paddingLeft: `${level * 1.5}rem` };
         if (node.type === 'directory') {
             return (
                 <div key={node.name}>
                     <div style={indent} className="flex items-center gap-2 font-semibold">
-                       {node.name}/
+                       <Folder className="w-4 h-4 text-primary" /> {node.name}/
                     </div>
                     {node.children.map(child => renderNode(child, level + 1))}
                 </div>
@@ -51,12 +47,14 @@ const FileSystemViewer = ({ fs }: { fs: FileSystem }) => {
     };
 
     return (
-        <Card className="bg-muted/50">
+        <Card className="bg-muted/50 h-full">
             <CardHeader>
                 <CardTitle>Project Structure</CardTitle>
             </CardHeader>
             <CardContent className="font-mono text-sm">
+              <ScrollArea className="h-72">
                 {renderNode(fs, 0)}
+              </ScrollArea>
             </CardContent>
         </Card>
     );
@@ -67,38 +65,26 @@ export default function MagicRepoPage() {
   const [command, setCommand] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
-  const [fileSystem, setFileSystem] = useState<FileSystem>({ type: 'directory', name: 'root', children: [] });
+  const [fileSystem, setFileSystem] = useState<FileSystem>({ type: 'directory', name: 'my-project', children: [] });
 
   const handleCommand = async () => {
     if (!command.trim()) return;
     setIsLoading(true);
 
-    // Simulate processing the command and updating the file system
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // This is a very basic parser. A real implementation would need a robust command parser.
-    const parts = command.trim().split(' ');
-    const action = parts[0]?.toUpperCase();
-    const fileName = parts[2];
-
-    if (action === 'CREATE' && parts[1]?.toUpperCase() === 'FILE' && fileName) {
-        // Simple creation at root level for this prototype
-        setFileSystem(prevFs => {
-            const newChildren = [...prevFs.children];
-            if (!newChildren.find(c => c.name === fileName)) {
-                 newChildren.push({ type: 'file', name: fileName, content: '' });
-            }
-            return { ...prevFs, children: newChildren };
+    try {
+        const result = await generateProjectStructure({
+            command: command,
+            currentStructure: fileSystem
         });
-        toast({ title: "File Created", description: `File "${fileName}" was added.` });
-    } else if (action === 'ADD' && parts[1]?.toUpperCase() === 'CONTENT') {
-        toast({ title: "Content Added (Simulated)", description: "In a real app, content would be added to the file." });
-    } else {
-        toast({ variant: "destructive", title: "Unknown Command", description: "Try 'CREATE FILE filename.ext'" });
+        setFileSystem(result.newStructure);
+        toast({ title: "Project Updated!", description: `Command "${command}" was executed.` });
+    } catch (error) {
+        console.error(error);
+        toast({ variant: "destructive", title: "Error", description: "Could not execute the command." });
+    } finally {
+        setCommand("");
+        setIsLoading(false);
     }
-
-    setCommand("");
-    setIsLoading(false);
   };
 
   return (
@@ -123,29 +109,31 @@ export default function MagicRepoPage() {
                 <CardContent>
                     <div className="flex gap-2">
                         <Input 
-                            placeholder="e.g., CREATE FILE index.html"
+                            placeholder="e.g., CREATE FILE index.html with a h1 tag"
                             value={command}
                             onChange={e => setCommand(e.target.value)}
                             onKeyDown={e => e.key === 'Enter' && handleCommand()}
                             disabled={isLoading}
                             className="font-mono"
                         />
-                        <Button onClick={handleCommand} disabled={isLoading}>
+                        <Button onClick={handleCommand} disabled={isLoading || !command.trim()}>
                             {isLoading ? <Loader2 className="animate-spin" /> : "Run"}
                         </Button>
                     </div>
                     <div className="text-xs text-muted-foreground mt-2 p-2 bg-muted/50 rounded-md">
                         <p className="font-semibold">Example Commands:</p>
                         <ul className="list-disc list-inside">
-                            <li><span className="font-mono">CREATE FILE index.html</span></li>
-                            <li><span className="font-mono">ADD CONTENT '...' TO index.html</span> (Simulated)</li>
+                            <li><span className="font-mono">create a file named "index.html"</span></li>
+                            <li><span className="font-mono">add a folder named "css"</span></li>
+                            <li><span className="font-mono">put a file "style.css" inside "css"</span></li>
+                            <li><span className="font-mono">add a h1 with "Hello World" to index.html</span></li>
                         </ul>
                     </div>
                 </CardContent>
             </Card>
              <Button className="w-full" size="lg" disabled={fileSystem.children.length === 0}>
                 <Download className="mr-2"/>
-                Generate and Download Project.zip
+                Generate and Download Project.zip (Coming Soon)
             </Button>
         </div>
         <div className="lg:col-span-1">
