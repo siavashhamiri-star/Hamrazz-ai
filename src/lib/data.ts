@@ -29,6 +29,7 @@ import {
   Share2,
   Wand2,
   FileArchive,
+  Cpu,
 } from "lucide-react";
 
 export const navLinks = [
@@ -45,6 +46,7 @@ export const navLinks = [
   { href: "/pitch", label: "Pitch Idea", icon: Lightbulb },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
   { href: "/investors", label: "Investors", icon: DollarSign },
+  { href: "/devops", label: "DevOps Revolution", icon: Cpu },
   { href: "/camera", label: "Camera", icon: Camera },
   { href: "/poetry", label: "Poetry", icon: Feather },
   { href: "/antics", label: "Antics", icon: SmilePlus },
