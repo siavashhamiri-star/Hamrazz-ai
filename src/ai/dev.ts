@@ -1,3 +1,4 @@
+'use server';
 import { config } from 'dotenv';
 config();
 
@@ -11,3 +12,4 @@ import '@/ai/flows/generate-showcase-video-flow.ts';
 import '@/ai/flows/generate-project-structure-flow.ts';
 import '@/ai/flows/generate-my-story-video-flow.ts';
 import '@/ai/flows/generate-tutorial-flow.ts';
+import '@/ai/flows/text-to-speech-flow.ts';

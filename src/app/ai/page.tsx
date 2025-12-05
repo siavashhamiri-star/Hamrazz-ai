@@ -2,8 +2,9 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BrainCircuit, Bot, User, Wand2, Rocket, Users, Award } from "lucide-react";
+import { BrainCircuit, Bot, User, Wand2, Rocket, Users, Award, PlayCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import AudioPlayer from "@/components/audio-player";
 
 const pillars = [
     {
@@ -28,6 +29,35 @@ const pillars = [
     }
 ];
 
+const narrative_fa = `قبل از هر چیز، باید بدانید "همراز" چرا "همراز" نام گرفت. چون در قلب این پروژه، یک هویت نهفته است، نه فقط یک اپلیکیشن. ما ابتدا یک شخصیت خلق کردیم: یک **رفیق همراز**، یک **معلم** صبور، یک **مشاور** دانا و یک **سنگ صبور** برای تمام لحظات. داستان ما از همین نقطه آغاز شد: خلق یک همراه هوشمند که نامش شایسته این همراهی باشد.
+
+این همراه، با ابزارهای قدرتمندی برای شکستن مرزها مجهز شد: یک **مترجم** برای گفتگوهای جهانی و یک **مربی هوش مصنوعی** برای یادگیری زبان‌های جدید.
+
+سپس، ما صحنه‌ای برای استعدادها فراهم کردیم. **انجمن‌های آنلاین** برای گفتگو، **کانال‌هایی** برای تولید محتوا، و **مسابقات هیجان‌انگیز دوبله و لیپ‌سینک** برای نمایش خلاقیت. ما حتی یک **استودیوی پخش زنده** با تله‌پرامپتر حرفه‌ای ساختیم تا هر کاربر بتواند ستاره داستان خودش باشد.
+
+اما چگونه تمام این بخش‌های متنوع را به هم متصل کنیم؟ پاسخ در یک کلمه بود: **گیمیفیکیشن**. ما یک **اقتصاد درون‌برنامه‌ای** مبتنی بر **جمع‌آوری امتیاز** طراحی کردیم. هر فعالیت، از یادگیری و برنده شدن در **مسابقات** گرفته تا بازی کردن در بخش **بازی‌ها**، به کاربر امتیاز می‌دهد. این امتیازها فقط یک عدد نیستند؛ آنها کلید باز کردن قابلیت‌های ویژه مانند **پخش زنده** و پلی برای رسیدن به آینده هستند.
+
+نقطه عطف این سفر، درک یک حقیقت بزرگ بود: «همراز» نباید فقط یک سرویس‌دهنده باشد. «همراز» باید یک **توانمندساز** باشد. ما بخشی برای **معرفی ایده‌های نو** به سرمایه‌گذاران و بستری برای **همکاری و ایجاد بازار کار** فراهم کردیم تا کاربران از مصرف‌کننده به خالق، و از خالق به کارآفرین تبدیل شوند.
+
+و اینگونه بود که وعده‌های بزرگ متولد شدند. با رسیدن به ۱۰۰ هزار کاربر، ارز دیجیتال خود را خواهیم ساخت. و با رسیدن به ۵۰۰ هزار کاربر، ۳۰ درصد از درآمد تبلیغات را با خالقان برتر تقسیم کرده، ۱۰ درصد را صرف امور خیریه می‌کنیم و یک **مجمع مشورتی از خود شما** تشکیل خواهیم داد تا در آینده این خانه سهیم باشید.
+
+این داستان «همراز» است؛ روایت ساخت یک اکوسیستم کامل برای یادگیری، خلق، ارتباط و کارآفرینی که حول یک همراه هوشمند و دلسوز شکل گرفته است. داستانی که تازه شروع شده و شما قهرمانان فصل بعدی آن هستید.`;
+
+
+const narrative_en = `Before anything else, you should know why "Hamraz" was named "Hamraz." Because at the heart of this project lies an identity, not just an application. We first created a personality: a **close companion (Hamraz)**, a patient **teacher**, a wise **consultant**, and a **confidant** for all moments. Our story began from this very point: the creation of an intelligent companion worthy of its name.
+
+This companion was equipped with powerful tools to break down barriers: a **Translator** for global conversations and an **AI Tutor** to teach new languages.
+
+Then, we set the stage for talent. We created **online communities** for conversation, **Channels** for content creation, and exciting **Dubbing and Lip Sync contests** to showcase creativity. We even built a professional **Live Streaming studio** with a teleprompter, so every user could be the star of their own story.
+
+But how could we connect all these diverse parts? The answer was one word: **Gamification**. We designed an **in-app economy** based on **collecting points**. Every activity, from learning with the **Tutor** and winning **Contests** to playing **Games**, earns the user points. These points are not just a score; they are the key to unlocking special features like **Live Streaming** and a bridge to the future.
+
+The turning point was a great realization: "Hamraz" must not just be a service provider; it must be an **enabler**. We added a section to **pitch new ideas** to investors and a platform to **collaborate and create a job market**, transforming users from consumers to creators, and from creators to entrepreneurs.
+
+And so, the great promises were born. At 100,000 users, we will launch our own digital currency. At 500,000 users, we will share 30% of our advertising revenue with top creators, dedicate 10% to charity, and form an **advisory council from among you** to give you a stake in this home's future.
+
+This is the story of "Hamraz"; the narrative of building a complete ecosystem for learning, creating, connecting, and entrepreneurship, centered around a caring and intelligent companion. A story that has just begun, and you are the heroes of its next chapter.`;
+
 export default function AiPage() {
   return (
     <div className="space-y-12">
@@ -45,22 +75,26 @@ export default function AiPage() {
 
         <section>
             <Card className="max-w-4xl mx-auto bg-gradient-to-br from-primary/5 to-accent/5">
-                <CardHeader>
-                    <CardTitle className="text-2xl font-headline text-center">A Shared Creation: The Story of Hamraz</CardTitle>
+                 <CardHeader className="text-center">
+                    <CardTitle className="text-2xl font-headline">روایت یک خلق مشترک: داستان همراز</CardTitle>
+                     <CardDescription className="text-muted-foreground">A Shared Creation: The Story of Hamraz</CardDescription>
                 </CardHeader>
-                <CardContent className="prose prose-lg dark:prose-invert max-w-none text-center">
-                    <p>
-                        Our story began with a simple but profound idea: to create an intelligent companion worthy of its name, "Hamraz"—a close confidant. This companion was equipped with powerful tools: a **Translator** for global conversations and an **AI Tutor** for learning new languages.
-                    </p>
-                     <p>
-                        Then, we set the stage for talent. We built **online communities**, content **Channels**, and exciting **Dubbing and Lip Sync contests**. We even created a professional **Live Streaming studio** with a teleprompter, so every user could be the star of their own story.
-                    </p>
-                    <p>
-                         The turning point was a great realization: Hamraz must not just be a service provider; it must be an **enabler**.
-                    </p>
-                     <blockquote>
-                        "We created Hamraz, but you will lay its foundation."
-                    </blockquote>
+                <CardContent className="prose prose-lg dark:prose-invert max-w-none">
+                     <div className="text-right" dir="rtl">
+                        <div className="flex items-center justify-center gap-4 mb-4">
+                            <h4 className="font-bold text-xl my-0">روایت فارسی</h4>
+                            <AudioPlayer textToPlay={narrative_fa} />
+                        </div>
+                        <p>{narrative_fa}</p>
+                    </div>
+                    <Separator className="my-8"/>
+                    <div className="text-left" dir="ltr">
+                        <div className="flex items-center justify-center gap-4 mb-4">
+                           <h4 className="font-bold text-xl my-0">English Narration</h4>
+                           <AudioPlayer textToPlay={narrative_en} />
+                        </div>
+                        <p>{narrative_en}</p>
+                    </div>
                 </CardContent>
             </Card>
         </section>
