@@ -37,6 +37,7 @@ import {
   RadioTower,
   BrainCircuit,
   Server,
+  Music,
 } from "lucide-react";
 
 export const navLinks = [
@@ -81,18 +82,22 @@ export const bottomNavLinks = [
 ];
 
 export const creatorLinks = [
-    { 
-        href: "#", 
-        label: "Creative Suite", 
-        icon: Palette, 
-        description: "An all-in-one suite for digital artists and designers." 
+    {
+        href: "#",
+        label: "Afarinan",
+        icon: Palette,
+        description: "The platform for creators. Showcase your portfolio and connect with a global community of innovators."
     },
-    { 
-        href: "#", 
-        label: "DevKit", 
-        icon: Terminal, 
-        description: "A collection of powerful tools for modern developers." 
+    {
+        href: "#",
+        label: "Zabanshenas",
+        icon: Languages,
+        description: "The premier language learning app. Master new languages with engaging lessons and AI-powered tools."
+    },
+    {
+        href: "#",
+        label: "Karaoke",
+        icon: Music,
+        description: "Sing your heart out! The ultimate karaoke app with a vast library of songs and fun features."
     },
 ];
-
-    
