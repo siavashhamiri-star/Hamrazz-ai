@@ -35,7 +35,7 @@ export const navLinks = [
   { href: "/", label: "Chat", icon: MessageSquare },
   { href: "/tutor", label: "Tutor", icon: Book },
   { href: "/translate", label: "Translate", icon: Languages },
-  { href: "/sync", label: "Sync & Tools", icon: FileArchive },
+  { href: "/magic-repo", label: "Magic Repo", icon: Wand2 },
   { href: "/community", label: "Community", icon: Users },
   { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/dubbing", label: "Dubbing", icon: Mic },
@@ -56,7 +56,6 @@ export const navLinks = [
   { href: "/ads", label: "Advertisements", icon: Film },
   { href: "/genesis", label: "Genesis", icon: Book },
   { href: "/showcase", label: "Showcase", icon: Trophy },
-  { href: "/magic-repo", label: "Magic Repo", icon: Wand2 },
 ];
 
 export const bottomNavLinks = [
