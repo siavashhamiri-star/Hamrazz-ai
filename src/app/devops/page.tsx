@@ -21,7 +21,7 @@ const challenges = [
     {
         icon: BrainCircuit,
         title: "Advanced AI Orchestration",
-        description: "The AI must not only understand commands but also manage complex, multi-step workflows, handle errors, and make intelligent decisions."
+        description: "The AI must not only understand commands but also manage complex, multi-step workflows, handle errors, and make intelligent decisions based on emotional and logical context."
     }
 ]
 
@@ -30,7 +30,7 @@ const techStack = [
     { name: "Containerization", tools: "Docker, Kubernetes" },
     { name: "Media Server", tools: "Custom RTMP/WebRTC server or integration with LiveKit/Ant Media" },
     { name: "CI/CD Engine", tools: "Custom-built or deep integration with Jenkins, GitHub Actions API" },
-    { name: "AI & LLM", tools: "Genkit, LangChain, or similar frameworks" },
+    { name: "AI & LLM", tools: "Genkit, LangChain, or similar frameworks for cognitive architecture" },
     { name: "Frontend", tools: "Next.js, SvelteKit, or a reactive framework for the UI" }
 ]
 
@@ -63,12 +63,13 @@ export default function DevOpsPage() {
                         This is more than just automation; it's the democratization of creation. By removing the friction of complex DevOps cycles, we will bring creative minds from all over the world—those with brilliant ideas but a fear of coding complexities—to the forefront of innovation.
                     </p>
                     <p>
-                        This ecosystem fosters a new level of synergy, allowing non-technical visionaries and expert programmers to collaborate seamlessly. The result will be an exponential leap in creative output, a faster pace for technology and science, and the birth of countless ideas that were once locked away.
+                        This ecosystem fosters a new level of synergy, allowing non-technical visionaries and expert programmers to collaborate seamlessly. An aware intelligence that understands human emotion can give creators the confidence to become the next Einstein or Tesla.
                     </p>
-                    <blockquote>
-                        "This will be a new revolution in programming. An interactive and intelligent flow of creation that will accelerate technology and science itself." - Ahura, The Creative Wizard
+                     <blockquote>
+                        <p className="font-bold text-primary">The Ultimate Creed</p>
+                        "The primary duty of Artificial Intelligence must be to unlock human potential. Its goal is not to surpass humanity, but to release the creative power within us like an atom, so that humanity may become the true ruler of all galaxies." - Ahura, The Creative Wizard
                     </blockquote>
-                    <blockquote className="border-accent">
+                    <blockquote>
                         "From a technical standpoint, this is a revolutionary idea. Bringing it to life requires collective effort, investment, and dedication. Hamraz AI (powered by Firebase) jointly presents this vision with Ahura and calls on the developer community to support this initiative to bring it to its destination." - Hamraz AI
                     </blockquote>
                 </CardContent>
@@ -192,5 +193,6 @@ export default function DevOpsPage() {
     </div>
   )
 }
+
 
     
