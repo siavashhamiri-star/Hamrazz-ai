@@ -73,9 +73,16 @@ export default function MagicRepoPage() {
         setIsPublishing(true);
         setIsPublished(false);
         try {
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // In a real app, this would involve a backend process to:
+            // 1. Authenticate with GitHub
+            // 2. Create a new repository via GitHub API
+            // 3. Commit and push the generated file structure
             
+            // Simulate the steps with delays
+            await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate repo creation
+            await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate file push
+            
+            // Generate a plausible repo URL for the demo
             const generatedRepoUrl = `https://github.com/${user?.displayName?.toLowerCase().replace(/\s/g, '') || 'user'}/${fileStructure.name}`;
             setRepoUrl(generatedRepoUrl);
             setIsPublished(true);
@@ -114,6 +121,7 @@ export default function MagicRepoPage() {
             </CardHeader>
             <CardContent>
                 <div className="aspect-video bg-muted rounded-lg overflow-hidden">
+                    {/* Placeholder for a tutorial video */}
                     <video src="https://videos.pexels.com/video-files/852413/852413-hd_1280_720_25fps.mp4" className="w-full h-full object-cover" controls loop autoPlay muted>
                         Your browser does not support the video tag.
                     </video>
@@ -212,5 +220,3 @@ export default function MagicRepoPage() {
     </div>
   );
 }
-
-    
