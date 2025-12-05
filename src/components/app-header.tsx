@@ -1,12 +1,12 @@
 
 "use client";
 
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
-import { Coins, Clock, LogIn, LogOut } from "lucide-react";
+import { Coins, Clock, LogIn, LogOut, PanelLeft } from "lucide-react";
 import { navLinks } from "@/lib/data";
 import { useUser } from '@/firebase';
 import { useUserProfile } from '@/hooks/use-user-profile';
@@ -40,7 +40,13 @@ export default function AppHeader() {
 
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 md:px-6 backdrop-blur">
-      <SidebarTrigger />
+      <div className="flex items-center gap-1 md:gap-4">
+        <SidebarTrigger asChild>
+          <div>
+            <PanelLeft />
+          </div>
+        </SidebarTrigger>
+      </div>
       <h1 className="flex-1 text-xl font-semibold font-headline">{pageTitle}</h1>
       <div className="flex items-center gap-4">
         {user && !isLoading ? (
@@ -53,19 +59,28 @@ export default function AppHeader() {
               <Clock className="h-5 w-5 text-primary" />
               <span>{remainingMinutes} min</span>
             </div>
-            <Button size="sm" variant="outline" onClick={handleSignOut} className="gap-2 hidden sm:flex">
-              <LogOut className="h-4 w-4" />
-              <span>Sign Out</span>
+            <Button asChild size="sm" variant="outline" onClick={handleSignOut} className="gap-2 hidden sm:flex">
+              <React.Fragment>
+                <LogOut className="h-4 w-4" />
+                <span>Sign Out</span>
+              </React.Fragment>
             </Button>
-            <Button size="icon" variant="outline" onClick={handleSignOut} className="sm:hidden">
-              <LogOut className="h-4 w-4" />
+            <Button asChild size="icon" variant="outline" onClick={handleSignOut} className="sm:hidden">
+              <div>
+                <LogOut className="h-4 w-4" />
+                <span className="sr-only">Sign Out</span>
+              </div>
             </Button>
           </>
         ) : (
-          <Link href="/login">
-            <Button size="sm" className="gap-2" disabled={isLoading}>
-              <LogIn className="h-4 w-4" />
-              <span>Sign In</span>
+          <Link href="/login" legacyBehavior passHref>
+            <Button asChild size="sm" className="gap-2" disabled={isLoading}>
+              <a>
+                <React.Fragment>
+                  <LogIn className="h-4 w-4" />
+                  <span>Sign In</span>
+                </React.Fragment>
+              </a>
             </Button>
           </Link>
         )}
