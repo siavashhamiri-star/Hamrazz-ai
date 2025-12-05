@@ -79,5 +79,3 @@ export const creatorLinks = [
         description: "A collection of powerful tools for modern developers." 
     },
 ];
-
-    
