@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview An AI flow for generating project file structures from natural language commands.
@@ -15,9 +16,17 @@ const BaseNodeSchema = z.object({
   name: z.string().describe('The name of the file or directory.'),
 });
 
-type DirectoryNode; // Forward declaration
+type DirectoryNode = z.infer<typeof BaseNodeSchema> & {
+  type: 'directory';
+  children: (FileNode | DirectoryNode)[];
+};
 
-const FileNodeSchema = BaseNodeSchema.extend({
+type FileNode = z.infer<typeof BaseNodeSchema> & {
+  type: 'file';
+  content: string;
+};
+
+const FileNodeSchema: z.ZodType<FileNode> = BaseNodeSchema.extend({
   type: z.literal('file'),
   content: z.string().describe('The content of the file.'),
 });
@@ -27,16 +36,16 @@ const DirectoryNodeSchema: z.ZodType<DirectoryNode> = BaseNodeSchema.extend({
   children: z.lazy(() => z.array(z.union([FileNodeSchema, DirectoryNodeSchema]))),
 });
 
-export const FileSystemSchema = DirectoryNodeSchema;
+const FileSystemSchema = DirectoryNodeSchema;
 export type FileSystem = z.infer<typeof FileSystemSchema>;
 
-export const GenerateProjectStructureInputSchema = z.object({
+const GenerateProjectStructureInputSchema = z.object({
   command: z.string().describe('The user command to modify the project structure (e.g., "create a file named index.html").'),
   currentStructure: FileSystemSchema.describe('The current file system structure as a JSON object. The root is always the first directory.'),
 });
 export type GenerateProjectStructureInput = z.infer<typeof GenerateProjectStructureInputSchema>;
 
-export const GenerateProjectStructureOutputSchema = z.object({
+const GenerateProjectStructureOutputSchema = z.object({
   newStructure: FileSystemSchema.describe('The updated file system structure as a JSON object after applying the command.'),
 });
 export type GenerateProjectStructureOutput = z.infer<typeof GenerateProjectStructureOutputSchema>;
