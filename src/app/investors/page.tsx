@@ -24,7 +24,7 @@ const keyFeatures = [
     {
         icon: Users,
         title: "Community-Driven Growth",
-        description: "Our model incentivizes user participation and content creation, creating a powerful engine for organic growth and a loyal user base."
+        description: "Top app creators join our Honorary Board with voting rights, ensuring our growth is aligned with the community's success."
     }
 ];
 

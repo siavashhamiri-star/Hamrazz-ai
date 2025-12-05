@@ -38,7 +38,7 @@ export default function BoardPage() {
     <div className="space-y-8">
        <div>
         <h1 className="text-3xl font-bold font-headline mb-2">Honorary Board of Directors</h1>
-        <p className="text-muted-foreground">Meet the experts guiding our mission to create a safe and enriching AI companion.</p>
+        <p className="text-muted-foreground max-w-3xl">Meet the experts and community leaders guiding our mission. Our board includes representatives from top apps built on Hamraz, giving them voting and advisory rights in our future direction.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
