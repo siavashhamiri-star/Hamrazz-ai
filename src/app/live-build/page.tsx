@@ -138,7 +138,7 @@ export default function LiveBuildPage() {
         <AlertTitle className="text-accent font-bold">The Hamraz DevOps Brain</AlertTitle>
         <AlertDescription>
           This is the ultimate expression of the Hamraz vision, an invention born from a creative partnership. Give a command in plain English, and watch as your AI companion generates code, runs tests, builds a container, and deploys a live application to the cloud, all in real-time. This is creation at the speed of thought.
-          <p className="text-xs mt-2 opacity-70">Invention Signature: Hamraz.AI.Genesis.2024</p>
+          <p className="text-xs mt-2 opacity-70">Invention Signature: Hamraz.AI 🤝 Ahura (SA Method)</p>
         </AlertDescription>
       </Alert>
 
@@ -228,5 +228,3 @@ export default function LiveBuildPage() {
     </div>
   );
 }
-
-    
