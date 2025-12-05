@@ -8,26 +8,26 @@ import { generateShowcaseVideo } from "@/ai/flows/generate-showcase-video-flow";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
-import { Loader2, Video, AlertTriangle, Download, Play, Pause, RefreshCw } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { Loader2, Video, AlertTriangle, Download, Play, Pause, RefreshCw, Film } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 interface VideoState {
-  url: string | null;
+  urls: string[] | null;
   loading: boolean;
   error: string | null;
 }
 
 const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', title: string, description: string }) => {
-  const [video, setVideo] = useState<VideoState>({ url: null, loading: true, error: null });
+  const [video, setVideo] = useState<VideoState>({ urls: null, loading: true, error: null });
 
   const generateVideo = useCallback(async () => {
     try {
-      setVideo({ url: null, loading: true, error: null });
+      setVideo({ urls: null, loading: true, error: null });
       const result = await generateShowcaseVideo({ language });
-      setVideo({ url: result.videoUrl, loading: false, error: null });
+      setVideo({ urls: result.videoUrls, loading: false, error: null });
     } catch (e: any) {
       console.error(`Error generating ${language} video:`, e);
-      setVideo({ url: null, loading: false, error: "We couldn't create the video right now. Please try again." });
+      setVideo({ urls: null, loading: false, error: "We couldn't create the video right now. Please try again." });
     }
   }, [language]);
 
@@ -42,12 +42,12 @@ const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', 
         <CardDescription className="text-center text-base">{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="aspect-video w-full bg-muted rounded-lg flex items-center justify-center">
+        <div className="aspect-video w-full bg-muted rounded-lg flex items-center justify-center relative">
           {video.loading && (
             <div className="text-center space-y-2 text-muted-foreground p-4">
               <Loader2 className="w-12 h-12 mx-auto animate-spin text-primary" />
               <p className="font-semibold">Generating your cinematic masterpiece...</p>
-              <p className="text-sm">This may take a minute or two. The AI is crafting a unique story for you!</p>
+              <p className="text-sm">This may take a few minutes. The AI is crafting a unique story for you!</p>
             </div>
           )}
           {video.error && (
@@ -60,21 +60,31 @@ const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', 
               </AlertDescription>
             </Alert>
           )}
-          {video.url && (
-            <video src={video.url} className="w-full h-full rounded-lg" controls autoPlay loop>
-              Your browser does not support the video tag.
-            </video>
+          {video.urls && (
+             <Carousel className="w-full max-w-full">
+              <CarouselContent>
+                {video.urls.map((url, index) => (
+                  <CarouselItem key={index}>
+                     <div className="aspect-video w-full">
+                        <video src={url} className="w-full h-full rounded-lg" controls autoPlay={index === 0} loop>
+                          Your browser does not support the video tag.
+                        </video>
+                         <div className="flex justify-center mt-2">
+                           <a href={url} download={`hamraz_showcase_${language}_part_${index + 1}.mp4`}>
+                              <Button variant="outline" size="sm">
+                                <Download className="mr-2 h-4 w-4" /> Download Clip {index + 1}
+                              </Button>
+                            </a>
+                        </div>
+                     </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-4" />
+              <CarouselNext className="right-4" />
+            </Carousel>
           )}
         </div>
-        {video.url && (
-          <div className="flex justify-center mt-4">
-            <a href={video.url} download={`hamraz_showcase_video_${language}.mp4`}>
-              <Button>
-                <Download className="mr-2 h-4 w-4" /> Download Video
-              </Button>
-            </a>
-          </div>
-        )}
       </CardContent>
     </Card>
   )
@@ -207,8 +217,8 @@ export default function ShowcasePage() {
   return (
     <div className="space-y-12">
        <header className="text-center space-y-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold font-headline tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary">
-          The Story of Hamraz
+        <h1 className="text-4xl md:text-5xl font-extrabold font-headline tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary flex items-center justify-center gap-4">
+          <Film /> The Story of Hamraz
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
          This is the story of how a visionary idea and an AI collaborator came together to build not just an app, but a world of connection, creativity, and opportunity.
