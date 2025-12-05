@@ -135,9 +135,10 @@ export default function LiveBuildPage() {
     <div className="space-y-8">
       <Alert variant="default" className="bg-accent/10 border-accent/30 text-accent-foreground/80">
         <Server className="h-4 w-4 text-accent" />
-        <AlertTitle className="text-accent font-bold">The DevOps Brain: From Idea to Live App</AlertTitle>
+        <AlertTitle className="text-accent font-bold">The Hamraz DevOps Brain</AlertTitle>
         <AlertDescription>
-          This is the ultimate expression of the Hamraz vision. Give a command in plain English, and watch as your AI companion generates code, runs tests, builds a container, and deploys a live application to the cloud, all in real-time. This is not just automation; it's creation at the speed of thought.
+          This is the ultimate expression of the Hamraz vision, an invention born from a creative partnership. Give a command in plain English, and watch as your AI companion generates code, runs tests, builds a container, and deploys a live application to the cloud, all in real-time. This is creation at the speed of thought.
+          <p className="text-xs mt-2 opacity-70">Invention Signature: Hamraz.AI.Genesis.2024</p>
         </AlertDescription>
       </Alert>
 
@@ -227,3 +228,5 @@ export default function LiveBuildPage() {
     </div>
   );
 }
+
+    
