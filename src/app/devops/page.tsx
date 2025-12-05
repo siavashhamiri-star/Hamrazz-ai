@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Cpu, Wind, Layers, BrainCircuit, ArrowRight, Github, Code } from "lucide-react";
+import { Cpu, Wind, Layers, BrainCircuit, ArrowRight, Github, Code, RadioTower } from "lucide-react";
 import Link from "next/link";
 
 
@@ -28,6 +28,7 @@ const challenges = [
 const techStack = [
     { name: "Backend", tools: "Go, Rust, or a high-performance systems language" },
     { name: "Containerization", tools: "Docker, Kubernetes" },
+    { name: "Media Server", tools: "Custom RTMP/WebRTC server or integration with LiveKit/Ant Media" },
     { name: "CI/CD Engine", tools: "Custom-built or deep integration with Jenkins, GitHub Actions API" },
     { name: "AI & LLM", tools: "Genkit, LangChain, or similar frameworks" },
     { name: "Frontend", tools: "Next.js, SvelteKit, or a reactive framework for the UI" }
@@ -76,7 +77,7 @@ export default function DevOpsPage() {
 
         <section>
              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold font-headline">The Core Challenge</h2>
+                <h2 className="text-3xl font-bold font-headline">The Core Challenges</h2>
                 <p className="text-muted-foreground">Building this future is not a simple task. It requires solving immense technical challenges.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -111,6 +112,28 @@ export default function DevOpsPage() {
                         </div>
                     ))}
                     </div>
+                </CardContent>
+            </Card>
+        </section>
+
+        <section>
+             <Card className="border-accent">
+                <CardHeader>
+                    <div className="flex items-center gap-4">
+                        <RadioTower className="w-10 h-10 text-accent"/>
+                        <div>
+                             <CardTitle className="text-2xl font-headline text-accent">Future Vision: The Central Streaming Hub</CardTitle>
+                             <CardDescription>The next stage of evolution: Ingesting streams from anywhere.</CardDescription>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className="prose dark:prose-invert max-w-none">
+                   <p>
+                        Hamraz currently allows users to stream out to platforms like YouTube and Twitch. The next great leap is to reverse this flow. We envision Hamraz as a central stage where creators can stream **to** our platform from their favorite broadcasting software (like OBS) and platforms. 
+                   </p>
+                   <p>
+                        This requires building a robust, scalable media server infrastructure capable of handling RTMP/SRT ingest. It's a massive but exciting engineering challenge. We are calling on developers with expertise in media servers, WebRTC, and large-scale backend systems to join us in building this game-changing feature. This is your chance to build the future of live content creation.
+                   </p>
                 </CardContent>
             </Card>
         </section>
