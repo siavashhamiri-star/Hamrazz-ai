@@ -68,7 +68,7 @@ export const navLinks = [
   { href: "/devops", label: "DevOps", icon: Cpu },
   { href: "/live-build", label: "Live Build", icon: Server },
   { href: "/investors", label: "Investors", icon: DollarSign },
-  { href: "/ai", label: "AI", icon: BrainCircuit },
+  { href: "/ai", label: "AI Interview", icon: BrainCircuit },
   { href: "/tutorial", label: "Tutorial", icon: HelpCircle },
 ];
 
@@ -94,3 +94,5 @@ export const creatorLinks = [
         description: "A collection of powerful tools for modern developers." 
     },
 ];
+
+    

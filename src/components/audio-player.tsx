@@ -34,7 +34,7 @@ export default function AudioPlayer({ textToPlay, voice }: AudioPlayerProps) {
 
     setIsLoading(true);
     try {
-      const result = await textToSpeech({ text: textToPlay, voiceName: voice });
+      const result = await textToSpeech({ text: textToPlay, voiceName: voice, style: 'conversational' });
       setAudioUrl(result.audioDataUri);
       
       const audio = new Audio(result.audioDataUri);
@@ -61,16 +61,18 @@ export default function AudioPlayer({ textToPlay, voice }: AudioPlayerProps) {
   
   if (isLoading) {
     return (
-        <Button variant="outline" size="icon" disabled>
+        <Button variant="ghost" size="icon" disabled className="w-8 h-8">
             <Loader2 className="h-4 w-4 animate-spin" />
         </Button>
     )
   }
 
   return (
-    <Button variant="outline" size="icon" onClick={handlePlay}>
+    <Button variant="ghost" size="icon" onClick={handlePlay} className="w-8 h-8">
       {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
        <span className="sr-only">Listen</span>
     </Button>
   );
 }
+
+    
