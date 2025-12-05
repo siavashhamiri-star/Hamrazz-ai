@@ -14,12 +14,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, UploadCloud, FileZip, Github, FileArchive, Unarchive, CheckCircle, ExternalLink, Wand2, Lightbulb, ArrowRight, CornerDownLeft } from "lucide-react";
+import { Loader2, UploadCloud, FileZip, Github, FileArchive, Unarchive, CheckCircle, ExternalLink, Wand2, Lightbulb, ArrowRight, CornerDownLeft, PanelLeft } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useSidebar } from "@/components/ui/sidebar";
 
 
 const InteractiveGuide = () => {
@@ -48,7 +49,7 @@ const InteractiveGuide = () => {
         if (e.target.files && e.target.files.length > 0) {
             setFiles(Array.from(e.target.files));
             toast({ title: `${e.target.files.length} files selected`, description: "Ready for the next step." });
-            setStep(2);
+            if (step === 1) setStep(2);
         }
     };
 
@@ -61,7 +62,7 @@ const InteractiveGuide = () => {
         await new Promise(resolve => setTimeout(resolve, 2000));
         setIsLoading(false);
         setIsGenerated(true);
-        setStep(4);
+        if (step === 3) setStep(4);
     }
     
     const handleNext = () => {
@@ -99,7 +100,7 @@ const InteractiveGuide = () => {
             <Tooltip open={isTarget(targetId)}>
                 <TooltipTrigger asChild>{children}</TooltipTrigger>
                 {isTarget(targetId) && (
-                    <TooltipContent side="top" className="max-w-xs text-center shadow-lg">
+                    <TooltipContent side="top" className="max-w-xs text-center shadow-lg bg-primary text-primary-foreground border-primary">
                         <p className="font-bold text-base">{currentGuide.title}</p>
                         <p>{currentGuide.description}</p>
                     </TooltipContent>
@@ -121,9 +122,9 @@ const InteractiveGuide = () => {
                         <div className={cn("transition-opacity duration-300", step >= 1 ? "opacity-100" : "opacity-30 pointer-events-none")}>
                             <Label htmlFor="file-upload" className={cn(
                                 "relative flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-muted/50",
-                                isTarget("file-upload") && "border-primary shadow-lg shadow-primary/30"
+                                isTarget("file-upload") && "border-primary"
                             )}>
-                                {isTarget("file-upload") && <div className="absolute inset-0 bg-primary/10 animate-pulse rounded-lg"></div>}
+                                {isTarget("file-upload") && <div className="absolute inset-0 bg-primary/10 animate-pulse rounded-lg -z-10"></div>}
                                 <UploadCloud className="w-8 h-8 mb-2 text-muted-foreground" />
                                 <p className="text-sm text-muted-foreground">
                                     {files.length > 0 ? `${files.length} files selected` : "1. Select Project Folder"}
@@ -293,15 +294,22 @@ const ZipExtractor = () => {
 }
 
 export default function SyncPage() {
+    const { toggleSidebar } = useSidebar();
   return (
     <div className="max-w-2xl mx-auto space-y-8">
-       <Alert>
-          <Lightbulb className="h-4 w-4" />
-          <AlertTitle className="font-bold">Sync & Tools</AlertTitle>
-          <AlertDescription>
-            This page contains tools to help you manage your projects. Use the interactive guide to package your project for GitHub, or use the extractor to inspect ZIP files.
-          </AlertDescription>
-        </Alert>
+        <div className="flex justify-between items-center">
+            <Alert className="flex-1">
+            <Lightbulb className="h-4 w-4" />
+            <AlertTitle className="font-bold">Sync & Tools</AlertTitle>
+            <AlertDescription>
+                This page contains tools to help you manage your projects. Use the interactive guide to package your project for GitHub, or use the extractor to inspect ZIP files.
+            </AlertDescription>
+            </Alert>
+            <Button onClick={toggleSidebar} variant="outline" className="ml-4">
+                <PanelLeft className="mr-2 h-4 w-4" />
+                Open Menu
+            </Button>
+        </div>
       
         <Tabs defaultValue="to-zip" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
@@ -346,3 +354,5 @@ export default function SyncPage() {
     </div>
   );
 }
+
+    
