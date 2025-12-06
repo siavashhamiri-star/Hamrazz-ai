@@ -29,7 +29,7 @@ type UseUserProfileResult = {
 };
 
 const defaultAvatar = PlaceHolderImages.find(img => img.id.startsWith("avatar-")) || PlaceHolderImages[0];
-const ownerAvatar = PlaceHolderImages.find(img => img.id === 'avatar-f-1') || defaultAvatar;
+const ownerAvatar = PlaceHolderImages.find(img => img.id === 'avatar-f-2') || defaultAvatar;
 
 // Function to create a default user profile
 const createDefaultProfile = (user: User): UserProfile => {
