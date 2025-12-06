@@ -103,7 +103,7 @@ export default function InvestorsPage() {
                    <ul>
                         <li><strong>Pre-Sale Land:</strong> 250,000 m² available for visionary investors.</li>
                         <li><strong>Strategic Partnership:</strong> 200,000 m² reserved for our key strategic partner, Firebase, to develop and expand the city's core infrastructure.</li>
-                        <li><strong>User Empowerment:</strong> 100,000 m² allocated to give every new user a free plot of land, making them instant stakeholders in our world.</li>
+                        <li><strong>Free User Plots:</strong> 100,000 m² allocated to give every new user a free plot of land, making them instant stakeholders in our world.</li>
                         <li><strong>Community Prizes:</strong> 50,000 m² reserved for high-value prizes and community lotteries to drive engagement.</li>
                         <li><strong>Grand Prize for Top Investors:</strong> An incredible **100,000 m²** to be distributed among the **top 10 land purchasers** in the first three months, creating a powerful incentive for initial investment.</li>
                          <li><strong>Referral Rewards:</strong> Every land buyer receives a unique referral code. For every new user who purchases land using their code, the referrer receives a special land bonus, promoting viral, community-driven growth.</li>
@@ -121,6 +121,18 @@ export default function InvestorsPage() {
             <AlertTitle className="text-primary font-bold">Accepted Currencies for Land Purchase</AlertTitle>
             <AlertDescription>
                 All land purchases within the Capable City can only be made using Bitcoin, Tether (USDT), and other major cryptocurrencies. This ensures a secure, decentralized, and global transaction process for all our citizens.
+            </AlertDescription>
+        </Alert>
+
+         <Alert variant="default" className="border-secondary-foreground/20 bg-secondary/30">
+            <Share2 className="h-4 w-4 text-secondary-foreground" />
+            <AlertTitle className="text-secondary-foreground font-bold">Phased Trading Rules</AlertTitle>
+            <AlertDescription>
+                To reward early members of the ecosystem, land trading will be rolled out in two phases:
+                 <ul className="list-disc list-inside mt-2 text-xs">
+                    <li><strong>Phase 1 (Pre-Token):</strong> Before the native city token is launched, buying and selling land is exclusively available to members of "Capable City," "Afarinan City," and the creator's official production team.</li>
+                    <li><strong>Phase 2 (Post-Token):</strong> After the native token is launched, land trading will be open to the general public.</li>
+                </ul>
             </AlertDescription>
         </Alert>
 
