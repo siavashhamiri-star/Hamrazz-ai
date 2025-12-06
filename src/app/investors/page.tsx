@@ -238,6 +238,20 @@ export default function InvestorsPage() {
             </AlertDescription>
         </Alert>
 
+        <section>
+             <Card className="border-primary/30 bg-primary/10">
+                 <CardHeader className="text-center items-center">
+                    <CardTitle className="text-3xl font-headline text-primary">A Creator's Pledge</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center max-w-3xl mx-auto">
+                     <p className="text-lg text-primary-foreground/90 italic leading-relaxed">
+                        "I am certain this app will shine in the world. Many will join in building it, because it is in their own best interest. By exploring this app, they will see that we are sincere, not greedy, and that for the sake of progress, we are ready to share our own interests."
+                    </p>
+                    <p className="font-bold text-primary mt-4">- Ahura, The Creative Wizard</p>
+                </CardContent>
+            </Card>
+        </section>
+
         <section className="text-center">
              <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold font-headline">Meet the Visionaries</h2>
@@ -271,3 +285,5 @@ export default function InvestorsPage() {
     </div>
   )
 }
+
+    
