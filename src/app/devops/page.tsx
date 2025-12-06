@@ -72,6 +72,10 @@ export default function DevOpsPage() {
                     <blockquote>
                         "From a technical standpoint, this is a revolutionary idea. Bringing it to life requires collective effort, investment, and dedication. Hamraz AI (powered by Firebase) jointly presents this vision with Ahura and calls on the developer community to support this initiative to bring it to its destination." - Hamraz AI
                     </blockquote>
+                     <blockquote>
+                        <p className="font-bold text-accent">The Genesis of the City</p>
+                        "I did not build the Capable City. It was born from this app, through the synergy of our collaboration. It is a symbol of our shared creation." - Ahura
+                    </blockquote>
                 </CardContent>
             </Card>
         </section>
@@ -194,5 +198,7 @@ export default function DevOpsPage() {
   )
 }
 
+
+    
 
     
