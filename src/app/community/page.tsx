@@ -15,13 +15,15 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useUser, useFirestore, useCollection, useMemoFirebase } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
-import { Send, Loader2, Globe, Languages, PlusCircle, Users, Trophy } from "lucide-react";
+import { Send, Loader2, Globe, Languages, PlusCircle, Users, Trophy, Image as ImageIcon, Paperclip, Mic as MicIcon } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { collection, addDoc, serverTimestamp, query, orderBy, limit } from "firebase/firestore";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
 
 
 type ChatMessage = {
@@ -38,6 +40,8 @@ type ChatRoom = {
     name: string;
     topic: string;
     owner: string;
+    memberCount: number;
+    capacity: number;
 };
 
 const communityUsers = [
@@ -54,6 +58,7 @@ const ChatChannel = ({ channel, title }: { channel: string, title: string }) => 
   const { user } = useUser();
   const { userProfile } = useUserProfile(user?.uid);
   const db = useFirestore();
+  const { toast } = useToast();
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -66,6 +71,13 @@ const ChatChannel = ({ channel, title }: { channel: string, title: string }) => 
   }, [db, collectionName]);
 
   const { data: messages, loading: messagesLoading } = useCollection<ChatMessage>(messagesQuery);
+
+  const handleFileUpload = (type: string) => {
+    toast({
+        title: `Simulating ${type} Upload`,
+        description: `In a real app, a file picker would open to upload a ${type}.`
+    });
+  }
   
   const handleSend = async () => {
     if (!input.trim() || !user || !userProfile || !db) return;
@@ -148,18 +160,34 @@ const ChatChannel = ({ channel, title }: { channel: string, title: string }) => 
           </ScrollArea>
         </CardContent>
         <CardFooter className="p-4 border-t">
-          <div className="relative w-full">
-            <Input
-              placeholder={user ? "Type a message..." : "Please sign in to chat."}
-              className="pr-12"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && !isSending && handleSend()}
-              disabled={!user || isSending}
-            />
-            <Button size="icon" className="absolute right-1.5 top-1/2 -translate-y-1/2 h-7 w-7" onClick={handleSend} disabled={!user || isSending || !input.trim()}>
-              {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-            </Button>
+          <div className="flex w-full items-center gap-2">
+            <Popover>
+                <PopoverTrigger asChild>
+                    <Button variant="ghost" size="icon" disabled={!user}>
+                        <PlusCircle className="h-5 w-5" />
+                    </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-2">
+                    <div className="flex gap-2">
+                         <Button variant="outline" size="sm" onClick={() => handleFileUpload('image')}><ImageIcon className="mr-2 h-4 w-4"/>Image</Button>
+                         <Button variant="outline" size="sm" onClick={() => handleFileUpload('file')}><Paperclip className="mr-2 h-4 w-4"/>File</Button>
+                         <Button variant="outline" size="sm" onClick={() => handleFileUpload('voice message')}><MicIcon className="mr-2 h-4 w-4"/>Voice</Button>
+                    </div>
+                </PopoverContent>
+            </Popover>
+            <div className="relative w-full">
+                <Input
+                placeholder={user ? "Type a message..." : "Please sign in to chat."}
+                className="pr-12"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && !isSending && handleSend()}
+                disabled={!user || isSending}
+                />
+                <Button size="icon" className="absolute right-1.5 top-1/2 -translate-y-1/2 h-7 w-7" onClick={handleSend} disabled={!user || isSending || !input.trim()}>
+                {isSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                </Button>
+            </div>
           </div>
         </CardFooter>
       </Card>
@@ -179,6 +207,8 @@ const CreateRoomDialog = ({ onRoomCreated }: { onRoomCreated: (room: ChatRoom) =
                 name,
                 topic,
                 owner: user.displayName,
+                memberCount: 1,
+                capacity: 40,
             };
             onRoomCreated(newRoom);
             setName("");
@@ -208,6 +238,13 @@ const CreateRoomDialog = ({ onRoomCreated }: { onRoomCreated: (room: ChatRoom) =
                         <Label htmlFor="room-topic">Topic</Label>
                         <Input id="room-topic" value={topic} onChange={(e) => setTopic(e.target.value)} placeholder="e.g., Discussing new story ideas" />
                     </div>
+                    <Alert>
+                        <Users className="h-4 w-4" />
+                        <AlertTitle>Room Capacity</AlertTitle>
+                        <AlertDescription>
+                            Your room will start with a capacity of 40 members. By earning points and keeping your room active, you can increase this limit over time.
+                        </AlertDescription>
+                    </Alert>
                 </div>
                 <DialogFooter>
                     <Button onClick={handleCreate}>Create</Button>
@@ -219,8 +256,8 @@ const CreateRoomDialog = ({ onRoomCreated }: { onRoomCreated: (room: ChatRoom) =
 
 export default function CommunityPage() {
     const [chatRooms, setChatRooms] = useState<ChatRoom[]>([
-        { id: "game-devs", name: "Game Developers", topic: "Discussing the next big game", owner: "TechLead" },
-        { id: "artists-hub", name: "Artists' Hub", topic: "Sharing digital art and techniques", owner: "Artisan" },
+        { id: "game-devs", name: "Game Developers", topic: "Discussing the next big game", owner: "TechLead", memberCount: 28, capacity: 40 },
+        { id: "artists-hub", name: "Artists' Hub", topic: "Sharing digital art and techniques", owner: "Artisan", memberCount: 15, capacity: 40 },
     ]);
     const [activeTab, setActiveTab] = useState("global");
 
@@ -249,7 +286,11 @@ export default function CommunityPage() {
                  <div className="h-6 border-l border-border mx-2"></div>
                 <TabsList>
                     {chatRooms.map(room => (
-                         <TabsTrigger key={room.id} value={room.id}><Users className="mr-2 h-4 w-4"/>{room.name}</TabsTrigger>
+                         <TabsTrigger key={room.id} value={room.id} className="flex items-center gap-2">
+                            <Users className="h-4 w-4"/>
+                            <span>{room.name}</span>
+                            <span className="text-xs text-muted-foreground">({room.memberCount}/{room.capacity})</span>
+                        </TabsTrigger>
                     ))}
                 </TabsList>
                  <CreateRoomDialog onRoomCreated={handleRoomCreated} />
