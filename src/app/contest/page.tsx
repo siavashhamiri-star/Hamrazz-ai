@@ -172,7 +172,7 @@ export default function ContestPage() {
           <Star className="h-4 w-4 text-accent" />
           <AlertTitle className="text-accent">The User's Dream Prize!</AlertTitle>
           <AlertDescription>
-            Every six months, an exceptional prize equivalent to **1% of Hamraz's total revenue** will be awarded to one of the top and most active users of the app. The winner's profile and picture will be announced in the app. Your engagement builds our future, and we believe you should share in the success.
+            Every six months, an exceptional prize equivalent to **1% of Hamraz's total revenue** will be awarded to one of the top and most active users of the app. The winner's profile and picture will be announced in the app. Participation is open to everyone; you can either pay a small entry fee or register for free using a referral code from an existing Hamraz member. Your engagement builds our future, and we believe you should share in the success.
           </AlertDescription>
         </Alert>
         
@@ -249,7 +249,5 @@ export default function ContestPage() {
     </div>
   );
 }
-
-    
 
     
