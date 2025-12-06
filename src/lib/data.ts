@@ -42,10 +42,12 @@ import {
   Volume2,
   Building,
   Sofa,
+  Clipboard,
 } from "lucide-react";
 
 export const navLinks = [
   { href: "/", label: "Chat", icon: MessageSquare },
+  { href: "/creator-panel", label: "Creator Panel", icon: Clipboard },
   { href: "/tutor", label: "Tutor", icon: Book },
   { href: "/translate", label: "Translate", icon: Languages },
   { href: "/text-to-speech", label: "Voice Actor", icon: Volume2 },
