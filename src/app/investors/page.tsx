@@ -136,6 +136,19 @@ export default function InvestorsPage() {
             </AlertDescription>
         </Alert>
 
+        <Alert variant="default" className="border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-300">
+            <TrendingUp className="h-4 w-4 text-green-500" />
+            <AlertTitle className="font-bold text-green-600 dark:text-green-400">Dynamic Pricing Model: From Fixed Price to Free Market</AlertTitle>
+            <AlertDescription>
+                The city's economy will evolve to become truly self-sustaining:
+                <ul className="list-disc list-inside mt-2 text-xs">
+                    <li><strong>Initial Offering:</strong> The creator will set the initial price for all land until 60% of the total area is sold.</li>
+                    <li><strong>Free Market Transition:</strong> After the 60% threshold is reached, the creator will no longer set prices. Land value will be determined purely by supply and demand within the city's open market.</li>
+                </ul>
+                This model rewards early investors and ensures a decentralized, community-driven economy for the future.
+            </AlertDescription>
+        </Alert>
+
         <section>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {keyFeatures.map((feature) => (
@@ -258,5 +271,7 @@ export default function InvestorsPage() {
     </div>
   )
 }
+
+    
 
     
