@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2 } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
@@ -99,7 +99,8 @@ export default function InvestorsPage() {
                         <li><strong>200,000 m²</strong> are reserved for our key strategic partner, Firebase, to develop and expand the city's core infrastructure.</li>
                         <li><strong>100,000 m²</strong> are allocated to give every new user a free plot of land, making them instant stakeholders in our world.</li>
                         <li><strong>50,000 m²</strong> are reserved for high-value prizes and community lotteries, driving engagement.</li>
-                        <li><strong className="text-accent">100,000 m²</strong> is a grand prize for the single largest land purchaser in the first three months, creating a powerful incentive for initial investment.</li>
+                        <li><strong className="text-accent">100,000 m²</strong> as a grand prize to be distributed among the <strong>top 10 land purchasers</strong> in the first three months, creating a powerful incentive for initial investment.</li>
+                         <li><strong>Referral Rewards:</strong> Every land buyer receives a unique referral code. For every 5+ new users who purchase land using their code, the referrer receives a special land bonus, promoting viral, community-driven growth.</li>
                    </ul>
                    <p>
                         This model transforms users into active landowners, motivated to build and enrich our shared world, creating a powerful and self-sustaining growth loop.
