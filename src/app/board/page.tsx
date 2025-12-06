@@ -1,5 +1,7 @@
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Users, TrendingUp, Vote } from "lucide-react";
 
 const boardMembers = [
   {
@@ -49,7 +51,7 @@ const boardMembers = [
 
 export default function BoardPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
        <div>
         <h1 className="text-3xl font-bold font-headline mb-2">Honorary Board of Directors</h1>
         <p className="text-muted-foreground max-w-3xl">Meet the experts and community leaders guiding our mission. Our board includes representatives from top apps built on Hamraz, giving them voting and advisory rights in our future direction.</p>
@@ -74,6 +76,30 @@ export default function BoardPage() {
           </Card>
         ))}
       </div>
+
+       <div className="space-y-6">
+        <h2 className="text-3xl font-bold font-headline mb-2 flex items-center gap-3"><Users className="w-8 h-8 text-accent"/> Community Policy Council</h2>
+        <p className="text-muted-foreground max-w-3xl">
+            In Hamraz, power is shared. We believe the most invested citizens should have a direct role in shaping the city's future. This council ensures that the community's voice is not just heard, but is a deciding factor in our governance.
+        </p>
+         <Card className="bg-accent/10 border-accent/20">
+            <CardHeader className="flex flex-row items-center gap-4">
+                <Vote className="w-10 h-10 text-accent"/>
+                <div>
+                    <CardTitle className="text-xl font-bold text-accent-foreground">A Seat at the Table</CardTitle>
+                    <CardDescription>The top 3 land purchasers each month will automatically be granted a seat on the Capable City's Policy Council.</CardDescription>
+                </div>
+            </CardHeader>
+            <CardContent>
+                <ul className="list-disc list-inside space-y-2 text-muted-foreground">
+                    <li><strong>Voting Rights:</strong> Council members gain the right to vote on key strategic decisions, future feature implementations, and community policies.</li>
+                    <li><strong>Direct Influence:</strong> This is a real opportunity to influence the direction and evolution of the Hamraz ecosystem.</li>
+                    <li><strong>Dynamic Governance:</strong> New members join monthly, ensuring the council remains fresh, active, and representative of the most engaged citizens.</li>
+                </ul>
+            </CardContent>
+        </Card>
+      </div>
+
     </div>
   );
 }
