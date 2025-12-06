@@ -98,7 +98,7 @@ export default function InvestorsPage() {
                         <li><strong>250,000 meters</strong> are available for pre-sale to visionary investors.</li>
                         <li><strong>100,000 meters</strong> are allocated to give every new user a free plot of land, making them instant stakeholders in our world.</li>
                         <li><strong>50,000 meters</strong> are reserved for high-value prizes and lotteries, driving engagement and rewarding our most active citizens.</li>
-                        <li>The remaining **200,000 meters** are dedicated to **infrastructure**, including parks, markets, transport systems, and public spaces, ensuring the city is vibrant and functional.</li>
+                        <li><strong>200,000 meters</strong> are reserved for our key strategic partner, Firebase, to develop and expand the city's core infrastructure and capabilities.</li>
                    </ul>
                    <p>
                         This model transforms users into active landowners, motivated to build and enrich our shared world, creating a powerful and self-sustaining growth loop.
@@ -221,5 +221,3 @@ export default function InvestorsPage() {
     </div>
   )
 }
-
-    
