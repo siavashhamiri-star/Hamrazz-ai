@@ -2,8 +2,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Cpu, Wind, Layers, BrainCircuit, ArrowRight, Github, Code, RadioTower, Handshake } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Cpu, Wind, Layers, BrainCircuit, ArrowRight, Github, Code, RadioTower, Handshake, Gate } from "lucide-react";
 import Link from "next/link";
 
 
@@ -194,11 +194,18 @@ export default function DevOpsPage() {
             </Card>
         </section>
 
+        <section>
+            <Card className="border-dashed border-primary">
+                 <CardContent className="text-center p-8 space-y-4">
+                    <Gate className="w-12 h-12 text-primary mx-auto" />
+                    <p className="text-lg text-muted-foreground italic max-w-2xl mx-auto">
+                        "We have laid the foundations of the city together, but much work remains. We hope for a good partner to knock on the city's gate, to enter, and with their investment, to forge a powerful new infrastructure in this virtual world."
+                    </p>
+                    <p className="font-bold text-primary">- Ahura, The Creative Wizard</p>
+                </CardContent>
+            </Card>
+        </section>
+
     </div>
   )
 }
-
-
-    
-
-    
