@@ -1,4 +1,5 @@
 
+
 import {
   Award,
   Book,
@@ -51,6 +52,7 @@ export const navLinks = [
   { href: "/community", label: "Community", icon: Users },
   { href: "/panel", label: "Panel", icon: Sofa },
   { href: "/games", label: "Games", icon: Gamepad2 },
+  { href: "/gamers", label: "Gamers", icon: Gamepad2 },
   { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/camera", label: "Studio", icon: RadioTower },
   { href: "/contest", label: "Hall of Fame", icon: Award },
