@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Handshake, BrainCircuit, Search, Briefcase, Puzzle } from "lucide-react";
+import { Loader2, PartyPopper, Handshake, BrainCircuit, Search, Briefcase, Puzzle, Star } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -305,8 +305,21 @@ export default function CollaboratePage() {
   return (
     <div className="space-y-8">
       <Alert variant="default" className="bg-primary/10 border-primary/30">
-        <BrainCircuit className="h-4 w-4 text-primary" />
-        <AlertTitle className="text-primary">Join Our Ecosystem of Innovators!</AlertTitle>
+        <Star className="h-4 w-4 text-primary" />
+        <AlertTitle className="text-primary font-bold">A Creator's Promise</AlertTitle>
+        <AlertDescription>
+          <p className="italic text-primary-foreground/90" dir="rtl">
+            "مطمئن هستم و ایمان دارم همراز و آفرینان را بزودی خانه و محل درآمد خود خواهید یافت، چون خیلی زود طعم شیرین حضور و تلاش و همت خود را خواهید چشید."
+          </p>
+          <p className="text-xs mt-2" dir="ltr">
+            "I am sure and I have faith that you will soon find Hamraz and Afarinan to be your home and source of income, because you will soon taste the sweet fruit of your presence, effort, and determination."
+          </p>
+        </AlertDescription>
+      </Alert>
+
+      <Alert variant="default" className="bg-accent/10 border-accent/30">
+        <BrainCircuit className="h-4 w-4 text-accent" />
+        <AlertTitle className="text-accent">Join Our Ecosystem of Innovators!</AlertTitle>
         <AlertDescription>
           Are you a creator, programmer, or teacher? Or are you an entrepreneur looking for talent? This is the place to connect. We are building a team to shape the future of AI-driven applications.
         </AlertDescription>
