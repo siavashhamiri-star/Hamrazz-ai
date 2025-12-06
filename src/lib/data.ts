@@ -40,6 +40,7 @@ import {
   Music,
   Volume2,
   Building,
+  Sofa,
 } from "lucide-react";
 
 export const navLinks = [
@@ -48,6 +49,7 @@ export const navLinks = [
   { href: "/translate", label: "Translate", icon: Languages },
   { href: "/text-to-speech", label: "Voice Actor", icon: Volume2 },
   { href: "/community", label: "Community", icon: Users },
+  { href: "/panel", label: "Panel", icon: Sofa },
   { href: "/games", label: "Games", icon: Gamepad2 },
   { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/camera", label: "Studio", icon: RadioTower },
@@ -118,3 +120,5 @@ export const creatorLinks = [
         description: "A dedicated space for poetry lovers. Recite beautiful poems in this app, then use Hamraz's Text-to-Speech or Studio features to create captivating video content for your Afarinan portfolio."
     },
 ];
+
+    
