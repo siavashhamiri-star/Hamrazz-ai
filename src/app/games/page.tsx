@@ -735,6 +735,14 @@ export default function GamesPage() {
             <p className="text-muted-foreground">Play games to earn points and unlock more time with your AI companion.</p>
         </div>
         
+        <Alert variant="default" className="bg-accent/20 border-accent/30">
+            <Trophy className="h-4 w-4 text-accent" />
+            <AlertTitle className="text-accent font-bold">Game Development Contest!</AlertTitle>
+            <AlertDescription>
+                We invite professional game developers to build the official "Capable City" game. The team that creates the best game app will be awarded **10,000 square meters of land** and a **20% share of all gaming revenue** generated within Hamraz. This is your chance to build a cornerstone of our digital world and share in its success.
+            </AlertDescription>
+        </Alert>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <TriviaGame />
         </div>
