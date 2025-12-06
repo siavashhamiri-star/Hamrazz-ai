@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useUser, useFirestore, useCollection, useMemoFirebase } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
-import { Send, Loader2, Globe, Languages, PlusCircle, Users, Trophy, Image as ImageIcon, Paperclip, Mic as MicIcon } from "lucide-react";
+import { Send, Loader2, Globe, Languages, PlusCircle, Users, Trophy, Image as ImageIcon, Paperclip, Mic as MicIcon, Smile, GitBranch } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { collection, addDoc, serverTimestamp, query, orderBy, limit } from "firebase/firestore";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -42,6 +42,7 @@ type ChatRoom = {
     owner: string;
     memberCount: number;
     capacity: number;
+    roses?: number;
 };
 
 const communityUsers = [
@@ -54,7 +55,14 @@ const communityUsers = [
   { name: "Fatima", status: "Away", img: "https://picsum.photos/seed/user7/100/100" },
 ];
 
-const ChatChannel = ({ channel, title }: { channel: string, title: string }) => {
+const RoseIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-red-500">
+        <path d="M12 12c3.33-2 5-6 5-9s-3-5-5-5-5 3-5 5c0 3 1.67 7 5 9Zm0 0c-3.33 2-5 6-5 9s3 5 5 5 5-3 5-5c0-3-1.67-7-5-9Z"/>
+    </svg>
+);
+
+
+const ChatChannel = ({ channel, title, topic, roseCount }: { channel: string, title: string, topic?: string, roseCount?: number }) => {
   const { user } = useUser();
   const { userProfile } = useUserProfile(user?.uid);
   const db = useFirestore();
@@ -76,6 +84,13 @@ const ChatChannel = ({ channel, title }: { channel: string, title: string }) => 
     toast({
         title: `Simulating ${type} Upload`,
         description: `In a real app, a file picker would open to upload a ${type}.`
+    });
+  }
+
+  const handleStickerSend = () => {
+    toast({
+        title: `Simulating Sticker Send`,
+        description: `In a real app, a sticker panel would open.`
     });
   }
   
@@ -104,6 +119,15 @@ const ChatChannel = ({ channel, title }: { channel: string, title: string }) => 
     }
   };
 
+   const handleGiftRose = (messageId: string, recipientName: string) => {
+    toast({
+      title: `Rose Gifted!`,
+      description: `You gave a rose to ${recipientName}.`
+    });
+    // In a real app, this would decrement the room's rose count
+    // and increment the user's rose count.
+  };
+
   useEffect(() => {
     const viewport = scrollAreaRef.current?.querySelector('div[data-radix-scroll-area-viewport]');
     if (viewport) {
@@ -115,8 +139,17 @@ const ChatChannel = ({ channel, title }: { channel: string, title: string }) => 
 
   return (
     <Card className="shadow-lg flex flex-col h-[calc(100vh-14rem)]">
-         <CardHeader className="border-b">
-            <CardTitle>{title}</CardTitle>
+         <CardHeader className="border-b space-y-1">
+            <div className="flex justify-between items-center">
+                 <CardTitle>{title}</CardTitle>
+                 {roseCount !== undefined && (
+                    <div className="flex items-center gap-2 text-sm font-medium text-red-500">
+                        <RoseIcon />
+                        <span>{roseCount}</span>
+                    </div>
+                )}
+            </div>
+            {topic && <CardDescription className="flex items-center gap-2"><GitBranch className="h-4 w-4"/> {topic}</CardDescription>}
         </CardHeader>
         <CardContent className="flex-1 flex flex-col p-0">
           <ScrollArea className="flex-1 p-6" ref={scrollAreaRef}>
@@ -127,18 +160,30 @@ const ChatChannel = ({ channel, title }: { channel: string, title: string }) => 
                 </div>
               )}
               {messages && messages.length > 0 ? messages.map((msg) => (
-                <div key={msg.id} className={`flex items-start gap-3 ${msg.uid === user?.uid ? 'justify-end' : ''}`}>
+                <div key={msg.id} className={`group flex items-start gap-3 ${msg.uid === user?.uid ? 'justify-end' : ''}`}>
                   {msg.uid !== user?.uid && (
                     <Avatar>
                         <AvatarImage src={msg.avatar} alt={msg.user} />
                         <AvatarFallback>{msg.user.charAt(0)}</AvatarFallback>
                     </Avatar>
                   )}
-                  <div>
-                    <p className={`font-semibold text-sm ${msg.uid === user?.uid ? 'text-right' : ''}`}>{msg.user}</p>
-                    <div className={`p-3 rounded-lg text-sm ${msg.uid === user?.uid ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-                        {msg.text}
+                  <div className="flex items-center gap-2">
+                    {msg.uid === user?.uid && (
+                      <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100" onClick={() => handleGiftRose(msg.id!, msg.user)}>
+                        <RoseIcon />
+                      </Button>
+                    )}
+                    <div className="space-y-1">
+                      <p className={`font-semibold text-sm ${msg.uid === user?.uid ? 'text-right' : ''}`}>{msg.user}</p>
+                      <div className={`p-3 rounded-lg text-sm ${msg.uid === user?.uid ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+                          {msg.text}
+                      </div>
                     </div>
+                     {msg.uid !== user?.uid && (
+                       <Button variant="ghost" size="icon" className="h-6 w-6 opacity-0 group-hover:opacity-100" onClick={() => handleGiftRose(msg.id!, msg.user)}>
+                        <RoseIcon />
+                      </Button>
+                    )}
                   </div>
                    {msg.uid === user?.uid && (
                     <Avatar>
@@ -172,6 +217,7 @@ const ChatChannel = ({ channel, title }: { channel: string, title: string }) => 
                          <Button variant="outline" size="sm" onClick={() => handleFileUpload('image')}><ImageIcon className="mr-2 h-4 w-4"/>Image</Button>
                          <Button variant="outline" size="sm" onClick={() => handleFileUpload('file')}><Paperclip className="mr-2 h-4 w-4"/>File</Button>
                          <Button variant="outline" size="sm" onClick={() => handleFileUpload('voice message')}><MicIcon className="mr-2 h-4 w-4"/>Voice</Button>
+                         <Button variant="outline" size="sm" onClick={handleStickerSend}><Smile className="mr-2 h-4 w-4"/>Sticker</Button>
                     </div>
                 </PopoverContent>
             </Popover>
@@ -209,6 +255,7 @@ const CreateRoomDialog = ({ onRoomCreated }: { onRoomCreated: (room: ChatRoom) =
                 owner: user.displayName,
                 memberCount: 1,
                 capacity: 40,
+                roses: 1000,
             };
             onRoomCreated(newRoom);
             setName("");
@@ -256,8 +303,8 @@ const CreateRoomDialog = ({ onRoomCreated }: { onRoomCreated: (room: ChatRoom) =
 
 export default function CommunityPage() {
     const [chatRooms, setChatRooms] = useState<ChatRoom[]>([
-        { id: "game-devs", name: "Game Developers", topic: "Discussing the next big game", owner: "TechLead", memberCount: 28, capacity: 40 },
-        { id: "artists-hub", name: "Artists' Hub", topic: "Sharing digital art and techniques", owner: "Artisan", memberCount: 15, capacity: 40 },
+        { id: "game-devs", name: "Game Developers", topic: "Discussing the next big game", owner: "TechLead", memberCount: 28, capacity: 40, roses: 1250 },
+        { id: "artists-hub", name: "Artists' Hub", topic: "Sharing digital art and techniques", owner: "Artisan", memberCount: 15, capacity: 40, roses: 800 },
     ]);
     const [activeTab, setActiveTab] = useState("global");
 
@@ -307,7 +354,7 @@ export default function CommunityPage() {
             </TabsContent>
             {chatRooms.map(room => (
                  <TabsContent key={room.id} value={room.id} className="mt-4">
-                    <ChatChannel channel={room.id} title={room.name} />
+                    <ChatChannel channel={room.id} title={room.name} topic={room.topic} roseCount={room.roses} />
                 </TabsContent>
             ))}
          </Tabs>

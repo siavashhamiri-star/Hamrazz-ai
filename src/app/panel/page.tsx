@@ -16,11 +16,13 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
-import { Send, Loader2, Users, Mic, Sofa, LogOut, Ghost, MessageSquare, Mail, UserPlus, Eye } from "lucide-react";
+import { Send, Loader2, Users, Mic, Sofa, LogOut, Ghost, MessageSquare, Mail, UserPlus, Eye, PlusCircle, ImageIcon, Paperclip, Smile } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { useToast } from "@/hooks/use-toast";
 
 
 const NUM_SEATS = 6;
@@ -87,7 +89,7 @@ const PrivateMessageDialog = ({ targetUser, currentUser }: { targetUser: Seat['u
                     Send Privately
                 </Button>
             </DialogFooter>
-        </Dialog>
+        </DialogContent>
     )
 }
 
@@ -101,6 +103,7 @@ export default function PanelPage() {
   const [isSending, setIsSending] = useState(false);
   const [userState, setUserState] = useState<'unjoined' | 'panelist' | 'spectator'>('unjoined');
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   const currentUser = userProfile ? { 
     uid: userProfile.uid,
@@ -163,6 +166,20 @@ export default function PanelPage() {
         text,
       };
       setMessages(prev => [...prev, newMessage]);
+  }
+
+  const handleFileUpload = (type: string) => {
+    toast({
+        title: `Simulating ${type} Upload`,
+        description: `In a real app, a file picker would open to upload a ${type}.`
+    });
+  }
+
+  const handleStickerSend = () => {
+    toast({
+        title: `Simulating Sticker Send`,
+        description: `In a real app, a sticker panel would open.`
+    });
   }
 
   const handleSendMessage = () => {
@@ -269,17 +286,34 @@ export default function PanelPage() {
             </ScrollArea>
           </CardContent>
           <CardFooter className="p-2 border-t">
-            <div className="relative w-full">
-              <Input
-                placeholder={userState === 'panelist' ? "Type a message..." : "Join the panel to chat"}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-                disabled={isSending || userState !== 'panelist'}
-              />
-              <Button size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={handleSendMessage} disabled={isSending || userState !== 'panelist'}>
-                <Send className="h-4 w-4" />
-              </Button>
+            <div className="flex w-full items-center gap-2">
+                <Popover>
+                    <PopoverTrigger asChild>
+                        <Button variant="ghost" size="icon" disabled={userState !== 'panelist'}>
+                            <PlusCircle className="h-5 w-5" />
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-2">
+                        <div className="flex gap-2">
+                            <Button variant="outline" size="sm" onClick={() => handleFileUpload('image')}><ImageIcon className="mr-2 h-4 w-4"/>Image</Button>
+                            <Button variant="outline" size="sm" onClick={() => handleFileUpload('file')}><Paperclip className="mr-2 h-4 w-4"/>File</Button>
+                            <Button variant="outline" size="sm" onClick={() => handleFileUpload('voice message')}><Mic className="mr-2 h-4 w-4"/>Voice</Button>
+                            <Button variant="outline" size="sm" onClick={handleStickerSend}><Smile className="mr-2 h-4 w-4"/>Sticker</Button>
+                        </div>
+                    </PopoverContent>
+                </Popover>
+                <div className="relative w-full">
+                <Input
+                    placeholder={userState === 'panelist' ? "Type a message..." : "Join the panel to chat"}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+                    disabled={isSending || userState !== 'panelist'}
+                />
+                <Button size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={handleSendMessage} disabled={isSending || userState !== 'panelist'}>
+                    <Send className="h-4 w-4" />
+                </Button>
+                </div>
             </div>
           </CardFooter>
         </Card>
@@ -287,5 +321,3 @@ export default function PanelPage() {
     </div>
   );
 }
-
-    

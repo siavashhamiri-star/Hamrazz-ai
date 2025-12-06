@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Upload, BookOpen, Smile, Languages, House, Award, Download, Share2, PackageOpen, Gamepad2, Feather, Heart, PawPrint } from "lucide-react";
+import { Loader2, Upload, BookOpen, Smile, Languages, House, Award, Download, Share2, PackageOpen, Gamepad2, Feather, Heart, PawPrint, ThumbsUp, UserPlus, MessageSquare } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -119,7 +119,7 @@ const VideoGallery = ({ videos }: { videos: Video[] }) => {
                 await navigator.share({
                     title: video.title,
                     text: `Check out this video on Hamraz: "${video.title}" by ${video.author}`,
-                    url: window.location.href, // You can link to the specific video page if you have one
+                    url: window.location.href,
                 });
                 toast({ title: "Shared successfully!" });
             } catch (error) {
@@ -159,7 +159,18 @@ const VideoGallery = ({ videos }: { videos: Video[] }) => {
                         <CardTitle className="text-lg">{video.title}</CardTitle>
                         <CardDescription>by {video.author}</CardDescription>
                     </CardHeader>
-                    <CardFooter className="mt-auto grid grid-cols-2 gap-2">
+                     <CardContent className="mt-auto flex flex-wrap gap-2">
+                        <Button variant="outline" size="sm" onClick={() => toast({ title: "Liked!" })}>
+                            <ThumbsUp className="mr-2 h-4 w-4" /> Like
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={() => toast({ title: `Followed ${video.author}!` })}>
+                            <UserPlus className="mr-2 h-4 w-4" /> Follow
+                        </Button>
+                        <Button variant="outline" size="sm" onClick={() => toast({ title: "Comment feature coming soon!" })}>
+                            <MessageSquare className="mr-2 h-4 w-4" /> Comment
+                        </Button>
+                    </CardContent>
+                    <CardFooter className="grid grid-cols-2 gap-2">
                         <Button variant="outline" onClick={() => handleDownload(video)}>
                             <Download className="mr-2 h-4 w-4" /> Download
                         </Button>

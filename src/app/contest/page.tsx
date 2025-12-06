@@ -27,6 +27,12 @@ const wallOfFame = [
     { name: "Bahar", achievement: "Amazing drawing in art class!", photo: "https://picsum.photos/seed/fame3/200/200", parentNote: "Such a creative and beautiful piece of art!"},
 ];
 
+const RoseIcon = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-red-500">
+        <path d="M12 12c3.33-2 5-6 5-9s-3-5-5-5-5 3-5 5c0 3 1.67 7 5 9Zm0 0c-3.33 2-5 6-5 9s3 5 5 5 5-3 5-5c0-3-1.67-7-5-9Z"/>
+    </svg>
+);
+
 
 export default function ContestPage() {
   const [submissionType, setSubmissionType] = useState("achievement");
@@ -174,6 +180,18 @@ export default function ContestPage() {
           <AlertDescription>
             Every six months, an exceptional prize equivalent to **1% of Hamraz's total revenue** will be awarded to one of the top and most active users of the app. The winner's profile and picture will be announced in the app. Participation is open to everyone; you can either pay a small entry fee or register for free using a referral code from an existing Hamraz member. Your engagement builds our future, and we believe you should share in the success.
           </AlertDescription>
+        </Alert>
+        
+         <Alert variant="destructive">
+            <div className="flex items-center gap-2">
+                <RoseIcon />
+                <AlertTitle className="text-red-500">The Rose Economy</AlertTitle>
+            </div>
+            <AlertDescription>
+                In our community chat rooms, you can earn Roses for positive and helpful conversations. These roses have real value: <br />
+                - **5 Roses** = 1 Point towards the Premier League. <br />
+                - **1000 Roses** = 1 Square Meter of Land in the Capable City!
+            </AlertDescription>
         </Alert>
         
         <Card className="w-full max-w-2xl mx-auto shadow-lg">
