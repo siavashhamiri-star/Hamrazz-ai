@@ -47,7 +47,7 @@ const roadmap = [
      {
         icon: Banknote,
         milestone: "Native Currency Launch",
-        reward: "Once 69% of the city's 1,300,000 m² of land is sold, the 'Capable City' will officially launch its own native currency ('Toman'), solidifying its independent economy."
+        reward: "Once 69% of the city's 1,300,000 m² of land is sold, the 'Capable City' will officially launch its own native currency ('Meyo'), solidifying its independent economy."
     },
     {
         icon: Briefcase,
@@ -271,7 +271,3 @@ export default function InvestorsPage() {
     </div>
   )
 }
-
-    
-
-    
