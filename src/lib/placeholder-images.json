@@ -1,6 +1,12 @@
 {
   "placeholderImages": [
     {
+      "id": "avatar-robot-1",
+      "description": "A powerful and intelligent robot with a glowing blue core.",
+      "imageUrl": "https://images.unsplash.com/photo-1557053964-b371c1214e44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxyb2JvdCUyMHBvcnRyYWl0fGVufDB8fHx8MTc2NDExNTEzMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "robot portrait"
+    },
+    {
       "id": "avatar-f-1",
       "description": "A friendly-looking woman with dark hair and a warm smile.",
       "imageUrl": "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmZW1hbGUlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjQxMTU5MTV8MA&ixlib=rb-4.1.0&q=80&w=1080",

@@ -29,6 +29,7 @@ type UseUserProfileResult = {
 };
 
 const defaultAvatar = PlaceHolderImages.find(img => img.id.startsWith("avatar-")) || PlaceHolderImages[0];
+const ownerAvatar = PlaceHolderImages.find(img => img.id === 'avatar-robot-1') || defaultAvatar;
 
 // Function to create a default user profile
 const createDefaultProfile = (user: User): UserProfile => {
@@ -41,8 +42,8 @@ const createDefaultProfile = (user: User): UserProfile => {
       displayName: user.displayName,
       photoURL: user.photoURL,
       points: 999999, // Owner has unlimited points
-      selectedAvatarId: defaultAvatar.id,
-      selectedAvatar: defaultAvatar,
+      selectedAvatarId: ownerAvatar.id,
+      selectedAvatar: ownerAvatar,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     };
