@@ -7,6 +7,7 @@ import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, 
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 
 const keyFeatures = [
@@ -114,6 +115,14 @@ export default function InvestorsPage() {
                 </CardContent>
             </Card>
         </section>
+
+        <Alert variant="default" className="border-primary/30 bg-primary/10">
+            <Banknote className="h-4 w-4 text-primary" />
+            <AlertTitle className="text-primary font-bold">Accepted Currencies for Land Purchase</AlertTitle>
+            <AlertDescription>
+                All land purchases within the Capable City can only be made using Bitcoin, Tether (USDT), and other major cryptocurrencies. This ensures a secure, decentralized, and global transaction process for all our citizens.
+            </AlertDescription>
+        </Alert>
 
         <section>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
