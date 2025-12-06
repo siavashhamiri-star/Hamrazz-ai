@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
-import { Send, Loader2, Users, Mic, Sofa, LogOut, Ghost, Mail, UserPlus, Eye, PlusCircle, ImageIcon, Paperclip, Smile, Gamepad2, Twitch, Youtube } from "lucide-react";
+import { Send, Loader2, Users, Mic, Sofa, LogOut, Ghost, Mail, UserPlus, Eye, PlusCircle, ImageIcon, Paperclip, Smile, Gamepad2, Twitch, Youtube, ShieldAlert } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
@@ -43,6 +43,7 @@ type Message = {
   };
   text: string;
   isPrivate?: boolean;
+  type?: 'system' | 'creator_warn' | 'creator_thanks';
 };
 
 type Spectator = {
@@ -137,7 +138,7 @@ const Room = ({ room, updateRoom }: { room: GamingRoom, updateRoom: (updatedRoom
     const { userProfile } = useUserProfile(user?.uid);
     const [input, setInput] = useState("");
     const [isSending, setIsSending] = useState(false);
-    const [userState, setUserState] = useState<'unjoined' | 'panelist' | 'spectator'>('unjoined');
+    const [userState, setUserState] = useState<'unjoined' | 'panelist' | 'spectator' | 'ghost'>('unjoined');
     const scrollAreaRef = useRef<HTMLDivElement>(null);
     const { toast } = useToast();
 
@@ -146,6 +147,8 @@ const Room = ({ room, updateRoom }: { room: GamingRoom, updateRoom: (updatedRoom
         name: userProfile.displayName || "Anonymous", 
         avatar: userProfile.selectedAvatar?.imageUrl || userProfile.photoURL || "" 
     } : null;
+
+    const isCreator = user?.uid === 'owner-the-creator';
 
     useEffect(() => {
         const viewport = scrollAreaRef.current?.querySelector('div[data-radix-scroll-area-viewport]');
@@ -156,10 +159,11 @@ const Room = ({ room, updateRoom }: { room: GamingRoom, updateRoom: (updatedRoom
         }
     }, [room.messages]);
     
-    const addMessage = (text: string, fromUser?: { name: string, avatar: string }) => {
+    const addMessage = (text: string, fromUser?: { name: string, avatar: string }, type: Message['type'] = 'system') => {
         const newMessage: Message = {
             user: fromUser || { name: "System", avatar: "" },
             text,
+            type,
         };
         updateRoom({ ...room, messages: [...room.messages, newMessage] });
     };
@@ -178,9 +182,14 @@ const Room = ({ room, updateRoom }: { room: GamingRoom, updateRoom: (updatedRoom
 
     const handleJoinAsSpectator = () => {
       if (!currentUser) return;
-      updateRoom({ ...room, spectators: [...room.spectators, currentUser] });
-      setUserState('spectator');
-      addMessage(`${currentUser.name} is now watching.`);
+      if (isCreator) {
+        setUserState('ghost');
+        addMessage(`The Creator has entered the room in ghost mode.`, undefined, 'system');
+      } else {
+        updateRoom({ ...room, spectators: [...room.spectators, currentUser] });
+        setUserState('spectator');
+        addMessage(`${currentUser.name} is now watching.`);
+      }
     };
 
     const handleLeave = () => {
@@ -197,6 +206,8 @@ const Room = ({ room, updateRoom }: { room: GamingRoom, updateRoom: (updatedRoom
         } else if (userState === 'spectator') {
             updatedRoom.spectators = room.spectators.filter(spec => spec.uid !== currentUser.uid);
             addMessage(`${currentUser.name} stopped watching.`);
+        } else if (userState === 'ghost') {
+             addMessage(`The Creator has left the room.`, undefined, 'system');
         }
         updateRoom(updatedRoom);
         setUserState('unjoined');
@@ -204,9 +215,25 @@ const Room = ({ room, updateRoom }: { room: GamingRoom, updateRoom: (updatedRoom
 
     const handleSendMessage = () => {
         if (!input.trim() || !currentUser || userState !== 'panelist') return;
-        addMessage(input.trim(), currentUser);
+        addMessage(input.trim(), currentUser, undefined);
         setInput("");
     };
+
+    const handleCreatorMessage = (type: 'creator_warn' | 'creator_thanks') => {
+        const text = type === 'creator_warn' 
+            ? "A friendly reminder from the Creator: Please maintain a respectful and positive atmosphere. Let's build a great community together."
+            : "A message from the Creator: Thank you all for your positive contributions and for making this community special!";
+        addMessage(text, { name: "Creator", avatar: ""}, type);
+    }
+
+    const getMessageStyle = (type?: Message['type']) => {
+        switch(type) {
+            case 'creator_warn': return 'bg-destructive/10 border-destructive text-destructive-foreground';
+            case 'creator_thanks': return 'bg-green-500/10 border-green-500 text-green-700 dark:text-green-300';
+            default: return 'bg-muted';
+        }
+    }
+
 
     return (
         <div className="space-y-6">
@@ -234,10 +261,29 @@ const Room = ({ room, updateRoom }: { room: GamingRoom, updateRoom: (updatedRoom
                         {userState === 'unjoined' && (
                             <CardFooter className="justify-center gap-4">
                                 <Button onClick={handleJoinPanel} disabled={!user}><UserPlus className="mr-2"/> Join Panel</Button>
-                                <Button onClick={handleJoinAsSpectator} variant="outline" disabled={!user}><Eye className="mr-2"/> Watch</Button>
+                                <Button onClick={handleJoinAsSpectator} variant="outline" disabled={!user}>
+                                    {isCreator ? <><Ghost className="mr-2"/> Join as Ghost</> : <><Eye className="mr-2"/> Watch</>}
+                                </Button>
                             </CardFooter>
                         )}
                     </Card>
+
+                    {isCreator && userState === 'ghost' && (
+                        <Card className="mt-6 bg-primary/10 border-primary/30">
+                            <CardHeader>
+                                <CardTitle className="text-primary">Creator Tools</CardTitle>
+                                <CardDescription>Send administrative messages to the room.</CardDescription>
+                            </CardHeader>
+                            <CardContent className="flex gap-4">
+                                <Button variant="destructive" onClick={() => handleCreatorMessage('creator_warn')}>
+                                    <ShieldAlert className="mr-2"/> Send Warning
+                                </Button>
+                                <Button className="bg-green-600 hover:bg-green-700" onClick={() => handleCreatorMessage('creator_thanks')}>
+                                    <Users className="mr-2"/> Send Thanks
+                                </Button>
+                            </CardContent>
+                        </Card>
+                    )}
 
                     <div className="mt-6 space-y-4">
                         <div className="flex flex-wrap items-center gap-4">
@@ -250,7 +296,7 @@ const Room = ({ room, updateRoom }: { room: GamingRoom, updateRoom: (updatedRoom
                                 <div key={spec.uid} className="flex items-center gap-2 bg-muted p-2 rounded-lg">
                                     <Avatar className="w-6 h-6">
                                         <AvatarImage src={spec.avatar} alt={spec.name} />
-                                        <AvatarFallback><Ghost className="w-4 h-4"/></AvatarFallback>
+                                        <AvatarFallback><Eye className="w-4 h-4"/></AvatarFallback>
                                     </Avatar>
                                     <span className="text-sm font-medium">{spec.name}</span>
                                 </div>
@@ -276,7 +322,7 @@ const Room = ({ room, updateRoom }: { room: GamingRoom, updateRoom: (updatedRoom
                                         </Avatar>
                                         <div>
                                             <p className="font-semibold text-sm">{msg.user.name}</p>
-                                            <div className="p-2 rounded-lg text-sm bg-muted">{msg.text}</div>
+                                            <div className={cn("p-2 rounded-lg text-sm border", getMessageStyle(msg.type))}>{msg.text}</div>
                                         </div>
                                     </div>
                                 ))}
