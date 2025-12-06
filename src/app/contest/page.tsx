@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone, Briefcase, Trophy, Map } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone, Briefcase, Trophy, Map, Users } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -187,6 +187,13 @@ export default function ContestPage() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
+                <Alert>
+                    <Users className="h-4 w-4" />
+                    <AlertTitle>One Family, Many Homes</AlertTitle>
+                    <AlertDescription>
+                        Members of the creator's other apps (like Afarinan, Zabanshenas, and Karaoke) are welcome to participate in all Hamraz contests! Your membership in one is a passport to all.
+                    </AlertDescription>
+                </Alert>
                  <div className="space-y-2">
                     <Label>Submission Type</Label>
                      <Select onValueChange={(val) => setSubmissionType(val)} defaultValue={submissionType}>
