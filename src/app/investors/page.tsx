@@ -286,8 +286,8 @@ export default function InvestorsPage() {
             <Card className="border-dashed border-primary">
                  <CardContent className="text-center p-8 space-y-4">
                     <TreeDeciduous className="w-12 h-12 text-primary mx-auto" />
-                    <p className="text-lg text-muted-foreground italic max-w-2xl mx-auto">
-                        "We have planted a seedling together. When it grows and provides shade, everyone will benefit from its fruit and its coolness. The foundation of this growth is their patience and loyalty. Before all else, we are committed to bringing you to prosperity."
+                    <p className="text-lg text-muted-foreground italic max-w-3xl mx-auto" dir="rtl">
+                       ما می‌خواهیم سفره ای به بلندای همه عالم بگسترانیم، نعمت و ثروت بیافرینیم و هر کس که یاور ما بود در مهمانی و جشن پای این سفره نیز بنشیند و از برکت و نعمت این کار جمعی لذت ببرد.
                     </p>
                     <p className="font-bold text-primary mt-4">- Ahura, The Creative Wizard</p>
                 </CardContent>
@@ -297,3 +297,5 @@ export default function InvestorsPage() {
     </div>
   )
 }
+
+    
