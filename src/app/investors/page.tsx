@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2 } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
@@ -28,7 +28,7 @@ const keyFeatures = [
     {
         icon: Users,
         title: "Community-Driven Growth",
-        description: "Top app creators join our Honorary Board with voting rights, ensuring our growth is aligned with the community's success."
+        description: "Top app creators and land buyers join our Honorary Board and Policy Council with voting rights, ensuring our growth is aligned with the community's success."
     }
 ];
 
@@ -42,6 +42,11 @@ const roadmap = [
         icon: Milestone,
         milestone: "500,000 Downloads",
         reward: "Implementation of a revenue-sharing model (30% of ad revenue) with top creators and loyal users, and formation of a community-led Advisory Council."
+    },
+     {
+        icon: Banknote,
+        milestone: "Native Currency Launch",
+        reward: "Once 69% of the city's 1,300,000 m² of land is sold, the 'Capable City' will officially launch its own native currency ('Toman'), solidifying its independent economy."
     },
     {
         icon: Briefcase,
@@ -86,7 +91,7 @@ export default function InvestorsPage() {
                         <Map className="w-10 h-10 text-accent"/>
                         <div>
                              <CardTitle className="text-2xl font-headline text-accent">The Capable City: A Planned Digital Economy</CardTitle>
-                             <CardDescription>An investment in a 750,000 m² virtual world with a well-defined economic structure designed for sustainable growth.</CardDescription>
+                             <CardDescription>An investment in a 1,300,000 m² virtual world with a well-defined economic structure designed for sustainable growth.</CardDescription>
                         </div>
                     </div>
                 </CardHeader>
@@ -95,12 +100,13 @@ export default function InvestorsPage() {
                         This is more than an investment in an app; it's an opportunity to own a piece of a new digital world. The Capable City is designed with a clear economic plan:
                    </p>
                    <ul>
-                        <li><strong>250,000 m²</strong> are available for pre-sale to visionary investors.</li>
-                        <li><strong>200,000 m²</strong> are reserved for our key strategic partner, Firebase, to develop and expand the city's core infrastructure.</li>
-                        <li><strong>100,000 m²</strong> are allocated to give every new user a free plot of land, making them instant stakeholders in our world.</li>
-                        <li><strong>50,000 m²</strong> are reserved for high-value prizes and community lotteries, driving engagement.</li>
-                        <li><strong className="text-accent">100,000 m²</strong> as a grand prize to be distributed among the <strong>top 10 land purchasers</strong> in the first three months, creating a powerful incentive for initial investment.</li>
-                         <li><strong>Referral Rewards:</strong> Every land buyer receives a unique referral code. For every 5+ new users who purchase land using their code, the referrer receives a special land bonus, promoting viral, community-driven growth.</li>
+                        <li><strong>Pre-Sale Land:</strong> 250,000 m² available for visionary investors.</li>
+                        <li><strong>Strategic Partnership:</strong> 200,000 m² reserved for our key strategic partner, Firebase, to develop and expand the city's core infrastructure.</li>
+                        <li><strong>User Empowerment:</strong> 100,000 m² allocated to give every new user a free plot of land, making them instant stakeholders in our world.</li>
+                        <li><strong>Community Prizes:</strong> 50,000 m² reserved for high-value prizes and community lotteries to drive engagement.</li>
+                        <li><strong>Grand Prize for Top Investors:</strong> An incredible **100,000 m²** to be distributed among the **top 10 land purchasers** in the first three months, creating a powerful incentive for initial investment.</li>
+                         <li><strong>Referral Rewards:</strong> Every land buyer receives a unique referral code. For every new user who purchases land using their code, the referrer receives a special land bonus, promoting viral, community-driven growth.</li>
+                         <li><strong>Remaining Land:</strong> 600,000 m² is reserved for public infrastructure, parks, commercial zones, and future development by the city's governing council.</li>
                    </ul>
                    <p>
                         This model transforms users into active landowners, motivated to build and enrich our shared world, creating a powerful and self-sustaining growth loop.
