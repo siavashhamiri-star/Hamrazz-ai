@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
@@ -217,6 +217,14 @@ export default function InvestorsPage() {
             </div>
         </section>
 
+        <Alert variant="default" className="max-w-4xl mx-auto">
+            <Shield className="h-4 w-4" />
+            <AlertTitle className="font-bold">A Finite World, Infinite Possibilities</AlertTitle>
+            <AlertDescription>
+               The total land for the Capable City is permanently fixed at 1,300,000 m². There will be no further expansion. This scarcity ensures the value of your investment. For new worlds and future cities, we invite you to explore the creator's other projects.
+            </AlertDescription>
+        </Alert>
+
         <section className="text-center">
              <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold font-headline">Meet the Visionaries</h2>
@@ -250,3 +258,5 @@ export default function InvestorsPage() {
     </div>
   )
 }
+
+    
