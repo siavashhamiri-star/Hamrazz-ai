@@ -92,13 +92,13 @@ export default function InvestorsPage() {
                 </CardHeader>
                 <CardContent className="prose dark:prose-invert max-w-none">
                    <p>
-                        This is more than an investment in an app; it's an opportunity to own a piece of a new digital world. The Capable City is designed with a clear economic plan:
+                        This is more than an investment in an app; it's an opportunity to own a piece of a new digital world. The Capable City is a 600,000 square meter world designed with a clear economic plan:
                    </p>
                    <ul>
                         <li><strong>250,000 meters</strong> are available for pre-sale to visionary investors.</li>
                         <li><strong>100,000 meters</strong> are allocated to give every new user a free plot of land, making them instant stakeholders in our world.</li>
                         <li><strong>50,000 meters</strong> are reserved for high-value prizes and lotteries, driving engagement and rewarding our most active citizens.</li>
-                        <li>The remaining land is dedicated to **infrastructure**, including parks, markets, transport systems, and public spaces, ensuring the city is vibrant and functional.</li>
+                        <li>The remaining **200,000 meters** are dedicated to **infrastructure**, including parks, markets, transport systems, and public spaces, ensuring the city is vibrant and functional.</li>
                    </ul>
                    <p>
                         This model transforms users into active landowners, motivated to build and enrich our shared world, creating a powerful and self-sustaining growth loop.

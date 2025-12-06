@@ -107,9 +107,9 @@ export default function ContestPage() {
 
         <Alert variant="default" className="border-accent/50 bg-accent/10 text-accent-foreground/80">
             <Map className="h-4 w-4 text-accent" />
-            <AlertTitle className="font-bold text-accent">The Capable City: Your Digital Real Estate</AlertTitle>
+            <AlertTitle className="font-bold text-accent">The Capable City: A Planned Digital Economy</AlertTitle>
             <AlertDescription>
-                The ultimate vision: a virtual city where 250,000 meters are for pre-sale, 100,000 are to grant each user one free meter, and 50,000 are for prizes and lotteries. By earning points, you're not just playing; you're investing in your own digital property and becoming a true citizen of our world.
+                Our virtual world spans 600,000 square meters. 250,000 meters are for pre-sale, 100,000 are to grant each user one free meter, and 50,000 are for prizes and lotteries. The rest is for infrastructure. By earning points, you're not just playing; you're investing in your own digital property and becoming a true citizen of our world.
             </AlertDescription>
         </Alert>
         
@@ -162,7 +162,7 @@ export default function ContestPage() {
 
          <Alert>
           <Gift className="h-4 w-4" />
-          <AlertTitle>Seasonal Prize Draw!</AlertTitle>
+          <AlertTitle>Seasonal Prize Draw (Appreciation Gift)!</AlertTitle>
           <AlertDescription>
             Active users who earn high points throughout the month will automatically be entered into our valuable prize draw, held every three months. So be active and collect points!
           </AlertDescription>
@@ -249,3 +249,5 @@ export default function ContestPage() {
     </div>
   );
 }
+
+    
