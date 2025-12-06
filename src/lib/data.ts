@@ -81,6 +81,7 @@ export const bottomNavLinks = [
   { href: "/profile", label: "Profile", icon: User },
   { href: "/genesis", label: "Genesis", icon: Book },
   { href: "/board", label: "Board", icon: Award },
+  { href: "/pledge", label: "Pledge", icon: Handshake },
   { href: "/privacy", label: "Privacy", icon: Shield },
   { href: "/feedback", label: "Feedback", icon: MessageSquare },
 ];
