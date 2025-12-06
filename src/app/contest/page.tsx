@@ -109,7 +109,7 @@ export default function ContestPage() {
             <Map className="h-4 w-4 text-accent" />
             <AlertTitle className="font-bold text-accent">The Capable City: Your Digital Real Estate</AlertTitle>
             <AlertDescription>
-                The ultimate vision: Hamraz is a virtual city of 100,000 square meters, and every meter is available for pre-purchase. By earning points and being active, you are not just using an app—you are investing in your own digital property. Build your home of knowledge, your gallery of creations, your shop of ideas, and become a founding citizen of our ever-expanding world.
+                The ultimate vision: Hamraz is a 500,000 sq. meter virtual city. 250,000 meters are available for pre-purchase by investors, and the other 250,000 meters will be gradually awarded to active, creative users as prizes. The process for distributing this digital real estate will be determined by our special board members, giving you a real stake in our world. By earning points, you are investing in your own digital property.
             </AlertDescription>
         </Alert>
         
@@ -249,5 +249,3 @@ export default function ContestPage() {
     </div>
   );
 }
-
-    

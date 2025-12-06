@@ -85,14 +85,14 @@ export default function InvestorsPage() {
                     <div className="flex items-center gap-4">
                         <Map className="w-10 h-10 text-accent"/>
                         <div>
-                             <CardTitle className="text-2xl font-headline text-accent">The Capable City: A 100,000-Meter Virtual World</CardTitle>
-                             <CardDescription>Our most ambitious vision: Hamraz will evolve into a 100,000-meter virtual city where every meter is a pre-sale opportunity.</CardDescription>
+                             <CardTitle className="text-2xl font-headline text-accent">The Capable City: A 500,000-Meter Virtual World</CardTitle>
+                             <CardDescription>Our most ambitious vision: A virtual city where 250,000 meters are available for pre-purchase, and 250,000 meters are awarded to top users.</CardDescription>
                         </div>
                     </div>
                 </CardHeader>
                 <CardContent className="prose dark:prose-invert max-w-none">
                    <p>
-                        This is more than an investment in an app; it's an opportunity to own a piece of a new digital world. We are creating a metaverse where users can purchase virtual land to build their own homes, businesses, and centers of knowledge. Early investors and users will become the founders and landowners of this new city, creating a powerful incentive for growth and a self-sustaining economy. This transforms users from passive participants into active stakeholders in our collective success.
+                        This is more than an investment in an app; it's an opportunity to own a piece of a new digital world. We are creating a metaverse where 250,000 sq. meters are available for pre-sale to early investors, and another 250,000 sq. meters are reserved as valuable rewards for our most active and creative users. The distribution of these rewards will be overseen by our Honorary Board, composed of our top community members. This transforms users from passive participants into active stakeholders in our collective success.
                    </p>
                 </CardContent>
             </Card>
