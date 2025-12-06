@@ -191,7 +191,7 @@ export default function ContestPage() {
                     <Users className="h-4 w-4" />
                     <AlertTitle>One Family, Many Homes</AlertTitle>
                     <AlertDescription>
-                        Members of the creator's other apps (like Afarinan, Zabanshenas, and Karaoke) are welcome to participate in all Hamraz contests! Your membership in one is a passport to all.
+                        Membership in any of the creator's apps (like Afarinan, Zabanshenas, and Karaoke) is a passport to all others. Members of Hamraz are also welcome to participate in contests across the entire ecosystem!
                     </AlertDescription>
                 </Alert>
                  <div className="space-y-2">
@@ -256,5 +256,3 @@ export default function ContestPage() {
     </div>
   );
 }
-
-    
