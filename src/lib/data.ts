@@ -71,6 +71,7 @@ export const navLinks = [
   },
   { href: "/collaborate", label: "Collaborate", icon: Handshake },
   { href: "/ads", label: "Ads", icon: Megaphone },
+  { href: "/referrals", label: "Referrals", icon: Share2 },
   { href: "/showcase", label: "Showcase", icon: Clapperboard },
   { href: "/my-story", label: "My Story", icon: BookHeart },
   { href: "/devops", label: "DevOps", icon: Cpu },
