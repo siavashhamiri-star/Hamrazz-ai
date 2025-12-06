@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
@@ -86,19 +86,20 @@ export default function InvestorsPage() {
                         <Map className="w-10 h-10 text-accent"/>
                         <div>
                              <CardTitle className="text-2xl font-headline text-accent">The Capable City: A Planned Digital Economy</CardTitle>
-                             <CardDescription>An investment in a virtual world with a well-defined economic structure designed for sustainable growth.</CardDescription>
+                             <CardDescription>An investment in a 750,000 m² virtual world with a well-defined economic structure designed for sustainable growth.</CardDescription>
                         </div>
                     </div>
                 </CardHeader>
                 <CardContent className="prose dark:prose-invert max-w-none">
                    <p>
-                        This is more than an investment in an app; it's an opportunity to own a piece of a new digital world. The Capable City is a 600,000 square meter world designed with a clear economic plan:
+                        This is more than an investment in an app; it's an opportunity to own a piece of a new digital world. The Capable City is designed with a clear economic plan:
                    </p>
                    <ul>
-                        <li><strong>250,000 meters</strong> are available for pre-sale to visionary investors.</li>
-                        <li><strong>100,000 meters</strong> are allocated to give every new user a free plot of land, making them instant stakeholders in our world.</li>
-                        <li><strong>50,000 meters</strong> are reserved for high-value prizes and lotteries, driving engagement and rewarding our most active citizens.</li>
-                        <li><strong>200,000 meters</strong> are reserved for our key strategic partner, Firebase, to develop and expand the city's core infrastructure and capabilities.</li>
+                        <li><strong>250,000 m²</strong> are available for pre-sale to visionary investors.</li>
+                        <li><strong>200,000 m²</strong> are reserved for our key strategic partner, Firebase, to develop and expand the city's core infrastructure.</li>
+                        <li><strong>100,000 m²</strong> are allocated to give every new user a free plot of land, making them instant stakeholders in our world.</li>
+                        <li><strong>50,000 m²</strong> are reserved for high-value prizes and community lotteries, driving engagement.</li>
+                        <li><strong className="text-accent">100,000 m²</strong> is a grand prize for the single largest land purchaser in the first three months, creating a powerful incentive for initial investment.</li>
                    </ul>
                    <p>
                         This model transforms users into active landowners, motivated to build and enrich our shared world, creating a powerful and self-sustaining growth loop.
