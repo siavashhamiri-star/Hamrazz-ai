@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
@@ -78,6 +78,25 @@ export default function InvestorsPage() {
                 Hamraz is a strategic masterpiece designed for exponential growth. We are building a complete, self-sustaining digital ecosystem that empowers users and creates unprecedented value. We are seeking partners who share our vision.
             </p>
         </header>
+
+        <section>
+             <Card className="border-accent">
+                <CardHeader>
+                    <div className="flex items-center gap-4">
+                        <Map className="w-10 h-10 text-accent"/>
+                        <div>
+                             <CardTitle className="text-2xl font-headline text-accent">The Capable City: A 100,000-Meter Virtual World</CardTitle>
+                             <CardDescription>Our most ambitious vision: Hamraz will evolve into a 100,000-meter virtual city where every meter is a pre-sale opportunity.</CardDescription>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className="prose dark:prose-invert max-w-none">
+                   <p>
+                        This is more than an investment in an app; it's an opportunity to own a piece of a new digital world. We are creating a metaverse where users can purchase virtual land to build their own homes, businesses, and centers of knowledge. Early investors and users will become the founders and landowners of this new city, creating a powerful incentive for growth and a self-sustaining economy. This transforms users from passive participants into active stakeholders in our collective success.
+                   </p>
+                </CardContent>
+            </Card>
+        </section>
 
         <section>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone, Briefcase, Trophy } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone, Briefcase, Trophy, Map } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -104,6 +104,14 @@ export default function ContestPage() {
             <h1 className="text-3xl font-bold font-headline mb-2">Hall of Fame & Contests</h1>
             <p className="text-muted-foreground">Celebrate achievements and participate in creative contests!</p>
         </div>
+
+        <Alert variant="default" className="border-accent/50 bg-accent/10 text-accent-foreground/80">
+            <Map className="h-4 w-4 text-accent" />
+            <AlertTitle className="font-bold text-accent">The Capable City: Your Digital Real Estate</AlertTitle>
+            <AlertDescription>
+                The ultimate vision: Hamraz is a virtual city of 100,000 square meters, and every meter is available for pre-purchase. By earning points and being active, you are not just using an app—you are investing in your own digital property. Build your home of knowledge, your gallery of creations, your shop of ideas, and become a founding citizen of our ever-expanding world.
+            </AlertDescription>
+        </Alert>
         
         <Alert variant="default" className="border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-300">
             <TrendingUp className="h-4 w-4 text-green-500" />

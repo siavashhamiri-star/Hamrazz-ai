@@ -73,6 +73,7 @@ export const navLinks = [
   { href: "/investors", label: "Investors", icon: DollarSign },
   { href: "/ai", label: "AI Interview", icon: BrainCircuit },
   { href: "/tutorial", label: "Tutorial", icon: HelpCircle },
+  { href: "/anthem", label: "Anthem", icon: Music },
 ];
 
 export const bottomNavLinks = [
