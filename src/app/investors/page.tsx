@@ -85,14 +85,23 @@ export default function InvestorsPage() {
                     <div className="flex items-center gap-4">
                         <Map className="w-10 h-10 text-accent"/>
                         <div>
-                             <CardTitle className="text-2xl font-headline text-accent">The Capable City: Virtual Real Estate</CardTitle>
-                             <CardDescription>A unique investment model: A virtual city with 250,000 meters for pre-sale, 100,000 meters for rewards, and one free meter for every user.</CardDescription>
+                             <CardTitle className="text-2xl font-headline text-accent">The Capable City: A Planned Digital Economy</CardTitle>
+                             <CardDescription>An investment in a virtual world with a well-defined economic structure designed for sustainable growth.</CardDescription>
                         </div>
                     </div>
                 </CardHeader>
                 <CardContent className="prose dark:prose-invert max-w-none">
                    <p>
-                        This is more than an investment in an app; it's an opportunity to own a piece of a new digital world. We are creating a metaverse where 250,000 sq. meters are available for pre-sale to early investors. Another 100,000 sq. meters are reserved as valuable rewards for our most active users. Furthermore, every user account is granted one free meter of land, giving everyone an immediate stake in our collective success. This transforms users from passive participants into active landowners, motivated to build and enrich our shared world.
+                        This is more than an investment in an app; it's an opportunity to own a piece of a new digital world. The Capable City is designed with a clear economic plan:
+                   </p>
+                   <ul>
+                        <li><strong>250,000 meters</strong> are available for pre-sale to visionary investors.</li>
+                        <li><strong>100,000 meters</strong> are allocated to give every new user a free plot of land, making them instant stakeholders in our world.</li>
+                        <li><strong>50,000 meters</strong> are reserved for high-value prizes and lotteries, driving engagement and rewarding our most active citizens.</li>
+                        <li>The remaining land is dedicated to **infrastructure**, including parks, markets, transport systems, and public spaces, ensuring the city is vibrant and functional.</li>
+                   </ul>
+                   <p>
+                        This model transforms users into active landowners, motivated to build and enrich our shared world, creating a powerful and self-sustaining growth loop.
                    </p>
                 </CardContent>
             </Card>
@@ -212,3 +221,5 @@ export default function InvestorsPage() {
     </div>
   )
 }
+
+    

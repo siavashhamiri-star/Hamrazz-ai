@@ -109,7 +109,7 @@ export default function ContestPage() {
             <Map className="h-4 w-4 text-accent" />
             <AlertTitle className="font-bold text-accent">The Capable City: Your Digital Real Estate</AlertTitle>
             <AlertDescription>
-                The ultimate vision: A virtual city where 250,000 meters are available for pre-purchase, 100,000 meters are awarded as prizes to top users, and every user receives one free meter upon joining. By earning points, you're not just playing; you're investing in your own digital property and becoming a true citizen of our world.
+                The ultimate vision: a virtual city where 250,000 meters are for pre-sale, 100,000 are to grant each user one free meter, and 50,000 are for prizes and lotteries. By earning points, you're not just playing; you're investing in your own digital property and becoming a true citizen of our world.
             </AlertDescription>
         </Alert>
         
@@ -249,3 +249,5 @@ export default function ContestPage() {
     </div>
   );
 }
+
+    
