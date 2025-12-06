@@ -65,17 +65,10 @@ const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', 
               <CarouselContent>
                 {video.urls.map((url, index) => (
                   <CarouselItem key={index}>
-                     <div className="aspect-video w-full">
+                     <div className="p-1">
                         <video src={url} className="w-full h-full rounded-lg" controls autoPlay={index === 0} loop>
                           Your browser does not support the video tag.
                         </video>
-                         <div className="flex justify-center mt-2">
-                           <a href={url} download={`hamraz_showcase_${language}_part_${index + 1}.mp4`}>
-                              <Button variant="outline" size="sm">
-                                <Download className="mr-2 h-4 w-4" /> Download Clip {index + 1}
-                              </Button>
-                            </a>
-                        </div>
                      </div>
                   </CarouselItem>
                 ))}
@@ -86,6 +79,15 @@ const VideoPlayer = ({ language, title, description }: { language: 'en' | 'fa', 
           )}
         </div>
       </CardContent>
+      <CardFooter className="flex flex-wrap gap-2">
+        {video.urls?.map((url, index) => (
+            <a key={index} href={url} download={`hamraz_showcase_${language}_part_${index + 1}.mp4`}>
+                <Button variant="outline" size="sm">
+                <Download className="mr-2 h-4 w-4" /> Download Clip {index + 1}
+                </Button>
+            </a>
+        ))}
+      </CardFooter>
     </Card>
   )
 }
@@ -151,9 +153,9 @@ const Teleprompter = ({ title, text, direction = 'ltr' }: { title: string, text:
         <div 
           ref={scrollRef} 
           dir={direction}
-          className="h-64 overflow-y-auto border rounded-md p-4 prose prose-lg dark:prose-invert max-w-none bg-background scroll-smooth"
+          className="h-96 overflow-y-auto border rounded-md p-4 prose prose-lg dark:prose-invert max-w-none bg-background scroll-smooth"
         >
-          <p>{text}</p>
+          <p className="whitespace-pre-wrap">{text}</p>
         </div>
       </CardContent>
       <CardFooter className="flex flex-col sm:flex-row items-center gap-4">
