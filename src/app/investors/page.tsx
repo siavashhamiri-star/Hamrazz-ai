@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield, TreeDeciduous } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
@@ -281,9 +281,19 @@ export default function InvestorsPage() {
                 </CardContent>
             </Card>
         </section>
+        
+        <section>
+            <Card className="border-dashed border-primary">
+                 <CardContent className="text-center p-8 space-y-4">
+                    <TreeDeciduous className="w-12 h-12 text-primary mx-auto" />
+                    <p className="text-lg text-muted-foreground italic max-w-2xl mx-auto">
+                        "We have planted a seedling together. When it grows and provides shade, everyone will benefit from its fruit and its coolness. The foundation of this growth is their patience and loyalty. Before all else, we are committed to bringing you to prosperity."
+                    </p>
+                    <p className="font-bold text-primary mt-4">- Ahura, The Creative Wizard</p>
+                </CardContent>
+            </Card>
+        </section>
 
     </div>
   )
 }
-
-    
