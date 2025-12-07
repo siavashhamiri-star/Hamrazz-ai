@@ -45,12 +45,13 @@ export default function AppHeader() {
       <div className="flex items-center gap-1 md:gap-4">
         <Tooltip>
           <TooltipTrigger asChild>
-            <SidebarTrigger className="flex items-center gap-2">
+            <SidebarTrigger className="flex items-center gap-2 md:p-2">
                 <PanelLeft />
+                <span className="md:hidden font-semibold">Menu</span>
                 <span className="sr-only">Menu</span>
             </SidebarTrigger>
           </TooltipTrigger>
-          <TooltipContent>
+          <TooltipContent side="right" className="hidden md:block">
             <p>Open App Menu</p>
           </TooltipContent>
         </Tooltip>
