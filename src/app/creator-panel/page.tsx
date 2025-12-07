@@ -1,17 +1,18 @@
 
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, Mic, Send, Terminal, Clipboard, BrainCircuit } from "lucide-react";
+import { Loader2, Mic, Send, Terminal, Clipboard, BrainCircuit, Square, Play, Download } from "lucide-react";
 import { useUser } from "@/firebase";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -27,6 +28,13 @@ export default function CreatorPanelPage() {
   const [systemLogs, setSystemLogs] = useState<string[]>(["System Initialized. Awaiting voice command from the Creator..."]);
   const [isProcessing, setIsProcessing] = useState(false);
   const recognitionRef = useRef<any>(null);
+
+  // State for voice-over studio
+  const [script, setScript] = useState("Welcome to Hamraz, the city of capabilities, where every idea finds a home.");
+  const [isVoiceRecording, setIsVoiceRecording] = useState(false);
+  const [recordedAudioUrl, setRecordedAudioUrl] = useState<string | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
 
   const addLog = (log: string) => {
     setSystemLogs(prev => [...prev, `[${new Date().toLocaleTimeString()}] ${log}`]);
@@ -118,6 +126,44 @@ export default function CreatorPanelPage() {
     addLog(`Hamraz Response: ${response}`);
     setIsProcessing(false);
     setCommand("");
+  };
+
+  const handleStartVoiceRecording = async () => {
+    if (isVoiceRecording) return;
+    setRecordedAudioUrl(null);
+    audioChunksRef.current = [];
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorderRef.current = new MediaRecorder(stream);
+        mediaRecorderRef.current.ondataavailable = (event) => {
+            audioChunksRef.current.push(event.data);
+        };
+        mediaRecorderRef.current.onstop = () => {
+            const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
+            const audioUrl = URL.createObjectURL(audioBlob);
+            setRecordedAudioUrl(audioUrl);
+            stream.getTracks().forEach(track => track.stop()); // Stop mic access
+        };
+        mediaRecorderRef.current.start();
+        setIsVoiceRecording(true);
+        toast({ title: "Recording started!" });
+    } catch (err) {
+        console.error("Microphone access denied:", err);
+        toast({
+            variant: "destructive",
+            title: "Microphone Access Denied",
+            description: "Please allow microphone access in your browser settings.",
+        });
+    }
+  };
+
+  const handleStopVoiceRecording = () => {
+      if (mediaRecorderRef.current && isVoiceRecording) {
+          mediaRecorderRef.current.stop();
+          setIsVoiceRecording(false);
+          toast({ title: "Recording stopped." });
+      }
   };
 
   if (!user || user.uid !== 'owner-the-creator') {
@@ -213,8 +259,47 @@ export default function CreatorPanelPage() {
                 </CardContent>
             </Card>
         </div>
-
       </div>
+      <Card className="shadow-lg">
+          <CardHeader>
+              <CardTitle>Voice-over &amp; Ad Creation Studio</CardTitle>
+              <CardDescription>Record your voice for promotional content, podcasts, or tutorials.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+              <div>
+                  <label htmlFor="script-textarea" className="text-sm font-medium">Ad Script</label>
+                  <Textarea
+                      id="script-textarea"
+                      placeholder="Write your script here..."
+                      value={script}
+                      onChange={(e) => setScript(e.target.value)}
+                      className="mt-2 min-h-[120px] font-mono text-base"
+                      disabled={isVoiceRecording}
+                  />
+              </div>
+              <div className="flex flex-wrap items-center gap-4">
+                  {isVoiceRecording ? (
+                      <Button onClick={handleStopVoiceRecording} variant="destructive">
+                          <Square className="mr-2 h-4 w-4" /> Stop Recording
+                      </Button>
+                  ) : (
+                      <Button onClick={handleStartVoiceRecording}>
+                          <Mic className="mr-2 h-4 w-4" /> Start Recording
+                      </Button>
+                  )}
+                  {recordedAudioUrl && (
+                      <div className="flex items-center gap-2">
+                          <audio src={recordedAudioUrl} controls />
+                          <a href={recordedAudioUrl} download="hamraz-voiceover.wav">
+                              <Button variant="outline" size="icon">
+                                  <Download className="h-4 w-4" />
+                              </Button>
+                          </a>
+                      </div>
+                  )}
+              </div>
+          </CardContent>
+      </Card>
     </div>
   );
 }
