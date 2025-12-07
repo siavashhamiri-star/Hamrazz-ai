@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Send, Sparkles, PanelLeft } from "lucide-react";
+import { Send, Sparkles, PanelLeft, Server } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,6 +13,7 @@ import { generateAvatarExpressions } from "@/ai/flows/generate-avatar-expression
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import { useSidebar } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 type Message = {
   sender: "user" | "ai";
@@ -215,6 +216,14 @@ export default function ChatPage() {
             <PanelLeft className="w-6 h-6" />
             <span className="sr-only">Open Menu</span>
         </Button>
+      </div>
+      <div className="fixed bottom-4 right-4 z-50 md:hidden">
+        <Link href="/live-build" passHref>
+            <Button size="icon" variant="secondary" className="rounded-full w-14 h-14">
+                <Server className="w-6 h-6" />
+                <span className="sr-only">Go to Live Build</span>
+            </Button>
+        </Link>
       </div>
     </div>
   );
