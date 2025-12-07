@@ -12,17 +12,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, Mic, Send, Terminal, Clipboard, BrainCircuit, Square, Play, Download, Crown } from "lucide-react";
+import { Loader2, Mic, Send, Terminal, Clipboard, BrainCircuit, Square, Play, Download, Crown, PanelLeft } from "lucide-react";
 import { useUser } from "@/firebase";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
+import { useSidebar } from "@/components/ui/sidebar";
 
 const MOCK_RESPONSE_DELAY = 1500;
 
 export default function CreatorPanelPage() {
   const { user } = useUser();
   const { toast } = useToast();
+  const { toggleSidebar } = useSidebar();
   const [isListening, setIsListening] = useState(false);
   const [command, setCommand] = useState("");
   const [systemLogs, setSystemLogs] = useState<string[]>(["System Initialized. Awaiting voice command from the Creator..."]);
@@ -146,6 +148,7 @@ export default function CreatorPanelPage() {
             stream.getTracks().forEach(track => track.stop()); // Stop mic access
         };
         mediaRecorderRef.current.start();
+        setIsVoiceRecording(true);
         toast({ title: "Recording started!" });
     } catch (err) {
         console.error("Microphone access denied:", err);
@@ -184,10 +187,16 @@ export default function CreatorPanelPage() {
     <div className="space-y-8">
       <Alert variant="default" className="bg-primary/10 border-primary/30">
         <Crown className="h-4 w-4 text-primary" />
-        <AlertTitle className="text-primary font-bold">Welcome to Your Command Center, Ahura</AlertTitle>
-        <AlertDescription>
-          This is your private studio. Use your voice to interact directly with Hamraz, guide the development of the app, and receive real-time system status updates.
-        </AlertDescription>
+        <div className="flex-1">
+          <AlertTitle className="text-primary font-bold">Welcome to Your Command Center, Ahura</AlertTitle>
+          <AlertDescription>
+            This is your private studio. Use your voice to interact directly with Hamraz, guide the development of the app, and receive real-time system status updates.
+          </AlertDescription>
+        </div>
+        <Button onClick={toggleSidebar} variant="outline" className="ml-4">
+            <PanelLeft className="mr-2 h-4 w-4" />
+            Open Menu
+        </Button>
       </Alert>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -302,3 +311,5 @@ export default function CreatorPanelPage() {
     </div>
   );
 }
+
+    
