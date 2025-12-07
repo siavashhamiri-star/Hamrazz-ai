@@ -210,7 +210,7 @@ export default function ChatPage() {
           </Card>
         </div>
       </div>
-      <div className="md:hidden fixed bottom-4 left-4 z-50">
+      <div className="fixed bottom-4 left-4 z-50 md:hidden">
         <Button size="icon" className="rounded-full w-14 h-14" onClick={toggleSidebar}>
             <PanelLeft className="w-6 h-6" />
             <span className="sr-only">Open Menu</span>
