@@ -35,7 +35,7 @@ export default function StealthConnectPage() {
     const [elapsedTime, setElapsedTime] = useState(0);
     const [selectedProxy, setSelectedProxy] = useState(proxyServers[0]);
     const [killSwitch, setKillSwitch] = useState(true);
-    const [obfuscation, setObfuscation] = useState(false);
+    const [intranetTunnel, setIntranetTunnel] = useState(false);
 
     const { user } = useUser();
     const { toast } = useToast();
@@ -162,12 +162,24 @@ export default function StealthConnectPage() {
                             </Popover>
                         </div>
                         <div className="flex items-center justify-between p-3 border rounded-lg">
-                            <Label htmlFor="kill-switch" className="flex items-center gap-2"><Shield className="h-5 w-5"/> Kill Switch</Label>
+                            <div className="flex items-center gap-2">
+                               <Shield className="h-5 w-5"/>
+                               <div>
+                                 <Label htmlFor="kill-switch">Kill Switch</Label>
+                                 <p className="text-xs text-muted-foreground">Blocks internet if VPN disconnects.</p>
+                               </div>
+                            </div>
                             <Switch id="kill-switch" checked={killSwitch} onCheckedChange={setKillSwitch} />
                         </div>
                         <div className="flex items-center justify-between p-3 border rounded-lg">
-                            <Label htmlFor="obfuscation" className="flex items-center gap-2"><Route className="h-5 w-5"/> Obfuscation</Label>
-                            <Switch id="obfuscation" checked={obfuscation} onCheckedChange={setObfuscation} />
+                             <div className="flex items-center gap-2">
+                                <Route className="h-5 w-5"/>
+                                <div>
+                                    <Label htmlFor="intranet-tunnel">Intranet Tunneling</Label>
+                                    <p className="text-xs text-muted-foreground">Bypass national firewalls to reach global internet.</p>
+                                </div>
+                            </div>
+                            <Switch id="intranet-tunnel" checked={intranetTunnel} onCheckedChange={setIntranetTunnel} />
                         </div>
                     </div>
                 </CardFooter>
