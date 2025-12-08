@@ -78,6 +78,7 @@ export default function StealthConnectPage() {
         }, 1500);
     };
 
+    // Security Gate: Only the owner can access this page
     if (user?.uid !== 'owner-the-creator') {
         return (
           <div className="flex items-center justify-center h-full">
@@ -86,7 +87,7 @@ export default function StealthConnectPage() {
                     <CardTitle className="text-destructive">Access Denied</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p>This is a high-security tool reserved for the Creator.</p>
+                    <p>This is a high-security tool reserved for the Creator. Access is strictly forbidden.</p>
                 </CardContent>
             </Card>
           </div>

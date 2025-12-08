@@ -15,7 +15,7 @@ import {
   SidebarGroupLabel,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, ShoppingBag, Twitch, Building, Linkedin } from 'lucide-react';
+import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, Twitch, Building, Linkedin } from 'lucide-react';
 import { navLinks, bottomNavLinks, creatorLinks } from '@/lib/data';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -108,6 +108,8 @@ export default function AppSidebar() {
 
   const firstCreatorLink = creatorLinks[0];
   const otherCreatorLinks = creatorLinks.slice(1);
+  
+  const isOwner = user?.uid === 'owner-the-creator';
 
 
   return (
@@ -122,7 +124,19 @@ export default function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
-          {navLinks.map((link) => (
+          {navLinks
+            .filter(link => {
+              // Conditionally filter the Stealth Connect link
+              if (link.href === '/stealth-connect') {
+                return isOwner;
+              }
+              // Conditionally filter the Creator Panel link
+              if (link.href === '/creator-panel') {
+                return isOwner;
+              }
+              return true;
+            })
+            .map((link) => (
             <SidebarMenuItem key={link.href}>
               <SidebarMenuButton
                 asChild
