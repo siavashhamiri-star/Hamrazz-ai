@@ -14,6 +14,7 @@ import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import { useSidebar } from "@/components/ui/sidebar";
 import Link from "next/link";
+import AudioPlayer from "@/components/audio-player";
 
 type Message = {
   sender: "user" | "ai";
@@ -154,7 +155,8 @@ export default function ChatPage() {
                             : "bg-card border"
                         }`}
                       >
-                        <p className="whitespace-pre-wrap">{msg.text}</p>
+                         <div className="whitespace-pre-wrap">{msg.text}</div>
+                          {msg.sender === 'ai' && <AudioPlayer textToPlay={msg.text} />}
                         {msg.reasoning && (
                             <details className="mt-2 text-xs opacity-70 cursor-pointer">
                                 <summary className="font-semibold">Reasoning</summary>
@@ -217,7 +219,7 @@ export default function ChatPage() {
             <span className="sr-only">Open Menu</span>
         </Button>
       </div>
-      <div className="fixed bottom-4 right-4 z-50 md:hidden">
+      <div className="fixed bottom-4 right-4 z-50 md:hidden flex flex-col gap-2">
         <Link href="/live-build" passHref>
             <Button size="icon" variant="secondary" className="rounded-full w-14 h-14">
                 <Server className="w-6 h-6" />

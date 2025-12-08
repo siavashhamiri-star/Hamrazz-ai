@@ -13,8 +13,19 @@ const VoiceScroll = () => {
   const recognitionRef = useRef<any>(null);
   const { toast } = useToast();
 
+  const handleVoiceCommand = useCallback((command: string) => {
+    console.log("Voice command received:", command);
+    const scrollAmount = window.innerHeight * 0.7;
+    const lowerCaseCommand = command.toLowerCase();
+
+    if (lowerCaseCommand.includes('down') || lowerCaseCommand.includes('پایین')) {
+      window.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+    } else if (lowerCaseCommand.includes('up') || lowerCaseCommand.includes('بالا')) {
+      window.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
+    }
+  }, []);
+
   useEffect(() => {
-    // Ensure this code only runs on the client
     const SpeechRecognition =
       (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
@@ -27,7 +38,7 @@ const VoiceScroll = () => {
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = false;
-    recognition.lang = 'en-US'; // Can be changed, but we'll handle multiple languages in the logic
+    recognition.lang = 'en-US';
 
     recognition.onresult = (event: any) => {
       const last = event.results.length - 1;
@@ -47,23 +58,25 @@ const VoiceScroll = () => {
       }
     };
     
+    recognition.onend = () => {
+      if (isListening) {
+        // If it stops unexpectedly while it should be listening, restart it.
+        // This handles cases where the browser might time it out.
+        console.log("Recognition ended, restarting...");
+        recognition.start();
+      }
+    };
+    
     recognitionRef.current = recognition;
 
-  }, [toast]);
+    // Cleanup on unmount
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, [toast, handleVoiceCommand, isListening]);
   
-  const handleVoiceCommand = (command: string) => {
-    console.log("Voice command received:", command);
-    const scrollAmount = window.innerHeight * 0.7;
-
-    const lowerCaseCommand = command.toLowerCase();
-
-    if (lowerCaseCommand.includes('down') || lowerCaseCommand.includes('پایین')) {
-      window.scrollBy({ top: scrollAmount, behavior: 'smooth' });
-    } else if (lowerCaseCommand.includes('up') || lowerCaseCommand.includes('بالا')) {
-      window.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
-    }
-  };
-
   const toggleListening = useCallback(() => {
     if (!isSupported) {
       toast({
@@ -83,7 +96,6 @@ const VoiceScroll = () => {
         setIsListening(true);
       } catch(e) {
          console.error("Could not start recognition:", e);
-         // This might happen if permissions were denied after the component loaded
          if (e instanceof Error && (e.name === 'NotAllowedError' || e.name === 'SecurityError')) {
             toast({
               variant: 'destructive',
@@ -110,9 +122,9 @@ const VoiceScroll = () => {
         )}
       >
         {isListening ? (
-          <MicOff className="h-6 w-6" />
+          <Mic className="h-6 w-6 animate-pulse" />
         ) : (
-          <Mic className="h-6 w-6" />
+          <MicOff className="h-6 w-6" />
         )}
       </Button>
     </div>
