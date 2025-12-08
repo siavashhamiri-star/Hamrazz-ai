@@ -144,6 +144,11 @@ export default function AudioLabPage() {
       setMusicTrack(null);
       setResultUrl(null);
       setError(null);
+      // Also reset visual state of file inputs
+      const vocalInput = document.getElementById('track-upload-1') as HTMLInputElement;
+      if (vocalInput) vocalInput.value = '';
+      const musicInput = document.getElementById('track-upload-2') as HTMLInputElement;
+      if (musicInput) musicInput.value = '';
   }
 
   // Security Gate: Only the owner can access this page for now
