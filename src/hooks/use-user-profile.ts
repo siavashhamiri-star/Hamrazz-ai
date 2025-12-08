@@ -44,8 +44,8 @@ const createDefaultProfile = (user: User): UserProfile => {
       points: 999999, // Owner has unlimited points
       selectedAvatarId: ownerAvatar.id,
       selectedAvatar: ownerAvatar,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
   }
 
@@ -68,6 +68,12 @@ export function useUserProfile(userId?: string): UseUserProfileResult {
   const db = useFirestore();
   const { user, loading: userLoading } = useUser();
   const [isInitialized, setIsInitialized] = useState(false);
+   const [ownerProfile] = useState(() => {
+    if (userId === 'owner-the-creator' && user) {
+      return createDefaultProfile(user);
+    }
+    return null;
+  });
 
   const userDocRef = useMemoFirebase(() => {
     if (!db || !userId) return null;
@@ -140,14 +146,14 @@ export function useUserProfile(userId?: string): UseUserProfileResult {
   );
 
   const userProfile = useMemo(() => {
-      if (userId === 'owner-the-creator' && user) {
-        return createDefaultProfile(user);
+      if (userId === 'owner-the-creator') {
+        return ownerProfile;
       }
       if (docData) return docData;
       if (!user || docLoading) return null;
 
       return createDefaultProfile(user);
-  }, [docData, user, docLoading, userId]);
+  }, [docData, user, docLoading, userId, ownerProfile]);
 
   return { 
     userProfile, 

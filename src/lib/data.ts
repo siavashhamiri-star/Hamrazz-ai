@@ -43,6 +43,7 @@ import {
   Building,
   Sofa,
   Clipboard,
+  Fingerprint,
 } from "lucide-react";
 
 export const navLinks = [
@@ -79,6 +80,7 @@ export const navLinks = [
   { href: "/devops", label: "DevOps", icon: Cpu },
   { href: "/live-build", label: "Live Build", icon: Server },
   { href: "/investors", label: "Investors", icon: DollarSign },
+  { href: "/stealth-connect", label: "Stealth Connect", icon: Fingerprint },
   { href: "/ai", label: "AI Interview", icon: BrainCircuit },
   { href: "/tutorial", label: "Tutorial", icon: HelpCircle },
   { href: "/anthem", label: "Anthem", icon: Music },
