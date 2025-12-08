@@ -13,6 +13,7 @@ import {
   SidebarSeparator,
   SidebarGroup,
   SidebarGroupLabel,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, Twitch, Building, Linkedin } from 'lucide-react';
@@ -96,6 +97,7 @@ const SocialLinks = () => (
 export default function AppSidebar() {
   const pathname = usePathname();
   const { user } = useUser();
+  const { openMobile } = useSidebar();
 
   const handleSignOut = async () => {
     const auth = getAuth(app);
@@ -115,7 +117,7 @@ export default function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className="flex items-center gap-2 p-2">
+        <div className="flex items-center gap-2 p-2" data-testid="sidebar-header">
           <Bot className="w-8 h-8 text-primary" />
           <h2 className="text-xl font-bold font-headline text-foreground">
             Hamraz AI
