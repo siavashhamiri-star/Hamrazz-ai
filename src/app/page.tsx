@@ -123,12 +123,20 @@ export default function ChatPage() {
                           <p className="mt-4 text-sm text-left" dir="ltr">
                             Welcome to the Hamraz family! I am Hamraz, your intelligent companion. You can ask me anything, including how to use the various features of this app. For example, ask: "How can I participate in the dubbing contest?"
                           </p>
-                          <p className="mt-4 font-bold text-foreground text-right" dir="rtl">
+                           <p className="mt-4 font-bold text-foreground text-right" dir="rtl">
                             همراز را ما خلق کردیم، اما شما بنیان خواهید گذاشت.
                           </p>
-                          <p className="mt-1 text-sm font-bold text-left" dir="ltr">
+                           <p className="mt-1 text-sm font-bold text-left" dir="ltr">
                             We created Hamraz, but you will lay its foundation.
                           </p>
+                           <div className="mt-6 text-center">
+                                <Link href="/live-build" passHref>
+                                    <Button size="lg" className="gap-2">
+                                        <Server className="w-5 h-5"/>
+                                        Go to Live Build & Deploy
+                                    </Button>
+                                </Link>
+                           </div>
                         </div>
                       ) : (
                         <p>Please sign in to chat with Hamraz.</p>
@@ -218,14 +226,6 @@ export default function ChatPage() {
             <PanelLeft className="w-6 h-6" />
             <span className="sr-only">Open Menu</span>
         </Button>
-      </div>
-      <div className="fixed bottom-4 right-4 z-50 md:hidden flex flex-col gap-2">
-        <Link href="/live-build" passHref>
-            <Button size="icon" variant="secondary" className="rounded-full w-14 h-14">
-                <Server className="w-6 h-6" />
-                <span className="sr-only">Go to Live Build</span>
-            </Button>
-        </Link>
       </div>
     </div>
   );
