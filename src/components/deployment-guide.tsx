@@ -31,13 +31,25 @@ export default function DeploymentGuide() {
   const [isDone, setIsDone] = useState(false);
   const { toggleSidebar, openMobile, isMobile } = useSidebar();
   const pathname = usePathname();
+  
+  const isMenuOpen = isMobile ? openMobile : typeof document !== 'undefined' ? document.querySelector('[data-testid="sidebar-header"]') !== null : false;
+
 
   useEffect(() => {
     // Hide the guide once the user reaches the destination
     if (pathname === '/live-build') {
       setIsDone(true);
     }
-  }, [pathname]);
+
+    // Logic to handle state changes based on menu visibility
+    if (step === 'start' && isMenuOpen) {
+      setStep('open_menu');
+    } else if (step === 'open_menu' && !isMenuOpen) {
+      // If user closes menu, revert to first step
+      setStep('start');
+    }
+
+  }, [pathname, isMenuOpen, step]);
 
   // Hide component if the guide is completed
   if (isDone) {
@@ -47,19 +59,11 @@ export default function DeploymentGuide() {
   const handleStepClick = () => {
     if (step === 'start') {
       toggleSidebar();
-      // Wait for sidebar to open before advancing step
-      setTimeout(() => setStep('open_menu'), 200);
     }
   };
 
   const currentStep = STEPS[step];
-  const isMenuOpen = isMobile ? openMobile : document.querySelector('[data-testid="sidebar-header"]') !== null;
   
-  if (step === 'open_menu' && !isMenuOpen) {
-    // If user closes menu, revert to first step
-    setStep('start');
-  }
-
   const GuideButton = () => (
     <Button
       onClick={handleStepClick}
