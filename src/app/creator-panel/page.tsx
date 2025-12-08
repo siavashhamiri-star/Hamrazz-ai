@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, Mic, Send, Terminal, Clipboard, BrainCircuit, Square, Play, Download, Crown, PanelLeft } from "lucide-react";
+import { Loader2, Mic, Send, Terminal, BrainCircuit, Square, Play, Download, Crown, PanelLeft, Music, Clapperboard, RefreshCcw, ThumbsUp } from "lucide-react";
 import { useUser } from "@/firebase";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -20,6 +20,68 @@ import { Textarea } from "@/components/ui/textarea";
 import { useSidebar } from "@/components/ui/sidebar";
 
 const MOCK_RESPONSE_DELAY = 1500;
+
+const soundEffects = [
+    { name: "Applause", file: "/audio/sfx/applause.mp3", icon: ThumbsUp },
+    { name: "Buzzer", file: "/audio/sfx/buzzer.mp3", icon: Clapperboard },
+    { name: "Cheering", file: "/audio/sfx/cheering.mp3", icon: ThumbsUp },
+];
+
+const jingles = [
+    { name: "Jingle 1", file: "/audio/jingles/jingle1.mp3", icon: Music },
+    { name: "Jingle 2", file: "/audio/jingles/jingle2.mp3", icon: Music },
+];
+
+const Soundboard = () => {
+    const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    const playSound = (file: string) => {
+        if (audioRef.current) {
+            audioRef.current.pause();
+        }
+        const audio = new Audio(file);
+        audioRef.current = audio;
+        audio.play();
+    };
+
+    return (
+        <Card className="shadow-lg">
+            <CardHeader>
+                <CardTitle>Live Soundboard</CardTitle>
+                <CardDescription>Add sound effects and jingles to your live broadcasts or recordings.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+                <div>
+                    <h4 className="font-semibold mb-2">Sound Effects</h4>
+                    <div className="flex flex-wrap gap-2">
+                        {soundEffects.map(sfx => {
+                            const Icon = sfx.icon;
+                            return (
+                                <Button key={sfx.name} variant="outline" onClick={() => playSound(sfx.file)}>
+                                    <Icon className="mr-2 h-4 w-4" /> {sfx.name}
+                                </Button>
+                            );
+                        })}
+                    </div>
+                </div>
+                <div>
+                    <h4 className="font-semibold mb-2">Radio Jingles / Interludes</h4>
+                    <div className="flex flex-wrap gap-2">
+                         {jingles.map(jingle => {
+                             const Icon = jingle.icon;
+                            return (
+                                <Button key={jingle.name} variant="outline" onClick={() => playSound(jingle.file)}>
+                                    <Icon className="mr-2 h-4 w-4" /> {jingle.name}
+                                </Button>
+                            );
+                        })}
+                    </div>
+                </div>
+            </CardContent>
+        </Card>
+    );
+};
+
 
 export default function CreatorPanelPage() {
   const { user } = useUser();
@@ -268,6 +330,7 @@ export default function CreatorPanelPage() {
             </Card>
         </div>
       </div>
+      <Soundboard />
       <Card className="shadow-lg">
           <CardHeader>
               <CardTitle>Voice-over &amp; Ad Creation Studio</CardTitle>

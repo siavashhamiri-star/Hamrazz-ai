@@ -58,6 +58,7 @@ export const navLinks = [
   { href: "/gamers", label: "Gamers", icon: Gamepad2 },
   { href: "/channels", label: "Channels", icon: PlaySquare },
   { href: "/camera", label: "Studio", icon: RadioTower },
+  { href: "/audio-lab", label: "Audio Lab", icon: Music },
   { href: "/contest", label: "Hall of Fame", icon: Award },
   { href: "/dubbing", label: "Dubbing", icon: Mic },
   { href: "/lipsync", label: "Lip Sync", icon: MicVocal },
