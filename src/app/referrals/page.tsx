@@ -13,7 +13,7 @@ import {
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Copy, Gift, Share2, LandPlot, Coins, Trophy } from "lucide-react";
+import { Copy, Gift, Share2, LandPlot, Coins, Trophy, Users } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const socialPlatforms = [
@@ -83,7 +83,13 @@ export default function ReferralsPage() {
                 <Trophy className="h-4 w-4" />
                 <AlertTitle>Premier Referral League</AlertTitle>
                 <AlertDescription>
-                    This is a special league for our top promoters. Users who successfully refer at least **10 new members** will automatically qualify for the Premier Referral League. At the end of each season (every 3 months), the top members of the league with the most referrals will win valuable and surprising prizes!
+                    This is a special league for our top promoters with a clear path to governance and rewards.
+                    <ul className="list-disc list-inside mt-2 space-y-2">
+                        <li><strong>Qualification:</strong> Users who successfully refer at least **10 new members** will automatically qualify for the Premier Referral League.</li>
+                        <li><strong>League Activation:</strong> The league officially begins once a minimum of **50 members** have qualified.</li>
+                        <li><strong>Board of Trustees:</strong> Every **40 days**, the top two performers in the league will be elected to a Board of Trustees, which will be responsible for overseeing prize distribution and policy.</li>
+                        <li><strong>Cash Prizes (Activates at 20,000 Downloads):</strong> Once the app reaches 20,000 downloads, valuable cash prizes will be awarded to the top 5 league members based on their rank. Additionally, one special prize will be raffled randomly among all other league participants to keep the excitement alive for everyone.</li>
+                    </ul>
                 </AlertDescription>
             </Alert>
 
