@@ -188,14 +188,14 @@ export default function FeedbackPage() {
 
       <Tabs defaultValue="strategic" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="strategic"><Lightbulb className="mr-2"/>Strategic Ideas</TabsTrigger>
+          <TabsTrigger value="strategic"><Lightbulb className="mr-2"/>Strategic & Economic Ideas</TabsTrigger>
           <TabsTrigger value="reports"><ShieldAlert className="mr-2"/>Suggestions & Reports</TabsTrigger>
           <TabsTrigger value="video"><Video className="mr-2"/>Share Experience</TabsTrigger>
         </TabsList>
         <TabsContent value="strategic" className="mt-6">
           <TextFeedback 
-            title="Strategic Ideas for the Future"
-            description="Use this section to share your big, strategic ideas about the future of the Hamraz platform and even the nature of human-AI collaboration. Your messages will be sent directly to the leadership and strategy team."
+            title="Strategic & Economic Ideas"
+            description="We invite marketing experts, internet economists, and creative thinkers to propose innovative models. If your idea is accepted, you will be rewarded with a share in its benefits or a valuable prize."
           />
         </TabsContent>
         <TabsContent value="reports" className="mt-6">
