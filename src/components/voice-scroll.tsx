@@ -11,6 +11,12 @@ const VoiceScroll = () => {
   const [isListening, setIsListening] = useState(false);
   const [isSupported, setIsSupported] = useState(false);
   const recognitionRef = useRef<any>(null);
+  const isListeningRef = useRef(isListening); // Ref to hold the latest state
+
+  useEffect(() => {
+    isListeningRef.current = isListening;
+  }, [isListening]);
+
   const { toast } = useToast();
 
   const handleVoiceCommand = useCallback((command: string) => {
@@ -38,12 +44,16 @@ const VoiceScroll = () => {
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = false;
-    recognition.lang = 'en-US';
+    // Set language to be more inclusive if needed, though most browsers handle this well
+    // recognition.lang = 'en-US';
 
     recognition.onresult = (event: any) => {
-      const last = event.results.length - 1;
-      const command = event.results[last][0].transcript.trim().toLowerCase();
-      handleVoiceCommand(command);
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          const command = event.results[i][0].transcript.trim().toLowerCase();
+          handleVoiceCommand(command);
+        }
+      }
     };
 
     recognition.onerror = (event: any) => {
@@ -59,23 +69,27 @@ const VoiceScroll = () => {
     };
     
     recognition.onend = () => {
-      if (isListening) {
-        // If it stops unexpectedly while it should be listening, restart it.
-        // This handles cases where the browser might time it out.
-        console.log("Recognition ended, restarting...");
-        recognition.start();
+      // Use the ref here to get the most up-to-date state
+      if (isListeningRef.current) {
+        console.log("Recognition ended unexpectedly, restarting...");
+        try {
+          recognition.start();
+        } catch(e) {
+          console.error("Failed to restart recognition:", e);
+        }
+      } else {
+        console.log("Recognition ended by user.");
       }
     };
     
     recognitionRef.current = recognition;
 
-    // Cleanup on unmount
     return () => {
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
     };
-  }, [toast, handleVoiceCommand, isListening]);
+  }, [toast, handleVoiceCommand]);
   
   const toggleListening = useCallback(() => {
     if (!isSupported) {
@@ -87,26 +101,28 @@ const VoiceScroll = () => {
       return;
     }
 
-    if (isListening) {
-      recognitionRef.current?.stop();
-      setIsListening(false);
-    } else {
-       try {
-        recognitionRef.current?.start();
-        setIsListening(true);
-      } catch(e) {
-         console.error("Could not start recognition:", e);
-         if (e instanceof Error && (e.name === 'NotAllowedError' || e.name === 'SecurityError')) {
-            toast({
-              variant: 'destructive',
-              title: 'Microphone Access Denied',
-              description: 'Please allow microphone access to use voice commands.',
-            });
-         }
-         setIsListening(false);
+    setIsListening(prevState => {
+      const shouldBeListening = !prevState;
+      if (shouldBeListening) {
+        try {
+          recognitionRef.current?.start();
+        } catch(e) {
+           console.error("Could not start recognition:", e);
+           if (e instanceof Error && (e.name === 'NotAllowedError' || e.name === 'SecurityError')) {
+              toast({
+                variant: 'destructive',
+                title: 'Microphone Access Denied',
+                description: 'Please allow microphone access to use voice commands.',
+              });
+           }
+           return false; // Don't update state if it fails to start
+        }
+      } else {
+        recognitionRef.current?.stop();
       }
-    }
-  }, [isListening, isSupported, toast]);
+      return shouldBeListening;
+    });
+  }, [isSupported, toast]);
 
 
   if (!isSupported) return null;
@@ -124,7 +140,7 @@ const VoiceScroll = () => {
         {isListening ? (
           <Mic className="h-6 w-6 animate-pulse" />
         ) : (
-          <MicOff className="h-6 w-6" />
+          <Mic className="h-6 w-6" />
         )}
       </Button>
     </div>
