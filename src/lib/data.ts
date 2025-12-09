@@ -44,6 +44,7 @@ import {
   Sofa,
   Clipboard,
   Fingerprint,
+  Users2,
 } from "lucide-react";
 
 export const navLinks = [
@@ -128,6 +129,8 @@ export const creatorLinks = [
         description: "A dedicated space for poetry lovers. Recite beautiful poems in this app, then use Hamraz's Text-to-Speech or Studio features to create captivating video content for your Afarinan portfolio."
     },
 ];
+
+    
 
     
 

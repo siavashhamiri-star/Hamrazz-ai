@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield, TreeDeciduous } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield, TreeDeciduous, Users2 } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
@@ -148,6 +148,38 @@ export default function InvestorsPage() {
                 This model rewards early investors and ensures a decentralized, community-driven economy for the future.
             </AlertDescription>
         </Alert>
+
+        <section>
+             <Card className="border-yellow-500/50 bg-yellow-500/10">
+                <CardHeader>
+                    <div className="flex items-center gap-4">
+                        <Users2 className="w-10 h-10 text-yellow-600"/>
+                        <div>
+                             <CardTitle className="text-2xl font-headline text-yellow-700 dark:text-yellow-500">Community Revenue Sharing Model</CardTitle>
+                             <CardDescription>A revolutionary model that turns our users into our partners.</CardDescription>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className="prose dark:prose-invert max-w-none text-yellow-800 dark:text-yellow-300">
+                   <p>
+                        We pledge to share our success with the community that builds it. Upon reaching the milestone of **500,000 downloads**, we will activate our community revenue sharing program:
+                   </p>
+                   <ul>
+                        <li>A total of **30% of all advertising revenue** will be allocated to the community fund.</li>
+                        <li>**10%** of the revenue will be dedicated to **charitable causes** chosen by the community.</li>
+                        <li>**20%** of the revenue will be distributed among our most active and influential members. This includes:
+                            <ul>
+                                <li>**Top Promoters:** Regular users who actively bring new members to the Hamraz family.</li>
+                                <li>**Content Creators & Influencers:** YouTubers, TikTokers, and social media personalities who promote Hamraz.</li>
+                            </ul>
+                        </li>
+                   </ul>
+                   <p>
+                        Furthermore, the top contributors from this program will be invited to form an **Advisory Council**, giving them a direct voice in the future development and governance of the Hamraz ecosystem. This transforms our users from a passive audience into active stakeholders.
+                   </p>
+                </CardContent>
+            </Card>
+        </section>
 
         <section>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

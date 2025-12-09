@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone, Briefcase, Trophy, Map, Users } from "lucide-react";
+import { Loader2, PartyPopper, Upload, Gift, Star, Award as AwardIcon, CheckCircle, TrendingUp, Milestone, Briefcase, Trophy, Map, Users, Share2 } from "lucide-react";
 import { useUser } from "@/firebase";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -142,6 +142,14 @@ export default function ContestPage() {
                Apps built on Hamraz that get the most downloads and engagement will enter our "Premier League," where their initial ranking is determined by their download count. At the end of each year, the top apps will compete for the Championship Cup and a significant prize pool. 5% of Hamraz's total 30% revenue share from all participating league apps will be allocated to prizes: 3% will be awarded to the top three teams, and 2% will be distributed among the other apps based on their ranking. The ultimate winner will also be named a "Strategic Partner," receiving one year of free and dedicated promotion from the Hamraz platform, including a special promotional video and a dedicated link. The winner will also be appointed as a member of the Board of Directors of the "Capable City" and as an honorary and advisory member for the entire app, demonstrating our positive approach to gaming and development in the future of our ecosystem.
                <p className="mt-2 font-semibold">The league is also a strategic playground: apps can form coalitions to support lower-ranked apps or create powerful alliances with top contenders. Furthermore, top teams must negotiate with lower-ranked apps, offering incentives to acquire their points to bolster their own chances of winning the championship. This dynamic forces top contenders to respect and collaborate with teams at the bottom, knowing that every point is valuable. This also creates friendship, cooperation, and excitement, ensuring that even teams with few points know they are influential and important until the end.</p>
             </AlertDescription>
+        </Alert>
+
+        <Alert variant="default" className="border-yellow-500/50 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300">
+          <Share2 className="h-4 w-4 text-yellow-500" />
+          <AlertTitle className="font-bold text-yellow-600 dark:text-yellow-400">Community Revenue Sharing: Your Activity is Your Asset!</AlertTitle>
+          <AlertDescription>
+            We are committed to sharing our success. A significant portion of our advertising revenue will be shared with our most active community members and promoters. Your effort to grow the Hamraz family is a direct investment in your own success. Visit the Investors page to learn more about our revolutionary revenue-sharing model.
+          </AlertDescription>
         </Alert>
 
         <Card className="bg-gradient-to-br from-primary/10 to-accent/10">
@@ -274,3 +282,5 @@ export default function ContestPage() {
     </div>
   );
 }
+
+    
