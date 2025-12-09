@@ -44,7 +44,6 @@ import {
   Sofa,
   Clipboard,
   Fingerprint,
-  Users2,
 } from "lucide-react";
 
 export const navLinks = [

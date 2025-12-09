@@ -13,7 +13,7 @@ import {
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Copy, Gift, Share2, LandPlot, Coins } from "lucide-react";
+import { Copy, Gift, Share2, LandPlot, Coins, Trophy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const socialPlatforms = [
@@ -78,6 +78,14 @@ export default function ReferralsPage() {
                     </CardContent>
                 </Card>
             </div>
+
+             <Alert variant="destructive">
+                <Trophy className="h-4 w-4" />
+                <AlertTitle>Premier Referral League</AlertTitle>
+                <AlertDescription>
+                    This is a special league for our top promoters. Users who successfully refer at least **10 new members** will automatically qualify for the Premier Referral League. At the end of each season (every 3 months), the top members of the league with the most referrals will win valuable and surprising prizes!
+                </AlertDescription>
+            </Alert>
 
             <Card className="shadow-lg">
                 <CardHeader className="text-center">

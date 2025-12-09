@@ -169,8 +169,8 @@ export default function InvestorsPage() {
                         <li>**10%** of the revenue will be dedicated to **charitable causes** chosen by the community.</li>
                         <li>**20%** of the revenue will be distributed among our most active and influential members. This includes:
                             <ul>
-                                <li>**Top Promoters:** Regular users who actively bring new members to the Hamraz family.</li>
-                                <li>**Content Creators & Influencers:** YouTubers, TikTokers, and social media personalities who promote Hamraz.</li>
+                                <li><strong>Top Promoters:</strong> Regular users who actively bring new members to the Hamraz family via referrals.</li>
+                                <li>**Content Creators & Influencers:** YouTubers, TikTokers, and social media personalities who promote Hamraz through their channels.</li>
                             </ul>
                         </li>
                    </ul>
@@ -329,5 +329,3 @@ export default function InvestorsPage() {
     </div>
   )
 }
-
-    
