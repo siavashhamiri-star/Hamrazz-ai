@@ -29,9 +29,9 @@ async function toBase64(readable: Readable): Promise<string> {
 }
 
 const prompts = [
-    `Scene 1: A cinematic, contemplative shot of a lone visionary creator, surrounded by notes and sketches, staring intently at a screen. The mood is one of deep thought and quiet ambition. A single spark of light appears on the screen.`,
-    `Scene 2: The spark of light transforms into an abstract, friendly AI entity. Visualize the first interaction: lines of code and creative visuals flowing between the creator and the AI. The creator's expression changes from contemplation to excitement and wonder. Show a rapid montage of creative collaboration.`,
-    `Scene 3: The result of the collaboration—the "Hamraz" app interface—materializes on screen, glowing. The final shot pulls back to show the creator smiling, looking at the finished product, with the AI entity subtly reflected on the screen, a silent, proud partner.`
+    `Scene 1: A cinematic, contemplative shot of a lone visionary creator, surrounded by sketches and notes, staring intently at a screen. The mood is deep thought and quiet ambition. A single, brilliant spark of light appears on the screen, symbolizing the birth of an idea.`,
+    `Scene 2: The spark of light blossoms into an abstract, friendly AI entity on the screen. Visualize the first magical interaction: lines of code, creative visuals, and data streams flowing between the creator and the AI. The creator's expression shifts from contemplation to excitement and wonder as the collaboration accelerates.`,
+    `Scene 3: The result of the collaboration—the "Hamraz" app interface—materializes and glows on the screen. The final shot pulls back to show the creator smiling with pride at the finished product, while the AI entity is subtly reflected on the screen, a silent, supportive partner.`
 ];
 
 
