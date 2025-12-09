@@ -13,7 +13,7 @@ import {
 import { useUser } from "@/firebase";
 import { useUserProfile } from "@/hooks/use-user-profile";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Copy, Gift, Share2, LandPlot, Coins, Trophy, Users } from "lucide-react";
+import { Copy, Gift, Share2, LandPlot, Coins, Trophy, Users, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const socialPlatforms = [
@@ -90,6 +90,14 @@ export default function ReferralsPage() {
                         <li><strong>Board of Trustees:</strong> Every **40 days**, the top two performers in the league will be elected to a Board of Trustees, which will be responsible for overseeing prize distribution and policy.</li>
                         <li><strong>Cash Prizes (Activates at 20,000 Downloads):</strong> Once the app reaches 20,000 downloads, valuable cash prizes will be awarded to the top 5 league members based on their rank. Additionally, one special prize will be raffled randomly among all other league participants to keep the excitement alive for everyone.</li>
                     </ul>
+                </AlertDescription>
+            </Alert>
+
+            <Alert variant="default" className="border-yellow-500/50 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300">
+                <Sparkles className="h-4 w-4 text-yellow-500" />
+                <AlertTitle className="font-bold text-yellow-600 dark:text-yellow-400">A Super Surprise is Coming!</AlertTitle>
+                <AlertDescription>
+                    Once Hamraz reaches **50,000 downloads**, a super surprise will be awarded to **all members of the Referral League** to thank them for their incredible efforts. We want you to help us decide what this prize should be! What amazing reward do you think is worthy of our top promoters? Share your ideas in the community chat!
                 </AlertDescription>
             </Alert>
 
