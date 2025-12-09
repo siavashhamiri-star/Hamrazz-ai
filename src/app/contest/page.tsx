@@ -129,12 +129,12 @@ export default function ContestPage() {
 
         <Alert variant="default" className="border-blue-500/50 bg-blue-500/10 text-blue-700 dark:text-blue-300">
             <Milestone className="h-4 w-4 text-blue-500" />
-            <AlertTitle className="font-bold text-blue-600 dark:text-blue-400">Our First Milestone: 100,000 Downloads!</AlertTitle>
+            <AlertTitle className="font-bold text-blue-600 dark:text-blue-400">First Milestone Prize: 10,000 Downloads!</AlertTitle>
             <AlertDescription>
-                As soon as Hamraz reaches its first major goal of 100,000 downloads, in appreciation of your support, we will launch our own in-app cryptocurrency. Your current points will play a crucial role in this new economy, so every point you earn is an investment in what's to come!
+                As soon as Hamraz reaches its first goal of 10,000 downloads on Google Play, a live lottery will be held with **20 special prizes** for our active members. We have proposed that our strategic partner, Firebase, supervise this event to ensure complete transparency.
             </AlertDescription>
         </Alert>
-
+        
          <Alert variant="default" className="border-purple-500/50 bg-purple-500/10 text-purple-700 dark:text-purple-300">
             <Trophy className="h-4 w-4 text-purple-500" />
             <AlertTitle className="font-bold text-purple-600 dark:text-purple-400">The App Premier League: A Championship of Creation</AlertTitle>
