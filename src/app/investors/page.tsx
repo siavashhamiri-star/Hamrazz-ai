@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield, TreeDeciduous, Users2, Gamepad2, CircleDollarSign } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield, TreeDeciduous, Users2, Gamepad2, CircleDollarSign, Compass } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
@@ -344,6 +344,20 @@ export default function InvestorsPage() {
             </Card>
         </section>
 
+        <section>
+            <Card className="border-dashed border-accent">
+                 <CardContent className="text-center p-8 space-y-4">
+                    <Compass className="w-12 h-12 text-accent mx-auto" />
+                    <p className="text-lg text-muted-foreground italic max-w-2xl mx-auto" dir="rtl">
+                        "یک پیش‌بینی جسورانه، مسیر طولانی می‌طلبد و همسفرانی واقعی و جسور با قدم‌های بلند. به تمام همسفرانم در این راه می‌گویم: به این پروژه ایمان داشته باشید... بین الله."
+                    </p>
+                    <p className="font-bold text-accent mt-4">- Ahura, The Creative Wizard</p>
+                </CardContent>
+            </Card>
+        </section>
+
     </div>
   )
 }
+
+    
