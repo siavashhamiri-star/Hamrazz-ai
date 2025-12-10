@@ -12,13 +12,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, Music, Upload, Scissors, Volume2, Download, AlertTriangle } from "lucide-react";
+import { Loader2, Music, Scissors, Volume2, Download, AlertTriangle } from "lucide-react";
 import { useUser } from "@/firebase";
 import { useToast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import JSZip from 'jszip';
 
 const TrackControl = ({
   title,
@@ -84,6 +85,7 @@ const TrackControl = ({
                 step={0.5}
                 disabled={disabled}
             />
+             <p className="text-center text-xs font-mono">{fade.fadeIn}s</p>
             </div>
             <div className="space-y-2">
             <Label>Fade Out (s)</Label>
@@ -94,6 +96,7 @@ const TrackControl = ({
                 step={0.5}
                 disabled={disabled}
             />
+            <p className="text-center text-xs font-mono">{fade.fadeOut}s</p>
             </div>
         </div>
       </CardContent>
@@ -127,14 +130,47 @@ export default function AudioLabPage() {
     setResultUrl(null);
     setError(null);
 
-    // Simulate complex audio processing
     toast({ title: "Processing audio...", description: "This is a simulation. In a real app, this would take time." });
-    await new Promise(resolve => setTimeout(resolve, 4000));
+    await new Promise(resolve => setTimeout(resolve, 3000));
     
-    // Simulate a successful result
-    // In a real app, this URL would come from the backend processing result
-    const dummyAudioFile = "/audio/sfx/applause.mp3";
-    setResultUrl(dummyAudioFile);
+    try {
+        const zip = new JSZip();
+        
+        const details = `
+        Audio Mix Details - Hamraz Audio Lab
+        =====================================
+        Date: ${new Date().toISOString()}
+
+        Vocal Track: ${vocalTrack?.name || 'N/A'}
+        - Volume: ${vocalVolume}%
+        - Fade In: ${vocalFade.fadeIn}s
+        - Fade Out: ${vocalFade.fadeOut}s
+
+        Music Track: ${musicTrack?.name || 'N/A'}
+        - Volume: ${musicVolume}%
+        - Fade In: ${musicFade.fadeIn}s
+        - Fade Out: ${musicFade.fadeOut}s
+        
+        Vocal Remover AI: ${removeVocals ? 'Enabled' : 'Disabled'}
+        `;
+
+        zip.file("details.txt", details);
+
+        if (vocalTrack) {
+            zip.file(`tracks/vocals_${vocalTrack.name}`, vocalTrack);
+        }
+        if (musicTrack) {
+            zip.file(`tracks/music_${musicTrack.name}`, musicTrack);
+        }
+
+        const content = await zip.generateAsync({ type: "blob" });
+        const url = URL.createObjectURL(content);
+        setResultUrl(url);
+
+    } catch (err) {
+        console.error("Error creating zip file:", err);
+        setError("Could not generate the output file.");
+    }
 
     setIsLoading(false);
   };
@@ -142,30 +178,31 @@ export default function AudioLabPage() {
   const handleReset = () => {
       setVocalTrack(null);
       setMusicTrack(null);
+      if(resultUrl) {
+          URL.revokeObjectURL(resultUrl);
+      }
       setResultUrl(null);
       setError(null);
-      // Also reset visual state of file inputs
       const vocalInput = document.getElementById('track-upload-1') as HTMLInputElement;
       if (vocalInput) vocalInput.value = '';
       const musicInput = document.getElementById('track-upload-2') as HTMLInputElement;
       if (musicInput) musicInput.value = '';
   }
 
-  // Security Gate: Only the owner can access this page for now
-    if (user?.uid !== 'owner-the-creator') {
-        return (
-          <div className="flex items-center justify-center h-full">
-            <Card className="max-w-md text-center">
-                <CardHeader>
-                    <CardTitle className="text-destructive">Under Construction</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <p>This advanced audio lab is currently under development and is only available to the Creator for testing.</p>
-                </CardContent>
-            </Card>
-          </div>
-        )
-    }
+  if (user?.uid !== 'owner-the-creator') {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <Card className="max-w-md text-center">
+              <CardHeader>
+                  <CardTitle className="text-destructive">Under Construction</CardTitle>
+              </CardHeader>
+              <CardContent>
+                  <p>This advanced audio lab is currently under development and is only available to the Creator for testing.</p>
+              </CardContent>
+          </Card>
+        </div>
+      )
+  }
 
   return (
     <div className="space-y-8">
@@ -187,7 +224,7 @@ export default function AudioLabPage() {
           onVolumeChange={setVocalVolume}
           fade={vocalFade}
           onFadeChange={(type, value) => setVocalFade(prev => ({...prev, [type]: value}))}
-          disabled={isLoading}
+          disabled={isLoading || !!resultUrl}
         />
         <TrackControl
           title="Music/Instrumental Track"
@@ -198,7 +235,7 @@ export default function AudioLabPage() {
           onVolumeChange={setMusicVolume}
           fade={musicFade}
           onFadeChange={(type, value) => setMusicFade(prev => ({...prev, [type]: value}))}
-          disabled={isLoading}
+          disabled={isLoading || !!resultUrl}
         />
       </div>
 
@@ -215,7 +252,7 @@ export default function AudioLabPage() {
                 </AlertDescription>
             </Alert>
             <div className="flex items-center space-x-2">
-                <Switch id="vocal-remover" checked={removeVocals} onCheckedChange={setRemoveVocals} disabled={isLoading || !musicTrack} />
+                <Switch id="vocal-remover" checked={removeVocals} onCheckedChange={setRemoveVocals} disabled={isLoading || !musicTrack || !!resultUrl} />
                 <Label htmlFor="vocal-remover">Attempt to remove vocals from Music Track</Label>
             </div>
              <p className="text-xs text-muted-foreground">
@@ -223,7 +260,7 @@ export default function AudioLabPage() {
             </p>
         </CardContent>
         <CardFooter className="flex-col gap-6">
-          <Button size="lg" onClick={handleProcess} disabled={isLoading}>
+          <Button size="lg" onClick={handleProcess} disabled={isLoading || !!resultUrl}>
              {isLoading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Volume2 className="mr-2 h-5 w-5" />}
             {isLoading ? "Processing..." : "Mix & Render Audio"}
           </Button>
@@ -239,11 +276,13 @@ export default function AudioLabPage() {
           {resultUrl && (
             <Card className="w-full bg-muted/50 p-4 animate-in fade-in-50">
                 <CardTitle className="text-lg mb-2">Result</CardTitle>
+                <AlertDescription className="mb-4">
+                    A ZIP file has been generated containing your audio tracks and a summary of the processing details.
+                </AlertDescription>
                 <div className="flex items-center gap-4">
-                    <audio src={resultUrl} controls className="w-full"></audio>
-                    <a href={resultUrl} download="hamraz-audiolab-mix.mp3">
-                        <Button variant="outline" size="icon">
-                            <Download className="h-5 w-5"/>
+                    <a href={resultUrl} download="hamraz-audiolab-mix.zip" className="w-full">
+                        <Button className="w-full">
+                            <Download className="h-5 w-5 mr-2"/> Download Mix (.zip)
                         </Button>
                     </a>
                 </div>
@@ -257,3 +296,5 @@ export default function AudioLabPage() {
     </div>
   );
 }
+
+    
