@@ -99,6 +99,10 @@ const VoiceScroll = () => {
                 recognitionRef.current?.start();
             } catch (e) {
                 console.error("Could not start recognition on toggle:", e);
+                // It might already be started by the onend loop, which is fine.
+                if (e instanceof Error && e.name !== 'InvalidStateError') {
+                    setIsListening(false);
+                }
             }
         } else {
             recognitionRef.current?.stop();
