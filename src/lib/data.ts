@@ -93,6 +93,7 @@ export const bottomNavLinks = [
   { href: "/genesis", label: "Genesis", icon: Book },
   { href: "/board", label: "Board", icon: Award },
   { href: "/pledge", label: "Pledge", icon: Handshake },
+  { href: "/acknowledgements", label: "Acknowledgements", icon: Clipboard },
   { href: "/privacy", label: "Privacy", icon: Shield },
   { href: "/feedback", label: "Feedback", icon: MessageSquare },
 ];
@@ -135,4 +136,3 @@ export const creatorLinks = [
     
 
     
-
