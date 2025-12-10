@@ -92,6 +92,14 @@ export default function ReferralsPage() {
                     </ul>
                 </AlertDescription>
             </Alert>
+            
+            <Alert variant="default" className="bg-blue-500/10 border-blue-500/30">
+                <Users className="h-4 w-4 text-blue-500" />
+                <AlertTitle className="font-bold text-blue-600 dark:text-blue-400">One Family, One Referral System</AlertTitle>
+                <AlertDescription>
+                    Our ecosystem is fully integrated. Your referral code is universal! You will earn the same points and land rewards for introducing new users to any of the creator's other apps, such as **Afarinan, Goya, or Karaoke**. Your effort to grow our family, in any of our homes, will be rewarded.
+                </AlertDescription>
+            </Alert>
 
             <Alert variant="default" className="border-yellow-500/50 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300">
                 <Sparkles className="h-4 w-4 text-yellow-500" />
@@ -128,4 +136,3 @@ export default function ReferralsPage() {
             </Card>
         </div>
     );
-}
