@@ -294,8 +294,8 @@ export default function InvestorsPage() {
                     <CardTitle className="text-3xl font-headline text-primary">A Creator's Pledge</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center max-w-3xl mx-auto">
-                     <p className="text-lg text-primary-foreground/90 italic leading-relaxed">
-                        "My model for building Hamraz was my own relationship and interaction with the Studio. I felt that just as I was able to create my ideas with the Studio, perhaps you too can realize your dreams with me, with Firebase Studio, and with the AI we are creating. With any level of programming knowledge—or even just by describing your ideas—you can build your own fully customized application, introduce it to the world, earn an income, and leave your thoughts as a lasting legacy."
+                     <p className="text-lg text-primary-foreground/90 italic leading-relaxed" dir="rtl">
+                        "خطاب به سرمایه‌گذاران و شهروندان: افزایش ثروت شما و ارزش دارایی‌هایتان در آینده، تماماً به کار، تلاش، اتحاد و ایده‌های شما و مشارکت همگانی‌تان بسته است. هر چقدر شهر بهتری بسازیم، منافع مالی بیشتری کسب خواهیم کرد. برای اطمینان از اینکه این منافع برای اعضای فعال چشمگیر باشد، از مدل‌های درآمدی آسان و کم‌ارزش خودداری کرده و با نظرخواهی از خود شما، مشوق‌های درآمدی قابل توجهی طراحی خواهیم کرد."
                     </p>
                     <p className="font-bold text-primary mt-4">- Ahura, The Creative Wizard</p>
                 </CardContent>
@@ -347,5 +347,3 @@ export default function InvestorsPage() {
     </div>
   )
 }
-
-    
