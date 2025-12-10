@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield, TreeDeciduous, Users2, Gamepad2 } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield, TreeDeciduous, Users2, Gamepad2, CircleDollarSign } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
@@ -47,7 +47,7 @@ const roadmap = [
      {
         icon: Banknote,
         milestone: "Native Currency ('Meyo') Launch",
-        reward: "Once 69% of the city's 1,300,000 m² of land is sold, the 'Capable City' will officially launch its own native currency ('Meyo'), solidifying its independent economy. The community will be involved in naming the currency."
+        reward: "Once 69% of the city's 1,300,000 m² of land is sold, the 'Capable City' will officially launch its own native currency (e.g., 'Meyo'), solidifying its independent economy. The community will be involved in naming the currency."
     },
     {
         icon: Briefcase,
@@ -121,6 +121,14 @@ export default function InvestorsPage() {
             <AlertTitle className="text-primary font-bold">Accepted Currencies for Land Purchase</AlertTitle>
             <AlertDescription>
                 All land purchases within the Capable City can only be made using Bitcoin, Tether (USDT), and other major cryptocurrencies. This ensures a secure, decentralized, and global transaction process for all our citizens. We also invite digital currency exchanges to collaborate with us.
+            </AlertDescription>
+        </Alert>
+
+        <Alert variant="default" className="border-primary/30 bg-primary/10">
+            <CircleDollarSign className="h-4 w-4 text-primary" />
+            <AlertTitle className="text-primary font-bold">A Unified Currency for a United Ecosystem</AlertTitle>
+            <AlertDescription>
+              The native currency of the Capable City (e.g., "Meyo") will be the standard medium of exchange for all transactions across the creator's **entire ecosystem of apps** (including Afarinan, Goya, etc.). This creates a powerful network effect where the success and adoption of the currency in one app strengthens its value and utility across all others, building a single, robust digital economy.
             </AlertDescription>
         </Alert>
 
