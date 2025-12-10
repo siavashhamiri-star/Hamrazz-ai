@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield, TreeDeciduous, Users2 } from "lucide-react";
+import { ArrowRight, Briefcase, DollarSign, Milestone, Rocket, Scaling, Target, Users, TrendingUp, BrainCircuit, Map, Trophy, Gift, Share2, Banknote, Shield, TreeDeciduous, Users2, Gamepad2 } from "lucide-react";
 import Link from "next/link";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { ChartContainer, ChartTooltipContent } from "@/components/ui/chart";
@@ -46,8 +46,8 @@ const roadmap = [
     },
      {
         icon: Banknote,
-        milestone: "Native Currency Launch",
-        reward: "Once 69% of the city's 1,300,000 m² of land is sold, the 'Capable City' will officially launch its own native currency ('Meyo'), solidifying its independent economy."
+        milestone: "Native Currency ('Meyo') Launch",
+        reward: "Once 69% of the city's 1,300,000 m² of land is sold, the 'Capable City' will officially launch its own native currency ('Meyo'), solidifying its independent economy. The community will be involved in naming the currency."
     },
     {
         icon: Briefcase,
@@ -120,7 +120,7 @@ export default function InvestorsPage() {
             <Banknote className="h-4 w-4 text-primary" />
             <AlertTitle className="text-primary font-bold">Accepted Currencies for Land Purchase</AlertTitle>
             <AlertDescription>
-                All land purchases within the Capable City can only be made using Bitcoin, Tether (USDT), and other major cryptocurrencies. This ensures a secure, decentralized, and global transaction process for all our citizens.
+                All land purchases within the Capable City can only be made using Bitcoin, Tether (USDT), and other major cryptocurrencies. This ensures a secure, decentralized, and global transaction process for all our citizens. We also invite digital currency exchanges to collaborate with us.
             </AlertDescription>
         </Alert>
 
@@ -146,6 +146,14 @@ export default function InvestorsPage() {
                     <li><strong>Free Market Transition:</strong> After the 60% threshold is reached, the creator will no longer set prices. Land value will be determined purely by supply and demand within the city's open market.</li>
                 </ul>
                 This model rewards early investors and ensures a decentralized, community-driven economy for the future.
+            </AlertDescription>
+        </Alert>
+        
+        <Alert variant="default" className="bg-accent/20 border-accent/30">
+            <Gamepad2 className="h-4 w-4 text-accent" />
+            <AlertTitle className="text-accent font-bold">Game Development Contest: Build the City's Official Game!</AlertTitle>
+            <AlertDescription>
+                We invite professional game developers to a grand contest to build the official "Capable City" game. The team that creates the best game app, reflecting the values and potential of our city, will be awarded **10,000 square meters of land** and a **20% share of all gaming revenue** generated within the Hamraz ecosystem. This is a chance to build a cornerstone of our digital world and share in its success.
             </AlertDescription>
         </Alert>
 
@@ -329,3 +337,5 @@ export default function InvestorsPage() {
     </div>
   )
 }
+
+    
