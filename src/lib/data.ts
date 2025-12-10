@@ -44,11 +44,12 @@ import {
   Sofa,
   Clipboard,
   Fingerprint,
+  Settings,
 } from "lucide-react";
 
 export const navLinks = [
   { href: "/", label: "Chat", icon: MessageSquare },
-  { href: "/creator-panel", label: "Creator Panel", icon: Clipboard },
+  { href: "/admin-panel", label: "Admin Panel", icon: Settings },
   { href: "/tutor", label: "Tutor", icon: Book },
   { href: "/translate", label: "Translate", icon: Languages },
   { href: "/text-to-speech", label: "Voice Actor", icon: Volume2 },
@@ -101,7 +102,7 @@ export const creatorLinks = [
         href: "#",
         label: "A City of Capabilities",
         icon: Building,
-        description: "My ideas are not limited to one app. They are a collection of interconnected concepts that form a 'city of capabilities.' Hamraz is the heart of this city, and apps like Afarinan (for showcasing talent), Zabanshenas (for learning), and Karaoke (for performing) are its vital districts. This is an ever-expanding ecosystem, and more ideas will be added to complete it."
+        description: "My ideas are not limited to one app. They are a collection of interconnected concepts that form a 'city of capabilities.' Hamraz is the heart of this city, and apps like Afarinan (for showcasing talent), Goya (for learning), and Karaoke (for performing) are its vital districts. This is an ever-expanding ecosystem, and more ideas will be added to complete it."
     },
     {
         href: "#",
@@ -111,7 +112,7 @@ export const creatorLinks = [
     },
     {
         href: "#",
-        label: "Zabanshenas",
+        label: "Goya",
         icon: Languages,
         description: "The premier language learning app. Master new languages with engaging lessons and then showcase your skills by creating content in Hamraz for your Afarinan portfolio."
     },
@@ -134,3 +135,4 @@ export const creatorLinks = [
     
 
     
+

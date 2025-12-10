@@ -16,7 +16,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
-import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, Twitch, Building, Linkedin } from 'lucide-react';
+import { Bot, LogIn, LogOut, Twitter, Instagram, Youtube, Twitch, Building, Linkedin, Settings } from 'lucide-react';
 import { navLinks, bottomNavLinks, creatorLinks } from '@/lib/data';
 import { useUser } from '@/firebase';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -132,8 +132,8 @@ export default function AppSidebar() {
               if (link.href === '/stealth-connect') {
                 return isOwner;
               }
-              // Conditionally filter the Creator Panel link
-              if (link.href === '/creator-panel') {
+              // Conditionally filter the Admin Panel link
+              if (link.href === '/admin-panel') {
                 return isOwner;
               }
               return true;

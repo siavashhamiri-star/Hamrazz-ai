@@ -83,7 +83,7 @@ const Soundboard = () => {
 };
 
 
-export default function CreatorPanelPage() {
+export default function AdminPanelPage() {
   const { user } = useUser();
   const { toast } = useToast();
   const { toggleSidebar } = useSidebar();
@@ -374,5 +374,3 @@ export default function CreatorPanelPage() {
     </div>
   );
 }
-
-    
