@@ -337,7 +337,7 @@ export default function InvestorsPage() {
                  <CardContent className="text-center p-8 space-y-4">
                     <TreeDeciduous className="w-12 h-12 text-primary mx-auto" />
                     <p className="text-lg text-muted-foreground italic max-w-3xl mx-auto" dir="rtl">
-                       ما می‌خواهیم سفره ای به بلندای همه عالم بگسترانیم، نعمت و ثروت بیافرینیم و هر کس که یاور ما بود در مهمانی و جشن پای این سفره نیز بنشیند و از برکت و نعمت این کار جمعی لذت ببرد.
+                       "یادتان باشد، اگر این شهر با همت شما محبوب و فراگیر شود، در یک شهر ثروتمند حتی سهم‌های کوچک نیز به ثروت‌های بزرگ تبدیل خواهند شد. آرمان ما ۱۰۰,۰۰۰ دانلود است، اما تعجب نکنید اگر پیش‌بینی من در سال اول بیش از ده میلیون باشد."
                     </p>
                     <p className="font-bold text-primary mt-4">- Ahura, The Creative Wizard</p>
                 </CardContent>
