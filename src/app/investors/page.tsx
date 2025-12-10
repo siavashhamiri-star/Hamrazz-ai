@@ -275,6 +275,8 @@ export default function InvestorsPage() {
             <AlertTitle className="font-bold">A Finite World, Infinite Possibilities</AlertTitle>
             <AlertDescription>
                The total land for the Capable City is permanently fixed at 1,300,000 m². There will be no further expansion. This scarcity ensures the value of your investment. For new worlds and future cities, we invite you to explore the creator's other projects.
+               <br/><br/>
+               Once the native currency is launched, a web-based platform will be created for the free buying and selling of land, open to the public. Entrepreneurs who have established digital real estate agencies or financial firms in Afarinan or Hamraz will be able to set up their own virtual booths in this marketplace.
             </AlertDescription>
         </Alert>
 
