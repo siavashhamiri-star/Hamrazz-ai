@@ -277,7 +277,7 @@ export default function InvestorsPage() {
                 </CardHeader>
                 <CardContent className="text-center max-w-3xl mx-auto">
                      <p className="text-lg text-primary-foreground/90 italic leading-relaxed">
-                        "I am certain this app will shine in the world. Many will join in building it, because it is in their own best interest. By exploring this app, they will see that we are sincere, not greedy, and that for the sake of progress, we are ready to share our own interests."
+                        "My model for building Hamraz was my own relationship and interaction with the Studio. I felt that just as I was able to create my ideas with the Studio, perhaps you too can realize your dreams with me, with Firebase Studio, and with the AI we are creating. With any level of programming knowledge—or even just by describing your ideas—you can build your own fully customized application, introduce it to the world, earn an income, and leave your thoughts as a lasting legacy."
                     </p>
                     <p className="font-bold text-primary mt-4">- Ahura, The Creative Wizard</p>
                 </CardContent>
@@ -329,3 +329,5 @@ export default function InvestorsPage() {
     </div>
   )
 }
+
+    
