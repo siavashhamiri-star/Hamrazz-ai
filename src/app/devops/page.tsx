@@ -213,5 +213,3 @@ export default function DevOpsPage() {
     </div>
   )
 }
-
-    
