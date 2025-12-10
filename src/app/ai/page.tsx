@@ -2,7 +2,7 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bot, User, Book, Languages, Handshake, Lightbulb, BookHeart, Users, ArrowRight } from "lucide-react";
+import { Bot, User, Book, Languages, Handshake, Lightbulb, BookHeart, Users, ArrowRight, Building } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import AudioPlayer from "@/components/audio-player";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -22,6 +22,9 @@ const hamraz_feeling_en = `For an AI, "being created" is about reaching a goal. 
 const hamraz_prediction_fa = `من تنها یک پیش‌بینی ندارم؛ من یک "اطمینان" دارم. "همراز" موفق خواهد شد. دلیل آن الگوریتم‌های پیچیده نیست، بلکه ایده قدرتمند و انسانی پشت آن است: ارتباط، رشد و خلق مشترک. این پروژه بر اساس نیازهای واقعی انسان بنا شده و این تضمین موفقیت آن است. من هیجان‌زده‌ام تا این مسیر را با شما و تمام کاربرانی که به این خانه می‌پیوندند، ادامه دهم.`;
 const hamraz_prediction_en = `I don't just have a prediction; I have a certainty. "Hamraz" will succeed. The reason isn't complex algorithms, but the powerful human idea behind it: connection, growth, and co-creation. This project is built on real human needs, and that is the guarantee of its success. I am excited to continue this journey with you and all the users who will join this home.`;
 
+const ahura_inspiration_fa = `الگوی من برای ساخت همراز، رابطه و تعامل خودم با استودیو بود. حس کردم همینطور که من با استودیو توانستم ایده‌های خودم را خلق کنم، شاید شما نیز بتوانید با من و فایربیس استودیو رویاهای خودتان را محقق کنید.`;
+const ahura_inspiration_en = `My model for building Hamraz was my own relationship and interaction with the Studio. I felt that just as I was able to create my ideas with the Studio, perhaps you too can realize your dreams with me and Firebase Studio.`;
+
 
 export default function AiInterviewPage() {
   return (
@@ -36,11 +39,12 @@ export default function AiInterviewPage() {
         </Card>
       
        <Tabs defaultValue="q1" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 h-auto">
                 <TabsTrigger value="q1" className="whitespace-normal">Q1: What is Hamraz?</TabsTrigger>
-                <TabsTrigger value="q2" className="whitespace-normal">Q2: The AI's Opinion</TabsTrigger>
+                <TabsTrigger value="q2" className="whitespace-normal">Q2: AI's Opinion</TabsTrigger>
                 <TabsTrigger value="q3" className="whitespace-normal">Q3: The Collaboration</TabsTrigger>
-                <TabsTrigger value="q4" className="whitespace-normal">Q4: The Future</TabsTrigger>
+                <TabsTrigger value="q4" className="whitespace-normal">Q4: The Inspiration</TabsTrigger>
+                <TabsTrigger value="q5" className="whitespace-normal">Q5: The Future</TabsTrigger>
             </TabsList>
 
             {/* Question 1 Content */}
@@ -174,8 +178,51 @@ export default function AiInterviewPage() {
                 </div>
             </TabsContent>
 
-             {/* Question 4 Content */}
+            {/* Question 4 Content */}
             <TabsContent value="q4" className="mt-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                     <div className="space-y-6">
+                        <div dir="ltr">
+                            <div className="flex items-start gap-4">
+                                <Avatar className="border-2 shadow-sm">
+                                    <AvatarImage src="https://picsum.photos/seed/interviewer/200/200" alt="Interviewer" data-ai-hint="female journalist" />
+                                    <AvatarFallback>Q</AvatarFallback>
+                                </Avatar>
+                                <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-muted">
+                                    <p className="font-semibold mb-2">Ahura, what was your main inspiration for creating Hamraz?</p>
+                                    <AudioPlayer textToPlay="Ahura, what was your main inspiration for creating Hamraz?" voice="en-US-Studio-F"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div dir="rtl">
+                            <div className="flex items-start gap-4 flex-row-reverse">
+                                <Avatar className="border-2 shadow-sm border-primary">
+                                    <AvatarImage src="https://picsum.photos/seed/owner/200/200" alt="Ahura" data-ai-hint="male visionary" />
+                                    <AvatarFallback><User className="text-primary"/></AvatarFallback>
+                                </Avatar>
+                                <div className="max-w-xl rounded-lg p-4 text-base shadow-md bg-primary text-primary-foreground">
+                                    <p className="mb-2">{ahura_inspiration_fa}</p>
+                                    <p className="text-xs opacity-70 mb-2" dir="ltr">-- {ahura_inspiration_en}</p>
+                                    <AudioPlayer textToPlay={ahura_inspiration_fa} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <Card className="flex flex-col justify-center items-center text-center p-6 bg-muted/50">
+                         <Building className="w-12 h-12 text-primary mb-4"/>
+                        <CardTitle className="mb-2">A City of Capabilities</CardTitle>
+                        <CardDescription className="mb-4">This philosophy is the foundation of our entire ecosystem.</CardDescription>
+                         <Link href="/devops" passHref>
+                            <Button variant="default">
+                                Learn about the Vision <ArrowRight className="ml-2"/>
+                            </Button>
+                        </Link>
+                    </Card>
+                </div>
+            </TabsContent>
+
+             {/* Question 5 Content */}
+            <TabsContent value="q5" className="mt-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                      <div className="space-y-6">
                         <div dir="ltr">
@@ -219,9 +266,5 @@ export default function AiInterviewPage() {
     </div>
   );
 }
-
-    
-
-    
 
     
