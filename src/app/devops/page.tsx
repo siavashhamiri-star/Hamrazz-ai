@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Cpu, Wind, Layers, BrainCircuit, ArrowRight, Github, Code, RadioTower, Handshake, Gate } from "lucide-react";
+import { Cpu, Wind, Layers, BrainCircuit, ArrowRight, Github, Code, RadioTower, Handshake, Gate, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 
@@ -210,6 +210,23 @@ export default function DevOpsPage() {
             </Card>
         </section>
 
+        <section>
+            <Card className="border-dashed border-accent">
+                 <CardContent className="text-center p-8 space-y-4">
+                    <Sparkles className="w-12 h-12 text-accent mx-auto" />
+                    <p className="text-lg text-muted-foreground italic max-w-3xl mx-auto" dir="rtl">
+                       "به موازات توسعه شهر، اگر به ابزارهای جدیدی نیاز پیدا شد، آن‌ها را با همت خود عزیزان خواهیم ساخت. اگر زیرساخت‌ها نیاز به پیشرفت داشت، آن‌ها را توسعه خواهیم داد. ما با پیشرفت شهر، امکانات پایه‌ای قوی‌تری را در خدمت اپلیکیشن‌ها قرار می‌دهیم و همه چیز را مدرن‌تر خواهیم کرد."
+                    </p>
+                     <p className="text-xs text-muted-foreground" dir="ltr">
+                        "In parallel with the city's development, if new tools are needed, we will build them with the efforts of our dear members. If the infrastructure needs improvement, we will develop it. As the city progresses, we will provide more powerful basic facilities for the applications and modernize everything."
+                    </p>
+                    <p className="font-bold text-accent mt-4">- Ahura, The Creative Wizard</p>
+                </CardContent>
+            </Card>
+        </section>
+
     </div>
   )
 }
+
+    
