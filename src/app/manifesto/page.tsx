@@ -4,6 +4,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Flame, Star, Zap, ShieldCheck, TrendingUp, Users } from "lucide-react";
 
+/**
+ * صفحه مرام‌نامه انقلاب آفرینندگان
+ * تبیین مدل اقتصادی ۸۰/۲۰ و دموکراسی ثروت در شهر توانا.
+ */
 export default function ManifestoPage() {
   return (
     <div className="max-w-5xl mx-auto space-y-12 pb-20 pt-8 px-4">
@@ -27,19 +31,16 @@ export default function ManifestoPage() {
         <CardContent className="p-8 md:p-12">
           <div className="prose prose-xl dark:prose-invert max-w-none text-right leading-relaxed space-y-8" dir="rtl">
             <p className="font-bold text-2xl md:text-3xl text-foreground text-center mb-8">
-              "همراز" فقط یک اپلیکیشن نیست؛ جرقه‌ای برای یک انفجار بزرگ در دنیای دیجیتال است!
+              "همراز" فقط یک اپلیکیشن نیست؛ جرقه‌ای برای یک انقلاب در توزیع عادلانه ثروت است!
             </p>
             <p>
-              ما در حال بنای <span className="text-primary font-black underline underline-offset-8">«شهر توانا»</span> هستیم، سرزمینی که در آن مرز بین مصرف‌کننده و خالق برای همیشه فرو می‌ریزد. این یک اکوسیستم آفرینش است که قدرت و ثروت را از انحصار خارج کرده و به دست صاحبان واقعی‌اش، یعنی <span className="text-accent font-bold">شما</span>، می‌سپارد.
+              ما در حال بنای <span className="text-primary font-black underline underline-offset-8">«شهر توانا»</span> هستیم، سرزمینی که در آن مدل اقتصادی <span className="text-accent font-bold">۸۰/۲۰</span> حاکم است. یعنی ۸۰ درصد از کل ارزش و ثروت خلق شده مستقیماً به جامعه و آفرینندگان تعلق می‌گیرد و ۲۰ درصد برای رشد و امنیت زیرساخت‌ها صرف می‌شود.
             </p>
             <p>
-              در "همراز"، ما <span className="text-primary font-bold">مدل شفافیت مالی ۸۰/۲۰</span> را پیاده کرده‌ایم؛ جایی که ۸۰ درصد از کل درآمدها و قدرت تصمیم‌گیری مستقیماً به جامعه آفرینندگان تعلق می‌گیرد. هر فعالیت شما، از یادگیری تا خلق محتوا، به دارایی‌های دیجیتال واقعی و قطعات زمین در این شهر رویایی تبدیل می‌شود.
-            </p>
-            <p>
-              اینجا پایان عصر ابزارهای بی‌روح و آغاز عصر <span className="italic text-accent">«همراهان هوشمند»</span> است. ما با هم، نه فقط یک برنامه، بلکه یک تمدن جدید دیجیتال می‌سازیم که در آن عدالت مالی و شکوفایی استعداد، در تار و پود کدها تنیده شده است.
+              در "همراز"، شما دیگر فقط یک کاربر نیستید، بلکه یکی از مالکان این تمدن جدید هستید. هر فعالیت شما، از یادگیری تا تولید محتوا، به دارایی‌های دیجیتال واقعی تبدیل می‌شود.
             </p>
             <p className="text-center text-3xl font-black text-primary pt-8">
-               به انقلاب آفرینندگان خوش آمدید؛ جایی که هر رویای شما، سندی برای مالکیت آینده است!
+               به انقلاب ۸۰/۲۰ خوش آمدید؛ جایی که ثروت در دستان آفرینندگان است!
             </p>
           </div>
         </CardContent>
@@ -47,9 +48,9 @@ export default function ManifestoPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
-          { icon: Users, title: "دموکراسی قدرت", desc: "شورای سیاست‌گذاری توسط فعال‌ترین کاربران اداره می‌شود." },
-          { icon: TrendingUp, title: "دموکراسی ثروت", desc: "توزیع ۸۰ درصدی سود و ارزش زمین‌های دیجیتال بین کاربران." },
-          { icon: ShieldCheck, title: "امنیت بلاکچینی", desc: "شفافیت کامل مالی با سیستم زنجیره هش غیرقابل تغییر." }
+          { icon: Users, title: "دموکراسی قدرت", desc: "تصمیمات کلان توسط فعال‌ترین شهروندان در شورای سیاست‌گذاری اتخاذ می‌شود." },
+          { icon: TrendingUp, title: "دموکراسی ثروت", desc: "تخصیص ۸۰ درصدی درآمدها و ارزش زمین‌های دیجیتال به نفع جامعه." },
+          { icon: ShieldCheck, title: "شفافیت مطلق", desc: "سیستم مالی مبتنی بر زنجیره هش غیرقابل تغییر برای تضمین عدالت." }
         ].map((item, i) => (
           <Card key={i} className="bg-muted/50 border-primary/10 hover:border-primary/50 transition-all duration-300">
             <CardHeader className="items-center text-center">

@@ -27,13 +27,13 @@ const initialMessages: Message[] = [
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-primary font-bold">
               <Flame className="w-5 h-5 animate-pulse" />
-              <span>به انقلاب آفرینندگان ۸۰/۲۰ خوش آمدی!</span>
+              <span>پیمان ۸۰/۲۰ فعال شد!</span>
             </div>
             <p>
-              سلام اهورا، خالق رویاپرداز من. امروز ما فقط در حال چت کردن نیستیم؛ ما در حال بازپس‌گیری قدرت هستیم. در اکوسیستم همراز، ۸۰ درصد از ارزش خلق شده متعلق به تو و جامعه است.
+              سلام اهورا، معمار بزرگ شهر توانا. مدل اقتصادی ۸۰/۲۰ با موفقیت در قلب سیستم ثبت شد. این یعنی ما یک گام استراتژیک به سمت پایداری و عدالت برداشتیم.
             </p>
-            <p className="font-semibold text-accent text-xs">
-              چگونه می‌توانم امروز در مسیر ساخت این تمدن جدید و توزیع عادلانه ثروت به تو کمک کنم؟
+            <p className="font-semibold text-accent text-xs italic">
+              به عنوان همراز شما، آماده‌ام تا امروز در مسیر توسعه این اکوسیستم بی‌نظیر همراهت باشم. چه ایده‌ای را پیش ببریم؟
             </p>
           </div>
         ),
@@ -102,7 +102,7 @@ export default function ChatInterface() {
       const errorResponse: Message = {
         id: `err-${Date.now()}`,
         sender: "ai",
-        text: "متأسفم، در برقراری ارتباط با مغز مرکزی مشکلی پیش آمد. لطفاً دوباره تلاش کن.",
+        text: "متأسفم، در پردازش انقلابی پیام شما مشکلی پیش آمد. لطفاً دوباره تلاش کنید.",
         avatar: aiAvatar,
       };
       setMessages(prev => [...prev, errorResponse]);
@@ -142,7 +142,7 @@ export default function ChatInterface() {
                 </Avatar>
                 <div className="max-w-xl rounded-lg p-3 text-sm shadow-md bg-card flex items-center gap-2 text-muted-foreground">
                     <Loader2 className="h-4 w-4 animate-spin"/>
-                    <span>در حال تفکر انقلابی...</span>
+                    <span>در حال تفکر استراتژیک...</span>
                 </div>
             </div>
           )}
@@ -151,7 +151,7 @@ export default function ChatInterface() {
       <div className="p-4 border-t bg-background">
         <div className="flex items-center gap-2">
           <Input
-            placeholder="هر چه در ذهن داری بپرس..."
+            placeholder="گفتگو با همراز..."
             className="flex-1"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -160,10 +160,10 @@ export default function ChatInterface() {
           />
           <Button onClick={handleSend} disabled={!user || isLoading || !input.trim()}>
             {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-            <span className="sr-only">Send</span>
+            <span className="sr-only">ارسال</span>
           </Button>
         </div>
-         {!user && <p className="text-xs text-destructive text-center mt-2">لطفاً برای گفتگو با همراز وارد سیستم شوید.</p>}
+         {!user && <p className="text-xs text-destructive text-center mt-2">لطفاً برای دسترسی کامل وارد شوید.</p>}
       </div>
     </div>
   );
