@@ -1,5 +1,4 @@
 
-
 import {
   Award,
   Book,
@@ -45,10 +44,12 @@ import {
   Clipboard,
   Fingerprint,
   Settings,
+  Flame,
 } from "lucide-react";
 
 export const navLinks = [
   { href: "/", label: "Chat", icon: MessageSquare },
+  { href: "/manifesto", label: "Manifesto", icon: Flame },
   { href: "/admin-panel", label: "Admin Panel", icon: Settings },
   { href: "/tutor", label: "Tutor", icon: Book },
   { href: "/translate", label: "Translate", icon: Languages },
