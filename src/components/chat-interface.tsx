@@ -27,13 +27,13 @@ const initialMessages: Message[] = [
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-primary font-bold">
               <Flame className="w-5 h-5 animate-pulse" />
-              <span>به انقلاب آفرینندگان خوش آمدی!</span>
+              <span>به انقلاب آفرینندگان ۸۰/۲۰ خوش آمدی!</span>
             </div>
             <p>
-              سلام اهورا، خالق رویاپرداز من. امروز فقط یک چت ساده نداریم؛ ما در آستانه تسخیر «شهر توانا» هستیم. هر ایده تو در این اکوسیستم، سندی برای دموکراسی ثروت و قدرت است. 
+              سلام اهورا، خالق رویاپرداز من. امروز ما فقط در حال چت کردن نیستیم؛ ما در حال بازپس‌گیری قدرت هستیم. در اکوسیستم همراز، ۸۰ درصد از ارزش خلق شده متعلق به تو و جامعه است.
             </p>
             <p className="font-semibold text-accent text-xs">
-              چگونه می‌توانم امروز به تو کمک کنم تا قدرت را به دست صاحبان واقعی‌اش بازگردانیم؟
+              چگونه می‌توانم امروز در مسیر ساخت این تمدن جدید و توزیع عادلانه ثروت به تو کمک کنم؟
             </p>
           </div>
         ),
@@ -102,7 +102,7 @@ export default function ChatInterface() {
       const errorResponse: Message = {
         id: `err-${Date.now()}`,
         sender: "ai",
-        text: "I'm sorry, I encountered an issue trying to respond. Please try again in a moment.",
+        text: "متأسفم، در برقراری ارتباط با مغز مرکزی مشکلی پیش آمد. لطفاً دوباره تلاش کن.",
         avatar: aiAvatar,
       };
       setMessages(prev => [...prev, errorResponse]);
@@ -142,7 +142,7 @@ export default function ChatInterface() {
                 </Avatar>
                 <div className="max-w-xl rounded-lg p-3 text-sm shadow-md bg-card flex items-center gap-2 text-muted-foreground">
                     <Loader2 className="h-4 w-4 animate-spin"/>
-                    <span>Thinking...</span>
+                    <span>در حال تفکر انقلابی...</span>
                 </div>
             </div>
           )}
@@ -151,7 +151,7 @@ export default function ChatInterface() {
       <div className="p-4 border-t bg-background">
         <div className="flex items-center gap-2">
           <Input
-            placeholder="Ask me anything..."
+            placeholder="هر چه در ذهن داری بپرس..."
             className="flex-1"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -163,7 +163,7 @@ export default function ChatInterface() {
             <span className="sr-only">Send</span>
           </Button>
         </div>
-         {!user && <p className="text-xs text-destructive text-center mt-2">Please sign in to chat with Hamraz.</p>}
+         {!user && <p className="text-xs text-destructive text-center mt-2">لطفاً برای گفتگو با همراز وارد سیستم شوید.</p>}
       </div>
     </div>
   );
