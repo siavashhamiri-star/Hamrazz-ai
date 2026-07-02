@@ -2,7 +2,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Flame, Star, Zap, ShieldCheck, TrendingUp, Users } from "lucide-react";
+import { Flame, Zap, ShieldCheck, TrendingUp, Users } from "lucide-react";
 
 /**
  * صفحه مرام‌نامه انقلاب آفرینندگان
