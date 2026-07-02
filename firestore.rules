@@ -1,17 +1,32 @@
+
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // By default, deny all reads and writes.
-    match /{document=**} {
-      allow read, write: if false;
-    }
-
-    // Users can read and write their own profile data.
-    // They can only read public information from other users.
+    // Standard user rules
     match /users/{userId} {
       allow read: if request.auth != null;
       allow write: if request.auth != null && request.auth.uid == userId;
+      
+      // Distributed Counter Shards
+      match /shards/{shardId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Immutable Financial Ledger (Append-only)
+    match /transactions/{txId} {
+      allow read: if request.auth != null;
+      // Allow creation, but block updates and deletes to ensure integrity
+      allow create: if request.auth != null;
+      allow update, delete: if false;
+    }
+
+    // Community chats
+    match /{path=**}/community-chat-{channel=**}/{msgId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if false; // Messages are also immutable for transparency
     }
   }
 }
